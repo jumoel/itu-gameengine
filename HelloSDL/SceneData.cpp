@@ -3,7 +3,7 @@
 Object* createGraph()
 {
 	auto root = new Object();
-
+/*
 	auto triangle1 = new Object();
 	
 	triangle1->vertices->push_back(new Vector3f());
@@ -15,6 +15,6 @@ Object* createGraph()
 	triangle1->colors->push_back(new Vector3f(0, 0, 1));
 
 	root->children->push_back(triangle1);
-
+*/
 	return root;
 }
