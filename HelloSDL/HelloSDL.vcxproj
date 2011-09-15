@@ -54,6 +54,9 @@
       <SubSystem>Windows</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy C:\SDL\SDL-1.2.14\lib\SDL.dll "$(OutDir)" /y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -70,9 +73,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="HelloSDL.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="C:\SDL\SDL-1.2.14\SDL.dll" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

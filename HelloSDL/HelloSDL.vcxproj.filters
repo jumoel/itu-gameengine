@@ -19,7 +19,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="C:\SDL\SDL-1.2.14\SDL.dll" />
-  </ItemGroup>
 </Project>
