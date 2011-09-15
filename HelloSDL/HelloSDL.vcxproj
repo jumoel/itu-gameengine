@@ -73,10 +73,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="HelloSDL.cpp" />
-    <ClCompile Include="Matrix4x4f.cpp" />
+    <ClCompile Include="Math\Matrix4x4f.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Matrix4x4f.h" />
+    <ClInclude Include="Math\Matrix4x4f.h" />
     <ClInclude Include="Object.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

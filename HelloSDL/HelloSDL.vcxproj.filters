@@ -18,15 +18,15 @@
     <ClCompile Include="HelloSDL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Matrix4x4f.cpp">
+    <ClCompile Include="Math\Matrix4x4f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Matrix4x4f.h">
+    <ClInclude Include="Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
+    <ClInclude Include="Math\Matrix4x4f.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
