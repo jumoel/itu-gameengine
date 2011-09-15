@@ -7,7 +7,7 @@
 #include "SDL.h"
 #include "SDL_opengl.h"
 
-#include "Object.h"
+#include "SceneData.h"
 
 /* screen width, height, and bit depth */
 #define SCREEN_WIDTH  640

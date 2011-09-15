@@ -3,7 +3,7 @@
 
 Matrix4x4f::Matrix4x4f()
 {
-	// Do stuff
+	this->Reset();
 }
 
 Matrix4x4f::~Matrix4x4f()
