@@ -4,7 +4,7 @@
 class Matrix4x4f
 {
 public:
-	float[16] data;
+	float data[16];
 
 	Matrix4x4f();
 
@@ -23,6 +23,6 @@ protected:
 private:
 
 
-}
+};
 
 #endif
