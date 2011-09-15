@@ -116,59 +116,10 @@ int initGL( GLvoid )
 /* Here goes our drawing code */
 int drawGLScene( GLvoid )
 {
-	Uint32 now = SDL_GetTicks();
-
-	Uint32 diff = now - last;
-
-	last = now;
-
-	degree += DEGREES_PER_MS * (float)diff;
-
-	if (degree > 360.f)
-	{
-		degree = 0.0f;
-	}
-
-	if (zd) { y -= (float)diff * SPEED; }
-	if (cd) { y += (float)diff * SPEED; }
-	if (wd) { z += (float)diff * SPEED; }
-	if (sd) { z -= (float)diff * SPEED; }
-	if (ad) { x += (float)diff * SPEED; }
-	if (dd) { x -= (float)diff * SPEED; }
-
 	/* Clear The Screen And The Depth Buffer */
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-	glLoadIdentity();
-
-	glTranslatef(x, y, z);
-
-	glTranslatef(0.0f, 0.0f, -12.0f);
 	
-	/* HERE you should put your code in order to do render something on the screen, use lighting, modify the camera position etc... */
-	glRotatef(degree, 0.0f, 1.0f, 0.0f);
-	
-	glBegin(GL_TRIANGLE_FAN);
-
-    glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0, 2, 0);
-
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-1, 0, -1);
-
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(1, 0, -1);
-
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(1, 0, 1);
-
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(-1, 0, 1);
-
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-1, 0, -1);
-
-    glEnd();
 
 	/* Draw it to the screen */
 	SDL_GL_SwapBuffers( );
