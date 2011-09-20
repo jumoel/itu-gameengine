@@ -110,6 +110,8 @@ int initGL( GLvoid )
 	/* Really Nice Perspective Calculations */
 	glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
 
+	auto root = createGraph();
+
 	return( TRUE );
 }
 
@@ -119,7 +121,7 @@ int drawGLScene( GLvoid )
 	/* Clear The Screen And The Depth Buffer */
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-	auto root = createGraph();
+
 
 	/* Draw it to the screen */
 	SDL_GL_SwapBuffers( );
