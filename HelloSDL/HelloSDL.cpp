@@ -29,6 +29,8 @@ bool qd, wd, ed;
 bool ad,sd, dd;
 bool zd, xd, cd;
 
+Object *scenegraph_root;
+
 GLfloat x, y, z;
 
 SDL_Surface *surface;
@@ -110,7 +112,39 @@ int initGL( GLvoid )
 	/* Really Nice Perspective Calculations */
 	glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
 
+	scenegraph_root = createGraph();
+
 	return( TRUE );
+}
+
+void drawGraph(Object* obj)
+{
+	glPushMatrix();
+
+	glMultMatrixf(obj->transformation->data);
+
+	auto color_iter = obj->colors->begin();
+	auto vertex_iter = obj->vertices->begin();
+
+	glBegin(GL_TRIANGLES);
+
+	while (color_iter != obj->colors->end() && vertex_iter != obj->vertices->end())
+	{
+		glColor3f(color_iter->x(), color_iter->y(), color_iter->z());
+		glVertex3f(vertex_iter->x(), vertex_iter->y(), vertex_iter->z());
+
+		 color_iter++;
+		 vertex_iter++;
+	}
+
+	glEnd();
+
+	for (auto c = obj->children->begin(); c != obj->children->end(); c++)
+	{
+		drawGraph(&(*c));
+	}
+
+	glPopMatrix();
 }
 
 /* Here goes our drawing code */
@@ -119,7 +153,7 @@ int drawGLScene( GLvoid )
 	/* Clear The Screen And The Depth Buffer */
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-	auto root = createGraph();
+	drawGraph(scenegraph_root);
 
 	/* Draw it to the screen */
 	SDL_GL_SwapBuffers( );
