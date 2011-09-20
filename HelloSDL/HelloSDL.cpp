@@ -4,10 +4,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
 #include "SDL.h"
 #include "SDL_opengl.h"
 
 #include "SceneData.h"
+#include "Camera.h"
 
 /* screen width, height, and bit depth */
 #define SCREEN_WIDTH  640
@@ -117,31 +119,46 @@ int initGL( GLvoid )
 	return( TRUE );
 }
 
-void drawGraph(Object* obj)
+void drawGraph(Object *obj)
 {
 	glPushMatrix();
+	
+	Camera *c = dynamic_cast<Camera *>(obj);
 
-	glMultMatrixf(obj->transformation->data);
-
-	auto color_iter = obj->colors->begin();
-	auto vertex_iter = obj->vertices->begin();
-
-	glBegin(GL_TRIANGLES);
-
-	while (color_iter != obj->colors->end() && vertex_iter != obj->vertices->end())
+	if (c != NULL)
 	{
-		glColor3f(color_iter->x(), color_iter->y(), color_iter->z());
-		glVertex3f(vertex_iter->x(), vertex_iter->y(), vertex_iter->z());
-
-		 color_iter++;
-		 vertex_iter++;
+		//Camera *c = (Camera *)obj;
+		MessageBox(0, "A", "B", 0);
+		gluLookAt(
+			c->LookAt->x(), c->LookAt->y(), c->LookAt->z(), 
+			c->Position->x(), c->Position->y(), c->Position->z(), 
+			c->Up->x(), c->Up->x(), c->Up->x()
+			);
 	}
-
-	glEnd();
-
-	for (auto c = obj->children->begin(); c != obj->children->end(); c++)
+	else
 	{
-		drawGraph(&(*c));
+		glMultMatrixf(obj->transformation->data);
+
+		auto color_iter = obj->colors->begin();
+		auto vertex_iter = obj->vertices->begin();
+
+		glBegin(GL_TRIANGLES);
+
+		while (color_iter != obj->colors->end() && vertex_iter != obj->vertices->end())
+		{
+			glColor3f(color_iter->x(), color_iter->y(), color_iter->z());
+			glVertex3f(vertex_iter->x(), vertex_iter->y(), vertex_iter->z());
+
+			 color_iter++;
+			 vertex_iter++;
+		}
+
+		glEnd();
+
+		for (auto c = obj->children->begin(); c != obj->children->end(); c++)
+		{
+			drawGraph(&(*c));
+		}
 	}
 
 	glPopMatrix();

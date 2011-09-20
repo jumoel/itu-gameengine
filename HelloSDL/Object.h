@@ -10,12 +10,16 @@
 class Object
 {
 public:
+	std::string Name;
+
 	Matrix4x4f *transformation;
 	
 	std::list<Vector3f> *vertices;
 	std::list<Vector3f> *colors;
 
 	std::list<Object> *children;
+
+	virtual bool IsCamera() const { return false; }
 
 	Object();
 	~Object();
