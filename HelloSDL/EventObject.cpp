@@ -1,6 +1,5 @@
 #include "EventObject.h"
 
-
 EventObject::EventObject(short type)
 {
 	this->type = type;

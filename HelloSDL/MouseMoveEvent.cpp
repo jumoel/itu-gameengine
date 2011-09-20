@@ -1,8 +1,9 @@
 #include "MouseMoveEvent.h"
+#include "SDL_events.h"
 
-
-MouseMoveEvent::MouseMoveEvent(void)
+MouseMoveEvent::MouseMoveEvent(SDL_MouseMotionEvent *input) : EventObject(type)
 {
+
 }
 
 

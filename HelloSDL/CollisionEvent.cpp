@@ -1,7 +1,7 @@
 #include "CollisionEvent.h"
 
 
-CollisionEvent::CollisionEvent(void)
+CollisionEvent::CollisionEvent() : EventObject(type)
 {
 }
 

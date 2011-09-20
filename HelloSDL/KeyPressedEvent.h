@@ -1,5 +1,5 @@
 #pragma once
-#include "eventobject.h"
+#include "EventObject.h"
 #include "SDL_events.h"
 
 class KeyPressedEvent :

@@ -1,7 +1,7 @@
 #include "MouseClickEvent.h"
 
 
-MouseClickEvent::MouseClickEvent(SDL_MouseButtonEvent *input)
+MouseClickEvent::MouseClickEvent(SDL_MouseButtonEvent *input) : EventObject(type)
 {
 	this->input = input;
 }

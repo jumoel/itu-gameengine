@@ -1,5 +1,6 @@
 #pragma once
-#include "mouseevent.h"
+#include "eventobject.h"
+#include "SDL_events.h"
 class MouseMoveEvent :
 	public EventObject
 {
