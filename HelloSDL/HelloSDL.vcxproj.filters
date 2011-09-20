@@ -73,12 +73,15 @@
     <Filter Include="Source Files\World\Level">
       <UniqueIdentifier>{b7e4b99e-6367-4d1e-8e50-df18725171bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Math">
+      <UniqueIdentifier>{25aa23a6-0d70-4256-8a1c-e83b76d57bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Math">
+      <UniqueIdentifier>{0e9d9519-9f9c-411f-88d2-d71a123e8bd7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloSDL.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Matrix4x4f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
@@ -87,52 +90,55 @@
     <ClCompile Include="SceneData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Math\Vector3f.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Events\CollisionEvent.cpp">
+      <Filter>Source Files\Events\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="EventObject.cpp">
+    <ClCompile Include="Events\EventObject.cpp">
       <Filter>Source Files\Events</Filter>
     </ClCompile>
-    <ClCompile Include="MouseClickEvent.cpp">
-      <Filter>Source Files\Events\Input\Mouse</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseMoveEvent.cpp">
-      <Filter>Source Files\Events\Input\Mouse</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyPressedEvent.cpp">
+    <ClCompile Include="Events\KeyPressedEvent.cpp">
       <Filter>Source Files\Events\Input\Keyboard</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionEvent.cpp">
-      <Filter>Source Files\Events\Collision</Filter>
+    <ClCompile Include="Events\MouseClickEvent.cpp">
+      <Filter>Source Files\Events\Input\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\MouseMoveEvent.cpp">
+      <Filter>Source Files\Events\Input\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Matrix4x4f.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector3f.cpp">
+      <Filter>Source Files\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Math\Matrix4x4f.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SceneData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Math\Vector3f.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EventObject.h">
+    <ClInclude Include="Events\EventObject.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="KeyPressedEvent.h">
+    <ClInclude Include="Events\CollisionEvent.h">
+      <Filter>Header Files\Events\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\MouseMoveEvent.h">
+      <Filter>Header Files\Events\Input\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\KeyPressedEvent.h">
       <Filter>Header Files\Events\Input\Keyboard</Filter>
     </ClInclude>
-    <ClInclude Include="MouseClickEvent.h">
+    <ClInclude Include="Events\MouseClickEvent.h">
       <Filter>Header Files\Events\Input\Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="MouseMoveEvent.h">
-      <Filter>Header Files\Events\Input\Mouse</Filter>
+    <ClInclude Include="Math\Matrix4x4f.h">
+      <Filter>Header Files\Math</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionEvent.h">
-      <Filter>Header Files\Events\Collision</Filter>
+    <ClInclude Include="Math\Vector3f.h">
+      <Filter>Header Files\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,7 +5,18 @@ Object* createGraph()
 	auto root = new Object();
 
 	auto m1 = new Matrix4x4f();
-	m1->Translate(0, 0, -4);
+
+	m1->data[0] = m1->data[1] = m1->data[2] = m1->data[3] = m1->data[4] = m1->data[5] = m1->data[6] = m1->data[7] = m1->data[8] = m1->data[9] = m1->data[10] = m1->data[11] = m1->data[12] = m1->data[13] = m1->data[14] = m1->data[15] = 0;
+
+	m1->data[0] = 1;
+	m1->data[5] = 1;
+	m1->data[10] = 1;
+	m1->data[15] = 1;
+
+	m1->data[3] = 0; // x
+	m1->data[7] = 0; // y
+	m1->data[11] = -4; // z
+
 	root->transformation = m1;
 
 	auto triangle1 = new Object();
