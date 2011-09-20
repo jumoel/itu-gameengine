@@ -72,15 +72,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionEvent.cpp" />
+    <ClCompile Include="EventObject.cpp" />
     <ClCompile Include="HelloSDL.cpp" />
+    <ClCompile Include="KeyPressedEvent.cpp" />
     <ClCompile Include="Math\Matrix4x4f.cpp" />
     <ClCompile Include="Math\Vector3f.cpp" />
+    <ClCompile Include="MouseClickEvent.cpp" />
+    <ClCompile Include="MouseMoveEvent.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="SceneData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CollisionEvent.h" />
+    <ClInclude Include="EventObject.h" />
+    <ClInclude Include="KeyPressedEvent.h" />
     <ClInclude Include="Math\Matrix4x4f.h" />
     <ClInclude Include="Math\Vector3f.h" />
+    <ClInclude Include="MouseClickEvent.h" />
+    <ClInclude Include="MouseMoveEvent.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="SceneData.h" />
   </ItemGroup>
