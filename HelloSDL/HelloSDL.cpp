@@ -8,6 +8,10 @@
 #include "SDL.h"
 #include "SDL_opengl.h"
 
+#include "Events/KeyPressedEvent.h"
+#include "Events/MouseClickEvent.h"
+#include "Events/MouseMoveEvent.h"
+
 #include "SceneData.h"
 #include "Camera.h"
 
@@ -71,9 +75,13 @@ int resizeWindow( int width, int height )
 }
 
 /* function to handle key press events */
-void handleKeyPress( SDL_keysym *keysym, Uint8 eventtype )
+void handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_keysym *keysym, Uint8 eventtype )
 {
-	SDLKey key = keysym->sym;
+	auto keyEvent = new KeyPressedEvent(key, eventtype);
+
+
+	
+	/*SDLKey key = keysym->sym;
 	
 	qd = (eventtype == SDL_KEYDOWN) && (key == SDLK_q);	
 	wd = (eventtype == SDL_KEYDOWN) && (key == SDLK_w);	
@@ -86,7 +94,21 @@ void handleKeyPress( SDL_keysym *keysym, Uint8 eventtype )
 	zd = (eventtype == SDL_KEYDOWN) && (key == SDLK_z);	
 	xd = (eventtype == SDL_KEYDOWN) && (key == SDLK_x);	
 	cd = (eventtype == SDL_KEYDOWN) && (key == SDLK_c);
-	
+	*/
+	return;
+}
+
+void handleMouseButtonPress( SDL_MouseButtonEvent *key, Uint8 eventtype)
+{
+	auto mouseButtonEvent = new MouseClickEvent(key, eventtype);
+
+	return;
+}
+
+void handleMouseMove( SDL_MouseMotionEvent *key, Uint8 eventtype)
+{
+	auto mouseMoveEvent = new MouseMoveEvent(key, eventtype);
+
 	return;
 }
 
@@ -273,11 +295,17 @@ int main( int argc, char **argv )
 				break;
 
 			case SDL_KEYDOWN:
-				handleKeyPress(&event.key.keysym, event.type);
+			case SDL_KEYUP:
+				handleKeyPress(&event.key, event.type);
 				break;
 
-			case SDL_KEYUP:
-				handleKeyPress(&event.key.keysym, event.type);
+			case SDL_MOUSEBUTTONDOWN:
+			case SDL_MOUSEBUTTONUP:
+				handleMouseButtonPress(&event.button, event.type);
+				break;
+
+			case SDL_MOUSEMOTION:
+				handleMouseMove(&event.motion, event.type);
 				break;
 
 			default:

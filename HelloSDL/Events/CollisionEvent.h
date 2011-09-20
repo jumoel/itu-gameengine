@@ -6,7 +6,7 @@ class CollisionEvent :
 	public EventObject
 {
 public:
-	CollisionEvent(void);
+	CollisionEvent(short eventtype);
 	~CollisionEvent(void);
 };
 

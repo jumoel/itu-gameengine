@@ -5,7 +5,7 @@ class MouseMoveEvent :
 	public EventObject
 {
 public:
-	MouseMoveEvent(SDL_MouseMotionEvent *input);
+	MouseMoveEvent(SDL_MouseMotionEvent *input, short eventtype);
 	~MouseMoveEvent(void);
 
 private:
