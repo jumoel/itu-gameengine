@@ -6,7 +6,7 @@ class MouseClickEvent :
 	public EventObject
 {
 public:
-	MouseClickEvent(SDL_MouseButtonEvent *input);
+	MouseClickEvent(SDL_MouseButtonEvent *input, short eventtype);
 	~MouseClickEvent(void);
 
 private:

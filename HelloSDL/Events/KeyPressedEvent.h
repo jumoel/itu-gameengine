@@ -8,7 +8,7 @@ class KeyPressedEvent :
 	public EventObject
 {
 public:
-	KeyPressedEvent(SDL_KeyboardEvent *input);
+	KeyPressedEvent(SDL_KeyboardEvent *input, short eventtype);
 	~KeyPressedEvent(void);
 
 private:
