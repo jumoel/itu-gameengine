@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ITUENGINE_KEYPRESSEDEVENT_H
+#define ITUENGINE_KEYPRESSEDEVENT_H
+
 #include "EventObject.h"
 #include "SDL_events.h"
 
@@ -13,3 +15,4 @@ private:
 	SDL_KeyboardEvent *input;
 };
 
+#endif
