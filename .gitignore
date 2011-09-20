@@ -1,6 +1,8 @@
 Debug
+ipch
 *.aps
 *.user
 *.suo
 *.ncb
 *.*sdf
+*.ipch
