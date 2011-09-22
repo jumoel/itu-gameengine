@@ -75,6 +75,7 @@
     <ClCompile Include="Game\Camera.cpp" />
     <ClCompile Include="Events\CollisionEvent.cpp" />
     <ClCompile Include="Events\EventObject.cpp" />
+    <ClCompile Include="Game\FPSCalculator.cpp" />
     <ClCompile Include="HelloSDL.cpp" />
     <ClCompile Include="Events\Input\KeyPressedEvent.cpp" />
     <ClCompile Include="Managers\InputManager.cpp" />
@@ -91,6 +92,7 @@
     <ClInclude Include="Events\CollisionEvent.h" />
     <ClInclude Include="Events\EventObject.h" />
     <ClInclude Include="Events\Input\KeyPressedEvent.h" />
+    <ClInclude Include="Game\FPSCalculator.h" />
     <ClInclude Include="Managers\InputManager.h" />
     <ClInclude Include="Math\Matrix4x4f.h" />
     <ClInclude Include="Math\Vector3f.h" />

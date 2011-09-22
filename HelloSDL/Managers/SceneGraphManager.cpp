@@ -4,12 +4,18 @@
 
 SceneGraphManager::SceneGraphManager(Camera *CameraObject, Object *RootNode) :
 	CameraObject(CameraObject),
-	RootNode(RootNode)
+	RootNode(RootNode),
+	LastTime(0),
+	DeltaTime(0)
 {
+	fps = new FPSCalculator();
 }
 
-void SceneGraphManager::Render()
+void SceneGraphManager::Render(Uint32 CurrentTime)
 {
+	fps->SetCurrentTime(CurrentTime);
+	fps->SetFPSTitle();
+	
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -23,6 +29,8 @@ void SceneGraphManager::Render()
 	SceneGraphManager::RenderObject(this->RootNode);
 
 	SDL_GL_SwapBuffers();
+
+	LastTime = CurrentTime;
 }
 
 void SceneGraphManager::RenderObject(Object *obj)

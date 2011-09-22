@@ -119,10 +119,8 @@ int initGL( GLvoid )
 /* Here goes our drawing code */
 int drawGLScene( GLvoid )
 {
-	/* Clear The Screen And The Depth Buffer */
-
-
-	scenegraph_root->Render();
+	auto time = SDL_GetTicks();
+	scenegraph_root->Render(time);
 
 	return( TRUE );
 }

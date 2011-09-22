@@ -3,6 +3,9 @@
 
 #include "../Game/Camera.h"
 #include "../Game/Object.h"
+#include "../Game/FPSCalculator.h"
+
+#include "SDL.h"
 
 class SceneGraphManager
 {
@@ -10,13 +13,18 @@ public:
 	SceneGraphManager(Camera *Camera, Object *RootNode);
 	~SceneGraphManager();
 
-	void Render();
+	void Render(Uint32 CurrentTime);
 
 	Camera *CameraObject;
 	Object *RootNode;
 
 private:
 	void RenderObject(Object *obj);
+
+	FPSCalculator *fps;
+
+	Uint32 LastTime;
+	Uint32 DeltaTime;
 };
 
 #endif

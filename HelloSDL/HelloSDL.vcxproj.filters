@@ -126,6 +126,9 @@
     <ClCompile Include="Game\SceneData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\FPSCalculator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events\EventObject.h">
@@ -162,6 +165,9 @@
       <Filter>Header Files\World\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Game\SceneData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\FPSCalculator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
