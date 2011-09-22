@@ -1,7 +1,7 @@
 #ifndef ITUENGINE_MOUSEMOVEEVENT_H
 #define ITUENGINE_MOUSEMOVEEVENT_H
 
-#include "../EventObject.h"
+#include ".../EventObject.h"
 #include "SDL_events.h"
 
 class MouseMoveEvent :
