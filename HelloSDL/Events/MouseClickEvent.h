@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ITUENGINE_MOUSECLICKEVENT_H
+#define ITUENGINE_MOUSECLICKEVENT_H
+
 #include "EventObject.h"
 #include "SDL_events.h"
 
@@ -13,3 +15,4 @@ private:
 	SDL_MouseButtonEvent *input;
 };
 
+#endif
