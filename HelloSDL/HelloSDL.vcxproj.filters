@@ -79,6 +79,12 @@
     <Filter Include="Header Files\Math">
       <UniqueIdentifier>{0e9d9519-9f9c-411f-88d2-d71a123e8bd7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Managers">
+      <UniqueIdentifier>{7590f6fe-fd2d-4074-a44b-51cabbb68c00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{4dcbd04e-8c01-4472-9a85-595c9a39b882}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloSDL.cpp">
@@ -92,15 +98,6 @@
     </ClCompile>
     <ClCompile Include="Events\EventObject.cpp">
       <Filter>Source Files\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\KeyPressedEvent.cpp">
-      <Filter>Source Files\Events\Input\Keyboard</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\MouseClickEvent.cpp">
-      <Filter>Source Files\Events\Input\Mouse</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\MouseMoveEvent.cpp">
-      <Filter>Source Files\Events\Input\Mouse</Filter>
     </ClCompile>
     <ClCompile Include="Math\Matrix4x4f.cpp">
       <Filter>Source Files\Math</Filter>
@@ -116,6 +113,17 @@
     </ClCompile>
     <ClCompile Include="SceneGraphManager.cpp">
       <Filter>Source Files</Filter>
+    <ClCompile Include="Events\Input\KeyPressedEvent.cpp">
+      <Filter>Source Files\Events\Input\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\Input\MouseClickEvent.cpp">
+      <Filter>Source Files\Events\Input\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\Input\MouseMoveEvent.cpp">
+      <Filter>Source Files\Events\Input\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Managers\InputManager.cpp">
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,15 +135,6 @@
     </ClInclude>
     <ClInclude Include="Events\CollisionEvent.h">
       <Filter>Header Files\Events\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\MouseMoveEvent.h">
-      <Filter>Header Files\Events\Input\Mouse</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\KeyPressedEvent.h">
-      <Filter>Header Files\Events\Input\Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\MouseClickEvent.h">
-      <Filter>Header Files\Events\Input\Mouse</Filter>
     </ClInclude>
     <ClInclude Include="Math\Matrix4x4f.h">
       <Filter>Header Files\Math</Filter>
@@ -151,6 +150,17 @@
     </ClInclude>
     <ClInclude Include="SceneGraphManager.h">
       <Filter>Header Files</Filter>
+    <ClInclude Include="Events\Input\MouseMoveEvent.h">
+      <Filter>Header Files\Events\Input\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Input\KeyPressedEvent.h">
+      <Filter>Header Files\Events\Input\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Input\MouseClickEvent.h">
+      <Filter>Header Files\Events\Input\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\InputManager.h">
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,9 @@
-#pragma once
-#include "eventobject.h"
+#ifndef ITUENGINE_MOUSEMOVEEVENT_H
+#define ITUENGINE_MOUSEMOVEEVENT_H
+
+#include ".../EventObject.h"
 #include "SDL_events.h"
+
 class MouseMoveEvent :
 	public EventObject
 {
@@ -12,3 +15,4 @@ private:
 	SDL_MouseMotionEvent *input;
 };
 
+#endif
