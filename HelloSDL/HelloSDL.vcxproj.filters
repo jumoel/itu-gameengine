@@ -114,6 +114,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\World\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="SceneGraphManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneData.h">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\World\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGraphManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,17 +1,17 @@
 #ifndef ITUENGINE_CAMERA_H
 #define ITUENGINE_CAMERA_H
 
-#include "Object.h"
 #include "Math/Vector3f.h"
 
-class Camera : public Object
+class Camera
 {
 public:
-	Vector3f *Up;
-	Vector3f *Position;
-	Vector3f *LookAt;
+	Camera();
+	~Camera();
 
-	virtual bool IsCamera() const;
+	Vector3f Up;
+	Vector3f Position;
+	Vector3f LookAt;
 };
 
 #endif

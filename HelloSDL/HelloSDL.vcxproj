@@ -83,6 +83,7 @@
     <ClCompile Include="Events\MouseMoveEvent.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="SceneData.cpp" />
+    <ClCompile Include="SceneGraphManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -95,6 +96,7 @@
     <ClInclude Include="Events\MouseMoveEvent.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="SceneData.h" />
+    <ClInclude Include="SceneGraphManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

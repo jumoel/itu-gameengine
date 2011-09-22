@@ -1,6 +1,8 @@
 #include "Camera.h"
 
-bool Camera::IsCamera() const
+Camera::Camera()
 {
-	return true;
+}
+Camera::~Camera()
+{
 }

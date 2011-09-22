@@ -7,6 +7,10 @@ Vector3f::Vector3f(float x, float y, float z)
 	this->vertices[2] = z;
 }
 
+Vector3f::~Vector3f()
+{
+}
+
 float Vector3f::x()
 {
 	return this->vertices[0];

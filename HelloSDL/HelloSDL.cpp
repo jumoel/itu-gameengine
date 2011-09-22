@@ -14,6 +14,7 @@
 
 #include "SceneData.h"
 #include "Camera.h"
+#include "SceneGraphManager.h"
 
 /* screen width, height, and bit depth */
 #define SCREEN_WIDTH  640
@@ -31,11 +32,7 @@ float degree = 0.0f;
 #define DEGREES_PER_MS (180.0f / 1000.0f)
 #define SPEED (2.0f / 1000.0f)
 
-bool qd, wd, ed;
-bool ad,sd, dd;
-bool zd, xd, cd;
-
-Object *scenegraph_root;
+SceneGraphManager *scenegraph_root;
 
 GLfloat x, y, z;
 
@@ -67,10 +64,6 @@ int resizeWindow( int width, int height )
 	glLoadIdentity();
 	gluPerspective(45.0f, ratio, 0.0f, 100.0f);
 
-	glMatrixMode(GL_MODELVIEW);
-
-	glLoadIdentity();
-
 	return( TRUE );
 }
 
@@ -78,24 +71,6 @@ int resizeWindow( int width, int height )
 void handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_keysym *keysym, Uint8 eventtype )
 {
 	auto keyEvent = new KeyPressedEvent(key, eventtype);
-
-
-	
-	/*SDLKey key = keysym->sym;
-	
-	qd = (eventtype == SDL_KEYDOWN) && (key == SDLK_q);	
-	wd = (eventtype == SDL_KEYDOWN) && (key == SDLK_w);	
-	ed = (eventtype == SDL_KEYDOWN) && (key == SDLK_e);
-	
-	ad = (eventtype == SDL_KEYDOWN) && (key == SDLK_a);	
-	sd = (eventtype == SDL_KEYDOWN) && (key == SDLK_s);	
-	dd = (eventtype == SDL_KEYDOWN) && (key == SDLK_d);
-	
-	zd = (eventtype == SDL_KEYDOWN) && (key == SDLK_z);	
-	xd = (eventtype == SDL_KEYDOWN) && (key == SDLK_x);	
-	cd = (eventtype == SDL_KEYDOWN) && (key == SDLK_c);
-	*/
-	return;
 }
 
 void handleMouseButtonPress( SDL_MouseButtonEvent *key, Uint8 eventtype)
@@ -141,61 +116,13 @@ int initGL( GLvoid )
 	return( TRUE );
 }
 
-void drawGraph(Object *obj)
-{
-	glPushMatrix();
-	
-	Camera *c = dynamic_cast<Camera *>(obj);
-
-	if (c != NULL)
-	{
-		//Camera *c = (Camera *)obj;
-		MessageBox(0, "A", "B", 0);
-		gluLookAt(
-			c->LookAt->x(), c->LookAt->y(), c->LookAt->z(), 
-			c->Position->x(), c->Position->y(), c->Position->z(), 
-			c->Up->x(), c->Up->x(), c->Up->x()
-			);
-	}
-	else
-	{
-		glMultMatrixf(obj->transformation->data);
-
-		auto color_iter = obj->colors->begin();
-		auto vertex_iter = obj->vertices->begin();
-
-		glBegin(GL_TRIANGLES);
-
-		while (color_iter != obj->colors->end() && vertex_iter != obj->vertices->end())
-		{
-			glColor3f(color_iter->x(), color_iter->y(), color_iter->z());
-			glVertex3f(vertex_iter->x(), vertex_iter->y(), vertex_iter->z());
-
-			 color_iter++;
-			 vertex_iter++;
-		}
-
-		glEnd();
-
-		for (auto c = obj->children->begin(); c != obj->children->end(); c++)
-		{
-			drawGraph(&(*c));
-		}
-	}
-
-	glPopMatrix();
-}
-
 /* Here goes our drawing code */
 int drawGLScene( GLvoid )
 {
 	/* Clear The Screen And The Depth Buffer */
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-	drawGraph(scenegraph_root);
 
-	/* Draw it to the screen */
-	SDL_GL_SwapBuffers( );
+	scenegraph_root->Render();
 
 	return( TRUE );
 }

@@ -19,15 +19,8 @@ public:
 
 	std::list<Object> *children;
 
-	virtual bool IsCamera() const { return false; }
-
 	Object();
 	~Object();
-
-protected:
-
-private:
-
 };
 
 #endif
