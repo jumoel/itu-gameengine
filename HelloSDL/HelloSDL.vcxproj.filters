@@ -113,6 +113,7 @@
     </ClCompile>
     <ClCompile Include="SceneGraphManager.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Events\Input\KeyPressedEvent.cpp">
       <Filter>Source Files\Events\Input\Keyboard</Filter>
     </ClCompile>
@@ -150,6 +151,7 @@
     </ClInclude>
     <ClInclude Include="SceneGraphManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Events\Input\MouseMoveEvent.h">
       <Filter>Header Files\Events\Input\Mouse</Filter>
     </ClInclude>
