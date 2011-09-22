@@ -1,5 +1,5 @@
 #pragma once
-#include "EventObject.h"
+#include "../eventobject.h"
 #include "SDL_events.h"
 
 class MouseClickEvent :

@@ -8,9 +8,9 @@
 #include "SDL.h"
 #include "SDL_opengl.h"
 
-#include "Events/KeyPressedEvent.h"
-#include "Events/MouseClickEvent.h"
-#include "Events/MouseMoveEvent.h"
+#include "Events/Input/KeyPressedEvent.h"
+#include "Events/Input/MouseClickEvent.h"
+#include "Events/Input/MouseMoveEvent.h"
 
 #include "SceneData.h"
 #include "Camera.h"
