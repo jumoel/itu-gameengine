@@ -72,7 +72,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Game\Camera.cpp" />
     <ClCompile Include="Events\CollisionEvent.cpp" />
     <ClCompile Include="Events\EventObject.cpp" />
     <ClCompile Include="HelloSDL.cpp" />
@@ -82,12 +82,12 @@
     <ClCompile Include="Math\Vector3f.cpp" />
     <ClCompile Include="Events\Input\MouseClickEvent.cpp" />
     <ClCompile Include="Events\Input\MouseMoveEvent.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="SceneData.cpp" />
-    <ClCompile Include="SceneGraphManager.cpp" />
+    <ClCompile Include="Game\Object.cpp" />
+    <ClCompile Include="Game\SceneData.cpp" />
+    <ClCompile Include="Managers\SceneGraphManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Game\Camera.h" />
     <ClInclude Include="Events\CollisionEvent.h" />
     <ClInclude Include="Events\EventObject.h" />
     <ClInclude Include="Events\Input\KeyPressedEvent.h" />
@@ -96,9 +96,9 @@
     <ClInclude Include="Math\Vector3f.h" />
     <ClInclude Include="Events\Input\MouseClickEvent.h" />
     <ClInclude Include="Events\Input\MouseMoveEvent.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="SceneData.h" />
-    <ClInclude Include="SceneGraphManager.h" />
+    <ClInclude Include="Game\Object.h" />
+    <ClInclude Include="Game\SceneData.h" />
+    <ClInclude Include="Managers\SceneGraphManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

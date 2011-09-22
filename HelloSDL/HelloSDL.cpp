@@ -12,9 +12,9 @@
 #include "Events/Input/MouseClickEvent.h"
 #include "Events/Input/MouseMoveEvent.h"
 
-#include "SceneData.h"
-#include "Camera.h"
-#include "SceneGraphManager.h"
+#include "Game/SceneData.h"
+#include "Game/Camera.h"
+#include "Managers/SceneGraphManager.h"
 
 /* screen width, height, and bit depth */
 #define SCREEN_WIDTH  640

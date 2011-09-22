@@ -1,8 +1,8 @@
 #ifndef ITUENGINE_SCENEGRAPHMANAGER_H
 #define ITUENGINE_SCENEGRAPHMANAGER_H
 
-#include "Camera.h"
-#include "Object.h"
+#include "../Game/Camera.h"
+#include "../Game/Object.h"
 
 class SceneGraphManager
 {

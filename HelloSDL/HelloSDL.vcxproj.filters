@@ -90,9 +90,6 @@
     <ClCompile Include="HelloSDL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SceneData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Events\CollisionEvent.cpp">
       <Filter>Source Files\Events\Collision</Filter>
     </ClCompile>
@@ -104,15 +101,6 @@
     </ClCompile>
     <ClCompile Include="Math\Vector3f.cpp">
       <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Source Files\World\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files\World\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneGraphManager.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Events\Input\KeyPressedEvent.cpp">
       <Filter>Source Files\Events\Input\Keyboard</Filter>
@@ -126,11 +114,20 @@
     <ClCompile Include="Managers\InputManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Managers\SceneGraphManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera.cpp">
+      <Filter>Source Files\World\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Object.cpp">
+      <Filter>Source Files\World\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\SceneData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SceneData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Events\EventObject.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
@@ -143,15 +140,6 @@
     <ClInclude Include="Math\Vector3f.h">
       <Filter>Header Files\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Header Files\World\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files\World\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneGraphManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Events\Input\MouseMoveEvent.h">
       <Filter>Header Files\Events\Input\Mouse</Filter>
     </ClInclude>
@@ -163,6 +151,18 @@
     </ClInclude>
     <ClInclude Include="Managers\InputManager.h">
       <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\SceneGraphManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera.h">
+      <Filter>Header Files\World\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Object.h">
+      <Filter>Header Files\World\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\SceneData.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

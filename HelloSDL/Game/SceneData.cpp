@@ -1,6 +1,6 @@
 #include "SceneData.h"
 #include "Camera.h"
-#include "SceneGraphManager.h"
+#include "../Managers/SceneGraphManager.h"
 
 SceneGraphManager *createGraph()
 {

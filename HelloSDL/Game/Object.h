@@ -4,8 +4,8 @@
 #include <list>
 #include <vector>
 
-#include "Math/Matrix4x4f.h"
-#include "Math/Vector3f.h"
+#include "../Math/Matrix4x4f.h"
+#include "../Math/Vector3f.h"
 
 class Object
 {
