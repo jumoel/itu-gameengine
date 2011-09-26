@@ -12,6 +12,11 @@
 #include "Events/Input/MouseClickEvent.h"
 #include "Events/Input/MouseMoveEvent.h"
 
+#include "Managers\InputManager.h"
+
+//FOR TESTING PURPOSES !
+#include "TestEventSubscribtion.h"
+
 #include "Game/SceneData.h"
 #include "Game/Camera.h"
 #include "Managers/SceneGraphManager.h"
@@ -33,6 +38,7 @@ float degree = 0.0f;
 #define SPEED (2.0f / 1000.0f)
 
 SceneGraphManager *scenegraph_root;
+InputManager *inputManager;
 
 GLfloat x, y, z;
 
@@ -71,20 +77,51 @@ int resizeWindow( int width, int height )
 void handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_keysym *keysym, Uint8 eventtype )
 {
 	auto keyEvent = new KeyPressedEvent(key, eventtype);
+
+	if(eventtype == SDL_KEYDOWN)
+	{
+		inputManager->NotifyKeyDown(keyEvent);	
+	}
+	else if(eventtype == SDL_KEYUP)
+	{
+		inputManager->NotifyKeyUp(keyEvent);
+	}
+
+	delete(keyEvent);
 }
 
 void handleMouseButtonPress( SDL_MouseButtonEvent *key, Uint8 eventtype)
 {
 	auto mouseButtonEvent = new MouseClickEvent(key, eventtype);
 
-	return;
+	if(eventtype == SDL_MOUSEBUTTONDOWN)
+	{
+		inputManager->NotifyButtonDown(mouseButtonEvent);
+	}
+	else if(eventtype == SDL_MOUSEBUTTONUP)
+	{
+		inputManager->NotifyButtonUp(mouseButtonEvent);
+	}
+
+	delete mouseButtonEvent;
 }
 
 void handleMouseMove( SDL_MouseMotionEvent *key, Uint8 eventtype)
 {
 	auto mouseMoveEvent = new MouseMoveEvent(key, eventtype);
 
-	return;
+	if(eventtype == SDL_MOUSEMOTION)
+	{
+		inputManager->NotifyMotion(mouseMoveEvent);
+	}
+	
+	delete mouseMoveEvent;
+}
+
+void SubscribeToKeyboardEvents()
+{
+	auto eventSubscribtion = new TestEventSubscribtion();
+	inputManager->RegisterKeyboardEventHandler(eventSubscribtion);
 }
 
 /* general OpenGL initialization function */
@@ -184,6 +221,13 @@ int main( int argc, char **argv )
 		fprintf( stderr,  "Video mode set failed: %s\n", SDL_GetError( ) );
 		Quit( 1 );
 	}
+
+	/* instantiate InputManager*/
+	inputManager = new InputManager();
+
+	/* subscribe to events */
+	//NOTE THIS IS A TEST !!!!!
+	SubscribeToKeyboardEvents();
 
 	/* initialize OpenGL */
 	initGL( );

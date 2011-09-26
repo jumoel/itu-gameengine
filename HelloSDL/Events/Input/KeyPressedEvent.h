@@ -3,6 +3,7 @@
 
 #include "../eventobject.h"
 #include "SDL_events.h"
+#include "../../Macros/EventMacros.h"
 
 class KeyPressedEvent :
 	public EventObject
@@ -14,5 +15,14 @@ public:
 private:
 	SDL_KeyboardEvent *input;
 };
+
+class IKeyboardEvent
+{
+	DECLARE_EVENT_INTERFACE(IKeyboardEvent);
+public:
+	DEFINE_1_ARG_EVENT(IKeyboardEvent, KeyDown, KeyPressedEvent*);
+	DEFINE_1_ARG_EVENT(IKeyboardEvent, KeyUp, KeyPressedEvent*);
+};
+IMPLEMENT_EVENT_INTERFACE(IKeyboardEvent);
 
 #endif

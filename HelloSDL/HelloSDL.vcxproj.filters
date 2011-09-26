@@ -85,6 +85,9 @@
     <Filter Include="Source Files\Managers">
       <UniqueIdentifier>{4dcbd04e-8c01-4472-9a85-595c9a39b882}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Macros">
+      <UniqueIdentifier>{1dc3496f-6799-467b-bc0d-e48a43ca2e3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloSDL.cpp">
@@ -129,6 +132,9 @@
     <ClCompile Include="Game\FPSCalculator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestEventSubscribtion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events\EventObject.h">
@@ -168,6 +174,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\FPSCalculator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\EventManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Macros\EventMacros.h">
+      <Filter>Header Files\Macros</Filter>
+    </ClInclude>
+    <ClInclude Include="TestEventSubscribtion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
