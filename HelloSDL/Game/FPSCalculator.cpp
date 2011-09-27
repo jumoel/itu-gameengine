@@ -1,6 +1,6 @@
 #include "FPSCalculator.h"
 
-FPSCalculator::FPSCalculator() : DtBuffer(), LastTime(0), LastReturnedTime(0), FPSSaved(0.0f), DtBufferIndex(0)
+FPSCalculator::FPSCalculator() : ticks(), LastTime(0), LastReturnedTime(0), FPSSaved(0)
 {
 }
 
@@ -10,30 +10,18 @@ FPSCalculator::~FPSCalculator()
 
 void FPSCalculator::SetCurrentTime(Uint32 CurrentTime)
 {
-	Uint32 dt = CurrentTime - LastTime;
-
-	DtBuffer[(DtBufferIndex++ % DT_BUFFER_LENGTH)] = dt;
-
-	LastTime = CurrentTime;
-
-	if ((CurrentTime - LastReturnedTime) > DT_RETURN_FPS_EVERY)
+	if ((CurrentTime - LastReturnedTime) > 1000)
 	{
+		FPSSaved = ticks;
+		ticks = 0;
 		LastReturnedTime = CurrentTime;
-
-		float avg = 0.0f;
-
-		for (int i = 0; i < DT_BUFFER_LENGTH; i++)
-		{
-			avg += (float) DtBuffer[i];
-		}
-
-		avg = avg / (float)DT_BUFFER_LENGTH;
-
-		this->FPSSaved = 1.0f / ( avg / 1000.0f);
 	}
+
+	ticks++;
+	LastTime = CurrentTime;
 }
 
-float FPSCalculator::GetFPS()
+int FPSCalculator::GetFPS()
 {
 	return FPSSaved;
 }
@@ -41,7 +29,7 @@ float FPSCalculator::GetFPS()
 void FPSCalculator::SetFPSTitle()
 {
 	char str[128];
-	sprintf(str, "FPS: %.2f", GetFPS());
+	sprintf(str, "FPS: %d", GetFPS());
 
 	SDL_WM_SetCaption(str, "");
 }

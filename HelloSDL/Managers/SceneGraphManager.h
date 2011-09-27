@@ -21,8 +21,6 @@ public:
 private:
 	void RenderObject(Object *obj);
 
-	FPSCalculator *fps;
-
 	Uint32 LastTime;
 	Uint32 DeltaTime;
 };

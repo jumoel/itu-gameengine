@@ -8,14 +8,10 @@ SceneGraphManager::SceneGraphManager(Camera *CameraObject, Object *RootNode) :
 	LastTime(0),
 	DeltaTime(0)
 {
-	fps = new FPSCalculator();
 }
 
 void SceneGraphManager::Render(Uint32 CurrentTime)
-{
-	fps->SetCurrentTime(CurrentTime);
-	fps->SetFPSTitle();
-	
+{	
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
