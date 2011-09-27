@@ -38,7 +38,6 @@ float degree = 0.0f;
 #define SPEED (2.0f / 1000.0f)
 
 SceneGraphManager *scenegraph_root;
-InputManager *inputManager;
 
 GLfloat x, y, z;
 
@@ -80,11 +79,11 @@ void handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_keysym *key
 
 	if(eventtype == SDL_KEYDOWN)
 	{
-		inputManager->NotifyKeyDown(keyEvent);	
+		InputManager::NotifyKeyDown(keyEvent);	
 	}
 	else if(eventtype == SDL_KEYUP)
 	{
-		inputManager->NotifyKeyUp(keyEvent);
+		InputManager::NotifyKeyUp(keyEvent);
 	}
 
 	delete(keyEvent);
@@ -96,11 +95,11 @@ void handleMouseButtonPress( SDL_MouseButtonEvent *key, Uint8 eventtype)
 
 	if(eventtype == SDL_MOUSEBUTTONDOWN)
 	{
-		inputManager->NotifyButtonDown(mouseButtonEvent);
+		InputManager::NotifyButtonDown(mouseButtonEvent);
 	}
 	else if(eventtype == SDL_MOUSEBUTTONUP)
 	{
-		inputManager->NotifyButtonUp(mouseButtonEvent);
+		InputManager::NotifyButtonUp(mouseButtonEvent);
 	}
 
 	delete mouseButtonEvent;
@@ -112,7 +111,7 @@ void handleMouseMove( SDL_MouseMotionEvent *key, Uint8 eventtype)
 
 	if(eventtype == SDL_MOUSEMOTION)
 	{
-		inputManager->NotifyMotion(mouseMoveEvent);
+		InputManager::NotifyMotion(mouseMoveEvent);
 	}
 	
 	delete mouseMoveEvent;
@@ -121,7 +120,8 @@ void handleMouseMove( SDL_MouseMotionEvent *key, Uint8 eventtype)
 void SubscribeToKeyboardEvents()
 {
 	auto eventSubscribtion = new TestEventSubscribtion();
-	inputManager->RegisterKeyboardEventHandler(eventSubscribtion);
+	InputManager::RegisterKeyboardEventHandler(eventSubscribtion);
+	InputManager::RegisterMouseClickEventHandler(eventSubscribtion);
 }
 
 /* general OpenGL initialization function */
@@ -222,12 +222,10 @@ int main( int argc, char **argv )
 		Quit( 1 );
 	}
 
-	/* instantiate InputManager*/
-	inputManager = new InputManager();
-
 	/* subscribe to events */
 	//NOTE THIS IS A TEST !!!!!
-	SubscribeToKeyboardEvents();
+	//SubscribeToKeyboardEvents();
+    auto eventSubscribtion = new TestEventSubscribtion();
 
 	/* initialize OpenGL */
 	initGL( );

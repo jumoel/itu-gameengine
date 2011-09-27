@@ -1,10 +1,13 @@
 #include "TestEventSubscribtion.h"
 
 #include <string>
+#include "Managers\InputManager.h"
 using namespace std;
 
 TestEventSubscribtion::TestEventSubscribtion(void)
 {
+	InputManager::RegisterKeyboardEventHandler(this);
+	InputManager::RegisterMouseClickEventHandler(this);
 }
 
 
@@ -18,6 +21,11 @@ void TestEventSubscribtion::OnKeyDown(KeyPressedEvent *key)
 }
 
 void TestEventSubscribtion::OnKeyUp(KeyPressedEvent *key)
+{
+	auto str = new string();
+}
+
+void TestEventSubscribtion::OnButtonDown(MouseClickEvent *button)
 {
 	auto str = new string();
 }
