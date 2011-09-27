@@ -13,13 +13,12 @@ public:
 	~FPSCalculator();
 
 	void SetCurrentTime(Uint32 CurrentTime);
-	float GetFPS();
+	int GetFPS();
 	void SetFPSTitle();
 
 private:
-	Uint32 DtBuffer[DT_BUFFER_LENGTH];
-	int DtBufferIndex;
-	float FPSSaved;
+	int ticks;
+	int FPSSaved;
 	Uint32 LastTime;
 	Uint32 LastReturnedTime;
 };

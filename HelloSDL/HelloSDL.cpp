@@ -15,6 +15,7 @@
 #include "Game/SceneData.h"
 #include "Game/Camera.h"
 #include "Managers/SceneGraphManager.h"
+#include "Game/FPSCalculator.h"
 
 /* screen width, height, and bit depth */
 #define SCREEN_WIDTH  640
@@ -33,6 +34,7 @@ float degree = 0.0f;
 #define SPEED (2.0f / 1000.0f)
 
 SceneGraphManager *scenegraph_root;
+FPSCalculator *fps;
 
 GLfloat x, y, z;
 
@@ -120,7 +122,10 @@ int initGL( GLvoid )
 int drawGLScene( GLvoid )
 {
 	auto time = SDL_GetTicks();
+
 	scenegraph_root->Render(time);
+	fps->SetCurrentTime(time);
+	fps->SetFPSTitle();
 
 	return( TRUE );
 }
@@ -135,6 +140,8 @@ int main( int argc, char **argv )
 	SDL_Event event;
 	/* this holds some info about our display */
 	const SDL_VideoInfo *videoInfo;
+
+	fps = new FPSCalculator();
 
 
 	/* initialize SDL */
