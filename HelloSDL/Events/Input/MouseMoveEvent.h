@@ -3,6 +3,7 @@
 
 #include "../EventObject.h"
 #include "SDL_events.h"
+#include "../../Macros/EventMacros.h"
 
 class MouseMoveEvent :
 	public EventObject
@@ -14,5 +15,14 @@ public:
 private:
 	SDL_MouseMotionEvent *input;
 };
+
+class IMouseMoveEvent
+{
+	DECLARE_EVENT_INTERFACE(IMouseMoveEvent);
+public:
+	DEFINE_1_ARG_EVENT(IMouseMoveEvent, Motion, MouseMoveEvent*);
+};
+IMPLEMENT_EVENT_INTERFACE(IMouseMoveEvent);
+
 
 #endif

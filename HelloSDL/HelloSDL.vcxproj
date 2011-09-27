@@ -86,8 +86,10 @@
     <ClCompile Include="Game\Object.cpp" />
     <ClCompile Include="Game\SceneData.cpp" />
     <ClCompile Include="Managers\SceneGraphManager.cpp" />
+    <ClCompile Include="TestEventSubscribtion.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Managers\EventManager.h" />
     <ClInclude Include="Game\Camera.h" />
     <ClInclude Include="Events\CollisionEvent.h" />
     <ClInclude Include="Events\EventObject.h" />
@@ -101,6 +103,8 @@
     <ClInclude Include="Game\Object.h" />
     <ClInclude Include="Game\SceneData.h" />
     <ClInclude Include="Managers\SceneGraphManager.h" />
+    <ClInclude Include="Macros\EventMacros.h" />
+    <ClInclude Include="TestEventSubscribtion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
