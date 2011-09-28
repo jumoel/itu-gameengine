@@ -7,19 +7,21 @@
 
 #include "SDL.h"
 
+
 class SceneGraphManager
 {
 public:
 	SceneGraphManager(Camera *Camera, Object *RootNode);
 	~SceneGraphManager();
 
-	void Render(Uint32 CurrentTime);
+	void Render(Uint32 CurrentTime, bool vboOn);
 
 	Camera *CameraObject;
 	Object *RootNode;
 
 private:
 	void RenderObject(Object *obj);
+	void RenderObjectVBO(Object *obj);
 
 	Uint32 LastTime;
 	Uint32 DeltaTime;

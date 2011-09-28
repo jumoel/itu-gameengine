@@ -6,7 +6,9 @@
 #include <stdlib.h>
 #include <iostream>
 #include "SDL.h"
-#include "SDL_opengl.h"
+//#include "sdl_opengl.h"
+#include "GL/glew.h"
+#include "GL/wglew.h"
 
 #include "Events/Input/KeyPressedEvent.h"
 #include "Events/Input/MouseClickEvent.h"
@@ -34,6 +36,7 @@
 Uint32 start;
 Uint32 last;
 float degree = 0.0f;
+bool vboOn;
 
 #define DEGREES_PER_MS (180.0f / 1000.0f)
 #define SPEED (2.0f / 1000.0f)
@@ -48,6 +51,10 @@ SDL_Surface *surface;
 /* function to release/destroy our resources and restoring the old desktop */
 void Quit( int returnCode )
 {
+	if(vboOn)
+	{
+		deleteGraphVBO(scenegraph_root->RootNode);	
+	}
 	/* clean up the window */
 	SDL_Quit( );
 
@@ -126,9 +133,59 @@ void SubscribeToKeyboardEvents()
 	InputManager::RegisterMouseClickEventHandler(eventSubscribtion);
 }
 
+
+bool IsExtensionSupported( char* szTargetExtension )
+{
+    const unsigned char *pszExtensions = NULL;
+    const unsigned char *pszStart;
+    unsigned char *pszWhere, *pszTerminator;
+
+    // Extension names should not have spaces
+    pszWhere = (unsigned char *) strchr( szTargetExtension, ' ' );
+
+    if( pszWhere || *szTargetExtension == '\0' )
+        return false;
+
+    // Get Extensions String
+    pszExtensions = glGetString( GL_EXTENSIONS );
+ 
+    // Search The Extensions String For An Exact Copy
+    pszStart = pszExtensions;
+
+    for(;;)
+    {
+        pszWhere = (unsigned char *) strstr( (const char *) pszStart, szTargetExtension );
+
+        if( !pszWhere )
+            break;
+        pszTerminator = pszWhere + strlen( szTargetExtension );
+
+        if( pszWhere == pszStart || *( pszWhere - 1 ) == ' ' )
+            if( *pszTerminator == ' ' || *pszTerminator == '\0' )
+                return true;
+
+        pszStart = pszTerminator;
+    }
+
+    return false;
+}
+
 /* general OpenGL initialization function */
 int initGL( GLvoid )
 {
+	vboOn = IsExtensionSupported( "GL_ARB_vertex_buffer_object" );
+	//vboOn = false;
+
+    if( vboOn )
+    {
+        // Get Pointers To The GL Functions
+        glGenBuffersARB = (PFNGLGENBUFFERSARBPROC) wglGetProcAddress("glGenBuffersARB");
+        glBindBufferARB = (PFNGLBINDBUFFERARBPROC) wglGetProcAddress("glBindBufferARB");
+        glBufferDataARB = (PFNGLBUFFERDATAARBPROC) wglGetProcAddress("glBufferDataARB");
+        glDeleteBuffersARB = (PFNGLDELETEBUFFERSARBPROC) wglGetProcAddress("glDeleteBuffersARB");
+    }
+
+
 	start = SDL_GetTicks();
 	last = SDL_GetTicks();
 
@@ -150,7 +207,14 @@ int initGL( GLvoid )
 	/* Really Nice Perspective Calculations */
 	glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
 
-	scenegraph_root = createGraph();
+	if(vboOn)
+	{
+		scenegraph_root = createGraphVBO();
+	}
+	else
+	{
+		scenegraph_root = createGraph();
+	}
 
 	return( TRUE );
 }
@@ -160,7 +224,7 @@ int drawGLScene( GLvoid )
 {
 	auto time = SDL_GetTicks();
 
-	scenegraph_root->Render(time);
+	scenegraph_root->Render(time, vboOn);
 	fps->SetCurrentTime(time);
 	fps->SetFPSTitle();
 

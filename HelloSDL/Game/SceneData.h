@@ -4,5 +4,8 @@
 #include "../Managers/SceneGraphManager.h"
 
 SceneGraphManager *createGraph();
+SceneGraphManager *createGraphVBO();
+
+void deleteGraphVBO(Object *root);
 
 #endif

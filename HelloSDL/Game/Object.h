@@ -6,21 +6,29 @@
 
 #include "../Math/Matrix4x4f.h"
 #include "../Math/Vector3f.h"
+//#include "sdl_opengl.h"
+#include "GL/glew.h"
 
 class Object
 {
 public:
 	std::string Name;
+	GLuint vboId;
+	GLuint cboId;
 
 	Matrix4x4f *transformation;
 	
 	std::list<Vector3f> *vertices;
 	std::list<Vector3f> *colors;
 
+	
+
 	std::list<Object> *children;
 
 	Object();
 	~Object();
+
+	void CreateVBO();
 };
 
 #endif
