@@ -209,10 +209,12 @@ int initGL( GLvoid )
 
 	if(vboOn)
 	{
+		std::cout << "Using VBO." << std::endl;
 		scenegraph_root = createGraphVBO();
 	}
 	else
 	{
+		std::cout << "NOT using VBO." << std::endl;
 		scenegraph_root = createGraph();
 	}
 
