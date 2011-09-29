@@ -8,6 +8,7 @@ TestEventSubscribtion::TestEventSubscribtion(void)
 {
 	InputManager::RegisterKeyboardEventHandler(this);
 	InputManager::RegisterMouseClickEventHandler(this);
+	InputManager::RegisterMouseMoveEventHandler(this);
 }
 
 
@@ -26,6 +27,11 @@ void TestEventSubscribtion::OnKeyUp(KeyPressedEvent *key)
 }
 
 void TestEventSubscribtion::OnButtonDown(MouseClickEvent *button)
+{
+	auto str = new string();
+}
+
+void TestEventSubscribtion::OnMotion(MouseMoveEvent *motion)
 {
 	auto str = new string();
 }
