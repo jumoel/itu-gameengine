@@ -23,6 +23,7 @@
 #include "Game/Camera.h"
 #include "Managers/SceneGraphManager.h"
 #include "Game/FPSCalculator.h"
+#include "Managers/MediaManager.h"
 
 /* screen width, height, and bit depth */
 #define SCREEN_WIDTH  640
@@ -185,7 +186,8 @@ int initGL( GLvoid )
         glDeleteBuffersARB = (PFNGLDELETEBUFFERSARBPROC) wglGetProcAddress("glDeleteBuffersARB");
     }
 
-
+	SINGLETONINSTANCE(MediaManager)->LoadTexture("Resources/Space_Warrior.tga", "Warrior");
+	std::cout << "Size of MediaManager->textures " << SINGLETONINSTANCE(MediaManager)->textures.size() <<  std::endl;
 	start = SDL_GetTicks();
 	last = SDL_GetTicks();
 

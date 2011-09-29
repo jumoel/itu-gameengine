@@ -44,12 +44,12 @@ void SceneGraphManager::RenderObject(Object *obj)
 
 	glMultMatrixf(obj->transformation->data);
 
-	auto color_iter = obj->colors->begin();
-	auto vertex_iter = obj->vertices->begin();
+	auto color_iter = obj->gfx->colors->begin();
+	auto vertex_iter = obj->gfx->vertices->begin();
 
 	glBegin(GL_TRIANGLES);
 
-	while (color_iter != obj->colors->end() && vertex_iter != obj->vertices->end())
+	while (color_iter != obj->gfx->colors->end() && vertex_iter != obj->gfx->vertices->end())
 	{
 		glColor3f(color_iter->x(), color_iter->y(), color_iter->z());
 		glVertex3f(vertex_iter->x(), vertex_iter->y(), vertex_iter->z());
@@ -77,13 +77,13 @@ void SceneGraphManager::RenderObjectVBO(Object *obj)
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 
-	glBindBufferARB( GL_ARRAY_BUFFER_ARB, obj->vboId);
+	glBindBufferARB( GL_ARRAY_BUFFER_ARB, obj->gfx->vboId);
 	glVertexPointer(3, GL_FLOAT, 0, (char *) NULL);
 
-	glBindBufferARB( GL_ARRAY_BUFFER_ARB, obj->cboId);
+	glBindBufferARB( GL_ARRAY_BUFFER_ARB, obj->gfx->cboId);
 	glColorPointer( 3, GL_FLOAT, 0, (char *) NULL);
 
-	glDrawArrays( GL_TRIANGLES, 0, obj->vertices->size() );
+	glDrawArrays( GL_TRIANGLES, 0, obj->gfx->vertices->size() );
 
 	glDisableClientState( GL_VERTEX_ARRAY );
 	glDisableClientState( GL_COLOR_ARRAY );

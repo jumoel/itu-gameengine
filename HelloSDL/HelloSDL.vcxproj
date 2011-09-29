@@ -78,9 +78,12 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClCompile Include="Events\CollisionEvent.cpp" />
     <ClCompile Include="Events\EventObject.cpp" />
     <ClCompile Include="Game\FPSCalculator.cpp" />
+    <ClCompile Include="Game\GfxModel.cpp" />
+    <ClCompile Include="Game\Texture.cpp" />
     <ClCompile Include="HelloSDL.cpp" />
     <ClCompile Include="Events\Input\KeyPressedEvent.cpp" />
     <ClCompile Include="Managers\InputManager.cpp" />
+    <ClCompile Include="Managers\MediaManager.cpp" />
     <ClCompile Include="Math\Matrix4x4f.cpp" />
     <ClCompile Include="Math\Vector3f.cpp" />
     <ClCompile Include="Events\Input\MouseClickEvent.cpp" />
@@ -91,6 +94,8 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClCompile Include="TestEventSubscribtion.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\GfxModel.h" />
+    <ClInclude Include="game\Texture.h" />
     <ClInclude Include="Managers\EventManager.h" />
     <ClInclude Include="Game\Camera.h" />
     <ClInclude Include="Events\CollisionEvent.h" />
@@ -98,6 +103,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Events\Input\KeyPressedEvent.h" />
     <ClInclude Include="Game\FPSCalculator.h" />
     <ClInclude Include="Managers\InputManager.h" />
+    <ClInclude Include="Managers\MediaManager.h" />
     <ClInclude Include="Math\Matrix4x4f.h" />
     <ClInclude Include="Math\Vector3f.h" />
     <ClInclude Include="Events\Input\MouseClickEvent.h" />
@@ -106,6 +112,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Game\SceneData.h" />
     <ClInclude Include="Managers\SceneGraphManager.h" />
     <ClInclude Include="Macros\EventMacros.h" />
+    <ClInclude Include="Templates\TSingleton.h" />
     <ClInclude Include="TestEventSubscribtion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
