@@ -12,6 +12,8 @@ public:
 	MouseClickEvent(SDL_MouseButtonEvent *input, short eventtype);
 	~MouseClickEvent(void);
 
+	SDL_MouseButtonEvent* GetInput();
+
 private:
 	SDL_MouseButtonEvent *input;
 };

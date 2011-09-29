@@ -12,6 +12,8 @@ public:
 	MouseMoveEvent(SDL_MouseMotionEvent *input, short eventtype);
 	~MouseMoveEvent(void);
 
+	SDL_MouseMotionEvent* GetInput();
+
 private:
 	SDL_MouseMotionEvent *input;
 };

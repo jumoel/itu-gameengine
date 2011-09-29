@@ -9,3 +9,8 @@ KeyPressedEvent::KeyPressedEvent(SDL_KeyboardEvent *input, short eventtype) : Ev
 KeyPressedEvent::~KeyPressedEvent(void)
 {
 }
+
+SDL_KeyboardEvent* KeyPressedEvent::GetInput()
+{
+	return input;
+}

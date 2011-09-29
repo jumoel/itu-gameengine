@@ -12,6 +12,8 @@ public:
 	KeyPressedEvent(SDL_KeyboardEvent *input, short eventtype);
 	~KeyPressedEvent(void);
 
+	SDL_KeyboardEvent* GetInput();
+
 private:
 	SDL_KeyboardEvent *input;
 };

@@ -10,3 +10,9 @@ MouseClickEvent::MouseClickEvent(SDL_MouseButtonEvent *input, short eventtype) :
 MouseClickEvent::~MouseClickEvent(void)
 {
 }
+
+
+SDL_MouseButtonEvent* MouseClickEvent::GetInput()
+{
+	return input;
+}
