@@ -56,7 +56,8 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy C:\SDL\SDL-1.2.14\lib\SDL.dll "$(OutDir)" /y
-xcopy C:\GLEW\glew-1.7.0\bin\glew32.dll "$(OutDir)" /y</Command>
+xcopy C:\GLEW\glew-1.7.0\bin\glew32.dll "$(OutDir)" /y
+xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
