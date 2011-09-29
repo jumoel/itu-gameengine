@@ -3,6 +3,9 @@
 
 Camera::Camera()
 {
+	isLeftButtonDown = false;
+	isRightButtonDown = false;
+
 	InputManager::RegisterKeyboardEventHandler(this);
 	InputManager::RegisterMouseClickEventHandler(this);
 	InputManager::RegisterMouseMoveEventHandler(this);

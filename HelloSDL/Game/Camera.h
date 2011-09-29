@@ -24,8 +24,8 @@ protected:
 	void OnKeyUp(KeyPressedEvent *key);
 
 private:
-	bool isLeftButtonDown = false;
-	bool isRightButtonDown = false;
+	bool isLeftButtonDown;
+	bool isRightButtonDown;
 };
 
 #endif
