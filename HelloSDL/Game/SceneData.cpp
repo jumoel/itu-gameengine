@@ -64,7 +64,8 @@ SceneGraphManager *createGraph()
 	auto camera = new Camera();
 	camera->Position = *(new Vector3f(0, 0, 0));
 	camera->LookAt = *(new Vector3f(0, 0, -1));
-	camera->Up = *(new Vector3f(1, 1, 0));
+	camera->Up = *(new Vector3f(0, 1, 0));
+	//camera->Up = *(new Vector3f(1, 1, 0));
 
 	return new SceneGraphManager(camera, root);
 }
@@ -137,7 +138,8 @@ SceneGraphManager *createGraphVBO()
 	auto camera = new Camera();
 	camera->Position = *(new Vector3f(0, 0, 0));
 	camera->LookAt = *(new Vector3f(0, 0, -1));
-	camera->Up = *(new Vector3f(1, 1, 0));
+	camera->Up = *(new Vector3f(0, 1, 0));
+	//camera->Up = *(new Vector3f(1, 1, 0));
 
 	
 

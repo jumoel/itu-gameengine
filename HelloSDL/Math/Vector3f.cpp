@@ -25,3 +25,19 @@ float Vector3f::z()
 {
 	return this->vertices[2];
 }
+
+
+void Vector3f::SetX(float x)
+{
+	this->vertices[0] = x;
+}
+
+void Vector3f::SetY(float y)
+{
+	this->vertices[1] = y;
+}
+
+void Vector3f::SetZ(float z)
+{
+	this->vertices[2] = z;
+}

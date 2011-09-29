@@ -22,6 +22,10 @@ protected:
 	void OnButtonUp(MouseClickEvent *button);
 	void OnKeyDown(KeyPressedEvent *key);
 	void OnKeyUp(KeyPressedEvent *key);
+
+private:
+	bool isLeftButtonDown = false;
+	bool isRightButtonDown = false;
 };
 
 #endif
