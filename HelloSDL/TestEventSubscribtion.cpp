@@ -2,6 +2,7 @@
 
 #include <string>
 #include "Managers\InputManager.h"
+#include <iostream>
 using namespace std;
 
 TestEventSubscribtion::TestEventSubscribtion(void)
@@ -19,19 +20,23 @@ TestEventSubscribtion::~TestEventSubscribtion(void)
 void TestEventSubscribtion::OnKeyDown(KeyPressedEvent *key)
 {
 	auto str = new string();
+	// key->TestPrint();
 }
 
 void TestEventSubscribtion::OnKeyUp(KeyPressedEvent *key)
 {
 	auto str = new string();
+	// key->TestPrint();
 }
 
 void TestEventSubscribtion::OnButtonDown(MouseClickEvent *button)
 {
 	auto str = new string();
+	// button->TestPrint();
 }
 
 void TestEventSubscribtion::OnMotion(MouseMoveEvent *motion)
 {
 	auto str = new string();
+	// motion->TestPrint();
 }

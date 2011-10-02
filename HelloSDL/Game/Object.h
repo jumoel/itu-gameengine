@@ -1,11 +1,7 @@
 #ifndef ITUENGINE_OBJECT_H
 #define ITUENGINE_OBJECT_H
 
-#include <list>
-#include <vector>
-
-#include "../Math/Matrix4x4f.h"
-#include "../Math/Vector3f.h"
+#include "GfxModel.h"
 //#include "sdl_opengl.h"
 #include "GL/glew.h"
 
@@ -13,22 +9,15 @@ class Object
 {
 public:
 	std::string Name;
-	GLuint vboId;
-	GLuint cboId;
 
 	Matrix4x4f *transformation;
-	
-	std::list<Vector3f> *vertices;
-	std::list<Vector3f> *colors;
-
-	
+	GfxModel *gfx;
 
 	std::list<Object> *children;
 
 	Object();
 	~Object();
 
-	void CreateVBO();
 };
 
 #endif

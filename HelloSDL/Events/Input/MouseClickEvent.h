@@ -1,9 +1,10 @@
 #ifndef ITUENGINE_MOUSECLICKEVENT_H
 #define ITUENGINE_MOUSECLICKEVENT_H
 
-#include "../EventObject.h"
 #include "SDL_events.h"
+#include "../EventObject.h"
 #include "../../Macros/EventMacros.h"
+#include <iostream>
 
 class MouseClickEvent :
 	public EventObject
@@ -11,6 +12,9 @@ class MouseClickEvent :
 public:
 	MouseClickEvent(SDL_MouseButtonEvent *input, short eventtype);
 	~MouseClickEvent(void);
+
+	SDL_MouseButtonEvent* GetInput();
+	void TestPrint();
 
 private:
 	SDL_MouseButtonEvent *input;

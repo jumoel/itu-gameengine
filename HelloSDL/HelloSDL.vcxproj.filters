@@ -88,6 +88,9 @@
     <Filter Include="Header Files\Macros">
       <UniqueIdentifier>{1dc3496f-6799-467b-bc0d-e48a43ca2e3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Templates">
+      <UniqueIdentifier>{51341ffe-791d-4fdc-bf8a-bb7676c937e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloSDL.cpp">
@@ -140,6 +143,15 @@
     </ClCompile>
     <ClCompile Include="Abstractions\Window.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GfxModel.cpp">
+      <Filter>Source Files\World\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Texture.cpp">
+      <Filter>Source Files\World\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Managers\MediaManager.cpp">
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +214,18 @@
     </ClInclude>
     <ClInclude Include="Game\FPSCalculator.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GfxModel.h">
+      <Filter>Header Files\World\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Texture.h">
+      <Filter>Header Files\World\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\MediaManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Templates\TSingleton.h">
+      <Filter>Header Files\Templates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

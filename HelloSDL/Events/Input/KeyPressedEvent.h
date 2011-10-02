@@ -1,9 +1,10 @@
 #ifndef ITUENGINE_KEYPRESSEDEVENT_H
 #define ITUENGINE_KEYPRESSEDEVENT_H
 
-#include "../eventobject.h"
 #include "SDL_events.h"
+#include "../eventobject.h"
 #include "../../Macros/EventMacros.h"
+#include <iostream>
 
 class KeyPressedEvent :
 	public EventObject
@@ -11,6 +12,9 @@ class KeyPressedEvent :
 public:
 	KeyPressedEvent(SDL_KeyboardEvent *input, short eventtype);
 	~KeyPressedEvent(void);
+
+	SDL_KeyboardEvent* GetInput();
+	void TestPrint();
 
 private:
 	SDL_KeyboardEvent *input;

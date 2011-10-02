@@ -1,9 +1,10 @@
 #ifndef ITUENGINE_MOUSEMOVEEVENT_H
 #define ITUENGINE_MOUSEMOVEEVENT_H
 
-#include "../EventObject.h"
 #include "SDL_events.h"
+#include "../EventObject.h"
 #include "../../Macros/EventMacros.h"
+#include <iostream>
 
 class MouseMoveEvent :
 	public EventObject
@@ -11,6 +12,9 @@ class MouseMoveEvent :
 public:
 	MouseMoveEvent(SDL_MouseMotionEvent *input, short eventtype);
 	~MouseMoveEvent(void);
+
+	SDL_MouseMotionEvent* GetInput();
+	void TestPrint();
 
 private:
 	SDL_MouseMotionEvent *input;
@@ -23,6 +27,5 @@ public:
 	DEFINE_1_ARG_EVENT(IMouseMoveEvent, Motion, MouseMoveEvent*);
 };
 IMPLEMENT_EVENT_INTERFACE(IMouseMoveEvent);
-
 
 #endif

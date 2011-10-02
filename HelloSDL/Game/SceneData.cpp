@@ -23,24 +23,24 @@ SceneGraphManager *createGraph()
 	auto c2 = new Vector3f(0, 1, 0);
 	auto c3 = new Vector3f(0, 0, 1);
 
-	triangle1->vertices->push_back(*v1);
-	triangle1->vertices->push_back(*v2);
-	triangle1->vertices->push_back(*v3);
+	triangle1->gfx->vertices->push_back(*v1);
+	triangle1->gfx->vertices->push_back(*v2);
+	triangle1->gfx->vertices->push_back(*v3);
 	
-	triangle1->colors->push_back(*c1);
-	triangle1->colors->push_back(*c2);
-	triangle1->colors->push_back(*c3);
+	triangle1->gfx->colors->push_back(*c1);
+	triangle1->gfx->colors->push_back(*c2);
+	triangle1->gfx->colors->push_back(*c3);
 	
 	auto triangle2 = new Object();
 	triangle2->Name = "T2";
 
-	triangle2->vertices->push_back(*v1);
-	triangle2->vertices->push_back(*v2);
-	triangle2->vertices->push_back(*v3);
+	triangle2->gfx->vertices->push_back(*v1);
+	triangle2->gfx->vertices->push_back(*v2);
+	triangle2->gfx->vertices->push_back(*v3);
 	
-	triangle2->colors->push_back(*c1);
-	triangle2->colors->push_back(*c1);
-	triangle2->colors->push_back(*c1);
+	triangle2->gfx->colors->push_back(*c1);
+	triangle2->gfx->colors->push_back(*c1);
+	triangle2->gfx->colors->push_back(*c1);
 	triangle2->transformation = (new Matrix4x4f())->Translate(0, 0, -4.0f);
 
 	triangle1->children->push_back(*triangle2);
@@ -48,13 +48,13 @@ SceneGraphManager *createGraph()
 	auto triangle3 = new Object();
 	triangle3->Name = "T3";
 
-	triangle3->vertices->push_back(*v1);
-	triangle3->vertices->push_back(*v2);
-	triangle3->vertices->push_back(*v3);
+	triangle3->gfx->vertices->push_back(*v1);
+	triangle3->gfx->vertices->push_back(*v2);
+	triangle3->gfx->vertices->push_back(*v3);
 	
-	triangle3->colors->push_back(*c2);
-	triangle3->colors->push_back(*c2);
-	triangle3->colors->push_back(*c2);
+	triangle3->gfx->colors->push_back(*c2);
+	triangle3->gfx->colors->push_back(*c2);
+	triangle3->gfx->colors->push_back(*c2);
 	triangle3->transformation = (new Matrix4x4f())->Translate(-2, 0, 0);
 
 	triangle1->children->push_back(*triangle3);
@@ -64,7 +64,8 @@ SceneGraphManager *createGraph()
 	auto camera = new Camera();
 	camera->Position = *(new Vector3f(0, 0, 0));
 	camera->LookAt = *(new Vector3f(0, 0, -1));
-	camera->Up = *(new Vector3f(1, 1, 0));
+	camera->Up = *(new Vector3f(0, 1, 0));
+	//camera->Up = *(new Vector3f(1, 1, 0));
 
 	return new SceneGraphManager(camera, root);
 }
@@ -90,45 +91,45 @@ SceneGraphManager *createGraphVBO()
 	auto c2 = new Vector3f(0, 1, 0);
 	auto c3 = new Vector3f(0, 0, 1);
 
-	triangle1->vertices->push_back(*v1);
-	triangle1->vertices->push_back(*v2);
-	triangle1->vertices->push_back(*v3);
+	triangle1->gfx->vertices->push_back(*v1);
+	triangle1->gfx->vertices->push_back(*v2);
+	triangle1->gfx->vertices->push_back(*v3);
 	
-	triangle1->colors->push_back(*c1);
-	triangle1->colors->push_back(*c2);
-	triangle1->colors->push_back(*c3);
+	triangle1->gfx->colors->push_back(*c1);
+	triangle1->gfx->colors->push_back(*c2);
+	triangle1->gfx->colors->push_back(*c3);
 	
-	triangle1->CreateVBO();
+	triangle1->gfx->CreateVBO();
 
 	auto triangle2 = new Object();
 	triangle2->Name = "T2";
 
-	triangle2->vertices->push_back(*v1);
-	triangle2->vertices->push_back(*v2);
-	triangle2->vertices->push_back(*v3);
+	triangle2->gfx->vertices->push_back(*v1);
+	triangle2->gfx->vertices->push_back(*v2);
+	triangle2->gfx->vertices->push_back(*v3);
 	
-	triangle2->colors->push_back(*c1);
-	triangle2->colors->push_back(*c1);
-	triangle2->colors->push_back(*c1);
+	triangle2->gfx->colors->push_back(*c1);
+	triangle2->gfx->colors->push_back(*c1);
+	triangle2->gfx->colors->push_back(*c1);
 	triangle2->transformation = (new Matrix4x4f())->Translate(0, 0, -4.0f);
 
-	triangle2->CreateVBO();
+	triangle2->gfx->CreateVBO();
 
 	triangle1->children->push_back(*triangle2);
 
 	auto triangle3 = new Object();
 	triangle3->Name = "T3";
 
-	triangle3->vertices->push_back(*v1);
-	triangle3->vertices->push_back(*v2);
-	triangle3->vertices->push_back(*v3);
+	triangle3->gfx->vertices->push_back(*v1);
+	triangle3->gfx->vertices->push_back(*v2);
+	triangle3->gfx->vertices->push_back(*v3);
 	
-	triangle3->colors->push_back(*c2);
-	triangle3->colors->push_back(*c2);
-	triangle3->colors->push_back(*c2);
+	triangle3->gfx->colors->push_back(*c2);
+	triangle3->gfx->colors->push_back(*c2);
+	triangle3->gfx->colors->push_back(*c2);
 	triangle3->transformation = (new Matrix4x4f())->Translate(-2, 0, 0);
 
-	triangle3->CreateVBO();
+	triangle3->gfx->CreateVBO();
 
 	triangle1->children->push_back(*triangle3);
 	
@@ -137,7 +138,8 @@ SceneGraphManager *createGraphVBO()
 	auto camera = new Camera();
 	camera->Position = *(new Vector3f(0, 0, 0));
 	camera->LookAt = *(new Vector3f(0, 0, -1));
-	camera->Up = *(new Vector3f(1, 1, 0));
+	camera->Up = *(new Vector3f(0, 1, 0));
+	//camera->Up = *(new Vector3f(1, 1, 0));
 
 	
 
@@ -146,8 +148,8 @@ SceneGraphManager *createGraphVBO()
 
 void deleteGraphVBO(Object *root)
 {
-	glDeleteBuffersARB(1, &(root->vboId));
-	glDeleteBuffersARB(1, &(root->cboId));
+	glDeleteBuffersARB(1, &(root->gfx->vboId));
+	glDeleteBuffersARB(1, &(root->gfx->cboId));
 
 	if(root->children->size() < 0)
 	{

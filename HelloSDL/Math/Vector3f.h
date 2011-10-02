@@ -11,6 +11,10 @@ public:
 	float y();
 	float z();
 
+	void SetX(float x);
+	void SetY(float y);
+	void SetZ(float z);
+
 private:
 	float vertices[3];
 };
