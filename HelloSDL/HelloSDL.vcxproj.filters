@@ -135,6 +135,12 @@
     <ClCompile Include="TestEventSubscribtion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Managers\Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Abstractions\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events\EventObject.h">
@@ -173,9 +179,6 @@
     <ClInclude Include="Game\SceneData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\FPSCalculator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Managers\EventManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
@@ -183,6 +186,21 @@
       <Filter>Header Files\Macros</Filter>
     </ClInclude>
     <ClInclude Include="TestEventSubscribtion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\Engine.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Abstractions\Time.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Abstractions\Window.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Assertion.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\FPSCalculator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

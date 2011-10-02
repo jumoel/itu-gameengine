@@ -37,7 +37,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\SDL\SDL-1.2.14\include;C:\GLEW\glew-1.7.0\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\SDL\SDL-1.2.14\include;C:\GLEW\glew-1.7.0\include;$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>C:\SDL\SDL-1.2.14\lib;C:\GLEW\glew-1.7.0\lib;$(LibraryPath)</LibraryPath>
@@ -74,12 +74,14 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Abstractions\Window.cpp" />
     <ClCompile Include="Game\Camera.cpp" />
     <ClCompile Include="Events\CollisionEvent.cpp" />
     <ClCompile Include="Events\EventObject.cpp" />
     <ClCompile Include="Game\FPSCalculator.cpp" />
     <ClCompile Include="HelloSDL.cpp" />
     <ClCompile Include="Events\Input\KeyPressedEvent.cpp" />
+    <ClCompile Include="Managers\Engine.cpp" />
     <ClCompile Include="Managers\InputManager.cpp" />
     <ClCompile Include="Math\Matrix4x4f.cpp" />
     <ClCompile Include="Math\Vector3f.cpp" />
@@ -91,12 +93,16 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClCompile Include="TestEventSubscribtion.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Assertion.hpp" />
+    <ClInclude Include="Abstractions\Time.hpp" />
+    <ClInclude Include="Abstractions\Window.hpp" />
+    <ClInclude Include="Managers\Engine.hpp" />
     <ClInclude Include="Managers\EventManager.h" />
     <ClInclude Include="Game\Camera.h" />
     <ClInclude Include="Events\CollisionEvent.h" />
     <ClInclude Include="Events\EventObject.h" />
     <ClInclude Include="Events\Input\KeyPressedEvent.h" />
-    <ClInclude Include="Game\FPSCalculator.h" />
+    <ClInclude Include="Game\FPSCalculator.hpp" />
     <ClInclude Include="Managers\InputManager.h" />
     <ClInclude Include="Math\Matrix4x4f.h" />
     <ClInclude Include="Math\Vector3f.h" />

@@ -1,9 +1,9 @@
 #ifndef ITUENGINE_SCENEGRAPHMANAGER_H
 #define ITUENGINE_SCENEGRAPHMANAGER_H
 
-#include "../Game/Camera.h"
-#include "../Game/Object.h"
-#include "../Game/FPSCalculator.h"
+#include <Game/Camera.h>
+#include <Game/Object.h>
+#include <Game/FPSCalculator.hpp>
 
 #include "SDL.h"
 

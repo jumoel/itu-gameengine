@@ -19,10 +19,10 @@
 //FOR TESTING PURPOSES !
 #include "TestEventSubscribtion.h"
 
-#include "Game/SceneData.h"
-#include "Game/Camera.h"
-#include "Managers/SceneGraphManager.h"
-#include "Game/FPSCalculator.h"
+#include <Game/SceneData.h>
+#include <Game/Camera.h>
+#include <Managers/SceneGraphManager.h>
+#include <Game/FPSCalculator.hpp>
 
 /* screen width, height, and bit depth */
 #define SCREEN_WIDTH  640
@@ -174,7 +174,6 @@ bool IsExtensionSupported( char* szTargetExtension )
 int initGL( GLvoid )
 {
 	vboOn = IsExtensionSupported( "GL_ARB_vertex_buffer_object" );
-	//vboOn = false;
 
     if( vboOn )
     {
@@ -184,7 +183,6 @@ int initGL( GLvoid )
         glBufferDataARB = (PFNGLBUFFERDATAARBPROC) wglGetProcAddress("glBufferDataARB");
         glDeleteBuffersARB = (PFNGLDELETEBUFFERSARBPROC) wglGetProcAddress("glDeleteBuffersARB");
     }
-
 
 	start = SDL_GetTicks();
 	last = SDL_GetTicks();
