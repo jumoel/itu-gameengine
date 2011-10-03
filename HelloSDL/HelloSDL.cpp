@@ -234,7 +234,7 @@ int drawGLScene( GLvoid )
 	return( TRUE );
 }
 
-int main( int argc, char **argv )
+int main_old( int argc, char **argv )
 {
 	/* Flags to pass to SDL_SetVideoMode */
 	int videoFlags;

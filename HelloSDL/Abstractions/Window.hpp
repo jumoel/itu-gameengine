@@ -12,7 +12,7 @@ public:
 	void StartUp();
 	void ShutDown();
 
-	void Resize() const;
+	void Resize();
 	void Resize(int Width, int Height);
 	
 	void SetHeight(int Height);
@@ -23,6 +23,8 @@ public:
 
 	void SetColorDepth(int ColorDepth);
 	int ColorDepth() const;
+
+	void SetWindowTitle(char *Title);
 
 private:
 	int m_Height;

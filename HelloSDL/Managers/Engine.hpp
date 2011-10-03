@@ -10,12 +10,16 @@ public:
 	void Run();
 	void StartUp();
 	void ShutDown();
-
+	
 	FPSCalculator *GetFPSCalculator();
+	Window *GetWindow();
 
 private:
 	Window * m_Window;
 	FPSCalculator * m_FPSCalculator;
+	bool m_Running;
+
+	void RunGraphics();
 };
 
 #endif

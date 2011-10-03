@@ -18,6 +18,7 @@ int FPSCalculator::GetFPS()
 	return FPSSaved;
 }
 
+// Deprecated, do not use!!
 void FPSCalculator::SetFPSTitle()
 {
 	char str[128];

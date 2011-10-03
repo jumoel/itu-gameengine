@@ -75,6 +75,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Abstractions\Window.cpp" />
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="Game\Camera.cpp" />
     <ClCompile Include="Events\CollisionEvent.cpp" />
     <ClCompile Include="Events\EventObject.cpp" />

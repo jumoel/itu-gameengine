@@ -89,8 +89,10 @@ void Window::SetVideoMode()
 	ASSERT_MSG(Surface, SDL_GetError());
 }
 
-void Window::Resize() const
+void Window::Resize()
 {
+	SetVideoMode();
+
 	int height = m_Height;
 	int width = m_Width;
 
@@ -108,13 +110,20 @@ void Window::Resize() const
 	gluPerspective(45.0f, ratio, 0.0f, 100.0f);
 }
 
+void Window::SetWindowTitle(char *Title)
+{
+	SDL_WM_SetCaption(Title, "");
+}
+
 void Window::Resize(int Width, int Height)
 {
-	SetHeight(Height);
 	SetWidth(Width);
+	SetHeight(Height);
 
 	Resize();
 }
+
+
 
 void Window::SetHeight(int Height)
 {
