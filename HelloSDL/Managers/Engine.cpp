@@ -1,6 +1,8 @@
-#include <Abstractions/Time.hpp>
 #include <Managers/Engine.hpp>
+
+#include <Abstractions/Time.hpp>
 #include <Game/FPSCalculator.hpp>
+#include <Subsystems/Graphics/GraphicsSystem.h>
 
 void Engine::Run()
 {
@@ -43,14 +45,14 @@ void Engine::Run()
 		}
 
 		// Calculate and show FPS in title bar
-		GetFPSCalculator()->SetCurrentTime(Time::GetCurrentMS());
+		m_FPSCalculator->SetCurrentTime(Time::GetCurrentMS());
 
 		char title[15];
-		sprintf_s(title,"FPS: %d", GetFPSCalculator()->GetFPS());
-		GetWindow()->SetWindowTitle(title);
+		sprintf_s(title,"FPS: %d", m_FPSCalculator->GetFPS());
+		m_Window->SetWindowTitle(title);
 
 		// Display the graphics
-		RunGraphics();
+		//m_Graphics->Render();
 	}
 }
 
@@ -64,6 +66,9 @@ void Engine::StartUp()
 	m_Window = new Window();
 	m_Window->StartUp();
 
+	m_Graphics = new GraphicsSystem();
+	m_Graphics->StartUp();
+
 	m_FPSCalculator = new FPSCalculator();
 	m_FPSCalculator->StartUp();
 
@@ -76,15 +81,7 @@ void Engine::ShutDown()
 
 	m_FPSCalculator->ShutDown();
 
+	m_Graphics->ShutDown();
+
 	m_Window->ShutDown();
-}
-
-FPSCalculator * Engine::GetFPSCalculator()
-{
-	return m_FPSCalculator;
-}
-
-Window * Engine::GetWindow()
-{
-	return m_Window;
 }

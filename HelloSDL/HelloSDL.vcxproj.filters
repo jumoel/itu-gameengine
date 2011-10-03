@@ -156,6 +156,9 @@
     <ClCompile Include="Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Subsystems\Graphics\GraphicsSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events\EventObject.h">
@@ -182,17 +185,11 @@
     <ClInclude Include="Managers\InputManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Managers\SceneGraphManager.h">
-      <Filter>Header Files\Managers</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Camera.h">
       <Filter>Header Files\World\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Game\Object.h">
       <Filter>Header Files\World\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\SceneData.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Managers\EventManager.h">
       <Filter>Header Files\Managers</Filter>
@@ -229,6 +226,15 @@
     </ClInclude>
     <ClInclude Include="Templates\TSingleton.h">
       <Filter>Header Files\Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\SceneGraphManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Subsystems\Graphics\GraphicsSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\SceneData.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

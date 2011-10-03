@@ -3,6 +3,7 @@
 
 #include <Game/FPSCalculator.hpp>
 #include <Abstractions/Window.hpp>
+#include <Subsystems/Graphics/GraphicsSystem.h>
 
 class Engine
 {
@@ -11,12 +12,14 @@ public:
 	void StartUp();
 	void ShutDown();
 	
-	FPSCalculator *GetFPSCalculator();
-	Window *GetWindow();
+	FPSCalculator *GetFPSCalculator() { return m_FPSCalculator; }
+	Window *GetWindow() { return m_Window; }
 
 private:
-	Window * m_Window;
-	FPSCalculator * m_FPSCalculator;
+	Window *m_Window;
+	FPSCalculator *m_FPSCalculator;
+	GraphicsSystem *m_Graphics;
+
 	bool m_Running;
 
 	void RunGraphics();

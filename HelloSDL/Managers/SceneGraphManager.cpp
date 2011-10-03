@@ -1,5 +1,5 @@
-#include "SceneGraphManager.h"
-#include "SDL.h"
+#include <Managers/SceneGraphManager.hpp>
+#include <SDL.h>
 //#include "sdl_opengl.h"
 #include "GL/glew.h"
 #include <iostream>

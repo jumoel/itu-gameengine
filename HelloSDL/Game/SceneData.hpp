@@ -1,7 +1,7 @@
 #ifndef ITUENGINE_SCENEDATA_H
 #define ITUENGINE_SCENEDATA_H
 
-#include "../Managers/SceneGraphManager.h"
+#include <Managers/SceneGraphManager.hpp>
 
 SceneGraphManager *createGraph();
 SceneGraphManager *createGraphVBO();

@@ -19,9 +19,9 @@
 //FOR TESTING PURPOSES !
 #include "TestEventSubscribtion.h"
 
-#include <Game/SceneData.h>
+#include <Game/SceneData.hpp>
 #include <Game/Camera.h>
-#include <Managers/SceneGraphManager.h>
+#include <Managers/SceneGraphManager.hpp>
 #include <Game/FPSCalculator.hpp>
 #include <Managers/MediaManager.h>
 

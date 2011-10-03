@@ -47,6 +47,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -94,6 +95,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClCompile Include="Game\Object.cpp" />
     <ClCompile Include="Game\SceneData.cpp" />
     <ClCompile Include="Managers\SceneGraphManager.cpp" />
+    <ClCompile Include="Subsystems\Graphics\GraphicsSystem.cpp" />
     <ClCompile Include="TestEventSubscribtion.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -116,9 +118,10 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Events\Input\MouseClickEvent.h" />
     <ClInclude Include="Events\Input\MouseMoveEvent.h" />
     <ClInclude Include="Game\Object.h" />
-    <ClInclude Include="Game\SceneData.h" />
-    <ClInclude Include="Managers\SceneGraphManager.h" />
+    <ClInclude Include="Game\SceneData.hpp" />
+    <ClInclude Include="Managers\SceneGraphManager.hpp" />
     <ClInclude Include="Macros\EventMacros.h" />
+    <ClInclude Include="Subsystems\Graphics\GraphicsSystem.h" />
     <ClInclude Include="Templates\TSingleton.h" />
     <ClInclude Include="TestEventSubscribtion.h" />
   </ItemGroup>
