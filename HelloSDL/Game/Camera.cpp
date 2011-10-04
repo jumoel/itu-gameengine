@@ -2,6 +2,7 @@
 #include "..\Managers\InputManager.h"
 #include "..\Math\Matrix4x4f.h"
 #include <cmath>
+#include "SDL.h"
 
 /* Region Construction & Deconstruction */
 
@@ -51,11 +52,9 @@ void Camera::MoveCamera3D(Vector3f *newPosition)
 //Limited to 90° Up/Down
 void Camera::PitchCamera(float radians)
 {
-	float xUp = Up.x();
 	float yUp = Up.y();
 	float zUp = Up.z();
 
-	float rUpPlusTx = xUp;
 	float rUpPlusTy = yUp*cos(radians) - zUp*sin(radians);
 	float rUpPlusTz = yUp*sin(radians) + zUp*cos(radians);
 
@@ -107,14 +106,19 @@ void Camera::YawCamera(float radians)
 //Rotates the camera around the z axis, of the LookAt vector. Positive is clockwise, negative is counter-clockwise.
 void Camera::RollCamera(float radians)
 {
-	float xLook = LookAt.x();
-	float yLook = LookAt.y();
-	float zLook = LookAt.z();
 	float xUp = Up.x();
 	float yUp = Up.y();
-	float zUp = Up.z();
-	
 
+	float rUpPlusTx = xUp*cos(radians) - yUp*sin(radians);
+	float rUpPlusTy = xUp*sin(radians) + yUp*cos(radians);
+
+	if(rUpPlusTy <= 0)
+	{
+		return;
+	}
+
+	Up.SetX(rUpPlusTx);
+	Up.SetY(rUpPlusTy);
 }
 
 //Zooms the camera in or out, Negative is out and Positive is in.
@@ -259,7 +263,20 @@ void Camera::OnButtonUp(MouseClickEvent *button)
 
 void Camera::OnMotion(MouseMoveEvent *motion)
 {
+	static bool ignoreNextMotionEvent;
+
+	if(ignoreNextMotionEvent)
+	{
+		ignoreNextMotionEvent = false;
+		return;
+	}
+
 	auto motionInput = motion->GetInput();
+	auto screenInfo = SDL_GetVideoInfo();
+	auto screenWidth = screenInfo->current_w;
+	auto screenHeight = screenInfo->current_h;
+
+	SDL_WM_GrabInput(SDL_GRAB_ON);
 
 	float lookx = 0;
 	float looky = 0;
@@ -269,32 +286,56 @@ void Camera::OnMotion(MouseMoveEvent *motion)
 	float upy = 0;
 	float upz = 0;
 
+	float sensitivity = 0.01f;
+	float edgeScrollSpeed = 5.0f;
+
 	if(isLeftButtonDown)
 	{
-		PitchCamera(motionInput->yrel * 0.01f);
-		YawCamera(-motionInput->xrel * 0.01f);
+		PitchCamera(motionInput->yrel * sensitivity);
+		YawCamera(-motionInput->xrel * sensitivity);
 	}
 	else if(isRightButtonDown)
 	{
-		// TESTING FACILITIES !
-		// REMOVE OR REDO WHEN TESTING IS DONE!
-		lookx = this->LookAt.x();
-		lookz = this->LookAt.z();
-		
-		auto asinLookx = asin(lookx);
-		auto asinLookz = asin(lookz);
+		if(0 < motionInput->x && motionInput->x < screenWidth - 1)
+		{
+			MoveCameraLeftRight2D(motionInput->xrel *sensitivity);
+		}
+		else
+		{
+			MoveCameraLeftRight2D(motionInput->xrel * sensitivity * edgeScrollSpeed);
+			if(motionInput->x == 0)
+			{	
+				SDL_WarpMouse(motionInput->x + 1, motionInput->y);
+				ignoreNextMotionEvent = true;
+			}
+			
+			if(motionInput->x == screenWidth - 1)
+			{
+				SDL_WarpMouse(motionInput->x - 1, motionInput->y);
+				ignoreNextMotionEvent = true;
+			}
+		}
 
-		this->LookAt.SetX( sinf( asinLookx + (motionInput->xrel * 0.1f)));
-		this->LookAt.SetZ( sinf( asinLookz + (motionInput->xrel * 0.1f)));
-
-		/*looky = this->LookAt.y();
-		this->LookAt.SetY(looky + (motionInput->yrel * 0.01f));
-		*/
+		if(0 < motionInput->y && motionInput->y < screenHeight - 1)
+		{
+			MoveCameraUpDown2D(motionInput->yrel * sensitivity);
+		}
+		else
+		{
+			MoveCameraUpDown2D(motionInput->yrel * sensitivity * edgeScrollSpeed);
+			if(motionInput->y == 0)
+			{	
+				SDL_WarpMouse(motionInput->x, motionInput->y + 1);
+				ignoreNextMotionEvent = true;
+			}
+			
+			if(motionInput->y == screenHeight - 1)
+			{
+				SDL_WarpMouse(motionInput->x, motionInput->y - 1);
+				ignoreNextMotionEvent = true;
+			}
+		}
 		
-		
-
-		/*upz = this->Up.z();
-		this->Up.SetZ(upz + (motionInput->yrel * 0.01f));*/
 	}
 }
 
@@ -328,16 +369,20 @@ void Camera::OnKeyDown(KeyPressedEvent *key)
 
 		//Control rotation
 		case SDLK_q:
-			RollCamera(0.5f);
+			RollCamera(-0.1f);
 			break;
 		case SDLK_e:
-			RollCamera(-0.5f);
+			RollCamera(0.1f);
 			break;	
 
 		//Reset the camera
 		case SDLK_SPACE:
 			ResetCamera();
 			break;
+
+		case SDLK_ESCAPE:
+			SDL_Quit();
+			exit(0);
 	}
 }
 

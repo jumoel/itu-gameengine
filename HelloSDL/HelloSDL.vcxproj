@@ -88,6 +88,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClCompile Include="Managers\Engine.cpp" />
     <ClCompile Include="Managers\InputManager.cpp" />
     <ClCompile Include="Managers\MediaManager.cpp" />
+    <ClCompile Include="Managers\SettingsManager.cpp" />
     <ClCompile Include="Math\Matrix4x4f.cpp" />
     <ClCompile Include="Math\Vector3f.cpp" />
     <ClCompile Include="Events\Input\MouseClickEvent.cpp" />
@@ -113,6 +114,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Game\FPSCalculator.hpp" />
     <ClInclude Include="Managers\InputManager.h" />
     <ClInclude Include="Managers\MediaManager.h" />
+    <ClInclude Include="Managers\SettingsManager.h" />
     <ClInclude Include="Math\Matrix4x4f.h" />
     <ClInclude Include="Math\Vector3f.h" />
     <ClInclude Include="Events\Input\MouseClickEvent.h" />

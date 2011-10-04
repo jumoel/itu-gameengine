@@ -11,10 +11,12 @@ class MediaManager
 	SINGLETON( MediaManager )
 
 public:
+	
+	Texture* warrior;
+	//std::list<Texture*> *textures;
+	Texture* LoadTexture(char *filename, char* name);
 
-	std::list<Texture*> textures;
-	bool LoadTexture(char *filename, char* name);
-
+	void Init();
 };
 
 #endif

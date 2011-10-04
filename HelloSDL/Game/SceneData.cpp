@@ -1,6 +1,7 @@
 #include <Game/SceneData.hpp>
 #include "Camera.h"
 #include <Managers/SceneGraphManager.hpp>
+#include "../Managers/MediaManager.h"
 
 SceneGraphManager *createGraph()
 {
@@ -23,6 +24,10 @@ SceneGraphManager *createGraph()
 	auto c2 = new Vector3f(0, 1, 0);
 	auto c3 = new Vector3f(0, 0, 1);
 
+	auto uv1 = new TexCoord(0.0f , 0.0f);
+	auto uv2 = new TexCoord(0.0f , 1.0f);
+	auto uv3 = new TexCoord(1.0f , 1.0f);
+
 	triangle1->gfx->vertices->push_back(*v1);
 	triangle1->gfx->vertices->push_back(*v2);
 	triangle1->gfx->vertices->push_back(*v3);
@@ -30,6 +35,12 @@ SceneGraphManager *createGraph()
 	triangle1->gfx->colors->push_back(*c1);
 	triangle1->gfx->colors->push_back(*c2);
 	triangle1->gfx->colors->push_back(*c3);
+
+	triangle1->gfx->uv->push_back(*uv1);
+	triangle1->gfx->uv->push_back(*uv2);
+	triangle1->gfx->uv->push_back(*uv3);
+
+	triangle1->gfx->texture = SINGLETONINSTANCE(MediaManager)->warrior;
 	
 	auto triangle2 = new Object();
 	triangle2->Name = "T2";
@@ -41,6 +52,13 @@ SceneGraphManager *createGraph()
 	triangle2->gfx->colors->push_back(*c1);
 	triangle2->gfx->colors->push_back(*c1);
 	triangle2->gfx->colors->push_back(*c1);
+
+	triangle2->gfx->uv->push_back(*uv1);
+	triangle2->gfx->uv->push_back(*uv2);
+	triangle2->gfx->uv->push_back(*uv3);
+
+	triangle2->gfx->texture = SINGLETONINSTANCE(MediaManager)->warrior;
+
 	triangle2->transformation = (new Matrix4x4f())->Translate(0, 0, -4.0f);
 
 	triangle1->children->push_back(*triangle2);
@@ -55,6 +73,13 @@ SceneGraphManager *createGraph()
 	triangle3->gfx->colors->push_back(*c2);
 	triangle3->gfx->colors->push_back(*c2);
 	triangle3->gfx->colors->push_back(*c2);
+
+	triangle3->gfx->uv->push_back(*uv1);
+	triangle3->gfx->uv->push_back(*uv2);
+	triangle3->gfx->uv->push_back(*uv3);
+
+	triangle3->gfx->texture = SINGLETONINSTANCE(MediaManager)->warrior;
+
 	triangle3->transformation = (new Matrix4x4f())->Translate(-2, 0, 0);
 
 	triangle1->children->push_back(*triangle3);
@@ -91,6 +116,10 @@ SceneGraphManager *createGraphVBO()
 	auto c2 = new Vector3f(0, 1, 0);
 	auto c3 = new Vector3f(0, 0, 1);
 
+	auto uv1 = new TexCoord(0.0f , 0.0f);
+	auto uv2 = new TexCoord(0.0f , 1.0f);
+	auto uv3 = new TexCoord(1.0f , 1.0f);
+
 	triangle1->gfx->vertices->push_back(*v1);
 	triangle1->gfx->vertices->push_back(*v2);
 	triangle1->gfx->vertices->push_back(*v3);
@@ -98,6 +127,12 @@ SceneGraphManager *createGraphVBO()
 	triangle1->gfx->colors->push_back(*c1);
 	triangle1->gfx->colors->push_back(*c2);
 	triangle1->gfx->colors->push_back(*c3);
+
+	triangle1->gfx->uv->push_back(*uv1);
+	triangle1->gfx->uv->push_back(*uv2);
+	triangle1->gfx->uv->push_back(*uv3);
+
+	triangle1->gfx->texture = SINGLETONINSTANCE(MediaManager)->warrior;
 	
 	triangle1->gfx->CreateVBO();
 
@@ -111,6 +146,13 @@ SceneGraphManager *createGraphVBO()
 	triangle2->gfx->colors->push_back(*c1);
 	triangle2->gfx->colors->push_back(*c1);
 	triangle2->gfx->colors->push_back(*c1);
+
+	triangle2->gfx->uv->push_back(*uv1);
+	triangle2->gfx->uv->push_back(*uv2);
+	triangle2->gfx->uv->push_back(*uv3);
+
+	triangle2->gfx->texture = SINGLETONINSTANCE(MediaManager)->warrior;
+
 	triangle2->transformation = (new Matrix4x4f())->Translate(0, 0, -4.0f);
 
 	triangle2->gfx->CreateVBO();
@@ -127,6 +169,13 @@ SceneGraphManager *createGraphVBO()
 	triangle3->gfx->colors->push_back(*c2);
 	triangle3->gfx->colors->push_back(*c2);
 	triangle3->gfx->colors->push_back(*c2);
+
+	triangle3->gfx->uv->push_back(*uv1);
+	triangle3->gfx->uv->push_back(*uv2);
+	triangle3->gfx->uv->push_back(*uv3);
+
+	triangle3->gfx->texture = SINGLETONINSTANCE(MediaManager)->warrior;
+
 	triangle3->transformation = (new Matrix4x4f())->Translate(-2, 0, 0);
 
 	triangle3->gfx->CreateVBO();

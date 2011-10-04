@@ -111,6 +111,9 @@ void SceneGraphManager::RenderObjectVBO(Object *obj)
 	
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	//glBindTexture(GL_TEXTURE_2D, obj->gfx->texture->texID);
 
 	glBindBufferARB( GL_ARRAY_BUFFER_ARB, obj->gfx->vboId);
 	glVertexPointer(3, GL_FLOAT, 0, (char *) NULL);
@@ -118,10 +121,14 @@ void SceneGraphManager::RenderObjectVBO(Object *obj)
 	glBindBufferARB( GL_ARRAY_BUFFER_ARB, obj->gfx->cboId);
 	glColorPointer( 3, GL_FLOAT, 0, (char *) NULL);
 
+	glBindBufferARB( GL_ARRAY_BUFFER_ARB, obj->gfx->tboId );
+    glTexCoordPointer( 2, GL_FLOAT, 0, (char *) NULL );				 
+
 	glDrawArrays( GL_TRIANGLES, 0, obj->gfx->vertices->size() );
 
 	glDisableClientState( GL_VERTEX_ARRAY );
 	glDisableClientState( GL_COLOR_ARRAY );
+	glDisableClientState( GL_TEXTURE_COORD_ARRAY);
 
 	for (auto c = obj->children->begin(); c != obj->children->end(); c++)
 	{

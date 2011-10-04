@@ -159,6 +159,9 @@
     <ClCompile Include="Managers\SceneGraphManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Managers\SettingsManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events\EventObject.h">
@@ -239,17 +242,17 @@
     <ClInclude Include="Managers\MediaManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Managers\SceneGraphManager.h">
-      <Filter>Header Files\Managers</Filter>
-    </ClInclude>
     <ClInclude Include="Managers\SceneGraphManager.hpp">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\Graphics\GraphicsSystem.h">
+    <ClInclude Include="Subsystems\Graphics\GraphicsSystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\SceneData.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\SettingsManager.h">
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

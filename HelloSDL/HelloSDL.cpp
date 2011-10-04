@@ -185,10 +185,13 @@ int initGL( GLvoid )
         glDeleteBuffersARB = (PFNGLDELETEBUFFERSARBPROC) wglGetProcAddress("glDeleteBuffersARB");
     }
 
-	SINGLETONINSTANCE(MediaManager)->LoadTexture("Resources/Space_Warrior.tga", "Warrior");
-	std::cout << "Size of MediaManager->textures " << SINGLETONINSTANCE(MediaManager)->textures.size() <<  std::endl;
+	SINGLETONINSTANCE(MediaManager)->Init();
+	std::cout << "Warrior name: " << SINGLETONINSTANCE(MediaManager)->warrior->name <<  std::endl;
 	start = SDL_GetTicks();
 	last = SDL_GetTicks();
+
+	/* Enable textures */
+	glEnable(GL_TEXTURE_2D);
 
 	/* Enable smooth shading */
 	glShadeModel( GL_SMOOTH );
@@ -296,9 +299,7 @@ int main_old( int argc, char **argv )
 		Quit( 1 );
 	}
 
-	/* subscribe to events */
 	//NOTE THIS IS A TEST !!!!!
-	//SubscribeToKeyboardEvents();
     auto eventSubscribtion = new TestEventSubscribtion();
 
 	/* initialize OpenGL */
@@ -352,8 +353,17 @@ int main_old( int argc, char **argv )
 			default:
 				break;
 			}
-		}
-		
+		}	
+
+		/*	Collision Detection */  
+		//NOT IMPLEMENTED YET !!!
+
+		/*	Physics Calculation */  
+		//NOT IMPLEMENTED YET !!!
+
+		/*	Timed events */			
+		//NOT IMPLEMENTED YET !!!
+
 		/* draw the scene */
 		drawGLScene( );
 	}
