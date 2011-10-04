@@ -10,20 +10,20 @@
 #include "GL/glew.h"
 #include "GL/wglew.h"
 
-#include "Events/Input/KeyPressedEvent.h"
-#include "Events/Input/MouseClickEvent.h"
-#include "Events/Input/MouseMoveEvent.h"
+#include <Events/Input/KeyPressedEvent.hpp>
+#include <Events/Input/MouseClickEvent.hpp>
+#include <Events/Input/MouseMoveEvent.hpp>
 
-#include "Managers/InputManager.h"
+#include <Managers/InputManager.hpp>
 
 //FOR TESTING PURPOSES !
-#include "TestEventSubscribtion.h"
+#include <TestEventSubscribtion.hpp>
 
 #include <Game/SceneData.hpp>
-#include <Game/Camera.h>
+#include <Game/Camera.hpp>
 #include <Managers/SceneGraphManager.hpp>
 #include <Game/FPSCalculator.hpp>
-#include <Managers/MediaManager.h>
+#include <Managers/MediaManager.hpp>
 
 /* screen width, height, and bit depth */
 #define SCREEN_WIDTH  640

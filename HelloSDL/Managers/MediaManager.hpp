@@ -3,8 +3,8 @@
 
 #include <list>
 #include <vector>
-#include "../Game/Texture.h"
-#include "../Templates/TSingleton.h"
+#include <Game/Texture.hpp>
+#include <Templates/TSingleton.hpp>
 
 class MediaManager
 {

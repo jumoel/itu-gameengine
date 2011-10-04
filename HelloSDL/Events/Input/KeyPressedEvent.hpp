@@ -1,9 +1,9 @@
 #ifndef ITUENGINE_KEYPRESSEDEVENT_H
 #define ITUENGINE_KEYPRESSEDEVENT_H
 
-#include "SDL_events.h"
-#include "../eventobject.h"
-#include "../../Macros/EventMacros.h"
+#include <SDL_events.h>
+#include <Events/EventObject.hpp>
+#include <Macros/EventMacros.hpp>
 #include <iostream>
 
 class KeyPressedEvent :

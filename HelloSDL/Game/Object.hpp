@@ -1,9 +1,7 @@
 #ifndef ITUENGINE_OBJECT_H
 #define ITUENGINE_OBJECT_H
 
-#include "GfxModel.h"
-//#include "sdl_opengl.h"
-#include "GL/glew.h"
+#include <Game/GfxModel.hpp>
 
 class Object
 {

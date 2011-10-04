@@ -1,6 +1,6 @@
-#include "GfxModel.h"
+#include <Game/GfxModel.hpp>
 #include <iostream>
-#include "../Managers/MediaManager.h"
+#include <Managers/MediaManager.hpp>
 
 GfxModel::GfxModel()
 {

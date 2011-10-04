@@ -1,10 +1,10 @@
 #ifndef ITUENGINE_INPUTMANAGER_H
 #define ITUENGINE_INPUTMANAGER_H
 
-#include "EventManager.h"
-#include "..\Events\Input\KeyPressedEvent.h"
-#include "..\Events\Input\MouseClickEvent.h"
-#include "..\Events\Input\MouseMoveEvent.h"
+#include <Managers/EventManager.hpp>
+#include <Events/Input/KeyPressedEvent.hpp>
+#include <Events/Input/MouseClickEvent.hpp>
+#include <Events/Input/MouseMoveEvent.hpp>
 
 namespace InputManager
 { 

@@ -1,4 +1,4 @@
-#include "Vector3f.h"
+#include <Math/Vector3f.hpp>
 
 Vector3f::Vector3f(float x, float y, float z)
 {

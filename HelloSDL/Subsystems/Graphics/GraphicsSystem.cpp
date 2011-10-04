@@ -1,4 +1,4 @@
-#include <Subsystems/Graphics/GraphicsSystem.h>
+#include <Subsystems/Graphics/GraphicsSystem.hpp>
 #include <Game/SceneData.hpp>
 
 void GraphicsSystem::StartUp()

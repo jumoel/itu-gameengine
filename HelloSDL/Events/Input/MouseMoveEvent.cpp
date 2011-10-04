@@ -1,4 +1,4 @@
-#include "MouseMoveEvent.h"
+#include <Events/Input/MouseMoveEvent.hpp>
 
 MouseMoveEvent::MouseMoveEvent(SDL_MouseMotionEvent *input, short eventtype) : EventObject(eventtype)
 {

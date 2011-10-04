@@ -164,51 +164,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Events\EventObject.h">
-      <Filter>Header Files\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\CollisionEvent.h">
-      <Filter>Header Files\Events\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Matrix4x4f.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Vector3f.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\Input\MouseMoveEvent.h">
-      <Filter>Header Files\Events\Input\Mouse</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\Input\KeyPressedEvent.h">
-      <Filter>Header Files\Events\Input\Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\Input\MouseClickEvent.h">
-      <Filter>Header Files\Events\Input\Mouse</Filter>
-    </ClInclude>
-    <ClInclude Include="Managers\InputManager.h">
-      <Filter>Header Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Camera.h">
-      <Filter>Header Files\World\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Object.h">
-      <Filter>Header Files\World\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Managers\EventManager.h">
-      <Filter>Header Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\SceneData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\FPSCalculator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Macros\EventMacros.h">
-      <Filter>Header Files\Macros</Filter>
-    </ClInclude>
-    <ClInclude Include="TestEventSubscribtion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Managers\Engine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -224,34 +179,76 @@
     <ClInclude Include="Game\FPSCalculator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GfxModel.h">
-      <Filter>Header Files\World\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Texture.h">
-      <Filter>Header Files\World\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Templates\TSingleton.h">
-      <Filter>Header Files\Templates</Filter>
-    </ClInclude>
     <ClInclude Include="Managers\EventManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Managers\InputManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Managers\MediaManager.h">
-      <Filter>Header Files\Managers</Filter>
-    </ClInclude>
     <ClInclude Include="Managers\SceneGraphManager.hpp">
       <Filter>Header Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Subsystems\Graphics\GraphicsSystem.hpp">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\SceneData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Managers\SettingsManager.h">
+    <ClInclude Include="Subsystems\Graphics\GraphicsSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GfxModel.hpp">
+      <Filter>Header Files\World\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera.hpp">
+      <Filter>Header Files\World\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Object.hpp">
+      <Filter>Header Files\World\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Texture.hpp">
+      <Filter>Header Files\World\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\CollisionEvent.hpp">
+      <Filter>Header Files\Events\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\EventObject.hpp">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Input\KeyPressedEvent.hpp">
+      <Filter>Header Files\Events\Input\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Input\MouseClickEvent.hpp">
+      <Filter>Header Files\Events\Input\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Input\MouseMoveEvent.hpp">
+      <Filter>Header Files\Events\Input\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Macros\EventMacros.hpp">
+      <Filter>Header Files\Macros</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\InputManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\MediaManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\SettingsManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix4x4f.hpp">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3f.hpp">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Subsystems\Graphics\GraphicsSystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Templates\TSingleton.hpp">
+      <Filter>Header Files\Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="TestEventSubscribtion.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\EventManager.hpp">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>

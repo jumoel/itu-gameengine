@@ -3,7 +3,7 @@
 
 #include <Game/FPSCalculator.hpp>
 #include <Abstractions/Window.hpp>
-#include <Subsystems/Graphics/GraphicsSystem.h>
+#include <Subsystems/Graphics/GraphicsSystem.hpp>
 
 class Engine
 {

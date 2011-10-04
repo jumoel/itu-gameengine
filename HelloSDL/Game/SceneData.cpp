@@ -1,7 +1,7 @@
 #include <Game/SceneData.hpp>
-#include "Camera.h"
+#include <Game/Camera.hpp>
 #include <Managers/SceneGraphManager.hpp>
-#include "../Managers/MediaManager.h"
+#include <Managers/MediaManager.hpp>
 
 SceneGraphManager *createGraph()
 {

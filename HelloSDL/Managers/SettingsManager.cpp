@@ -1,4 +1,4 @@
-#include "SettingsManager.h"
+#include <Managers/SettingsManager.hpp>
 
 static float const SETTINGS_SENSIVITY = 1.0f;
 static float const SETTINGS_MOUSE_INVERT = 1.0f;

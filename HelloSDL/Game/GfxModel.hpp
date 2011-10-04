@@ -4,11 +4,9 @@
 #include <list>
 #include <vector>
 
-#include "Texture.h"
-#include "../Math/Matrix4x4f.h"
-#include "../Math/Vector3f.h"
-//#include "sdl_opengl.h"
-#include "GL/glew.h"
+#include <Game/Texture.hpp>
+#include <Math/Matrix4x4f.hpp>
+#include <Math/Vector3f.hpp>
 
 class TexCoord                                 // Texture Coordinate Class
 {

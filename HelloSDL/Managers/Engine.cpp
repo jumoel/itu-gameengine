@@ -2,7 +2,7 @@
 
 #include <Abstractions/Time.hpp>
 #include <Game/FPSCalculator.hpp>
-#include <Subsystems/Graphics/GraphicsSystem.h>
+#include <Subsystems/Graphics/GraphicsSystem.hpp>
 
 void Engine::Run()
 {
