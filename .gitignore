@@ -7,4 +7,5 @@ ipch
 *.*sdf
 *.ipch
 *.idc
-*.orig.DS_Store
+*.orig
+.DS_Store
