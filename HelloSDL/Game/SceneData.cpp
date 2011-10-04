@@ -79,7 +79,7 @@ SceneGraphManager *createGraphVBO()
 	triangle1->Name = "T1";
 
 	auto m = new Matrix4x4f();
-	m->Translate(0.0f, 0.0f, -4.0f);
+	m->Translate(0.0f, 0.0f, -10.0f);
 	
 	triangle1->transformation = m;
 

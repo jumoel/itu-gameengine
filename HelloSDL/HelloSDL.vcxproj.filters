@@ -117,12 +117,6 @@
     <ClCompile Include="Events\Input\MouseMoveEvent.cpp">
       <Filter>Source Files\Events\Input\Mouse</Filter>
     </ClCompile>
-    <ClCompile Include="Managers\InputManager.cpp">
-      <Filter>Source Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Managers\SceneGraphManager.cpp">
-      <Filter>Source Files\Managers</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Camera.cpp">
       <Filter>Source Files\World\GameObjects</Filter>
     </ClCompile>
@@ -150,6 +144,9 @@
     <ClCompile Include="Game\Texture.cpp">
       <Filter>Source Files\World\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Managers\InputManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
     <ClCompile Include="Managers\MediaManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
@@ -158,6 +155,9 @@
     </ClCompile>
     <ClCompile Include="Subsystems\Graphics\GraphicsSystem.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Managers\SceneGraphManager.cpp">
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +194,12 @@
     <ClInclude Include="Managers\EventManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
+    <ClInclude Include="Game\SceneData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\FPSCalculator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Macros\EventMacros.h">
       <Filter>Header Files\Macros</Filter>
     </ClInclude>
@@ -221,11 +227,20 @@
     <ClInclude Include="game\Texture.h">
       <Filter>Header Files\World\GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Templates\TSingleton.h">
+      <Filter>Header Files\Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\EventManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\InputManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
     <ClInclude Include="Managers\MediaManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Templates\TSingleton.h">
-      <Filter>Header Files\Templates</Filter>
+    <ClInclude Include="Managers\SceneGraphManager.h">
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Managers\SceneGraphManager.hpp">
       <Filter>Header Files\Managers</Filter>
