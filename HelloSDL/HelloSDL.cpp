@@ -14,7 +14,7 @@
 #include "Events/Input/MouseClickEvent.h"
 #include "Events/Input/MouseMoveEvent.h"
 
-#include "Managers\InputManager.h"
+#include "Managers/InputManager.h"
 
 //FOR TESTING PURPOSES !
 #include "TestEventSubscribtion.h"

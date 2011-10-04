@@ -7,6 +7,8 @@
 
 #include "SDL.h"
 
+#include <vector>
+
 
 class SceneGraphManager
 {
@@ -16,12 +18,18 @@ public:
 
 	void Render(Uint32 CurrentTime, bool vboOn);
 
-	Camera *CameraObject;
-	Object *RootNode;
+	void RenderVBO();
+
+	Camera* CameraObject;
+	Object* RootNode;
 
 private:
 	void RenderObject(Object *obj);
 	void RenderObjectVBO(Object *obj);
+
+	void RenderSingleObjectVBO(Object *obj);
+
+	std::vector<float> vertex_list;
 
 	Uint32 LastTime;
 	Uint32 DeltaTime;

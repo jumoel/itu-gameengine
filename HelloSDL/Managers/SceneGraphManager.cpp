@@ -12,6 +12,41 @@ SceneGraphManager::SceneGraphManager(Camera *CameraObject, Object *RootNode) :
 {
 }
 
+void SceneGraphManager::RenderVBO()
+{
+
+}
+
+void SceneGraphManager::RenderSingleObjectVBO(Object *obj)
+{
+	glPushMatrix();
+
+	glMultMatrixf(obj->transformation->data);
+
+	auto color_iter = obj->gfx->colors->begin();
+	auto vertex_iter = obj->gfx->vertices->begin();
+
+	glBegin(GL_TRIANGLES);
+
+	while (color_iter != obj->gfx->colors->end() && vertex_iter != obj->gfx->vertices->end())
+	{
+		glColor3f(color_iter->x(), color_iter->y(), color_iter->z());
+		glVertex3f(vertex_iter->x(), vertex_iter->y(), vertex_iter->z());
+
+		color_iter++;
+		vertex_iter++;
+	}
+
+	glEnd();
+
+	for (auto c = obj->children->begin(); c != obj->children->end(); c++)
+	{
+		SceneGraphManager::RenderObject(&(*c));
+	}
+
+	glPopMatrix();
+}
+
 void SceneGraphManager::Render(Uint32 CurrentTime, bool vboOn)
 {	
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );

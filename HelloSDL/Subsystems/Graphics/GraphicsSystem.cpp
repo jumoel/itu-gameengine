@@ -3,7 +3,7 @@
 
 void GraphicsSystem::StartUp()
 {
-
+	m_SceneGraph = createGraph();
 }
 
 void GraphicsSystem::ShutDown()
