@@ -356,10 +356,14 @@ int main( int argc, char **argv )
 			}
 		}	
 
-		/*	Collision Detection	*/  //NOT IMPLEMENTED YET !!!
+		/*	Collision Detection */  
+		//NOT IMPLEMENTED YET !!!
 
-		/*	Physics Calculation	*/  //NOT IMPLEMENTED YET !!!
+		/*	Physics Calculation */  
+		//NOT IMPLEMENTED YET !!!
 
+		/*	Timed events */			
+		//NOT IMPLEMENTED YET !!!
 
 		/* draw the scene */
 		drawGLScene( );
