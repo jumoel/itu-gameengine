@@ -1,6 +1,11 @@
 #include "MediaManager.h"
 
-bool MediaManager::LoadTexture(char *filename, char* name)                 // Loads A TGA File Into Memory
+void MediaManager::Init()
+{
+	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
+}
+
+Texture* MediaManager::LoadTexture(char *filename, char* name)                 // Loads A TGA File Into Memory
 {   
 	Texture *tex = new Texture();
 	tex->name = name;
@@ -23,13 +28,13 @@ bool MediaManager::LoadTexture(char *filename, char* name)                 // Lo
 		if (file == NULL)													// Did The File Even Exist?
 		{
 			std::cout << "ERROR! The file does not exist!" << std::endl; 
-			return false;													// Return False
+			return NULL;													// Return False
 		}
 		else
 		{
 			fclose(file);													// If Anything Failed, Close The File
 			std::cout << "ERROR! The file is not supported" << std::endl;
-			return false;													 // Return False
+			return NULL;													 // Return False
 		}
 	}
 
@@ -42,7 +47,7 @@ bool MediaManager::LoadTexture(char *filename, char* name)                 // Lo
 	{
 		fclose(file);														// If Anything Failed, Close The File
 		std::cout << "ERROR! The TGA is not 24 or 32bit" << std::endl;
-		return false;														// Return False
+		return NULL;														// Return False
 	}
 
 	tex->bpp		= header[4];											// Grab The TGA's Bits Per Pixel (24 or 32)
@@ -58,7 +63,7 @@ bool MediaManager::LoadTexture(char *filename, char* name)                 // Lo
 			free(tex->imageData);										// If So, Release The Image Data
 		fclose(file);														// Close The File
 		std::cout << "ERROR occured during loading the TGA" << std::endl;
-		return false;														// Return False
+		return NULL;														// Return False
 	}
 	
 	for(GLuint i=0; i<int(imageSize); i+=bytesPerPixel)						// Loop Through The Image Data
@@ -87,7 +92,6 @@ bool MediaManager::LoadTexture(char *filename, char* name)                 // Lo
 	
     glTexImage2D(GL_TEXTURE_2D, 0, type, tex->width, tex->height, 0, type, GL_UNSIGNED_BYTE, tex->imageData);
     
-	textures.push_back(tex);
 	std::cout << "The TGA has been loaded successfully" << std::endl;
-	return true;															// Success - Texture Building Went Ok, Return True
+	return tex;															// Success - Texture Building Went Ok, Return True
 }

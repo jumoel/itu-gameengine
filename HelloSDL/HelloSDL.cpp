@@ -186,10 +186,13 @@ int initGL( GLvoid )
         glDeleteBuffersARB = (PFNGLDELETEBUFFERSARBPROC) wglGetProcAddress("glDeleteBuffersARB");
     }
 
-	SINGLETONINSTANCE(MediaManager)->LoadTexture("Resources/Space_Warrior.tga", "Warrior");
-	std::cout << "Size of MediaManager->textures " << SINGLETONINSTANCE(MediaManager)->textures.size() <<  std::endl;
+	SINGLETONINSTANCE(MediaManager)->Init();
+	std::cout << "Warrior name: " << SINGLETONINSTANCE(MediaManager)->warrior->name <<  std::endl;
 	start = SDL_GetTicks();
 	last = SDL_GetTicks();
+
+	/* Enable textures */
+	glEnable(GL_TEXTURE_2D);
 
 	/* Enable smooth shading */
 	glShadeModel( GL_SMOOTH );
