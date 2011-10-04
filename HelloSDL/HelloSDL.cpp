@@ -297,9 +297,7 @@ int main( int argc, char **argv )
 		Quit( 1 );
 	}
 
-	/* subscribe to events */
 	//NOTE THIS IS A TEST !!!!!
-	//SubscribeToKeyboardEvents();
     auto eventSubscribtion = new TestEventSubscribtion();
 
 	/* initialize OpenGL */
@@ -353,8 +351,13 @@ int main( int argc, char **argv )
 			default:
 				break;
 			}
-		}
-		
+		}	
+
+		/*	Collision Detection	*/  //NOT IMPLEMENTED YET !!!
+
+		/*	Physics Calculation	*/  //NOT IMPLEMENTED YET !!!
+
+
 		/* draw the scene */
 		drawGLScene( );
 	}
