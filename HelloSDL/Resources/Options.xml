@@ -2,13 +2,14 @@
 <!-- Rough version of the basic options -->
 <settings>
 	<controls>
-		<mouse>
-			<sensivity default="1.0f">1.0f</sensivity> 
-			<invert>
-				<x default="1.0f">1.0f</x>		 <!-- ENABLED: -1.0f, DISABLED: 1.0f -->
-				<y default="1.0f">1.0f</y>		 <!-- ENABLED: -1.0f, DISABLED: 1.0f -->
-			</invert>
-		</mouse>
+		<keyboard>
+			<static> <!-- These values are meant never to be changed -->
+				<quit>ESCAPE</quit>
+			</static>
+			<dynamic> <!-- These values are meant to be able to be changed -->
+				<!-- Insert a lot of base controls here! -->
+			</dynamic>
+		</keyboard>
 		<controller>
 			<sensivity default="1.0f">1.0f</sensivity> 
 			<invert>
@@ -16,6 +17,13 @@
 				<y default="1.0f">1.0f</y>		 <!-- ENABLED: -1.0f, DISABLED: 1.0f -->
 			</invert>
 		</controller>
+		<mouse>
+			<sensivity default="1.0f">1.0f</sensivity> 
+			<invert>
+				<x default="1.0f">1.0f</x>		 <!-- ENABLED: -1.0f, DISABLED: 1.0f -->
+				<y default="1.0f">1.0f</y>		 <!-- ENABLED: -1.0f, DISABLED: 1.0f -->
+			</invert>
+		</mouse>
 	</controls>
 	<sound>
 		<output>
@@ -24,7 +32,15 @@
 		</output>
 		<input>
 			<volume default="1.0f">1.0f</volume> <!-- 0.0f (0%) - 5.0f (500%) -->
-			<muted default="1.0f">1.0f</muted>   <!-- YES: 1.0f, NO: 0.0f -->
+			<muted default="TRUE">TRUE</muted>
 		</input>
 	</sound>
+	<video>
+		<resolution>
+			<width default="640">640</width>
+			<height default="480">480</height>
+			<bitdepth default="16">16</bitdepth>
+		</resolution>
+		<windowed default="Yes">Yes</windowed>
+	</video>
 </settings>
