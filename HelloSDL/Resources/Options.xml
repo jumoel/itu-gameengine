@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Rough version of the basic options -->
+<settings>
+	<controls>
+		<mouse>
+			<sensivity default="1.0f">1.0f</sensivity> 
+			<invert>
+				<x default="1.0f">1.0f</x>		 <!-- ENABLED: -1.0f, DISABLED: 1.0f -->
+				<y default="1.0f">1.0f</y>		 <!-- ENABLED: -1.0f, DISABLED: 1.0f -->
+			</invert>
+		</mouse>
+		<controller>
+			<sensivity default="1.0f">1.0f</sensivity> 
+			<invert>
+				<x default="1.0f">1.0f</x>		 <!-- ENABLED: -1.0f, DISABLED: 1.0f -->
+				<y default="1.0f">1.0f</y>		 <!-- ENABLED: -1.0f, DISABLED: 1.0f -->
+			</invert>
+		</controller>
+	</controls>
+	<sound>
+		<output>
+			<sfx default="1.0f">1.0f</sfx>		 <!-- 0.0f (0%) - 5.0f (500%) -->
+			<music default="1.0f">1.0f</music>   <!-- 0.0f (0%) - 5.0f (500%) -->
+		</output>
+		<input>
+			<volume default="1.0f">1.0f</volume> <!-- 0.0f (0%) - 5.0f (500%) -->
+			<muted default="1.0f">1.0f</muted>   <!-- YES: 1.0f, NO: 0.0f -->
+		</input>
+	</sound>
+</settings>
