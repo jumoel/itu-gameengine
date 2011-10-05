@@ -79,10 +79,11 @@ Texture* MediaManager::LoadTexture(char *filename, char* name)                 /
 	// Build A Texture From The Data
 	glGenTextures(1, &(tex->texID));									// Generate OpenGL texture IDs
 	glBindTexture(GL_TEXTURE_2D, tex->texID);							// Bind Our Texture
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);       // Linear Filtered
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);       // Linear Filtered
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);       // Linear Filtered
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);       // Linear Filtered
+	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR );
 
-	
 	if (tex->bpp==24)													// Was The TGA 24 Bits
 	{
 		type=GL_RGB;														// If So Set The 'type' To GL_RGB
@@ -90,7 +91,10 @@ Texture* MediaManager::LoadTexture(char *filename, char* name)                 /
 	}
 
 	
-    glTexImage2D(GL_TEXTURE_2D, 0, type, tex->width, tex->height, 0, type, GL_UNSIGNED_BYTE, tex->imageData);
+    //glTexImage2D(GL_TEXTURE_2D, 0, type, tex->width, tex->height, 0, type, GL_UNSIGNED_BYTE, tex->imageData);
+	
+	gluBuild2DMipmaps( GL_TEXTURE_2D, 3, tex->width, tex->height, type, GL_UNSIGNED_BYTE, tex->imageData );
+ 
     
 	std::cout << "The TGA has been loaded successfully" << std::endl;
 	return tex;															// Success - Texture Building Went Ok, Return True

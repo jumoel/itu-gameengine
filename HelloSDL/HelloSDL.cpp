@@ -24,6 +24,7 @@
 #include <Managers/SceneGraphManager.hpp>
 #include <Game/FPSCalculator.hpp>
 #include <Managers/MediaManager.hpp>
+#include <Managers/LightingManager.h>
 
 /* screen width, height, and bit depth */
 #define SCREEN_WIDTH  640
@@ -192,6 +193,15 @@ int initGL( GLvoid )
 
 	/* Enable textures */
 	glEnable(GL_TEXTURE_2D);
+
+	/* Enable lighting */
+	SINGLETONINSTANCE(LightingManager)->Init();
+
+	/* Enable color tracking */
+	glEnable(GL_COLOR_MATERIAL);
+
+	/*set reflective properties */
+	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
 	/* Enable smooth shading */
 	glShadeModel( GL_SMOOTH );

@@ -4,28 +4,27 @@
 
 GfxModel::GfxModel()
 {
-	this->colors = new std::vector<Vector3f>();
-	this->vertices = new std::vector<Vector3f>();
-	this->uv = new std::vector<TexCoord>();
-	this->texture = NULL;
+	this->vertices = new std::list<Vector3f>();
+	this->material = new Material();
 }
 
 GfxModel::~GfxModel()
 {
-	delete this->colors;
+	
 	delete this->vertices;
+	
 }
 
 
 void GfxModel::CreateVBO()
 {
 	GLfloat *verts = new GLfloat[vertices->size()*3];
-	GLfloat *color = new GLfloat[colors->size()*3];
-	GLfloat *uvs = new GLfloat[uv->size()*2];
+	GLfloat *color = new GLfloat[material->colors->size()*3];
+	GLfloat *uvs = new GLfloat[material->uv->size()*2];
 
 	auto vertex_iter = vertices->begin();
-	auto color_iter = colors->begin();
-	auto uv_iter = uv->begin();
+	auto color_iter = material->colors->begin();
+	auto uv_iter = material->uv->begin();
 
 	int i = 0;
 
@@ -41,7 +40,7 @@ void GfxModel::CreateVBO()
 
 	i = 0;
 
-	while (color_iter != colors->end())
+	while (color_iter != material->colors->end())
 	{
 		color[i] = color_iter->x();
 		color[i+1] = color_iter->y();
@@ -53,7 +52,7 @@ void GfxModel::CreateVBO()
 
 	i = 0;
 
-	while (uv_iter != uv->end())
+	while (uv_iter != material->uv->end())
 	{
 		uvs[i] = uv_iter->u;
 		uvs[i+1] = uv_iter->v;
@@ -69,9 +68,9 @@ void GfxModel::CreateVBO()
 
 	glGenBuffersARB(1, &cboId);
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, cboId);
-	glBufferDataARB(GL_ARRAY_BUFFER_ARB, colors->size()*3*sizeof(float), color, GL_STATIC_DRAW_ARB);
+	glBufferDataARB(GL_ARRAY_BUFFER_ARB, material->colors->size()*3*sizeof(float), color, GL_STATIC_DRAW_ARB);
 
-	if(texture != NULL)
+	if(material->texture != NULL)
 	{
 		// Generate And Bind The Texture Coordinate Buffer
 		glGenBuffersARB( 1, &tboId );							// Get A Valid Name

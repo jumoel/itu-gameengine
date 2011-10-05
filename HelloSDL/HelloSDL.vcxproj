@@ -82,11 +82,14 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClCompile Include="Events\EventObject.cpp" />
     <ClCompile Include="Game\FPSCalculator.cpp" />
     <ClCompile Include="Game\GfxModel.cpp" />
+    <ClCompile Include="Game\Light.cpp" />
+    <ClCompile Include="Game\Material.cpp" />
     <ClCompile Include="Game\Texture.cpp" />
     <ClCompile Include="HelloSDL.cpp" />
     <ClCompile Include="Events\Input\KeyPressedEvent.cpp" />
     <ClCompile Include="Managers\Engine.cpp" />
     <ClCompile Include="Managers\InputManager.cpp" />
+    <ClCompile Include="Managers\LightingManager.cpp" />
     <ClCompile Include="Managers\MediaManager.cpp" />
     <ClCompile Include="Managers\SettingsManager.cpp" />
     <ClCompile Include="Math\Matrix4x4f.cpp" />
@@ -127,6 +130,9 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Subsystems\Graphics\GraphicsSystem.hpp" />
     <ClInclude Include="Templates\TSingleton.hpp" />
     <ClInclude Include="TestEventSubscribtion.hpp" />
+    <ClInclude Include="Game\Light.h" />
+    <ClInclude Include="Game\Material.h" />
+    <ClInclude Include="Managers\LightingManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
