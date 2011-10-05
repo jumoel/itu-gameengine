@@ -24,6 +24,7 @@
 #include "Managers/SceneGraphManager.h"
 #include "Game/FPSCalculator.h"
 #include "Managers/MediaManager.h"
+#include "Managers/LightingManager.h"
 
 /* screen width, height, and bit depth */
 #define SCREEN_WIDTH  640
@@ -195,7 +196,7 @@ int initGL( GLvoid )
 	glEnable(GL_TEXTURE_2D);
 
 	/* Enable lighting */
-	glEnable(GL_LIGHTING);
+	SINGLETONINSTANCE(LightingManager)->Init();
 
 	/* Enable color tracking */
 	glEnable(GL_COLOR_MATERIAL);

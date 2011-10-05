@@ -44,12 +44,12 @@ void SceneGraphManager::RenderObject(Object *obj)
 
 	glMultMatrixf(obj->transformation->data);
 
-	auto color_iter = obj->gfx->colors->begin();
+	auto color_iter = obj->gfx->material->colors->begin();
 	auto vertex_iter = obj->gfx->vertices->begin();
 
 	glBegin(GL_TRIANGLES);
 
-	while (color_iter != obj->gfx->colors->end() && vertex_iter != obj->gfx->vertices->end())
+	while (color_iter != obj->gfx->material->colors->end() && vertex_iter != obj->gfx->vertices->end())
 	{
 		glColor3f(color_iter->x(), color_iter->y(), color_iter->z());
 		glVertex3f(vertex_iter->x(), vertex_iter->y(), vertex_iter->z());
@@ -78,10 +78,14 @@ void SceneGraphManager::RenderObjectVBO(Object *obj)
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	if(obj->gfx->texture != NULL)
+	if(obj->gfx->material->texture != NULL)
 	{
-		glBindTexture(GL_TEXTURE_2D, obj->gfx->texture->texID);
+		glBindTexture(GL_TEXTURE_2D, obj->gfx->material->texture->texID);
 	}
+
+	glMaterialfv(GL_FRONT, GL_SPECULAR, obj->gfx->material->spec);
+	glMateriali(GL_FRONT, GL_SHININESS, obj->gfx->material->shine);
+
 
 	glBindBufferARB( GL_ARRAY_BUFFER_ARB, obj->gfx->vboId);
 	glVertexPointer(3, GL_FLOAT, 0, (char *) NULL);

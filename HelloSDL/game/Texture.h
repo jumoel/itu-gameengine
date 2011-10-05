@@ -5,6 +5,18 @@
 #include "SDL.h"
 #include "GL/glew.h"
 
+
+class TexCoord                                 // Texture Coordinate Class
+{
+public:
+    float u;									// U Component
+    float v;									// V Component
+
+	TexCoord(){}
+	TexCoord(float uIn, float vIn){ u = uIn; v = vIn; }
+	~TexCoord(){}
+};
+
 class Texture
 {
 public:
