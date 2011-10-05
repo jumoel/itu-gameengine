@@ -30,6 +30,9 @@ public:
 
 	Texture *texture;
 
+	float *spec;
+	int shine;
+
 	std::list<Vector3f> *vertices;
 	std::list<Vector3f> *colors;
 	std::list<TexCoord> *uv;

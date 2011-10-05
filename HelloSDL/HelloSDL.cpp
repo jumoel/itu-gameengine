@@ -194,6 +194,15 @@ int initGL( GLvoid )
 	/* Enable textures */
 	glEnable(GL_TEXTURE_2D);
 
+	/* Enable lighting */
+	glEnable(GL_LIGHTING);
+
+	/* Enable color tracking */
+	glEnable(GL_COLOR_MATERIAL);
+
+	/*set reflective properties */
+	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+
 	/* Enable smooth shading */
 	glShadeModel( GL_SMOOTH );
 

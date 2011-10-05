@@ -132,6 +132,8 @@ SceneGraphManager *createGraphVBO()
 	triangle1->gfx->uv->push_back(*uv2);
 	triangle1->gfx->uv->push_back(*uv3);
 
+	//triangle1->gfx->spec = 0.5f;
+	triangle1->gfx->shine = 0.3f;
 	triangle1->gfx->texture = SINGLETONINSTANCE(MediaManager)->warrior;
 	
 	triangle1->gfx->CreateVBO();
@@ -151,6 +153,8 @@ SceneGraphManager *createGraphVBO()
 	triangle2->gfx->uv->push_back(*uv2);
 	triangle2->gfx->uv->push_back(*uv3);
 
+	//triangle2->gfx->spec = 0.5f;
+	triangle2->gfx->shine = 0.3f;
 	triangle2->gfx->texture = SINGLETONINSTANCE(MediaManager)->warrior;
 
 	triangle2->transformation = (new Matrix4x4f())->Translate(0, 0, -4.0f);
@@ -174,6 +178,8 @@ SceneGraphManager *createGraphVBO()
 	triangle3->gfx->uv->push_back(*uv2);
 	triangle3->gfx->uv->push_back(*uv3);
 
+	//triangle3->gfx->spec = 0.5f;
+	triangle3->gfx->shine = 0.3f;
 	triangle3->gfx->texture = SINGLETONINSTANCE(MediaManager)->warrior;
 
 	triangle3->transformation = (new Matrix4x4f())->Translate(-2, 0, 0);

@@ -8,12 +8,20 @@ GfxModel::GfxModel()
 	this->vertices = new std::list<Vector3f>();
 	this->uv = new std::list<TexCoord>();
 	this->texture = NULL;
+	this->spec = new float[4];
+	for(int i = 0; i < 4; i++)
+	{
+		spec[i] = 0.0f;
+	}
+	this->shine = 0.0f;
 }
 
 GfxModel::~GfxModel()
 {
 	delete this->colors;
 	delete this->vertices;
+	delete this->uv;
+	delete [] this->spec;
 }
 
 

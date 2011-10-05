@@ -78,7 +78,10 @@ void SceneGraphManager::RenderObjectVBO(Object *obj)
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	//glBindTexture(GL_TEXTURE_2D, obj->gfx->texture->texID);
+	if(obj->gfx->texture != NULL)
+	{
+		glBindTexture(GL_TEXTURE_2D, obj->gfx->texture->texID);
+	}
 
 	glBindBufferARB( GL_ARRAY_BUFFER_ARB, obj->gfx->vboId);
 	glVertexPointer(3, GL_FLOAT, 0, (char *) NULL);
