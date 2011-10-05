@@ -2,7 +2,7 @@
 
 Engine *g_Engine;
 
-int main( int argc, char **argv )
+int main(int argc, char **argv)
 {
 	g_Engine = new Engine();
 

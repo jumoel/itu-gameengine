@@ -4,15 +4,13 @@
 
 GfxModel::GfxModel()
 {
-	this->vertices = new std::list<Vector3f>();
+	this->vertices = new std::vector<Vector3f>();
 	this->material = new Material();
 }
 
 GfxModel::~GfxModel()
-{
-	
+{	
 	delete this->vertices;
-	
 }
 
 

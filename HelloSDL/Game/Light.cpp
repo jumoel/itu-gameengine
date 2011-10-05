@@ -1,6 +1,6 @@
-#include "Light.h"
-#include "SDL.h"
-#include "GL/glew.h"
+#include <Game/Light.hpp>
+#include <SDL.h>
+#include <GL/glew.h>
 
 
 

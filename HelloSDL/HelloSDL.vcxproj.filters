@@ -188,12 +188,6 @@
     <ClInclude Include="Game\FPSCalculator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Managers\EventManager.h">
-      <Filter>Header Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Managers\InputManager.h">
-      <Filter>Header Files\Managers</Filter>
-    </ClInclude>
     <ClInclude Include="Managers\SceneGraphManager.hpp">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
@@ -263,10 +257,10 @@
     <ClInclude Include="Managers\LightingManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Material.h">
+    <ClInclude Include="Game\Material.hpp">
       <Filter>Header Files\World\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Light.h">
+    <ClInclude Include="Game\Light.hpp">
       <Filter>Header Files\World</Filter>
     </ClInclude>
   </ItemGroup>

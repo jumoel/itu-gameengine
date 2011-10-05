@@ -130,8 +130,8 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Subsystems\Graphics\GraphicsSystem.hpp" />
     <ClInclude Include="Templates\TSingleton.hpp" />
     <ClInclude Include="TestEventSubscribtion.hpp" />
-    <ClInclude Include="Game\Light.h" />
-    <ClInclude Include="Game\Material.h" />
+    <ClInclude Include="Game\Light.hpp" />
+    <ClInclude Include="Game\Material.hpp" />
     <ClInclude Include="Managers\LightingManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
