@@ -28,9 +28,9 @@ public:
 
 	Texture *texture;
 
-	std::list<Vector3f> *vertices;
-	std::list<Vector3f> *colors;
-	std::list<TexCoord> *uv;
+	std::vector<Vector3f> *vertices;
+	std::vector<Vector3f> *colors;
+	std::vector<TexCoord> *uv;
 
 
 	GfxModel();

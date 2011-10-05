@@ -52,7 +52,7 @@ void Engine::Run()
 		m_Window->SetWindowTitle(title);
 
 		// Display the graphics
-		//m_Graphics->Render();
+		m_Graphics->Render();
 	}
 }
 

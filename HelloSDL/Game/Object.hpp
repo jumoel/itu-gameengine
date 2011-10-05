@@ -13,6 +13,9 @@ public:
 
 	std::list<Object> *children;
 
+	int VboId;
+	int VboOffset;
+
 	Object();
 	~Object();
 

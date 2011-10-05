@@ -4,9 +4,9 @@
 
 GfxModel::GfxModel()
 {
-	this->colors = new std::list<Vector3f>();
-	this->vertices = new std::list<Vector3f>();
-	this->uv = new std::list<TexCoord>();
+	this->colors = new std::vector<Vector3f>();
+	this->vertices = new std::vector<Vector3f>();
+	this->uv = new std::vector<TexCoord>();
 	this->texture = NULL;
 }
 
