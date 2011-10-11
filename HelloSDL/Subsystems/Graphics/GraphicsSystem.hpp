@@ -17,6 +17,7 @@ private:
 
 	SceneGraphManager *m_SceneGraph;
 	std::vector<Vector3f> *m_VectorList;
+	GLuint m_VertexBuffer;
 };
 
 #endif // ITUENGINE_GRAPHICSSYSTEM_H
