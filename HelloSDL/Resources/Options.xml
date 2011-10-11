@@ -3,35 +3,41 @@
 <settings>
 	<controls>
 		<keyboard>
-			<static> <!-- These values are meant never to be changed -->
+			<!-- SDL-names are meant to be used -->
+			<static> <!-- These values are meant never to be changed, thus no defaults --> 
 				<quit>ESCAPE</quit>
 			</static>
 			<dynamic> <!-- These values are meant to be able to be changed -->
-				<!-- Insert a lot of base controls here! -->
+				<!-- Alle the basic controls here. Seperate into categories -->
 			</dynamic>
 		</keyboard>
 		<controller>
-			<sensivity default="1.0f">1.0f</sensivity> 
+			<sensivity default="1.0">1.0</sensivity> 
 			<invert>
-				<x default="1.0f">1.0f</x>		 <!-- ENABLED: -1.0f, DISABLED: 1.0f -->
-				<y default="1.0f">1.0f</y>		 <!-- ENABLED: -1.0f, DISABLED: 1.0f -->
+				<x default="1.0">1.0</x>		 <!-- ENABLED: -1.0, DISABLED: 1.0 -->
+				<y default="1.0">1.0</y>		 <!-- ENABLED: -1.0, DISABLED: 1.0 -->
 			</invert>
+			<acceleration default="0.0">0.0</acceleration>
 		</controller>
 		<mouse>
-			<sensivity default="1.0f">1.0f</sensivity> 
+			<sensivity default="1.0">1.0</sensivity> 
 			<invert>
-				<x default="1.0f">1.0f</x>		 <!-- ENABLED: -1.0f, DISABLED: 1.0f -->
-				<y default="1.0f">1.0f</y>		 <!-- ENABLED: -1.0f, DISABLED: 1.0f -->
+				<x default="1.0">1.0</x>		 <!-- ENABLED: -1.0, DISABLED: 1.0 -->
+				<y default="1.0">1.0</y>		 <!-- ENABLED: -1.0, DISABLED: 1.0 -->
 			</invert>
+			<acceleration default="0.0">0.0</acceleration>
 		</mouse>
 	</controls>
+	<network>
+		<!-- Potential Network options -->
+	</network>
 	<sound>
 		<output>
-			<sfx default="1.0f">1.0f</sfx>		 <!-- 0.0f (0%) - 5.0f (500%) -->
-			<music default="1.0f">1.0f</music>   <!-- 0.0f (0%) - 5.0f (500%) -->
+			<sfx default="1.0">1.0</sfx>		<!-- 0.0 (0%) - 5.0 (500%) -->
+			<music default="1.0">1.0</music>	<!-- 0.0 (0%) - 5.0 (500%) -->
 		</output>
 		<input>
-			<volume default="1.0f">1.0f</volume> <!-- 0.0f (0%) - 5.0f (500%) -->
+			<volume default="1.0">1.0</volume> <!-- 0.0 (0%) - 5.0 (500%) -->
 			<muted default="TRUE">TRUE</muted>
 		</input>
 	</sound>
@@ -39,8 +45,9 @@
 		<resolution>
 			<width default="640">640</width>
 			<height default="480">480</height>
-			<bitdepth default="16">16</bitdepth>
 		</resolution>
+		<bitdepth default="16">16</bitdepth>
+		<gamma default="1.0">1.0</gamma>
 		<windowed default="Yes">Yes</windowed>
 	</video>
 </settings>
