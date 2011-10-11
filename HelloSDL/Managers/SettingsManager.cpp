@@ -1,12 +1,12 @@
 #include <Managers/SettingsManager.hpp>
 
 // Depending on how MiniXML works, these variables might possibly disappear.
-static float const SETTINGS_SENSIVITY = 1.0f;
-static float const SETTINGS_MOUSE_INVERT = 1.0f; // 1.0f means DISABLED!
+static bool const SETTINGS_SENSIVITY = 1.0f;
+static bool const SETTINGS_MOUSE_INVERT = false;
 
 float Sensivity = SETTINGS_SENSIVITY;
-float MouseInvertX = SETTINGS_MOUSE_INVERT;
-float MouseInvertY = SETTINGS_MOUSE_INVERT;
+bool MouseInvertX = SETTINGS_MOUSE_INVERT;
+bool MouseInvertY = SETTINGS_MOUSE_INVERT;
 
 // General Functions
 void SettingsManager::Init()
@@ -38,28 +38,28 @@ void SettingsManager::SetSensivity(float *value)
 // MouseInvert
 float SettingsManager::GetMouseInvertX() 
 {
-	return this->MouseInvertX;
+	if(this->MouseInvertX)
+		return -1.0f;
+	else
+		return 1.0f;
 }
 
 float SettingsManager::GetMouseInvertY() 
 {
-	return this->MouseInvertX;
+	if (this->MouseInvertY)
+		return -1.0f;
+	else
+		return 1.0f;
 }
 
 void SettingsManager::SetMouseInvertX(bool *enabled) 
 {
-	if (&enabled)
-		this->MouseInvertX = -1.0f;
-	else
-		this->MouseInvertX = 1.0f;
+	this->MouseInvertX = &enabled;
 }
 
 void SettingsManager::SetMouseInvertY(bool *enabled) 
 {
-	if (&enabled)
-		this->MouseInvertY = -1.0f;
-	else
-		this->MouseInvertY = 1.0f;
+	this->MouseInvertY = &enabled;
 }
 
 void SettingsManager::SetMouseInvertBoth(bool *enabled)

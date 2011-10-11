@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- Rough version of the basic options -->
+<!-- Rough version of the basic options, with room for improvement :P -->
 <settings>
 	<controls>
 		<keyboard>
@@ -14,16 +14,16 @@
 		<controller>
 			<sensivity default="1.0">1.0</sensivity> 
 			<invert>
-				<x default="1.0">1.0</x>		 <!-- ENABLED: -1.0, DISABLED: 1.0 -->
-				<y default="1.0">1.0</y>		 <!-- ENABLED: -1.0, DISABLED: 1.0 -->
+				<x default="false">false</x>
+				<y default="false">false</y>
 			</invert>
 			<acceleration default="0.0">0.0</acceleration>
 		</controller>
 		<mouse>
 			<sensivity default="1.0">1.0</sensivity> 
 			<invert>
-				<x default="1.0">1.0</x>		 <!-- ENABLED: -1.0, DISABLED: 1.0 -->
-				<y default="1.0">1.0</y>		 <!-- ENABLED: -1.0, DISABLED: 1.0 -->
+				<x default="false">false</x>
+				<y default="false">false</y>
 			</invert>
 			<acceleration default="0.0">0.0</acceleration>
 		</mouse>
@@ -37,8 +37,8 @@
 			<music default="1.0">1.0</music>	<!-- 0.0 (0%) - 5.0 (500%) -->
 		</output>
 		<input>
-			<volume default="1.0">1.0</volume> <!-- 0.0 (0%) - 5.0 (500%) -->
-			<muted default="TRUE">TRUE</muted>
+			<volume default="1.0">1.0</volume>	<!-- 0.0 (0%) - 5.0 (500%) -->
+			<muted default="true">true</muted>
 		</input>
 	</sound>
 	<video>
@@ -47,7 +47,7 @@
 			<height default="480">480</height>
 		</resolution>
 		<bitdepth default="16">16</bitdepth>
-		<gamma default="1.0">1.0</gamma>
-		<windowed default="Yes">Yes</windowed>
+		<gamma default="1.0">1.0</gamma>		<!-- 0.0 (0%) - 5.0 (500%) -->
+		<windowed default="true">true</windowed>
 	</video>
 </settings>

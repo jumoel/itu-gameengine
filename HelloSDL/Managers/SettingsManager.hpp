@@ -23,11 +23,11 @@ public:
 	void SetMouseInvertBoth(bool *enabled);
 
 private:
-	static float const SETTINGS_SENSIVITY;
+	static bool const SETTINGS_SENSIVITY;
 	float Sensivity;
-	static float const SETTINGS_MOUSE_INVERT;
-	float MouseInvertX;
-	float MouseInvertY;
+	static bool const SETTINGS_MOUSE_INVERT;
+	bool MouseInvertX;
+	bool MouseInvertY;
 };
 
 #endif
