@@ -1,8 +1,8 @@
-#include "Camera.h"
-#include "..\Managers\InputManager.h"
-#include "..\Math\Matrix4x4f.h"
+#include <Game/Camera.hpp>
+#include <Managers\InputManager.hpp>
+#include <Math\Matrix4x4f.hpp>
 #include <cmath>
-#include "SDL.h"
+#include <SDL.h>
 
 /* Region Construction & Deconstruction */
 

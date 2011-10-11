@@ -1,18 +1,16 @@
-#include "GfxModel.h"
+#include <Game/GfxModel.hpp>
 #include <iostream>
-#include "../Managers/MediaManager.h"
+#include <Managers/MediaManager.hpp>
 
 GfxModel::GfxModel()
 {
-	this->vertices = new std::list<Vector3f>();
+	this->vertices = new std::vector<Vector3f>();
 	this->material = new Material();
 }
 
 GfxModel::~GfxModel()
-{
-	
+{	
 	delete this->vertices;
-	
 }
 
 

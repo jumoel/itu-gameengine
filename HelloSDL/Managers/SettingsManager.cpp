@@ -1,4 +1,4 @@
-#include "SettingsManager.h"
+#include <Managers/SettingsManager.hpp>
 
 // Depending on how MiniXML works, these variables might possibly disappear.
 static float const SETTINGS_SENSIVITY = 1.0f;

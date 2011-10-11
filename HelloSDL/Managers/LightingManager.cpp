@@ -45,7 +45,7 @@ void LightingManager::OnKeyDown(KeyPressedEvent *key)
 		if(lights[0].inUse)
 		{
 			lights[0].enable(false);
-			std:cout << "Disabling Light0" << std::endl;
+			std::cout << "Disabling Light0" << std::endl;
 		}
 		else
 		{

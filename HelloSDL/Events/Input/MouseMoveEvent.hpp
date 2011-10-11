@@ -1,9 +1,9 @@
 #ifndef ITUENGINE_MOUSEMOVEEVENT_H
 #define ITUENGINE_MOUSEMOVEEVENT_H
 
-#include "SDL_events.h"
-#include "../EventObject.h"
-#include "../../Macros/EventMacros.h"
+#include <SDL_events.h>
+#include <Events/EventObject.hpp>
+#include <Macros/EventMacros.hpp>
 #include <iostream>
 
 class MouseMoveEvent :

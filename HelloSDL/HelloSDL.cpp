@@ -10,21 +10,21 @@
 #include "GL/glew.h"
 #include "GL/wglew.h"
 
-#include "Events/Input/KeyPressedEvent.h"
-#include "Events/Input/MouseClickEvent.h"
-#include "Events/Input/MouseMoveEvent.h"
+#include <Events/Input/KeyPressedEvent.hpp>
+#include <Events/Input/MouseClickEvent.hpp>
+#include <Events/Input/MouseMoveEvent.hpp>
 
-#include "Managers\InputManager.h"
+#include <Managers/InputManager.hpp>
 
 //FOR TESTING PURPOSES !
-#include "TestEventSubscribtion.h"
+#include <TestEventSubscribtion.hpp>
 
-#include "Game/SceneData.h"
-#include "Game/Camera.h"
-#include "Managers/SceneGraphManager.h"
-#include "Game/FPSCalculator.h"
-#include "Managers/MediaManager.h"
-#include "Managers/LightingManager.h"
+#include <Game/SceneData.hpp>
+#include <Game/Camera.hpp>
+#include <Managers/SceneGraphManager.hpp>
+#include <Game/FPSCalculator.hpp>
+#include <Managers/MediaManager.hpp>
+#include <Managers/LightingManager.h>
 
 /* screen width, height, and bit depth */
 #define SCREEN_WIDTH  640
@@ -176,7 +176,6 @@ bool IsExtensionSupported( char* szTargetExtension )
 int initGL( GLvoid )
 {
 	vboOn = IsExtensionSupported( "GL_ARB_vertex_buffer_object" );
-	//vboOn = false;
 
     if( vboOn )
     {
@@ -248,7 +247,7 @@ int drawGLScene( GLvoid )
 	return( TRUE );
 }
 
-int main( int argc, char **argv )
+int main_old( int argc, char **argv )
 {
 	/* Flags to pass to SDL_SetVideoMode */
 	int videoFlags;

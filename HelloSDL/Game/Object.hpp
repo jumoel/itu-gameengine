@@ -1,9 +1,7 @@
 #ifndef ITUENGINE_OBJECT_H
 #define ITUENGINE_OBJECT_H
 
-#include "GfxModel.h"
-//#include "sdl_opengl.h"
-#include "GL/glew.h"
+#include <Game/GfxModel.hpp>
 
 class Object
 {
@@ -14,6 +12,9 @@ public:
 	GfxModel *gfx;
 
 	std::list<Object> *children;
+
+	int VboId;
+	int VboOffset;
 
 	Object();
 	~Object();

@@ -1,4 +1,4 @@
-#include "MouseClickEvent.h"
+#include <Events/Input/MouseClickEvent.hpp>
 
 MouseClickEvent::MouseClickEvent(SDL_MouseButtonEvent *input, short eventtype) : EventObject(eventtype)
 {

@@ -1,4 +1,4 @@
-#include "KeyPressedEvent.h"
+#include <Events/Input/KeyPressedEvent.hpp>
 
 KeyPressedEvent::KeyPressedEvent(SDL_KeyboardEvent *input, short eventtype) : EventObject(eventtype)
 {

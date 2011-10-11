@@ -1,4 +1,4 @@
-#include "EventObject.h"
+#include <Events/EventObject.hpp>
 
 EventObject::EventObject(short type)
 {

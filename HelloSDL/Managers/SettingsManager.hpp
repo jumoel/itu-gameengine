@@ -1,7 +1,7 @@
 #ifndef ITUENGINE_SETTINGS_MANAGER_H
 #define ITUENGINE_SETTINGS_MANAGER_H
 
-#include "../Templates/TSingleton.h"
+#include <Templates/TSingleton.hpp>
 
 class SettingsManager
 {

@@ -6,12 +6,8 @@
 #include <vector>
 
 #include <iostream>
-#include "SDL.h"
-#include "GL/glew.h"
-#include "../Math/Vector3f.h"
-
-
-#include "Texture.h"
+#include <Math/Vector3f.hpp>
+#include <Game/Texture.hpp>
 
 class Material
 {
@@ -19,7 +15,7 @@ public:
 	Texture *texture;
 
 	float *spec;
-	int shine;
+	float shine;
 
 	std::list<Vector3f> *colors;
 	std::list<TexCoord> *uv;
