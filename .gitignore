@@ -9,3 +9,4 @@ ipch
 *.idc
 *.orig
 .DS_Store
+*.cd
