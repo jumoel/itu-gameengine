@@ -108,7 +108,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Abstractions\Window.hpp" />
     <ClInclude Include="Managers\Engine.hpp" />
     <ClInclude Include="Game\GfxModel.hpp" />
-    <ClInclude Include="game\Texture.hpp" />
+    <ClInclude Include="Game\Texture.hpp" />
     <ClInclude Include="Managers\EventManager.hpp" />
     <ClInclude Include="Game\Camera.hpp" />
     <ClInclude Include="Events\CollisionEvent.hpp" />
