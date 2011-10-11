@@ -8,6 +8,10 @@ class SettingsManager
 	SINGLETON( SettingsManager )
 
 public:
+	// General Functions:
+	void Init();
+	void SetToDefaults();
+	void UpdateXML();
 	// Sensivity:
 	float GetSensivity();
 	void SetSensivity(float *value);
