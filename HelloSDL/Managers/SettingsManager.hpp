@@ -8,16 +8,22 @@ class SettingsManager
 	SINGLETON( SettingsManager )
 
 public:
+	// Sensivity:
 	float GetSensivity();
 	void SetSensivity(float *value);
-	float GetMouseInvert();
-	void SetMouseInvert(bool *value);
+	// Mouse Invert:
+	float GetMouseInvertX();
+	float GetMouseInvertY();
+	void SetMouseInvertX(bool *enabled);
+	void SetMouseInvertY(bool *enabled);
+	void SetMouseInvertBoth(bool *enabled);
 
 private:
 	static float const SETTINGS_SENSIVITY;
-	static float const SETTINGS_MOUSE_INVERT;
 	float Sensivity;
-	float MouseInvert;
+	static float const SETTINGS_MOUSE_INVERT;
+	float MouseInvertX;
+	float MouseInvertY;
 };
 
 #endif
