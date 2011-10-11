@@ -8,10 +8,10 @@ void GraphicsSystem::StartUp()
 	m_SceneGraph = createGraph();
 	m_VectorList = new std::vector<Vector3f>();
 
-	//glGenBuffers(1, &m_VertexBuffer);
-	//glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
+	glGenBuffers(1, &m_VertexBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
 
-	//AddToVBORecursive(m_SceneGraph->RootNode, m_VectorList);
+	AddToVBORecursive(m_SceneGraph->RootNode, m_VectorList);
 }
 
 void GraphicsSystem::AddToVBORecursive(Object *obj, std::vector<Vector3f> *vectors)

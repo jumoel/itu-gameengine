@@ -1,5 +1,6 @@
 #include <SDL.h>
-#include <SDL_opengl.h>
+//#include <SDL_opengl.h>
+#include <GL/glew.h>
 #include <Abstractions/Window.hpp>
 #include <Assertion.hpp>
 
@@ -34,7 +35,6 @@ void Window::InitSDL()
 	const SDL_VideoInfo *sdl_video_info = SDL_GetVideoInfo( );
 	ASSERT_MSG(sdl_video_info, SDL_GetError());
 
-
 	/* the flags to pass to SDL_SetVideoMode */
 	m_VideoFlags  = SDL_OPENGL;          /* Enable OpenGL in SDL */
 	m_VideoFlags |= SDL_GL_DOUBLEBUFFER; /* Enable double buffering */
@@ -63,6 +63,9 @@ void Window::InitSDL()
 
 void Window::InitOpenGL()
 {
+	GLenum glew_status = glewInit();
+	ASSERT_MSG(glew_status == GLEW_OK, "Couldn't initialize GLEW");
+
 	/* Enable smooth shading */
 	glShadeModel( GL_SMOOTH );
 
