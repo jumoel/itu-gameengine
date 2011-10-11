@@ -1,9 +1,9 @@
 #ifndef ITUENGINE_LIGHTING_MANAGER_H
 #define ITUENGINE_LIGHTING_MANAGER_H
 
-#include "../Templates/TSingleton.h"
-#include "../Game/Light.h"
-#include "../Managers/InputManager.h"
+#include <Templates/TSingleton.hpp>
+#include <Game/Light.hpp>
+#include <Managers/InputManager.hpp>
 
 class LightingManager : public IKeyboardEvent
 {

@@ -1,8 +1,8 @@
-#include "SceneData.h"
-#include "Camera.h"
-#include "../Managers/SceneGraphManager.h"
-#include "../Managers/MediaManager.h"
-#include "../Managers/LightingManager.h"
+#include <Game/SceneData.hpp>
+#include <Game/Camera.hpp>
+#include <Managers/SceneGraphManager.hpp>
+#include <Managers/MediaManager.hpp>
+#include <Managers/LightingManager.h>
 
 SceneGraphManager *createGraph()
 {

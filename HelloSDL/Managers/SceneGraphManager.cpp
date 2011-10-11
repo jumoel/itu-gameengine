@@ -1,5 +1,5 @@
-#include "SceneGraphManager.h"
-#include "SDL.h"
+#include <Managers/SceneGraphManager.hpp>
+#include <SDL.h>
 //#include "sdl_opengl.h"
 #include "GL/glew.h"
 #include <iostream>
@@ -84,7 +84,7 @@ void SceneGraphManager::RenderObjectVBO(Object *obj)
 	}
 
 	glMaterialfv(GL_FRONT, GL_SPECULAR, obj->gfx->material->spec);
-	glMateriali(GL_FRONT, GL_SHININESS, obj->gfx->material->shine);
+	glMaterialf(GL_FRONT, GL_SHININESS, obj->gfx->material->shine);
 
 
 	glBindBufferARB( GL_ARRAY_BUFFER_ARB, obj->gfx->vboId);

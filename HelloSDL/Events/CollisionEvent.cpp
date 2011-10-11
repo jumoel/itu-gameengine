@@ -1,4 +1,4 @@
-#include "CollisionEvent.h"
+#include <Events/CollisionEvent.hpp>
 
 
 CollisionEvent::CollisionEvent(short eventtype) : EventObject(eventtype)

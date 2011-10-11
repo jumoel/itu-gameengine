@@ -1,10 +1,10 @@
 #ifndef ITUENGINE_CAMERA_H
 #define ITUENGINE_CAMERA_H
 
-#include "../Math/Vector3f.h"
-#include "../Events/Input/KeyPressedEvent.h"
-#include "../Events/Input/MouseMoveEvent.h"
-#include "../Events/Input/MouseClickEvent.h"
+#include <Math/Vector3f.hpp>
+#include <Events/Input/KeyPressedEvent.hpp>
+#include <Events/Input/MouseMoveEvent.hpp>
+#include <Events/Input/MouseClickEvent.hpp>
 
 class Camera : public IKeyboardEvent, public IMouseClickEvent, public IMouseMoveEvent
 {

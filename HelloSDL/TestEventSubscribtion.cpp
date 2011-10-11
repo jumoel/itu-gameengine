@@ -1,7 +1,7 @@
-#include "TestEventSubscribtion.h"
+#include <TestEventSubscribtion.hpp>
 
 #include <string>
-#include "Managers\InputManager.h"
+#include <Managers/InputManager.hpp>
 #include <iostream>
 using namespace std;
 
