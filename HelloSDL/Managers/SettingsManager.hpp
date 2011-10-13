@@ -18,9 +18,9 @@ public:
 	// Mouse Invert:
 	float GetMouseInvertX();
 	float GetMouseInvertY();
-	void SetMouseInvertX(bool *enabled);
-	void SetMouseInvertY(bool *enabled);
-	void SetMouseInvertBoth(bool *enabled);
+	void SetMouseInvertX(bool enabled);
+	void SetMouseInvertY(bool enabled);
+	void SetMouseInvertBoth(bool enabled);
 
 private:
 	static bool const SETTINGS_SENSIVITY;

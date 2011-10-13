@@ -52,17 +52,17 @@ float SettingsManager::GetMouseInvertY()
 		return 1.0f;
 }
 
-void SettingsManager::SetMouseInvertX(bool *enabled) 
+void SettingsManager::SetMouseInvertX(bool enabled) 
 {
-	this->MouseInvertX = &enabled;
+	this->MouseInvertX = enabled;
 }
 
-void SettingsManager::SetMouseInvertY(bool *enabled) 
+void SettingsManager::SetMouseInvertY(bool enabled) 
 {
-	this->MouseInvertY = &enabled;
+	this->MouseInvertY = enabled;
 }
 
-void SettingsManager::SetMouseInvertBoth(bool *enabled)
+void SettingsManager::SetMouseInvertBoth(bool enabled)
 {
 	SetMouseInvertX(enabled);
 	SetMouseInvertY(enabled);
