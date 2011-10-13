@@ -171,6 +171,9 @@
     <ClCompile Include="Game\Light.cpp">
       <Filter>Source Files\World</Filter>
     </ClCompile>
+    <ClCompile Include="ThirdParty\pugixml\pugixml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Managers\Engine.hpp">
@@ -262,6 +265,12 @@
     </ClInclude>
     <ClInclude Include="Game\Light.hpp">
       <Filter>Header Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\pugixml\pugiconfig.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\pugixml\pugixml.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
