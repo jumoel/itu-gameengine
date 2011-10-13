@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Rough version of the basic options, with room for improvement :P -->
+<controls>
+	<keyboard>
+		<!-- SDL-names are meant to be used -->
+		<static> <!-- These values are meant never to be changed, thus no defaults --> 
+			<quit>ESCAPE</quit>
+		</static>
+		<dynamic> <!-- These values are meant to be able to be changed -->
+			<!-- Alle the basic controls here. Seperate into categories -->
+		</dynamic>
+	</keyboard>
+	<controller>
+		<sensivity default="1.0">1.0</sensivity> 
+		<invert>
+			<x default="false">false</x>
+			<y default="false">false</y>
+		</invert>
+		<acceleration default="0.0">0.0</acceleration>
+	</controller>
+	<mouse>
+		<sensivity default="1.0">1.0</sensivity> 
+		<invert>
+			<x default="false">false</x>
+			<y default="false">false</y>
+		</invert>
+		<acceleration default="0.0">0.0</acceleration>
+	</mouse>
+</controls>
+<network>
+	<!-- Potential Network options -->
+</network>
+<sound>
+	<output>
+		<sfx default="1.0">1.0</sfx>		<!-- 0.0 (0%) - 5.0 (500%) -->
+		<music default="1.0">1.0</music>	<!-- 0.0 (0%) - 5.0 (500%) -->
+	</output>
+	<input>
+		<volume default="1.0">1.0</volume>	<!-- 0.0 (0%) - 5.0 (500%) -->
+		<muted default="true">true</muted>
+	</input>
+</sound>
+<video>
+	<resolution>
+		<width default="640">640</width>
+		<height default="480">480</height>
+	</resolution>
+	<bitdepth default="16">16</bitdepth>
+	<gamma default="1.0">1.0</gamma>		<!-- 0.0 (0%) - 5.0 (500%) -->
+	<windowed default="true">true</windowed>
+</video>
