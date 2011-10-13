@@ -1,4 +1,6 @@
 #include <Managers/SettingsManager.hpp>
+#include <ThirdParty/pugixml/pugixml.hpp>
+#include <iostream>
 
 // Depending on how MiniXML works, these variables might possibly disappear.
 static bool const SETTINGS_SENSIVITY = 1.0f;
@@ -12,6 +14,10 @@ bool MouseInvertY = SETTINGS_MOUSE_INVERT;
 void SettingsManager::Init()
 {
 	// Loads the various values from the XML-file.
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("../Resources/Options.xml");
+
+	std::cout << "Load result: " << result.description() << std::endl;
 }
 
 void SettingsManager::SetToDefaults()
