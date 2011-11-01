@@ -5,11 +5,11 @@
 
 class SettingsManager
 {
-	SINGLETON( SettingsManager )
-
 public:
+	SettingsManager() {}
+	~SettingsManager() {}
 	// General Functions:
-	void Init();
+	void StartUp();
 	void SetToDefaults();
 	void UpdateXML();
 	// Sensivity:

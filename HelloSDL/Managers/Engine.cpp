@@ -63,6 +63,9 @@ void Engine::RunGraphics()
 
 void Engine::StartUp()
 {
+	m_SettingsManager = new SettingsManager();
+	m_SettingsManager->StartUp();
+
 	m_Window = new Window();
 	m_Window->StartUp();
 

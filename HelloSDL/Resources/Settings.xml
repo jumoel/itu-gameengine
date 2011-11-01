@@ -2,13 +2,8 @@
 <!-- Rough version of the basic options, with room for improvement :P -->
 <controls>
 	<keyboard>
-		<!-- SDL-names are meant to be used -->
-		<static> <!-- These values are meant never to be changed, thus no defaults --> 
-			<quit>ESCAPE</quit>
-		</static>
-		<dynamic> <!-- These values are meant to be able to be changed -->
-			<!-- Alle the basic controls here. Seperate into categories -->
-		</dynamic>
+		<!-- SDL-names are meant to be used in the end -->
+		<quit static="true">ESCAPE</quit>
 	</keyboard>
 	<controller>
 		<sensivity default="1.0">1.0</sensivity> 

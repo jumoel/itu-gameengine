@@ -8,6 +8,7 @@ void GraphicsSystem::StartUp()
 	m_SceneGraph = createGraph();
 	m_VectorList = new std::vector<Vector3f>();
 
+	// The two below lines needs to be commented out to work for Emil, QQ. Need to research!
 	glGenBuffers(1, &m_VertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
 
