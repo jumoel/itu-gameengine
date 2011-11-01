@@ -15,7 +15,7 @@ void SettingsManager::Init()
 {
 	// Loads the various values from the XML-file.
 	pugi::xml_document doc;
-	pugi::xml_parse_result result = doc.load_file("../Resources/Options.xml");
+	pugi::xml_parse_result result = doc.load_file("../Resources/Settings.xml");
 
 	std::cout << "Load result: " << result.description() << std::endl;
 }
