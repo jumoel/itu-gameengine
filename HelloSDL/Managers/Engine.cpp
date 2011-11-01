@@ -57,11 +57,6 @@ void Engine::Run()
 	}
 }
 
-void Engine::RunGraphics()
-{
-
-}
-
 void Engine::StartUp()
 {
 	m_Window = new Window();

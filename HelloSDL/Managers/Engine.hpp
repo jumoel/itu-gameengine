@@ -14,6 +14,7 @@ public:
 	
 	FPSCalculator *GetFPSCalculator() { return m_FPSCalculator; }
 	Window *GetWindow() { return m_Window; }
+	GraphicsSystem *GetGraphicsSystem() { return m_Graphics; }
 
 private:
 	Window *m_Window;
@@ -21,8 +22,6 @@ private:
 	GraphicsSystem *m_Graphics;
 
 	bool m_Running;
-
-	void RunGraphics();
 };
 
 #endif
