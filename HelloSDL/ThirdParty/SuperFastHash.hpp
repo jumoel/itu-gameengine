@@ -1,5 +1,5 @@
-#ifndef SUPERFASTHASH_H
-#define SUPERFASTHASH_H
+#ifndef THIRDPARTY_SUPERFASTHASH_H
+#define THIRDPARTY_SUPERFASTHASH_H
 
 /*
 From: http://azillionmonkeys.com/qed/hash.html
@@ -23,7 +23,7 @@ uint32_t SuperFastHash (const char * data, int len) {
 	uint32_t hash = len, tmp;
 	int rem;
 
-	if (len <= 0 || data == NULL) return 0;
+	if (len <= 0 || data == nullptr) return 0;
 
 	rem = len & 3;
 	len >>= 2;
@@ -64,4 +64,4 @@ uint32_t SuperFastHash (const char * data, int len) {
 	return hash;
 }
 
-#endif // SUPERFASTHASH_H
+#endif // THIRDPARTY_SUPERFASTHASH_H

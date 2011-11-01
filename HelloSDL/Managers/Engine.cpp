@@ -3,6 +3,7 @@
 #include <Abstractions/Time.hpp>
 #include <Game/FPSCalculator.hpp>
 #include <Subsystems/Graphics/GraphicsSystem.hpp>
+#include <Utils/StringUtils.hpp>
 
 void Engine::Run()
 {
