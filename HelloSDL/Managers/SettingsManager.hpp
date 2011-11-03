@@ -3,30 +3,23 @@
 
 #include <Templates/TSingleton.hpp>
 #include <ThirdParty/pugixml/pugixml.hpp>
+#include <string>
 
 class SettingsManager
 {
 public:
 	SettingsManager() {}
 	~SettingsManager() {}
-	// General Functions:
+
 	void StartUp();
+	void ShutDown();
+
 	void SetToDefaults();
-	void UpdateXML();
-	// Get:
+	void SaveXML();
+
+	std::string GetOption(std::string identifier);
+
 	void GetRawTree();
-	// Set:
-	
-	// To be removed eventually:
-	// Sensivity:
-	float GetSensivity();
-	void SetSensivity(float *value);
-	// Mouse Invert:
-	float GetMouseInvertX();
-	float GetMouseInvertY();
-	void SetMouseInvertX(bool enabled);
-	void SetMouseInvertY(bool enabled);
-	void SetMouseInvertBoth(bool enabled);
 
 private:
 	pugi::xml_document doc;

@@ -1,10 +1,8 @@
-#ifndef THIRDPARTY_SUPERFASTHASH_H
-#define THIRDPARTY_SUPERFASTHASH_H
+#ifndef ITUENGINE_SUPERFASTHASH_H
+#define ITUENGINE_SUPERFASTHASH_H
 
 /*
 From: http://azillionmonkeys.com/qed/hash.html
-
-
 */
 
 #include <stdint.h>
@@ -64,4 +62,4 @@ uint32_t SuperFastHash (const char * data, int len) {
 	return hash;
 }
 
-#endif // THIRDPARTY_SUPERFASTHASH_H
+#endif // ITUENGINE_SUPERFASTHASH_H

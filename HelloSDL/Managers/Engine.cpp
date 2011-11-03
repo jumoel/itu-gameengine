@@ -83,4 +83,6 @@ void Engine::ShutDown()
 	m_Graphics->ShutDown();
 
 	m_Window->ShutDown();
+
+	m_SettingsManager->ShutDown();
 }

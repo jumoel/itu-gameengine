@@ -1,6 +1,10 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
 #include <Managers/SettingsManager.hpp>
 #include <ThirdParty/pugixml/pugixml.hpp>
-#include <iostream>
+#include <Utils/StringUtils.hpp>
 
 // Depending on how the XML-import works, these variables might disappear.
 static bool const SETTINGS_SENSIVITY = 1.0f;
@@ -18,16 +22,36 @@ void SettingsManager::StartUp()
 
 	// Temporary test-strings:
 	std::cout << "Keyboard for EXIT: " << doc.child("controls").child("keyboard").child_value("quit") << std::endl;
+	std::cout << "trololol: " << this->GetOption("controls/keyboard/quit");
 }
+
+void SettingsManager::ShutDown() {}
 
 void SettingsManager::SetToDefaults()
 {
 	// Resets all the variables to their defaults, if available.
 }
 
-void SettingsManager::UpdateXML()
+void SettingsManager::SaveXML()
 {
 	// Writes the current settings to the XML-file.
+}
+
+std::string SettingsManager::GetOption(std::string identifier)
+{
+	std::vector<std::string> tokens = StringUtils::tokenize(identifier, "/");
+
+	auto length = tokens.size();
+	auto node = doc.root();
+	auto it = tokens.begin();
+
+	for (int i = 0; i < length - 1; i++)
+	{
+		node = node.child((*it).c_str());
+		it++;
+	}
+
+	return node.child_value((*it).c_str());
 }
 
 void SettingsManager::GetRawTree()
@@ -38,50 +62,4 @@ void SettingsManager::GetRawTree()
 	// .child_value("name")		The value of the child named "name".
 	// .attribute("name")		The attribute called "name" of the given child.
 	// .... etc.
-}
-
-// The below functions should be removed in the end.
-
-// Sensivity
-float SettingsManager::GetSensivity() 
-{
-	return this->Sensivity;
-}
-
-void SettingsManager::SetSensivity(float *value) 
-{
-	this->Sensivity = *value;
-}
-
-// MouseInvert
-float SettingsManager::GetMouseInvertX() 
-{
-	if(this->MouseInvertX)
-		return -1.0f;
-	else
-		return 1.0f;
-}
-
-float SettingsManager::GetMouseInvertY() 
-{
-	if (this->MouseInvertY)
-		return -1.0f;
-	else
-		return 1.0f;
-}
-
-void SettingsManager::SetMouseInvertX(bool enabled) 
-{
-	this->MouseInvertX = enabled;
-}
-
-void SettingsManager::SetMouseInvertY(bool enabled) 
-{
-	this->MouseInvertY = enabled;
-}
-
-void SettingsManager::SetMouseInvertBoth(bool enabled)
-{
-	SetMouseInvertX(enabled);
-	SetMouseInvertY(enabled);
 }
