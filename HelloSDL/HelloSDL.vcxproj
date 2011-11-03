@@ -77,6 +77,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
   <ItemGroup>
     <ClCompile Include="Abstractions\Window.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Events\Interfaces\IEventManager.cpp" />
     <ClCompile Include="Game\Camera.cpp" />
     <ClCompile Include="Events\CollisionEvent.cpp" />
     <ClCompile Include="Events\EventObject.cpp" />
@@ -111,7 +112,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Abstractions\Window.hpp" />
     <ClInclude Include="Events\Interfaces\IEventData.hpp" />
     <ClInclude Include="Events\Interfaces\IEventListener.hpp" />
-    <ClInclude Include="Events\Interfaces\IEventManager.h" />
+    <ClInclude Include="Events\Interfaces\IEventManager.hpp" />
     <ClInclude Include="Managers\Engine.hpp" />
     <ClInclude Include="Game\GfxModel.hpp" />
     <ClInclude Include="Game\Texture.hpp" />

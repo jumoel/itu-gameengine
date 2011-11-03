@@ -31,10 +31,10 @@ public:
 
 	virtual bool ValidateType( EventType const & inType ) const = 0;
 
-private:
+	//Gets the current global instance of IEventManager
+	static IEventManager * Instance();
 
-	//Internal function to get the global instance.
-	static IEventManager * Get();
+private:
 
 	friend bool safeAddListener( EventListenerPointer const & inHandler, EventType const & inType );
 
@@ -45,9 +45,9 @@ private:
 	friend bool safeQueueEvent( IEventDataPointer const & inEvent );
 	friend bool threadSafeQueueEvent( IEventDataPointer const & inEvent );
 
-	friend bool safeAbortEvent( EventType const & inType, bool allOfType = false );
+	friend bool safeAbortEvent( EventType const & inType, bool allOfType /* = false */ );
 
-	friend bool safeTickEventManager( unsigned long maxMillis = -1 );
+	friend bool safeProcessEventManager( unsigned long maxMillis /* = -1 */ );
 
 	friend bool safeValidateEventType( EventType const & inType );
 };
@@ -62,9 +62,9 @@ bool safeTriggerEvent( IEventData const & inEvent );
 bool safeQueueEvent( IEventDataPointer const & inEvent );
 bool threadSafeQueueEvent( IEventDataPointer const & inEvent );
 
-bool safeAbortEvent( EventType const & inType, bool allOfType = false );
+bool safeAbortEvent( EventType const & inType, bool allOfType /* = false */ );
 
-bool safeTickEventManager( unsigned long maxMillis = -1 );
+bool safeProcessEventManager( unsigned long maxMillis /* = -1 */ );
 
 bool safeValidateEventType( EventType const & inType );
 
