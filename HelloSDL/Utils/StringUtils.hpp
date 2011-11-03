@@ -4,10 +4,12 @@
 #include <string>
 #include <vector>
 
+typedef unsigned int HashedString;
+
 class StringUtils
 {
 public:
-	static unsigned int hash(std::string s);
+	static HashedString hash(std::string s);
 
 	static std::string toLower(std::string s);
 

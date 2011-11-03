@@ -177,7 +177,7 @@
     <ClCompile Include="Utils\StringUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\ThreadSafeQueue.cpp">
+    <ClCompile Include="Utils\ThreadSafeEventQueue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -293,7 +293,7 @@
     <ClInclude Include="Events\Interfaces\IEventData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\ThreadSafeQueue.hpp">
+    <ClInclude Include="Utils\ThreadSafeEventQueue.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

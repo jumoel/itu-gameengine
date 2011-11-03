@@ -6,8 +6,7 @@
 
 #include <ThirdParty/SuperFastHash.hpp>
 
-
-unsigned int StringUtils::hash(std::string s)
+HashedString StringUtils::hash(std::string s)
 {
 	auto data = StringUtils::toLower(s);
 	return SuperFastHash(data.c_str(), data.length());
