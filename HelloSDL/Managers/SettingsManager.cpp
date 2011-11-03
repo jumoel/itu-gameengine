@@ -84,5 +84,5 @@ std::string SettingsManager::GetOption(std::string identifier)
 std::string SettingsManager::GetOptionDefault(std::string identifier)
 {
 	// Returns the default-value of a given option.
-	return "null";
+	return this->GetOption(identifier + ".default");
 }
