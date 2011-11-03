@@ -103,11 +103,15 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClCompile Include="TestEventSubscribtion.cpp" />
     <ClCompile Include="ThirdParty\pugixml\pugixml.cpp" />
     <ClCompile Include="Utils\StringUtils.cpp" />
+    <ClCompile Include="Utils\ThreadSafeQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assertion.hpp" />
     <ClInclude Include="Abstractions\Time.hpp" />
     <ClInclude Include="Abstractions\Window.hpp" />
+    <ClInclude Include="Events\Interfaces\IEventData.hpp" />
+    <ClInclude Include="Events\Interfaces\IEventListener.hpp" />
+    <ClInclude Include="Events\Interfaces\IEventManager.h" />
     <ClInclude Include="Managers\Engine.hpp" />
     <ClInclude Include="Game\GfxModel.hpp" />
     <ClInclude Include="Game\Texture.hpp" />
@@ -139,6 +143,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="ThirdParty\pugixml\pugixml.hpp" />
     <ClInclude Include="ThirdParty\SuperFastHash.hpp" />
     <ClInclude Include="Utils\StringUtils.hpp" />
+    <ClInclude Include="Utils\ThreadSafeQueue.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

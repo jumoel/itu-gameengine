@@ -36,7 +36,7 @@ public:
         m_clients.push_back(client);
     }
 
-    // Unregiser: Remove client from list.
+    // Unregister: Remove client from list.
     void Unregister(I* client)
     {
         m_clients.remove(client);

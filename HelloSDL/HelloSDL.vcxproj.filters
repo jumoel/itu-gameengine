@@ -177,6 +177,9 @@
     <ClCompile Include="Utils\StringUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\ThreadSafeQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Managers\Engine.hpp">
@@ -272,14 +275,26 @@
     <ClInclude Include="ThirdParty\pugixml\pugixml.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\StringUtils.hpp">
+    <ClInclude Include="Managers\LightingManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ThirdParty\SuperFastHash.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Managers\LightingManager.hpp">
-      <Filter>Header Files\Managers</Filter>
+    <ClInclude Include="Utils\StringUtils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Interfaces\IEventManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Interfaces\IEventListener.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Interfaces\IEventData.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\ThreadSafeQueue.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

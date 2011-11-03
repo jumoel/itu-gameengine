@@ -32,7 +32,7 @@ Camera::~Camera()
 /* Region Camera Controls */
 
 // Moves the position of the camera to the new location.
-/* Implemented as moving the camera, up/down in a 2D plane, othogonally to the z axis, of the LookAt vector */
+/* Implemented as moving the camera, up/down in a 2D plane, orthogonally to the z axis, of the LookAt vector */
 void Camera::MoveCamera3D(Vector3f *newPosition)
 {
 	float xDirection = newPosition->x() - Position.x();
@@ -235,7 +235,7 @@ void Camera::OnButtonDown(MouseClickEvent *button)
 			isRightButtonDown = true;
 			break;
 
-		//Zoom control on scrollwheel
+		//Zoom control on scroll wheel
 		case 4:
 			ZoomCamera(0.5f);
 			break;
