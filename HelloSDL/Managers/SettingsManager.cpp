@@ -53,13 +53,3 @@ std::string SettingsManager::GetOption(std::string identifier)
 
 	return node.child_value((*it).c_str());
 }
-
-void SettingsManager::GetRawTree()
-{
-	// Should - intentionally - Return the raw tree, to more freely extract data.
-	// Usage with following sub-functions:
-	// .child("name")			The child with name "name" of the current object.
-	// .child_value("name")		The value of the child named "name".
-	// .attribute("name")		The attribute called "name" of the given child.
-	// .... etc.
-}

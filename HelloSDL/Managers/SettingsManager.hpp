@@ -19,8 +19,6 @@ public:
 
 	std::string GetOption(std::string identifier);
 
-	void GetRawTree();
-
 private:
 	pugi::xml_document doc;
 	static bool const SETTINGS_SENSIVITY;
