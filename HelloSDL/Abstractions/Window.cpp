@@ -64,7 +64,7 @@ void Window::InitSDL()
 void Window::InitOpenGL()
 {
 	GLenum glew_status = glewInit();
-	ASSERT_MSG(glew_status == GLEW_OK, "Couldn't initialize GLEW");
+	ASSERT_MSG(glew_status == GLEW_OK, glewGetErrorString(glew_status));
 
 	/* Enable smooth shading */
 	glShadeModel( GL_SMOOTH );

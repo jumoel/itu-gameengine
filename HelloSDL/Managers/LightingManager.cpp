@@ -1,5 +1,5 @@
-#include "LightingManager.h"
-#include "GL/glew.h"
+#include <Managers/LightingManager.hpp>
+#include <GL/glew.h>
 #include <iostream>
 
 void LightingManager::Init()

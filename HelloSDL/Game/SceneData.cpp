@@ -2,7 +2,7 @@
 #include <Game/Camera.hpp>
 #include <Managers/SceneGraphManager.hpp>
 #include <Managers/MediaManager.hpp>
-#include <Managers/LightingManager.h>
+#include <Managers/LightingManager.hpp>
 
 SceneGraphManager *createGraph()
 {

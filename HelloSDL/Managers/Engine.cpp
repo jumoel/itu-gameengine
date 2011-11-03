@@ -3,6 +3,7 @@
 #include <Abstractions/Time.hpp>
 #include <Game/FPSCalculator.hpp>
 #include <Subsystems/Graphics/GraphicsSystem.hpp>
+#include <Utils/StringUtils.hpp>
 
 void Engine::Run()
 {
@@ -54,11 +55,6 @@ void Engine::Run()
 		// Display the graphics
 		m_Graphics->Render();
 	}
-}
-
-void Engine::RunGraphics()
-{
-
 }
 
 void Engine::StartUp()
