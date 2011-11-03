@@ -13,19 +13,17 @@ public:
 
 	void StartUp();
 	void ShutDown();
-
-	void SetToDefaults();
 	void SaveXML();
 
+	void SetOption(std::string identifier);
+	void SetOptionToDefault(std::string identifier);
+	void SetToDefaults();
+
 	std::string GetOption(std::string identifier);
+	std::string GetOptionDefault(std::string identifier);
 
 private:
 	pugi::xml_document doc;
-	static bool const SETTINGS_SENSIVITY;
-	float Sensivity;
-	static bool const SETTINGS_MOUSE_INVERT;
-	bool MouseInvertX;
-	bool MouseInvertY;
 };
 
 #endif
