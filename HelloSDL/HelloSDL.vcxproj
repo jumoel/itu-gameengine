@@ -133,7 +133,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="TestEventSubscribtion.hpp" />
     <ClInclude Include="Game\Light.hpp" />
     <ClInclude Include="Game\Material.hpp" />
-    <ClInclude Include="Managers\LightingManager.h" />
+    <ClInclude Include="Managers\LightingManager.hpp" />
     <ClInclude Include="ThirdParty\pugixml\pugiconfig.hpp" />
     <ClInclude Include="ThirdParty\pugixml\pugixml.hpp" />
     <ClInclude Include="ThirdParty\SuperFastHash.hpp" />

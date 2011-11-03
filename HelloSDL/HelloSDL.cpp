@@ -24,7 +24,7 @@
 #include <Managers/SceneGraphManager.hpp>
 #include <Game/FPSCalculator.hpp>
 #include <Managers/MediaManager.hpp>
-#include <Managers/LightingManager.h>
+#include <Managers/LightingManager.hpp>
 
 /* screen width, height, and bit depth */
 #define SCREEN_WIDTH  640
