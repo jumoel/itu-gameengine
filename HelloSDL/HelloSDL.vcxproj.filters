@@ -183,6 +183,9 @@
     <ClCompile Include="Events\Interfaces\IEventManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Managers\EventManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Managers\Engine.hpp">
@@ -263,9 +266,6 @@
     <ClInclude Include="TestEventSubscribtion.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Managers\EventManager.hpp">
-      <Filter>Header Files\Managers</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Material.hpp">
       <Filter>Header Files\World\GameObjects</Filter>
     </ClInclude>
@@ -297,6 +297,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Events\Interfaces\IEventManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Interfaces\InterfaceTemplateEventManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\EventManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

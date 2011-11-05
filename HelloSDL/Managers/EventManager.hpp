@@ -1,56 +1,30 @@
 #ifndef ITUENGINE_EVENTMANAGER_H
 #define ITUENGINE_EVENTMANAGER_H
 
-////////////////////////////////////////////////////////////////
-// Generic event manager for native C++.
-//
+#include <Events/Interfaces/IEventManager.hpp>
 
-#include <list>
-using namespace std;
-
-//////////////////
-// Generic event manager. Holds list of client objects. Template class
-// parameterized by the event interface.
-//
-// - Instantiate in event source class.
-//
-// - Source calls Raise to raise an event, passing functor object 
-// initialized with event params.
-//
-// - Clients derive from event interface and override event handlers. 
-// Clients call Register/Unregister to add/remove themselves.
-//
-
-template <typename I> //Interface type
-class EventManager
+class EventManager : public IEventManager
 {
-protected:
-    list<I*> m_clients; // list of registered client objects
 public:
-    EventManager() { }
-    ~EventManager() { }
+	explicit EventManager(char const * const pName, bool setAsGlobal);
+	virtual ~EventManager();
 
-    // Register: Add client to list.
-    void Register(I* client)
-    {
-        m_clients.push_back(client);
-    }
+	virtual bool AddListener ( EventListenerPointer const & inHandler, EventType const & inType );
 
-    // Unregister: Remove client from list.
-    void Unregister(I* client)
-    {
-        m_clients.remove(client);
-    }
+	virtual bool DelListener ( EventListenerPointer const & inHandler, EventType const & inType );
 
-    // Nested template member function! This fn calls the function object 
-    // F for each registered client. It merely passes F to for_each. Use 
-    // the DEFINE_EVENT macros to generate the functors. See IPrimeEvents 
-    // in Prime.h for example. 
-    template <typename F> //Function class type
-    void Raise(F fn)
-    {
-        for_each(m_clients.begin(), m_clients.end(), fn);
-    }
+	virtual bool TriggerEvent ( IEventData const & inEvent ) const;
+
+	virtual bool QueueEvent ( IEventDataPointer const & inEvent );
+	virtual bool ThreadSafeQueueEvent ( IEventDataPointer const & inEvent );
+
+	virtual bool AbortEvent ( EventType const & inType, bool allOfType = false );
+
+	//Can be set to stop processing after maxMillis, default is no limit.
+	virtual bool ProcessEventQueue ( unsigned long maxMillis = -1 );
+
+	virtual bool ValidateType( EventType const & inType ) const;
 };
 
-#endif
+#endif //ITUENGINE_EVENTMANAGER_H
+
