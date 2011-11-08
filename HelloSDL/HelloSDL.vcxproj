@@ -105,6 +105,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClCompile Include="Utils\StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Abstractions\DataTypes.hpp" />
     <ClInclude Include="Assertion.hpp" />
     <ClInclude Include="Abstractions\Time.hpp" />
     <ClInclude Include="Abstractions\Window.hpp" />

@@ -281,5 +281,8 @@
     <ClInclude Include="Managers\LightingManager.hpp">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
+    <ClInclude Include="Abstractions\DataTypes.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
