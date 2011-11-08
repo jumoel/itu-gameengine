@@ -8,16 +8,14 @@ void GraphicsSystem::StartUp()
 	m_SceneGraph = createGraph();
 	m_VectorList = new std::vector<Vector3f>();
 
-	GLuint vba_id;
-	glGenVertexArrays(1, &vba_id);
+	AddToVBORecursive(m_SceneGraph->RootNode, m_VectorList);
+
+	glGenVertexArrays(1, &m_VertexArrayObject);
+	glBindVertexArray(m_VertexArrayObject);
 
 	// The two below lines needs to be commented out to work for Emil, QQ. Need to research!
 	glGenBuffers(1, &m_VertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
-
-	AddToVBORecursive(m_SceneGraph->RootNode, m_VectorList);
-
-
 }
 
 void GraphicsSystem::AddToVBORecursive(Object *obj, std::vector<Vector3f> *vectors)

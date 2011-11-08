@@ -63,6 +63,7 @@ void Window::InitSDL()
 
 void Window::InitOpenGL()
 {
+	glewExperimental = GL_TRUE;
 	GLenum glew_status = glewInit();
 	ASSERT_MSG(glew_status == GLEW_OK, glewGetErrorString(glew_status));
 
