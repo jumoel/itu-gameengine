@@ -11,7 +11,7 @@ IEventManager * IEventManager::Instance()
 	return globalEventManagerInstance;
 }
 
-IEventManager::IEventManager( char const * const pName, bool setAsGlobal )
+void IEventManager::StartUp( char const * const pName, bool setAsGlobal )
 {
 	if ( setAsGlobal )
 	{
@@ -19,7 +19,7 @@ IEventManager::IEventManager( char const * const pName, bool setAsGlobal )
 	}
 }
 
-IEventManager::~IEventManager()
+void IEventManager::ShutDown()
 {
 	if ( globalEventManagerInstance == this )
 	{

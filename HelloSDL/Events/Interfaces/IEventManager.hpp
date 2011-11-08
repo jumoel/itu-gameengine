@@ -16,9 +16,13 @@ public:
 		INFINITE = 0xffffffff
 	};
 
-	explicit IEventManager( char const * const pName, bool setAsGlobal );
+	explicit IEventManager() {}
 
-	virtual ~IEventManager();
+	virtual ~IEventManager() {}
+
+	void StartUp(char const * const pName, bool setAsGlobal);
+
+	void ShutDown();
 
 	virtual bool AddListener ( EventListenerPointer const & inHandler, EventType const & inType ) = 0;
 

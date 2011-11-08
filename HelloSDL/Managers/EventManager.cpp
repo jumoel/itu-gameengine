@@ -2,14 +2,16 @@
 #include <Abstractions/Time.hpp>
 #include <assert.h>
 
-
-EventManager::EventManager(char const * const pName, bool setAsGlobal) : IEventManager(pName, setAsGlobal)
+void EventManager::StartUp(char const * const pName, bool setAsGlobal)
 {
-
+	IEventManager::StartUp(pName, setAsGlobal);
+	m_activeQueue = 0;
 }
 
-EventManager::~EventManager()
+void EventManager::ShutDown()
 {
+	IEventManager::ShutDown();
+	m_activeQueue = 0;
 }
 
 bool EventManager::AddListener ( EventListenerPointer const & inHandler, EventType const & inType )

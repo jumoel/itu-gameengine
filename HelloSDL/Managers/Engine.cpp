@@ -62,6 +62,9 @@ void Engine::StartUp()
 	m_SettingsManager = new SettingsManager();
 	m_SettingsManager->StartUp();
 
+	m_EventManager = new EventManager();
+	m_EventManager->StartUp("Global event manager", true);
+
 	m_Window = new Window();
 	m_Window->StartUp();
 
@@ -83,6 +86,8 @@ void Engine::ShutDown()
 	m_Graphics->ShutDown();
 
 	m_Window->ShutDown();
+
+	m_EventManager->ShutDown();
 
 	m_SettingsManager->ShutDown();
 }

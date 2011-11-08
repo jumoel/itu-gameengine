@@ -9,8 +9,11 @@
 class EventManager : public IEventManager
 {
 public:
-	explicit EventManager(char const * const pName, bool setAsGlobal);
-	virtual ~EventManager();
+	explicit EventManager() {}
+	virtual ~EventManager() {}
+
+	void StartUp(char const * const pName, bool setAsGlobal);
+	void ShutDown();
 
 	virtual bool AddListener ( EventListenerPointer const & inHandler, EventType const & inType );
 
