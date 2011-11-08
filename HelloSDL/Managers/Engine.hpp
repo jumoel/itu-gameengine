@@ -23,6 +23,7 @@ private:
 	FPSCalculator *m_FPSCalculator;
 	GraphicsSystem *m_Graphics;
 
+
 	bool m_Running;
 };
 

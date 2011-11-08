@@ -11,6 +11,11 @@ class IEventManager
 {
 public:
 
+	enum eConstants
+	{
+		INFINITE = 0xffffffff
+	};
+
 	explicit IEventManager( char const * const pName, bool setAsGlobal );
 
 	virtual ~IEventManager();
@@ -27,7 +32,7 @@ public:
 	virtual bool AbortEvent ( EventType const & inType, bool allOfType = false ) = 0;
 
 	//Can be set to stop processing after maxMillis, default is no limit.
-	virtual bool ProcessEventQueue ( unsigned long maxMillis = -1 ) = 0;
+	virtual bool ProcessEventQueue ( unsigned long maxMillis = INFINITE ) = 0;
 
 	virtual bool ValidateType( EventType const & inType ) const = 0;
 
