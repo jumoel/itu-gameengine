@@ -3,7 +3,7 @@
 <controls>
 	<keyboard>
 		<!-- SDL-names are meant to be used in the end -->
-		<quit static="true">ESCAPE</quit>
+		<quit default="ESCAPE">ESCAPE</quit>
 	</keyboard>
 	<controller>
 		<sensivity default="1.0">1.0</sensivity> 

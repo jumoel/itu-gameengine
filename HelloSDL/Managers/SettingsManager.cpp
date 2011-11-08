@@ -6,39 +6,53 @@
 #include <ThirdParty/pugixml/pugixml.hpp>
 #include <Utils/StringUtils.hpp>
 
-// Depending on how the XML-import works, these variables might disappear.
-static bool const SETTINGS_SENSIVITY = 1.0f;
-static bool const SETTINGS_MOUSE_INVERT = false;
-float Sensivity = SETTINGS_SENSIVITY;
-bool MouseInvertX = SETTINGS_MOUSE_INVERT;
-bool MouseInvertY = SETTINGS_MOUSE_INVERT;
-
 // General Functions
 void SettingsManager::StartUp()
 {
 	// Loads the various values from the XML-file.
 	pugi::xml_parse_result result = doc.load_file("../HelloSDL/Resources/Settings.xml");
-	std::cout << "Settings.XML Load result: " << result.description() << std::endl;
+	std::cout << "Importing \"Settings.xml\": " << result.description() << std::endl;
 
-	// Temporary test-strings:
-	std::cout << "Keyboard for EXIT: " << doc.child("controls").child("keyboard").child_value("quit") << std::endl;
-	std::cout << "trololol: " << this->GetOption("controls/keyboard/quit");
+	// Left-over test-lines - also shows usage:
+	//std::cout << "Win!: " << this->GetOption("video/resolution/width.default");
+	//std::cout << " (video/resolution/width.default)" << std::endl;
+	//std::cout << "Fail: " << this->GetOption("video/resolution/smokingheights");
+	//std::cout << " (video/resolution/smokingheights)" << std::endl;
 }
 
-void SettingsManager::ShutDown() {}
+void SettingsManager::ShutDown() 
+{
+	this->SaveXML();
+	// ...along with some other stuff that should probably happen.
+}
+
+void SettingsManager::SaveXML()
+{
+	// Writes the current settings to the XML-file.
+	// In the end, this is probably the only thing ShutDown() should so.
+}
+
+// Functions for Setting Option-values.
+void SettingsManager::SetOption(std::string identifier)
+{
+	// Sets a given option to a given value.
+}
+
+void SettingsManager::SetOptionToDefault(std::string identifier)
+{
+	// Sets a given option to its default value.
+}
 
 void SettingsManager::SetToDefaults()
 {
 	// Resets all the variables to their defaults, if available.
 }
 
-void SettingsManager::SaveXML()
-{
-	// Writes the current settings to the XML-file.
-}
-
+// Functions for Getting Option-values.
 std::string SettingsManager::GetOption(std::string identifier)
 {
+	// Returns the value of a given option, and "null" if not found.
+	// Tokenizes the XML-tree, and scans until only the last token is left.
 	std::vector<std::string> tokens = StringUtils::tokenize(identifier, "/");
 
 	auto length = tokens.size();
@@ -50,6 +64,25 @@ std::string SettingsManager::GetOption(std::string identifier)
 		node = node.child((*it).c_str());
 		it++;
 	}
+	
+	// Checks if the last token also has an attribute-value included
+	std::string result = (*it).c_str();
+	int findPos = result.find(".");
+	
+	// If found, it is used, otherwise the child's value is picked
+	if (findPos != -1) 
+		result = node.child(result.substr(0,findPos).c_str()).attribute(result.substr(findPos+1,result.length()).c_str()).value();
+	else
+		result = node.child_value(result.c_str());
 
-	return node.child_value((*it).c_str());
+	// Checks if the found value was valid or not
+	if (result == "") result = "null";
+	
+	return result;
+}
+
+std::string SettingsManager::GetOptionDefault(std::string identifier)
+{
+	// Returns the default-value of a given option.
+	return this->GetOption(identifier + ".default");
 }
