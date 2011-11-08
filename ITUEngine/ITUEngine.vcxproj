@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7A87A7E9-1071-4D7E-975A-62CD068BF1E2}</ProjectGuid>
-    <RootNamespace>HelloSDL</RootNamespace>
+    <RootNamespace>ITUEngine</RootNamespace>
     <ProjectName>ITUEngine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
