@@ -134,7 +134,6 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Game\SceneData.hpp" />
     <ClInclude Include="Managers\SceneGraphManager.hpp" />
     <ClInclude Include="Macros\EventMacros.hpp" />
-    <ClInclude Include="Subsystems\Graphics\GraphicsSystem.h" />
     <ClInclude Include="Subsystems\Graphics\GraphicsSystem.hpp" />
     <ClInclude Include="Templates\TSingleton.hpp" />
     <ClInclude Include="TestEventSubscribtion.hpp" />
