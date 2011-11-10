@@ -10,13 +10,13 @@ void GraphicsSystem::StartUp()
 
 	AddToVBORecursive(m_SceneGraph->RootNode, m_VectorList);
 
+	// The four below lines needs to be commented out to work for Emil, QQ. Need to research!
 	glGenVertexArrays(1, &m_VertexArrayObject);
 	glBindVertexArray(m_VertexArrayObject);
 
-	// The two below lines needs to be commented out to work for Emil, QQ. Need to research!
 	glGenBuffers(1, &m_VertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
-
+	
 	glBufferData(GL_ARRAY_BUFFER, sizeof(m_VectorList), m_VectorList, GL_STATIC_DRAW);
 
 	// Black background color
