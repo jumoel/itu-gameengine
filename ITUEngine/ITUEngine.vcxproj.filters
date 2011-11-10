@@ -200,9 +200,6 @@
     <ClInclude Include="Game\SceneData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\Graphics\GraphicsSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GfxModel.hpp">
       <Filter>Header Files\World\GameObjects</Filter>
     </ClInclude>
