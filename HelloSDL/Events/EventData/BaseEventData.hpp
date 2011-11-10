@@ -3,7 +3,7 @@
 
 #include <Events/Interfaces/IEventData.hpp>
 
-class BaseEventData : IEventData
+class BaseEventData : public IEventData
 {
 public:
 	explicit BaseEventData(const float timeStamp = 0.0f ) : m_TimeStamp(timeStamp) { }

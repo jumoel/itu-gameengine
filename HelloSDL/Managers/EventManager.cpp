@@ -6,6 +6,9 @@ void EventManager::StartUp(char const * const pName, bool setAsGlobal)
 {
 	IEventManager::StartUp(pName, setAsGlobal);
 	m_activeQueue = 0;
+
+	AddRegisteredEventType( wildcardEventType );
+	AddRegisteredEventType( EventType("keydownEvent") );
 }
 
 void EventManager::ShutDown()

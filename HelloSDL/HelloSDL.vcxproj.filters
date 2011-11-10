@@ -189,9 +189,6 @@
     <ClCompile Include="Events\EventData\EmptyEventData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Events\EventData\EventData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Managers\Engine.hpp">

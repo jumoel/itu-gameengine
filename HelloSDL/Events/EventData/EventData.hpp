@@ -4,8 +4,15 @@
 #include <Events/EventData/BaseEventData.hpp>
 
 template < typename T >
-class EventData : BaseEventData
+class EventData : public BaseEventData
 {
+private:
+	EventData();					// disable default construction
+	EventData(const EventData &);	// disable copy construction
+
+	const EventType	m_EventType;	//Type of this event.
+	T m_Value;
+
 public:
 	explicit EventData( T data,  const EventType & eventType, const float timeStamp = 0.0f )
 		: BaseEventData(timeStamp)
@@ -14,21 +21,26 @@ public:
 		m_Value = data;
 	}
 
+
+
 	virtual ~EventData() { }
 
-	virtual void Serialize(std::ostream &out) const;
+	const T GetValue() { return m_Value; }
 
-	virtual const EventType & GetEventType() const;	
-	virtual IEventDataPointer Copy() const;
+	virtual void Serialize(std::ostream &out) const
+	{
 
-	const T GetValue();
-	
-private:
-	EventData();					// disable default construction
-	EventData(const EventData &);	// disable copy construction
+	};
 
-	const EventType	m_EventType;	//Type of this event.
-	T m_Value;
+	virtual const EventType & GetEventType() const
+	{
+		return m_EventType;
+	}
+
+	virtual IEventDataPointer Copy() const
+	{
+		return IEventDataPointer(new EventData<T>(m_Value, m_EventType, m_TimeStamp));
+	}
 };
 
 #endif //ITUENGINE_EVENTDATA_H

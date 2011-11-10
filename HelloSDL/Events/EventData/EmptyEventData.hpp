@@ -3,7 +3,7 @@
 
 #include <Events/EventData/BaseEventData.hpp>
 
-class EmptyEventData : BaseEventData
+class EmptyEventData : public BaseEventData
 {
 public:
 	explicit EmptyEventData( const EventType & eventType, const float timeStamp = 0.0f );
