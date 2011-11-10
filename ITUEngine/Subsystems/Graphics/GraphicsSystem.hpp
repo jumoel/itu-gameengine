@@ -14,6 +14,7 @@ public:
 
 private:
 	void AddToVBORecursive(Object *obj, std::vector<Vector3f> *vectors);
+	void InitOpenGL();
 
 	SceneGraphManager *m_SceneGraph;
 	std::vector<Vector3f> *m_VectorList;
