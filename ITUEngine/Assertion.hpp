@@ -3,9 +3,11 @@
 
 #include <iostream>
 
-#if ASSERTIONS_ENABLED
+
+#define ASSERTIONS_ENABLED
+#ifdef ASSERTIONS_ENABLED
 	// Some inline assembly that causes a break into the debugger. This will be different on each target CPU
-	#define debugBreak() asm { int 3 }
+	#define debugBreak() __asm { int 3 }
 
 	#define ASSERT(expr) ASSERT_MSG(expr, "")
 
@@ -13,9 +15,10 @@
 		if (expr) { } \
 		else \
 		{ \
-		reportAssertionFailure(#expr, #msg, __FILE__, __LINE__); \
+		reportAssertionFailure(#expr, msg, __FILE__, __LINE__); \
 			debugBreak(); \
 		}
+
 #else
 	#define ASSERT_MSG(expr, msg)	// Evaluates to nothing
 	#define ASSERT(expr)			// ... same

@@ -15,9 +15,9 @@ public:
 	void ShutDown();
 	void SaveXML();
 
-	void SetOption(std::string identifier);
+	void SetOption(std::string identifier, std::string value);
 	void SetOptionToDefault(std::string identifier);
-	void SetToDefaults();
+	void SetAllOptionsToDefaults();
 
 	std::string GetOption(std::string identifier);
 	std::string GetOptionDefault(std::string identifier);

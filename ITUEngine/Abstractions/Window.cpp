@@ -28,12 +28,16 @@ void Window::ShutDown()
 
 void Window::InitSDL()
 {
+	std::string errormessage;
+
 	int sdl_init_val = SDL_Init(SDL_INIT_VIDEO);
-	ASSERT_MSG((sdl_init_val < 0), SDL_GetError());
+	errormessage = SDL_GetError();
+	ASSERT_MSG(sdl_init_val == 0, errormessage.c_str());
 
 	/* Fetch the video info */
-	const SDL_VideoInfo *sdl_video_info = SDL_GetVideoInfo( );
-	ASSERT_MSG(sdl_video_info, SDL_GetError());
+	const SDL_VideoInfo *sdl_video_info = SDL_GetVideoInfo();
+	errormessage = SDL_GetError();
+	ASSERT_MSG(sdl_video_info, errormessage.c_str());
 
 	/* the flags to pass to SDL_SetVideoMode */
 	m_VideoFlags  = SDL_OPENGL;          /* Enable OpenGL in SDL */
@@ -65,7 +69,8 @@ void Window::InitOpenGL()
 {
 	glewExperimental = GL_TRUE;
 	GLenum glew_status = glewInit();
-	ASSERT_MSG(glew_status == GLEW_OK, glewGetErrorString(glew_status));
+	std::string errormessage = (const char*) glewGetErrorString(glew_status);
+	ASSERT_MSG(glew_status == GLEW_OK, errormessage.c_str());
 
 	/* Enable smooth shading */
 	glShadeModel( GL_SMOOTH );

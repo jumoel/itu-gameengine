@@ -284,5 +284,11 @@
     <ClInclude Include="Abstractions\DataTypes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\ShaderUtils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings.xml" />
   </ItemGroup>
 </Project>

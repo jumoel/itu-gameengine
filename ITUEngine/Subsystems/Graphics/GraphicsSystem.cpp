@@ -20,7 +20,7 @@ void GraphicsSystem::StartUp()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(m_VectorList), m_VectorList, GL_STATIC_DRAW);
 
 	// Black background color
-	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 void GraphicsSystem::AddToVBORecursive(Object *obj, std::vector<Vector3f> *vectors)
@@ -39,7 +39,13 @@ void GraphicsSystem::AddToVBORecursive(Object *obj, std::vector<Vector3f> *vecto
 
 void GraphicsSystem::Render()
 {
+	// Clear the window
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 
+	SDL_GL_SwapBuffers();
 }
 
 void GraphicsSystem::ShutDown()
