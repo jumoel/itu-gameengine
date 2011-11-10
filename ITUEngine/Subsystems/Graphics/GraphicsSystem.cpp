@@ -2,11 +2,16 @@
 #include <Game/SceneData.hpp>
 #include <stdio.h>
 #include <vector>
+#include <Assertion.hpp>
 
 void GraphicsSystem::StartUp()
 {
+	this->InitOpenGL();
+
 	m_SceneGraph = createGraph();
 	m_VectorList = new std::vector<Vector3f>();
+
+	glEnableClientState(GL_VERTEX_ARRAY);
 
 	AddToVBORecursive(m_SceneGraph->RootNode, m_VectorList);
 
@@ -21,6 +26,27 @@ void GraphicsSystem::StartUp()
 
 	// Black background color
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+void GraphicsSystem::InitOpenGL()
+{
+	/* Enable smooth shading */
+	glShadeModel( GL_SMOOTH );
+
+	/* Set the background Color*/
+	glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
+
+	/* Depth buffer setup */
+	glClearDepth( 1.0f );
+
+	/* Enables Depth Testing */
+	glEnable( GL_DEPTH_TEST );
+
+	/* The Type Of Depth Test To Do */
+	glDepthFunc( GL_LEQUAL );
+
+	/* Really Nice Perspective Calculations */
+	glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
 }
 
 void GraphicsSystem::AddToVBORecursive(Object *obj, std::vector<Vector3f> *vectors)
@@ -41,6 +67,14 @@ void GraphicsSystem::Render()
 {
 	// Clear the window
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+	Camera *CameraObject = m_SceneGraph->CameraObject;
+
+	gluLookAt(
+		CameraObject->Position.x(), CameraObject->Position.y(), CameraObject->Position.z(), 
+		CameraObject->LookAt.x(), CameraObject->LookAt.y(), CameraObject->LookAt.z(), 
+		CameraObject->Up.x(), CameraObject->Up.y(), CameraObject->Up.z()
+		);
 	
 	glColor3f(1.0f, 0.0f, 0.0f);
 	glDrawArrays(GL_TRIANGLES, 0, 3);

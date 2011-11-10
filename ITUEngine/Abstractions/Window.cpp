@@ -71,24 +71,6 @@ void Window::InitOpenGL()
 	GLenum glew_status = glewInit();
 	std::string errormessage = (const char*) glewGetErrorString(glew_status);
 	ASSERT_MSG(glew_status == GLEW_OK, errormessage.c_str());
-
-	/* Enable smooth shading */
-	glShadeModel( GL_SMOOTH );
-
-	/* Set the background Color*/
-	glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
-
-	/* Depth buffer setup */
-	glClearDepth( 1.0f );
-
-	/* Enables Depth Testing */
-	glEnable( GL_DEPTH_TEST );
-
-	/* The Type Of Depth Test To Do */
-	glDepthFunc( GL_LEQUAL );
-
-	/* Really Nice Perspective Calculations */
-	glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
 }
 
 void Window::SetVideoMode()
