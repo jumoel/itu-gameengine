@@ -63,7 +63,8 @@ void Engine::Run()
 
 		// Display the graphics
 		m_Graphics->Render();
-	}
+
+	} // while(m_Running)
 }
 
 void Engine::StartUp()

@@ -12,7 +12,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7A87A7E9-1071-4D7E-975A-62CD068BF1E2}</ProjectGuid>
-    <RootNamespace>HelloSDL</RootNamespace>
+    <RootNamespace>ITUEngine</RootNamespace>
+    <ProjectName>ITUEngine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -48,6 +49,7 @@
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <ObjectFileName>$(IntDir)</ObjectFileName>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -60,6 +62,9 @@
 xcopy C:\GLEW\glew-1.7.0\bin\glew32.dll "$(OutDir)" /y
 xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>xcopy "$(ProjectDir)Resources\Settings.xml" "$(OutDir)" /y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -109,6 +114,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClCompile Include="Utils\ThreadSafeEventQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Abstractions\DataTypes.hpp" />
     <ClInclude Include="Assertion.hpp" />
     <ClInclude Include="Abstractions\Time.hpp" />
     <ClInclude Include="Abstractions\Window.hpp" />
@@ -139,7 +145,6 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Game\SceneData.hpp" />
     <ClInclude Include="Managers\SceneGraphManager.hpp" />
     <ClInclude Include="Macros\EventMacros.hpp" />
-    <ClInclude Include="Subsystems\Graphics\GraphicsSystem.h" />
     <ClInclude Include="Subsystems\Graphics\GraphicsSystem.hpp" />
     <ClInclude Include="Templates\TSingleton.hpp" />
     <ClInclude Include="TestEventSubscribtion.hpp" />
@@ -149,8 +154,14 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="ThirdParty\pugixml\pugiconfig.hpp" />
     <ClInclude Include="ThirdParty\pugixml\pugixml.hpp" />
     <ClInclude Include="ThirdParty\SuperFastHash.hpp" />
+    <ClInclude Include="Utils\ShaderUtils.hpp" />
     <ClInclude Include="Utils\StringUtils.hpp" />
     <ClInclude Include="Utils\ThreadSafeEventQueue.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings.xml">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

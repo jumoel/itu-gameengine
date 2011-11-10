@@ -14,10 +14,12 @@ public:
 
 private:
 	void AddToVBORecursive(Object *obj, std::vector<Vector3f> *vectors);
+	void InitOpenGL();
 
 	SceneGraphManager *m_SceneGraph;
 	std::vector<Vector3f> *m_VectorList;
 	GLuint m_VertexBuffer;
+	GLuint m_VertexArrayObject;
 };
 
 #endif // ITUENGINE_GRAPHICSSYSTEM_H
