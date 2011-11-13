@@ -100,6 +100,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClCompile Include="Managers\LightingManager.cpp" />
     <ClCompile Include="Managers\MediaManager.cpp" />
     <ClCompile Include="Managers\SettingsManager.cpp" />
+    <ClCompile Include="Math\CollisionDetection2D.cpp" />
     <ClCompile Include="Math\Matrix4x4f.cpp" />
     <ClCompile Include="Math\Vector3f.cpp" />
     <ClCompile Include="Events\Input\MouseClickEvent.cpp" />
@@ -137,6 +138,8 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Managers\InputManager.hpp" />
     <ClInclude Include="Managers\MediaManager.hpp" />
     <ClInclude Include="Managers\SettingsManager.hpp" />
+    <ClInclude Include="Math\CollisionDetection2D.hpp" />
+    <ClInclude Include="Math\GeometricFigures2D.hpp" />
     <ClInclude Include="Math\Matrix4x4f.hpp" />
     <ClInclude Include="Math\Vector3f.hpp" />
     <ClInclude Include="Events\Input\MouseClickEvent.hpp" />
