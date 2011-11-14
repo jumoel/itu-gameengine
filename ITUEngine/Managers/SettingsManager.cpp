@@ -19,7 +19,7 @@ void SettingsManager::StartUp()
 	std::cout << "Result of import of \"Settings.xml\": " << result.description() << std::endl;
 
 	// Left-over test-lines - also shows usage:
-	/* std::cout << "Win!: " << this->GetOption("video/resolution/width");
+	/*std::cout << "Win!: " << this->GetOption("video/resolution/width");
 	std::cout << " (video/resolution/width)" << std::endl;
 	this->SetOption("video/resolution/width", "500");
 	std::cout << "Win!: " << this->GetOption("video/resolution/width");
@@ -83,19 +83,24 @@ void SettingsManager::SetOption(std::string identifier, std::string value)
 	// There was no attribute
 	if (tokens.size() == 1)
 	{
-		result = node.child_value(name.c_str());
+		result = node.child(name.c_str()).attribute("value").value();
 		ASSERT_MSG((result != ""), errormessage.c_str());
 		writeResult = node.child(name.c_str()).attribute("value").set_value(value.c_str());
 	}
 	// There was an attribute
 	else
 	{
-		// This is done, as the attribute "default" doesn't, in fact, exist.
-		ASSERT_MSG(tokens[1] != "default", "Default value cannot be changed!");
-		
-		result = node.child(tokens[0].c_str()).attribute(tokens[1].c_str()).value();
-		ASSERT_MSG((result != ""), errormessage.c_str());
-		writeResult = node.child(tokens[0].c_str()).attribute(tokens[1].c_str()).set_value(value.c_str());
+		if (tokens[1] == "default")
+		{
+			// This is done, as the attribute "default" must not be changed.
+			ASSERT_MSG(tokens[1] != "default", "Default value cannot be changed! :<");
+		}
+		else
+		{
+			result = node.child(tokens[0].c_str()).attribute(tokens[1].c_str()).value();
+			ASSERT_MSG((result != ""), errormessage.c_str());
+			writeResult = node.child(tokens[0].c_str()).attribute(tokens[1].c_str()).set_value(value.c_str());
+		}
 	}
 
 	// Returns an error if the set_value()-failed
@@ -154,10 +159,7 @@ std::string SettingsManager::GetOption(std::string identifier)
 	// There was an attribute
 	else
 	{
-		if (tokens[1].compare("default") == 0)
-			result = node.child_value(tokens[0].c_str());
-		else
-			result = node.child(tokens[0].c_str()).attribute(tokens[1].c_str()).value();
+		result = node.child(tokens[0].c_str()).attribute(tokens[1].c_str()).value();
 	}
 
 	// Checks for valid value (that the identifier actually has a value in the XML file)
