@@ -77,6 +77,7 @@ void GraphicsSystem::Render()
 		);
 	
 	glColor3f(1.0f, 0.0f, 0.0f);
+	// Another "needs to be commented out to work for Emil"-line, QQ. Need to research!
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	SDL_GL_SwapBuffers();

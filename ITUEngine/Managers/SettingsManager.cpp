@@ -19,25 +19,28 @@ void SettingsManager::StartUp()
 	std::cout << "Result of import of \"Settings.xml\": " << result.description() << std::endl;
 
 	// Left-over test-lines - also shows usage:
-	/*
-	std::cout << "Win!: " << this->GetOption("video/resolution/width");
+	/* std::cout << "Win!: " << this->GetOption("video/resolution/width");
 	std::cout << " (video/resolution/width)" << std::endl;
 	this->SetOption("video/resolution/width", "500");
 	std::cout << "Win!: " << this->GetOption("video/resolution/width");
 	std::cout << " (video/resolution/width)" << std::endl;
-	*/
+	this->SetOptionToDefault("video/resolution/width");
+	std::cout << "Win!: " << this->GetOption("video/resolution/width");
+	std::cout << " (video/resolution/width)" << std::endl; */
 }
 
 void SettingsManager::ShutDown() 
 {
+	// Saves the current tree to the XML-file and destroys the XML-tree.
 	this->SaveXML();
+	doc.~xml_document();
 	// ...along with some other stuff that should probably happen.
 }
 
 void SettingsManager::SaveXML()
 {
 	// Writes the current settings to the XML-file.
-	// In the end, this is probably the only thing ShutDown() should so.
+	std::cout << "Saving 'Settings2.xml': " << doc.save_file("Settings2.xml") << std::endl;
 }
 
 // Functions for Setting Option-values.
@@ -82,11 +85,14 @@ void SettingsManager::SetOption(std::string identifier, std::string value)
 	{
 		result = node.child_value(name.c_str());
 		ASSERT_MSG((result != ""), errormessage.c_str());
-		writeResult = node.child(name.c_str()).set_value(value.c_str());
+		writeResult = node.child(name.c_str()).attribute("value").set_value(value.c_str());
 	}
 	// There was an attribute
 	else
 	{
+		// This is done, as the attribute "default" doesn't, in fact, exist.
+		ASSERT_MSG(tokens[1] != "default", "Default value cannot be changed!");
+		
 		result = node.child(tokens[0].c_str()).attribute(tokens[1].c_str()).value();
 		ASSERT_MSG((result != ""), errormessage.c_str());
 		writeResult = node.child(tokens[0].c_str()).attribute(tokens[1].c_str()).set_value(value.c_str());
@@ -94,7 +100,7 @@ void SettingsManager::SetOption(std::string identifier, std::string value)
 
 	// Returns an error if the set_value()-failed
 	errormessage = "The identifier '" + identifier + "' couldn't be written to the settings tree.";
-	ASSERT_MSG((writeResult == 0), errormessage.c_str());
+	ASSERT_MSG((writeResult == 1), errormessage.c_str());
 }
 
 void SettingsManager::SetOptionToDefault(std::string identifier)
@@ -143,12 +149,15 @@ std::string SettingsManager::GetOption(std::string identifier)
 	// There was no attribute
 	if (tokens.size() == 1)
 	{
-		result = node.child_value(name.c_str());
+		result = node.child(tokens[0].c_str()).attribute("value").value();
 	}
 	// There was an attribute
 	else
 	{
-		result = node.child(tokens[0].c_str()).attribute(tokens[1].c_str()).value();
+		if (tokens[1].compare("default") == 0)
+			result = node.child_value(tokens[0].c_str());
+		else
+			result = node.child(tokens[0].c_str()).attribute(tokens[1].c_str()).value();
 	}
 
 	// Checks for valid value (that the identifier actually has a value in the XML file)
