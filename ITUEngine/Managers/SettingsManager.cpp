@@ -19,14 +19,15 @@ void SettingsManager::StartUp()
 	std::cout << "Result of import of \"Settings.xml\": " << result.description() << std::endl;
 
 	// Left-over test-lines - also shows usage:
-	/*std::cout << "Win!: " << this->GetOption("video/resolution/width");
-	std::cout << " (video/resolution/width)" << std::endl;
+	/*
 	this->SetOption("video/resolution/width", "500");
 	std::cout << "Win!: " << this->GetOption("video/resolution/width");
 	std::cout << " (video/resolution/width)" << std::endl;
 	this->SetOptionToDefault("video/resolution/width");
 	std::cout << "Win!: " << this->GetOption("video/resolution/width");
-	std::cout << " (video/resolution/width)" << std::endl; */
+	std::cout << " (video/resolution/width)" << std::endl;
+	this->SetAllOptionsToDefaults();
+	this->SaveXML(); */
 }
 
 void SettingsManager::ShutDown() 
@@ -115,7 +116,20 @@ void SettingsManager::SetOptionToDefault(std::string identifier)
 
 void SettingsManager::SetAllOptionsToDefaults()
 {
-	// Resets all the variables to their defaults, if available.
+	// What to do for each node in the traversion:
+	struct set_to_default: pugi::xml_tree_walker 
+	{
+		virtual bool for_each(pugi::xml_node& node)
+		{
+			if (node.attribute("default").value() != "")
+				node.attribute("value").set_value(node.attribute("default").value());
+			
+			return true;
+		}
+	} walker;
+
+	// Traverse the XML-tree and set all attributes to their defaults, if available.
+	doc.child("settings").traverse(walker);
 }
 
 // Functions for Getting Option-values.
