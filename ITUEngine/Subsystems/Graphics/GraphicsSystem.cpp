@@ -23,9 +23,6 @@ void GraphicsSystem::StartUp()
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
 	
 	glBufferData(GL_ARRAY_BUFFER, sizeof(m_VectorList), m_VectorList, GL_STATIC_DRAW);
-
-	// Black background color
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 void GraphicsSystem::InitOpenGL()
@@ -33,16 +30,14 @@ void GraphicsSystem::InitOpenGL()
 	/* Enable smooth shading */
 	glShadeModel( GL_SMOOTH );
 
-	/* Set the background Color*/
+	/* Set the backgroundColor*/
 	glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
 
 	/* Depth buffer setup */
 	glClearDepth( 1.0f );
 
-	/* Enables Depth Testing */
 	glEnable( GL_DEPTH_TEST );
 
-	/* The Type Of Depth Test To Do */
 	glDepthFunc( GL_LEQUAL );
 
 	/* Really Nice Perspective Calculations */
