@@ -93,7 +93,7 @@ struct MS3DKeyframe
 void MediaManager::StartUp()
 {
 	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
-	playerModel = LoadModel("Resources/Model.ms3d");
+	playerModel = LoadModel("Resources/Player/kalahk.ms3d");
 }
 
 void MediaManager::ShutDown()
@@ -124,7 +124,7 @@ Texture* MediaManager::LoadTexture(char *filename, char* name)                 /
 	{
 		if (file == NULL)													// Did The File Even Exist?
 		{
-			std::cout << "ERROR! The file does not exist!" << std::endl; 
+			std::cout << "ERROR! The file " << filename << " does not exist!" << std::endl; 
 			return NULL;													// Return False
 		}
 		else
@@ -215,7 +215,8 @@ GfxModel* MediaManager::LoadModel(const char *filename)
 	long fileSize = inputFile.tellg();
 	inputFile.seekg(0, std::ios::beg);
 
-	byte *buffer = new byte(fileSize);
+	byte *buffer = new byte[fileSize];
+	//inputFile.read( buffer, fileSize);
 	inputFile.read(reinterpret_cast<char*>(buffer), fileSize);
 	inputFile.close();
 
@@ -272,8 +273,8 @@ GfxModel* MediaManager::LoadModel(const char *filename)
 
 	for(i = 0; i < nGroups; i++)
 	{
-		ptr += sizeof(word); //Flags
-		ptr += sizeof(byte); //name
+		ptr += sizeof(byte); //Flags
+		ptr += 32; //name
 
 		word nTriangles = *(word*) ptr;
 		ptr += sizeof(word);
@@ -311,8 +312,10 @@ GfxModel* MediaManager::LoadModel(const char *filename)
 		strcpy( model->mMaterials[i].textureFileName, pMaterial->m_texture );
 		ptr += sizeof( MS3DMaterial );
 	}
+	
 	for(int k = 0; k < model->numMaterials; k++)
 	{
+		//std::cout << "model texture file name: " << model->mMaterials[k].textureFileName << std::endl;
 		model->mMaterials[k].tex = LoadTexture(model->mMaterials[k].textureFileName, model->mMaterials[k].textureFileName);
 	}
 	reloadTextures(model);
