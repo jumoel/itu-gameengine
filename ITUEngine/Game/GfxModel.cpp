@@ -4,9 +4,6 @@
 
 GfxModel::GfxModel()
 {
-	this->vertices = new std::vector<Vector3f>();
-	this->material = new Material();
-
 	numMeshes = 0;
 	mMeshes = NULL;
 	numMaterials = 0;
@@ -19,8 +16,6 @@ GfxModel::GfxModel()
 
 GfxModel::~GfxModel()
 {	
-	delete this->vertices;
-
 	int i;
 	for ( i = 0; i < numMeshes; i++ )
 		delete[] mMeshes[i].triangleIndices;
@@ -56,7 +51,7 @@ GfxModel::~GfxModel()
 	}
 }
 
-
+/*
 void GfxModel::CreateVBO()
 {
 	GLfloat *verts = new GLfloat[vertices->size()*3];
@@ -125,36 +120,8 @@ void GfxModel::CreateVBO()
 	delete [] verts;
 	delete [] color;
 }
+*/
 
-void GfxModel::CreateVBO2()
-{
-	GLfloat *verts = new GLfloat[numVertices*3];
-
-
-	int i = 0;
-
-	for(int k = 0; k < numVertices; k++)
-	{
-		verts[i] = mVertices[k].location[0];
-		verts[i+1] = mVertices[k].location[1];
-		verts[i+2] = mVertices[k].location[2];
-		i += 3;
-	}
-
-	glGenBuffersARB(1, &vboId);																				//Generate VBO and get associated ID
-	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);															//Bind the VBO in order to use it
-	glBufferDataARB(GL_ARRAY_BUFFER_ARB, numVertices*3*sizeof(float), verts, GL_STATIC_DRAW_ARB);		//Upload data to the VBO
-
-
-
-	delete [] verts;
-}
-
-void GfxModel::SetTexture(Texture* tex)
-{
-	material->texture = tex;
-	mMaterials->mTexture = tex->texID;
-}
 
 void GfxModel::draw()
 {

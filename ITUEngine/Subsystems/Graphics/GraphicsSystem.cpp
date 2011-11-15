@@ -1,4 +1,5 @@
 #include <Subsystems/Graphics/GraphicsSystem.hpp>
+#include <Managers/MediaManager.hpp>
 #include <Game/SceneData.hpp>
 #include <stdio.h>
 #include <vector>
@@ -10,6 +11,7 @@ void GraphicsSystem::StartUp()
 	// Some lines below need to be commented out to work for Emil, QQ. Need to research!
 
 	this->InitOpenGL();
+	SINGLETONINSTANCE(MediaManager)->StartUp();
 
 	m_SceneGraph = createGraph();
 	m_VectorList = new std::vector<Vector3f>();
@@ -83,7 +85,17 @@ void GraphicsSystem::InitOpenGL()
 
 void GraphicsSystem::AddToVBORecursive(Object *obj, std::vector<Vector3f> *vectors)
 {
-	std::vector<Vector3f> *v_list = obj->gfx->vertices;
+	int k = 0;
+	std::vector<Vector3f> *v_list = new vector<Vector3f>();
+	for(int i = 0; i < obj->gfx->numVertices; i++)
+	{
+		Vector3f temp;
+		temp.SetX(obj->gfx->mVertices[k].location[0]);
+		temp.SetY(obj->gfx->mVertices[k].location[1]);
+		temp.SetZ(obj->gfx->mVertices[k].location[2]);
+		v_list->push_back(temp);
+	}
+
 	for (auto it = v_list->begin(); it != v_list->end(); ++it)
 	{
 		vectors->push_back(*it);

@@ -15,14 +15,16 @@ public:
 	
 	
 	Texture* warrior;
-	GfxModel *someModel;
+	GfxModel *playerModel;
 	std::vector<Texture*> textures;
 	Texture* LoadTexture(char *filename, char* name);
 	GfxModel* LoadModel(const char *filename);
 	Texture* FindTexture(const char *name);
 	void reloadTextures(GfxModel* model);
 
-	void Init();
+	void StartUp();
+	void ShutDown();
+	
 };
 
 #endif

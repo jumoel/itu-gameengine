@@ -90,10 +90,15 @@ struct MS3DKeyframe
 
 
 
-void MediaManager::Init()
+void MediaManager::StartUp()
 {
 	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
-	someModel = LoadModel("Resources/Model.ms3d");
+	playerModel = LoadModel("Resources/Model.ms3d");
+}
+
+void MediaManager::ShutDown()
+{
+
 }
 
 Texture* MediaManager::LoadTexture(char *filename, char* name)                 // Loads A TGA File Into Memory
@@ -195,13 +200,17 @@ Texture* MediaManager::LoadTexture(char *filename, char* name)                 /
 
 GfxModel* MediaManager::LoadModel(const char *filename)
 {
+	std::cout << "Loading model" << std::endl;
+
 	GfxModel* model = new GfxModel();
 
 	std::ifstream inputFile( filename, std::ios::in | std::ios::binary );
 
 	if(inputFile.fail())
+	{
+		std::cout << "Loading file into stream failed!!!" << std::endl;
 		return NULL;
-
+	}
 	inputFile.seekg(0, std::ios::end);
 	long fileSize = inputFile.tellg();
 	inputFile.seekg(0, std::ios::beg);
@@ -302,10 +311,14 @@ GfxModel* MediaManager::LoadModel(const char *filename)
 		strcpy( model->mMaterials[i].textureFileName, pMaterial->m_texture );
 		ptr += sizeof( MS3DMaterial );
 	}
+	for(int k = 0; k < model->numMaterials; k++)
+	{
+		model->mMaterials[k].tex = LoadTexture(model->mMaterials[k].textureFileName, model->mMaterials[k].textureFileName);
+	}
 	reloadTextures(model);
 
 	delete buffer;
-
+	std::cout << "The MS3D has been loaded successfully" << std::endl;
 	return model;
 
 }
@@ -329,8 +342,9 @@ void MediaManager::reloadTextures(GfxModel* model)
 			}
 		}
         else
-
+		{
 			model->mMaterials[i].mTexture = 0;
+		}
 	}
 }
 
