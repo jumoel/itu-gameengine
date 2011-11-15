@@ -14,18 +14,13 @@ void GraphicsSystem::StartUp()
 	m_SceneGraph = createGraph();
 	m_VectorList = new std::vector<Vector3f>();
 
-	//AddToVBORecursive(m_SceneGraph->RootNode, m_VectorList);
+	AddToVBORecursive(m_SceneGraph->RootNode, m_VectorList);
 
-	auto lol = new std::vector<float>();
-	lol->push_back(-1.0f); lol->push_back(-0.5f); lol->push_back(-4.0f);
-	lol->push_back( 1.0f); lol->push_back(-0.5f); lol->push_back(-4.0f);
-	lol->push_back( 0.0f); lol->push_back( 0.5f); lol->push_back(-4.0f);
+	auto verts = new std::vector<float>();
 
-	const float vertexPositions[] = {
-		0.75f, 0.75f, 0.0f, 1.0f,
-		0.75f, -0.75f, 0.0f, 1.0f,
-		-0.75f, -0.75f, 0.0f, 1.0f,
-	};
+	verts->push_back( 0.75f); verts->push_back( 0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
+	verts->push_back( 0.75f); verts->push_back(-0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
+	verts->push_back(-0.75f); verts->push_back(-0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
 
 	// Setup passthrough shaders
 	const std::string strVertexShader(
@@ -60,7 +55,7 @@ void GraphicsSystem::StartUp()
 
 	glGenBuffers(1, &m_VertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, verts->size() * sizeof(float), &verts->front(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glGenVertexArrays(1, &m_VertexArrayObject);
@@ -105,16 +100,15 @@ void GraphicsSystem::Render()
 	// Clear the window
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear( GL_COLOR_BUFFER_BIT); //  | GL_DEPTH_BUFFER_BIT 
-
-	// Camera *CameraObject = m_SceneGraph->CameraObject;
 /*
+	Camera *CameraObject = m_SceneGraph->CameraObject;
+
 	gluLookAt(
 		CameraObject->Position.x(), CameraObject->Position.y(), CameraObject->Position.z(), 
 		CameraObject->LookAt.x(), CameraObject->LookAt.y(), CameraObject->LookAt.z(), 
 		CameraObject->Up.x(), CameraObject->Up.y(), CameraObject->Up.z()
 		);
-	*/
-
+*/
 	glUseProgram(theProgram);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
