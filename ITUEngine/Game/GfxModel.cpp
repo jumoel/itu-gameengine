@@ -51,6 +51,13 @@ GfxModel::~GfxModel()
 	}
 }
 
+void GfxModel::SetTexture(Texture* tex, Mat* mat)
+{
+	mat->tex = tex;
+	mat->mTexture = tex->texID;
+	mat->textureFileName = tex->filename;
+}
+
 /*
 void GfxModel::CreateVBO()
 {

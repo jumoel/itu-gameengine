@@ -93,7 +93,9 @@ struct MS3DKeyframe
 void MediaManager::StartUp()
 {
 	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
-	playerModel = LoadModel("Resources/Player/kalahk.ms3d");
+	playerTex = LoadTexture("Resources/Wood.tga", "PlayerTex");
+	playerModel = LoadModel("Resources/model.ms3d");
+	std::cout << "number of vertices: " << playerModel->numVertices << std::endl;
 }
 
 void MediaManager::ShutDown()
@@ -258,12 +260,17 @@ GfxModel* MediaManager::LoadModel(const char *filename)
 	{
 		MS3DTriangle* trianglePtr = (MS3DTriangle* ) ptr;
 		int vertexIndices[3] = { trianglePtr->m_vertexIndices[0], trianglePtr->m_vertexIndices[1], trianglePtr->m_vertexIndices[2]};
+		
 		float t[3] = {1.0f-trianglePtr->m_t[0], 1.0f-trianglePtr->m_t[1], 1.0f-trianglePtr->m_t[2]};
-		memcpy(model->mTriangles->vertexNormals, trianglePtr->m_vertexNormals, sizeof(float)*3*3);
-		memcpy(model->mTriangles->sTex, trianglePtr->m_s, sizeof(float)*3);
-		memcpy(model->mTriangles->tTex, t, sizeof(float)*3);
-		memcpy(model->mTriangles->verticeIndices, vertexIndices, sizeof(int)*3);
+		memcpy(model->mTriangles[i].vertexNormals, trianglePtr->m_vertexNormals, sizeof(float)*3*3);
+		memcpy(model->mTriangles[i].sTex, trianglePtr->m_s, sizeof(float)*3);
+		memcpy(model->mTriangles[i].tTex, t, sizeof(float)*3);
+		memcpy(model->mTriangles[i].verticeIndices, vertexIndices, sizeof(int)*3);
 		ptr += sizeof(MS3DTriangle);
+		/*for(int f = 0; f < 3; f++)
+		{
+			std::cout << "Vertex index: " << model->mTriangles->verticeIndices[f] << std::endl;
+		}*/
 	}
 
 	int nGroups = *(word*) ptr;
@@ -291,6 +298,18 @@ GfxModel* MediaManager::LoadModel(const char *filename)
 		model->mMeshes[i].materialIndex = materialIndex;
 		model->mMeshes[i].numTriangles = nTriangles;
 		model->mMeshes[i].triangleIndices = triangleIndicesPtr;
+		/*
+		for(int f = 0; f < model->mMeshes[i].numTriangles; f++)
+		{
+			int triangleIndex = model->mMeshes[i].triangleIndices[f];
+			std::cout << "index: " << triangleIndex << std::endl;
+			for ( int k = 0; k < 3; k++ )
+				{
+					int index =  model->mTriangles[triangleIndex].verticeIndices[k]; //pTri->verticeIndices[k];
+					//std::cout << "index: " << index << std::endl;
+				}
+
+		}*/
 	}
 
 	
@@ -321,7 +340,7 @@ GfxModel* MediaManager::LoadModel(const char *filename)
 	reloadTextures(model);
 
 	delete buffer;
-	std::cout << "The MS3D has been loaded successfully" << std::endl;
+	std::cout << "The MS3D has been loaded successfully " << std::endl;
 	return model;
 
 }

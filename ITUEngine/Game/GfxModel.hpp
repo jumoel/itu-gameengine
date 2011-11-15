@@ -55,7 +55,7 @@ public:
 	int numMaterials;
 	Mat *mMaterials;
 
-	void SetTexture(Texture* tex);
+	void SetTexture(Texture* tex, Mat* mat);
 	GfxModel();
 	~GfxModel();
 

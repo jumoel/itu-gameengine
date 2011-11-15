@@ -15,6 +15,7 @@ public:
 	
 	
 	Texture* warrior;
+	Texture* playerTex;
 	GfxModel *playerModel;
 	std::vector<Texture*> textures;
 	Texture* LoadTexture(char *filename, char* name);
