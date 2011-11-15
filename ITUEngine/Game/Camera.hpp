@@ -5,8 +5,9 @@
 #include <Events/Input/KeyPressedEvent.hpp>
 #include <Events/Input/MouseMoveEvent.hpp>
 #include <Events/Input/MouseClickEvent.hpp>
+#include <Events/Interfaces/IEventListener.hpp>
 
-class Camera : public IKeyboardEvent, public IMouseClickEvent, public IMouseMoveEvent
+class Camera : public IKeyboardEvent, public IMouseClickEvent, public IMouseMoveEvent, public IEventListener
 {
 public:
 	Camera();
@@ -37,6 +38,10 @@ public:
 	/* Implemented as moving the camera, up/down in a 2D plane, othogonally to the z axis, of the LookAt vector */
 	void MoveCameraUpDown2D(float distance);
 	void MoveCameraLeftRight2D(float distance);
+
+	virtual char const * GetName(void);
+	virtual bool HandleEvent( IEventData const & event );
+
 
 protected:
 	void OnMotion(MouseMoveEvent *motion);

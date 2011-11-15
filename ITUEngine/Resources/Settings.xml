@@ -1,48 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- Rough version of the basic options, with room for improvement :P -->
 <settings>
-  <controls>
-	  <keyboard>
-		  <!-- SDL-names are meant to be used in the end -->
-		  <quit default="ESCAPE">ESCAPE</quit>
-	  </keyboard>
-	  <controller>
-		  <sensivity default="1.0">1.0</sensivity> 
-		  <invert>
-			  <x default="false">false</x>
-			  <y default="false">false</y>
-		  </invert>
-		  <acceleration default="0.0">0.0</acceleration>
-	  </controller>
-	  <mouse>
-		  <sensivity default="1.0">1.0</sensivity> 
-		  <invert>
-			  <x default="false">false</x>
-			  <y default="false">false</y>
-		  </invert>
-		  <acceleration default="0.0">0.0</acceleration>
-	  </mouse>
-  </controls>
-  <network>
-	  <!-- Potential Network options -->
-  </network>
-  <sound>
-	  <output>
-		  <sfx default="1.0">1.0</sfx>		<!-- 0.0 (0%) - 5.0 (500%) -->
-		  <music default="1.0">1.0</music>	<!-- 0.0 (0%) - 5.0 (500%) -->
-	  </output>
-	  <input>
-		  <volume default="1.0">1.0</volume>	<!-- 0.0 (0%) - 5.0 (500%) -->
-		  <muted default="true">true</muted>
-	  </input>
-  </sound>
-  <video>
-	  <resolution>
-		  <width default="640">640</width>
-		  <height default="480">480</height>
-	  </resolution>
-	  <bitdepth default="16">16</bitdepth>
-	  <gamma default="1.0">1.0</gamma>		<!-- 0.0 (0%) - 5.0 (500%) -->
-	  <windowed default="true">true</windowed>
-  </video>
+	<controls>
+		<keyboard>
+			<!-- SDL-names are meant to be used in the end -->
+			<quit default="ESCAPE" value="ESCAPE" />
+		</keyboard>
+		<controller>
+			<sensivity default="1.0" value="1.0" /> 
+			<invert>
+				<x default="false" value="false" />
+				<y default="false" value="false" />
+			</invert>
+			<acceleration default="0.0" value="0.0" />
+		</controller>
+		<mouse>
+			<sensivity default="1.0" value="1.0" /> 
+			<invert>
+				<x default="false" value="false" />
+				<y default="false" value="false" />
+			</invert>
+			<acceleration default="0.0" value="0.0" />
+		</mouse>	
+	</controls>
+	<network>
+		<!-- Potential Network options -->
+	</network>
+	<sound>
+		<output>
+			<sfx default="1.0" value="1.0" />		<!-- 0.0 (0%) - 5.0 (500%) -->
+			<music default="1.0" value="1.0" />		<!-- 0.0 (0%) - 5.0 (500%) -->
+		</output>
+		<input>
+			<volume default="1.0" value="1.0" />	<!-- 0.0 (0%) - 5.0 (500%) -->
+			<muted default="true" value="true" />
+		</input>
+	</sound>
+	<video>
+		<resolution>
+			<width default="640" value="640" />
+			<height default="480" value="480" />
+		</resolution>
+		<bitdepth default="16" value="16" />
+		<gamma default="1.0" value="1.0" />		<!-- 0.0 (0%) - 5.0 (500%) -->
+		<windowed default="true" value="true" />
+		<fullscreen default="false" value="false" />
+	</video>
 </settings>

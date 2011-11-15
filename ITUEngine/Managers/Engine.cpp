@@ -4,12 +4,16 @@
 #include <Game/FPSCalculator.hpp>
 #include <Subsystems/Graphics/GraphicsSystem.hpp>
 #include <Utils/StringUtils.hpp>
+#include <Events/EventData/EventData.hpp>
+#include <Events/Interfaces/IEventManager.hpp>
+#include <Events/Interfaces/IEventData.hpp>
 
 void Engine::Run()
 {
 	m_Running = true;
 
 	SDL_Event event;
+	const EventType keydown("keydownEvent");
 
 	while (m_Running)
 	{
@@ -25,11 +29,16 @@ void Engine::Run()
 				GetWindow()->Resize(event.resize.w, event.resize.h);
 
 				break;
-			/*
+			
 			case SDL_KEYDOWN:
-			case SDL_KEYUP:
-				handleKeyPress(&event.key, event.type);
+				safeTriggerEvent( EventData<SDL_KeyboardEvent>(event.key, keydown) );
 				break;
+
+				//handleKeyPress(&event.key, event.type);
+				
+			/*
+			case SDL_KEYUP:
+
 
 			case SDL_MOUSEBUTTONDOWN:
 			case SDL_MOUSEBUTTONUP:
@@ -63,6 +72,9 @@ void Engine::StartUp()
 	m_SettingsManager = new SettingsManager();
 	m_SettingsManager->StartUp();
 
+	m_EventManager = new EventManager();
+	m_EventManager->StartUp("Global event manager", true);
+
 	m_Window = new Window();
 	m_Window->StartUp();
 
@@ -84,6 +96,8 @@ void Engine::ShutDown()
 	m_Graphics->ShutDown();
 
 	m_Window->ShutDown();
+
+	m_EventManager->ShutDown();
 
 	m_SettingsManager->ShutDown();
 }

@@ -1,16 +1,16 @@
 #ifndef ITUENGINE_INPUTMANAGER_H
 #define ITUENGINE_INPUTMANAGER_H
 
-#include <Managers/EventManager.hpp>
+#include <Events/Interfaces/InterfaceTemplateEventManager.hpp>
 #include <Events/Input/KeyPressedEvent.hpp>
 #include <Events/Input/MouseClickEvent.hpp>
 #include <Events/Input/MouseMoveEvent.hpp>
 
 namespace InputManager
 { 
-	static EventManager<IKeyboardEvent> KeyboardEventManager; //instantiate the general event manager for keyboard events
-	static EventManager<IMouseClickEvent> MouseClickEventManager; //instantiate the general event manager for mouse click events
-	static EventManager<IMouseMoveEvent> MouseMoveEventManager; //instantiate the general event manager for mouse move events
+	static InterfaceTemplateEventManager<IKeyboardEvent> KeyboardEventManager; //instantiate the general event manager for keyboard events
+	static InterfaceTemplateEventManager<IMouseClickEvent> MouseClickEventManager; //instantiate the general event manager for mouse click events
+	static InterfaceTemplateEventManager<IMouseMoveEvent> MouseMoveEventManager; //instantiate the general event manager for mouse move events
 
 	/* KEYBOARD EVENTS */
 	// Notifiers

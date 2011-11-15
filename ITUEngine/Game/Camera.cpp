@@ -3,6 +3,11 @@
 #include <Math\Matrix4x4f.hpp>
 #include <cmath>
 #include <SDL.h>
+#include <Managers/EventManager.hpp>
+#include <Events/EventData/EventData.hpp>
+#include <Events/Interfaces/IEventData.hpp>
+#include <SDL_events.h>
+#include <memory>
 
 /* Region Construction & Deconstruction */
 
@@ -19,6 +24,8 @@ Camera::Camera()
 	/* |Position - LookAt| = 1 */
 	/* |Up| = 1 */
 	/* Look vector dotProduct Up = 0  */
+	
+	safeAddListener(EventListenerPointer(this), EventType("keydownEvent"));
 }
 
 Camera::~Camera()
@@ -32,7 +39,7 @@ Camera::~Camera()
 /* Region Camera Controls */
 
 // Moves the position of the camera to the new location.
-/* Implemented as moving the camera, up/down in a 2D plane, othogonally to the z axis, of the LookAt vector */
+/* Implemented as moving the camera, up/down in a 2D plane, orthogonally to the z axis, of the LookAt vector */
 void Camera::MoveCamera3D(Vector3f *newPosition)
 {
 	float xDirection = newPosition->x() - Position.x();
@@ -235,7 +242,7 @@ void Camera::OnButtonDown(MouseClickEvent *button)
 			isRightButtonDown = true;
 			break;
 
-		//Zoom control on scrollwheel
+		//Zoom control on scroll wheel
 		case 4:
 			ZoomCamera(0.5f);
 			break;
@@ -389,6 +396,56 @@ void Camera::OnKeyDown(KeyPressedEvent *key)
 void Camera::OnKeyUp(KeyPressedEvent *key)
 {
 
+}
+
+bool Camera::HandleEvent( IEventData const & eventData )
+{
+	shared_ptr<EventData<SDL_KeyboardEvent>> data = dynamic_pointer_cast<EventData<SDL_KeyboardEvent>, IEventData>(eventData.Copy());
+
+	auto val = data->GetValue();
+
+	switch(val.keysym.sym)
+	{
+		//Control position Up/Down
+	case SDLK_w:
+		MoveCameraUpDown2D(0.5f);
+		break;
+	case SDLK_s:
+		MoveCameraUpDown2D(-0.5f);
+		break;
+
+		//Control position Left/Right
+	case SDLK_d:
+		MoveCameraLeftRight2D(0.5f);
+		break;
+	case SDLK_a:
+		MoveCameraLeftRight2D(-0.5f);
+		break;
+
+		//Control rotation
+	case SDLK_q:
+		RollCamera(-0.1f);
+		break;
+	case SDLK_e:
+		RollCamera(0.1f);
+		break;	
+
+		//Reset the camera
+	case SDLK_SPACE:
+		ResetCamera();
+		break;
+
+	case SDLK_ESCAPE:
+		SDL_Quit();
+		exit(0);
+	}
+
+	return true;
+}
+
+char const * Camera::GetName( void )
+{
+	return "Camera";
 }
 
 /* Endregion Keyboard Event handling */

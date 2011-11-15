@@ -1,56 +1,117 @@
 #ifndef ITUENGINE_EVENTMANAGER_H
 #define ITUENGINE_EVENTMANAGER_H
 
-////////////////////////////////////////////////////////////////
-// Generic event manager for native C++.
-//
-
+#include <Events/Interfaces/IEventManager.hpp>
+#include <Utils/ThreadSafeEventQueue.hpp>
+#include <map>
 #include <list>
-using namespace std;
 
-//////////////////
-// Generic event manager. Holds list of client objects. Template class
-// parameterized by the event interface.
-//
-// - Instantiate in event source class.
-//
-// - Source calls Raise to raise an event, passing functor object 
-// initialized with event params.
-//
-// - Clients derive from event interface and override event handlers. 
-// Clients call Register/Unregister to add/remove themselves.
-//
-
-template <typename I> //Interface type
-class EventManager
+class EventManager : public IEventManager
 {
-protected:
-    list<I*> m_clients; // list of registered client objects
 public:
-    EventManager() { }
-    ~EventManager() { }
+	explicit EventManager() {}
+	virtual ~EventManager() {}
 
-    // Register: Add client to list.
-    void Register(I* client)
-    {
-        m_clients.push_back(client);
-    }
+	void StartUp(char const * const pName, bool setAsGlobal);
+	void ShutDown();
 
-    // Unregiser: Remove client from list.
-    void Unregister(I* client)
-    {
-        m_clients.remove(client);
-    }
+	virtual bool AddListener ( EventListenerPointer const & inHandler, EventType const & inType );
 
-    // Nested template member function! This fn calls the function object 
-    // F for each registered client. It merely passes F to for_each. Use 
-    // the DEFINE_EVENT macros to generate the functors. See IPrimeEvents 
-    // in Prime.h for example. 
-    template <typename F> //Function class type
-    void Raise(F fn)
-    {
-        for_each(m_clients.begin(), m_clients.end(), fn);
-    }
+	virtual bool DelListener ( EventListenerPointer const & inHandler, EventType const & inType );
+
+	virtual bool TriggerEvent ( IEventData const & inEvent ) const;
+
+	virtual bool QueueEvent ( IEventDataPointer const & inEvent );
+	virtual bool ThreadSafeQueueEvent ( IEventDataPointer const & inEvent );
+
+	virtual bool AbortEvent ( EventType const & inType, bool allOfType = false );
+
+	//Can be set to stop processing after maxMillis, default is no limit.
+	virtual bool ProcessEventQueue ( unsigned long maxMillis = INFINITE );
+
+	virtual bool ValidateType( EventType const & inType ) const;
+
+	//Verifies that such an event does not already exist, then registers it.
+	void AddRegisteredEventType( const EventType & eventType );
+
+private:
+	class IRegisteredEvent
+	{
+	public:
+		//Meta data about the type and usage of this event.
+		enum EventMetaDataType
+		{
+			// Event is defined in script.
+			ScriptDefined,
+
+			//Event is defined by code, and is *NOT* callable from script.
+			CodeEventOnly,
+
+			//Event is defined by code, but is callable from script.
+			CodeEventScriptCallable,
+		};
+
+		IRegisteredEvent( const EventMetaDataType metaData )
+			: m_MetaData( metaData )
+		{
+		}
+
+		virtual ~IRegisteredEvent()
+		{
+		}
+
+		EventMetaDataType GetEventMetaData( void ) const
+		{
+			return m_MetaData;
+		}
+	private:
+		const EventMetaDataType m_MetaData;
+	};
+
+	// one global instance
+	typedef std::map< EventType, IRegisteredEvent >			EventTypeSet;
+
+	// insert result into event type set
+	typedef std::pair< EventTypeSet::iterator, bool >		EventTypeSetIRes;
+
+	// one list per event type ( stored in the map )
+	typedef std::list< EventListenerPointer >				EventListenerTable;
+
+	// mapping of event identity to listener list
+	typedef std::map< unsigned int, EventListenerTable >	EventListenerMap;
+
+	// entry in the event listener map
+	typedef std::pair< unsigned int, EventListenerTable >	EventListenerMapEnt;
+
+	// insert result into listener map
+	typedef std::pair< EventListenerMap::iterator, bool >	EventListenerMapIRes;
+
+	// queue of pending- or processing-events
+	typedef std::list< IEventDataPointer >					EventQueue;
+
+	enum eConstants
+	{
+		kNumQueues = 2
+	};
+
+	EventTypeSet     m_typeList;           // list of registered
+	// event types
+
+	EventListenerMap m_registry;           // mapping of event types
+	// to listeners
+
+	EventQueue       m_queues[kNumQueues]; // event processing queue,
+	// double buffered to
+	// prevent infinite cycles
+
+	int               m_activeQueue;        // valid denoting which
+	// queue is actively
+	// processing, en-queuing
+	// events goes to the
+	// opposing queue
+
+	ThreadSafeEventQueue m_RealtimeEventQueue;
 };
 
-#endif
+#endif //ITUENGINE_EVENTMANAGER_H
+

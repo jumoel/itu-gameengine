@@ -6,14 +6,13 @@
 
 #include <ThirdParty/SuperFastHash.hpp>
 
-
 unsigned int StringUtils::hash(std::string s)
 {
 	auto data = StringUtils::toLower(s);
 	return SuperFastHash(data.c_str(), data.length());
 }
 
-std::string  StringUtils::toLower(std::string s)
+std::string StringUtils::toLower(std::string s)
 {
 	std::string data;
 	data.resize(s.size());
