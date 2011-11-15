@@ -332,7 +332,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Settings.xml" />
-    <None Include="Shaders\passthrough.frag" />
-    <None Include="Shaders\passthrough.vert" />
   </ItemGroup>
 </Project>
