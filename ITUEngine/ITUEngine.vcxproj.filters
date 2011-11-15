@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Events">
+      <UniqueIdentifier>{5f5ef832-c358-4805-8014-64299b4f4a9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Events">
+      <UniqueIdentifier>{9f91edf8-be7a-4122-bfed-988838ff679a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Events\Input">
+      <UniqueIdentifier>{44c09c5e-0cfe-4960-b94c-15faf34a52e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Events\Input\Mouse">
+      <UniqueIdentifier>{224dfe3e-0577-418c-a17b-5868b0e10213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Events\Input\Keyboard">
+      <UniqueIdentifier>{e7c0fb68-a4b4-4805-a96a-21e1f75165ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Events\Input">
+      <UniqueIdentifier>{e49774b1-c39e-4eca-94de-3bb5727a7fa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Events\Input\Mouse">
+      <UniqueIdentifier>{8cce637c-1446-473a-9c37-6310c58a9432}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Events\Input\Keyboard">
+      <UniqueIdentifier>{e3e90160-fa7f-4ce3-bcae-f8cb1a49f369}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Events\Collision">
+      <UniqueIdentifier>{df63d610-0dd5-4a2b-9048-b19761223c41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Events\Collision">
+      <UniqueIdentifier>{20900ba3-280e-47a7-ab09-3ecc6a2d679d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World">
+      <UniqueIdentifier>{97a7f7bb-f35c-4aa3-9411-84042b2c8f80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World\GameObjects">
+      <UniqueIdentifier>{ae11f603-e634-46a1-b654-25f5f5e185eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World\GameObjects\Player">
+      <UniqueIdentifier>{5202ea08-5564-49b2-9ab0-391a059b3e28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World\GameObjects\Interactives">
+      <UniqueIdentifier>{6a87ccb0-bcba-445e-b3a2-5cba0f19a14e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World">
+      <UniqueIdentifier>{e07d581e-d0d3-4c94-ab1c-fe374d585338}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\GameObjects">
+      <UniqueIdentifier>{295ac13b-180e-4aa9-a6c3-a13d12818f08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\GameObjects\Interactives">
+      <UniqueIdentifier>{7d5e4e8a-61b4-4da2-9d52-c585ae2e4f73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\GameObjects\Player">
+      <UniqueIdentifier>{bdf1854d-5989-4a89-8887-4cc20400a16f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World\Level">
+      <UniqueIdentifier>{eab1dc06-bb02-4a84-a40b-5095bdf55c07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World\Level">
+      <UniqueIdentifier>{b7e4b99e-6367-4d1e-8e50-df18725171bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Math">
+      <UniqueIdentifier>{25aa23a6-0d70-4256-8a1c-e83b76d57bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Math">
+      <UniqueIdentifier>{0e9d9519-9f9c-411f-88d2-d71a123e8bd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Managers">
+      <UniqueIdentifier>{7590f6fe-fd2d-4074-a44b-51cabbb68c00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{4dcbd04e-8c01-4472-9a85-595c9a39b882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Macros">
+      <UniqueIdentifier>{1dc3496f-6799-467b-bc0d-e48a43ca2e3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Templates">
+      <UniqueIdentifier>{51341ffe-791d-4fdc-bf8a-bb7676c937e7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HelloSDL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\CollisionEvent.cpp">
+      <Filter>Source Files\Events\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\EventObject.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Matrix4x4f.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector3f.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\Input\KeyPressedEvent.cpp">
+      <Filter>Source Files\Events\Input\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\Input\MouseClickEvent.cpp">
+      <Filter>Source Files\Events\Input\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\Input\MouseMoveEvent.cpp">
+      <Filter>Source Files\Events\Input\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera.cpp">
+      <Filter>Source Files\World\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Object.cpp">
+      <Filter>Source Files\World\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\SceneData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\FPSCalculator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEventSubscribtion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Managers\Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Abstractions\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GfxModel.cpp">
+      <Filter>Source Files\World\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Texture.cpp">
+      <Filter>Source Files\World\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Managers\InputManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Managers\MediaManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Subsystems\Graphics\GraphicsSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Managers\SceneGraphManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Managers\SettingsManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Managers\LightingManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Material.cpp">
+      <Filter>Source Files\World\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Light.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\pugixml\pugixml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\StringUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\ThreadSafeEventQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\Interfaces\IEventManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Managers\EventManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\EventData\EmptyEventData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\CollisionDetection2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Managers\Engine.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Abstractions\Time.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Abstractions\Window.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Assertion.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\FPSCalculator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\SceneGraphManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\SceneData.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GfxModel.hpp">
+      <Filter>Header Files\World\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera.hpp">
+      <Filter>Header Files\World\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Object.hpp">
+      <Filter>Header Files\World\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Texture.hpp">
+      <Filter>Header Files\World\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\CollisionEvent.hpp">
+      <Filter>Header Files\Events\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\EventObject.hpp">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Input\KeyPressedEvent.hpp">
+      <Filter>Header Files\Events\Input\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Input\MouseClickEvent.hpp">
+      <Filter>Header Files\Events\Input\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Input\MouseMoveEvent.hpp">
+      <Filter>Header Files\Events\Input\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Macros\EventMacros.hpp">
+      <Filter>Header Files\Macros</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\InputManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\MediaManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\SettingsManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix4x4f.hpp">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3f.hpp">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Subsystems\Graphics\GraphicsSystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Templates\TSingleton.hpp">
+      <Filter>Header Files\Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="TestEventSubscribtion.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Material.hpp">
+      <Filter>Header Files\World\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Light.hpp">
+      <Filter>Header Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\pugixml\pugiconfig.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\pugixml\pugixml.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\LightingManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\SuperFastHash.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\StringUtils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Interfaces\IEventListener.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Interfaces\IEventData.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\ThreadSafeEventQueue.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Interfaces\IEventManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Interfaces\InterfaceTemplateEventManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\EventManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\EventData\BaseEventData.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\EventData\EmptyEventData.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\EventData\EventData.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Abstractions\DataTypes.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\ShaderUtils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\CollisionDetection2D.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\GeometricFigures2D.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings.xml" />
+  </ItemGroup>
+</Project>

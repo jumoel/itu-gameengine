@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7A87A7E9-1071-4D7E-975A-62CD068BF1E2}</ProjectGuid>
+    <RootNamespace>ITUEngine</RootNamespace>
+    <ProjectName>ITUEngine</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\SDL\SDL-1.2.14\include;C:\GLEW\glew-1.7.0\include;$(ProjectDir);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>C:\SDL\SDL-1.2.14\lib;C:\GLEW\glew-1.7.0\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glew32.lib;SDL.lib;SDLmain.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy C:\SDL\SDL-1.2.14\lib\SDL.dll "$(OutDir)" /y
+xcopy C:\GLEW\glew-1.7.0\bin\glew32.dll "$(OutDir)" /y
+xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>xcopy "$(ProjectDir)Resources\Settings.xml" "$(OutDir)" /y</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Abstractions\Window.cpp" />
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Events\EventData\EmptyEventData.cpp" />
+    <ClCompile Include="Managers\EventManager.cpp" />
+    <ClCompile Include="Events\Interfaces\IEventManager.cpp" />
+    <ClCompile Include="Game\Camera.cpp" />
+    <ClCompile Include="Events\CollisionEvent.cpp" />
+    <ClCompile Include="Events\EventObject.cpp" />
+    <ClCompile Include="Game\FPSCalculator.cpp" />
+    <ClCompile Include="Game\GfxModel.cpp" />
+    <ClCompile Include="Game\Light.cpp" />
+    <ClCompile Include="Game\Material.cpp" />
+    <ClCompile Include="Game\Texture.cpp" />
+    <ClCompile Include="HelloSDL.cpp" />
+    <ClCompile Include="Events\Input\KeyPressedEvent.cpp" />
+    <ClCompile Include="Managers\Engine.cpp" />
+    <ClCompile Include="Managers\InputManager.cpp" />
+    <ClCompile Include="Managers\LightingManager.cpp" />
+    <ClCompile Include="Managers\MediaManager.cpp" />
+    <ClCompile Include="Managers\SettingsManager.cpp" />
+    <ClCompile Include="Math\CollisionDetection2D.cpp" />
+    <ClCompile Include="Math\Matrix4x4f.cpp" />
+    <ClCompile Include="Math\Vector3f.cpp" />
+    <ClCompile Include="Events\Input\MouseClickEvent.cpp" />
+    <ClCompile Include="Events\Input\MouseMoveEvent.cpp" />
+    <ClCompile Include="Game\Object.cpp" />
+    <ClCompile Include="Game\SceneData.cpp" />
+    <ClCompile Include="Managers\SceneGraphManager.cpp" />
+    <ClCompile Include="Subsystems\Graphics\GraphicsSystem.cpp" />
+    <ClCompile Include="TestEventSubscribtion.cpp" />
+    <ClCompile Include="ThirdParty\pugixml\pugixml.cpp" />
+    <ClCompile Include="Utils\StringUtils.cpp" />
+    <ClCompile Include="Utils\ThreadSafeEventQueue.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Abstractions\DataTypes.hpp" />
+    <ClInclude Include="Assertion.hpp" />
+    <ClInclude Include="Abstractions\Time.hpp" />
+    <ClInclude Include="Abstractions\Window.hpp" />
+    <ClInclude Include="Events\EventData\BaseEventData.hpp" />
+    <ClInclude Include="Events\EventData\EmptyEventData.hpp" />
+    <ClInclude Include="Events\EventData\EventData.hpp" />
+    <ClInclude Include="Managers\EventManager.hpp" />
+    <ClInclude Include="Events\Interfaces\IEventData.hpp" />
+    <ClInclude Include="Events\Interfaces\IEventListener.hpp" />
+    <ClInclude Include="Events\Interfaces\IEventManager.hpp" />
+    <ClInclude Include="Managers\Engine.hpp" />
+    <ClInclude Include="Game\GfxModel.hpp" />
+    <ClInclude Include="Game\Texture.hpp" />
+    <ClInclude Include="Events\Interfaces\InterfaceTemplateEventManager.hpp" />
+    <ClInclude Include="Game\Camera.hpp" />
+    <ClInclude Include="Events\CollisionEvent.hpp" />
+    <ClInclude Include="Events\EventObject.hpp" />
+    <ClInclude Include="Events\Input\KeyPressedEvent.hpp" />
+    <ClInclude Include="Game\FPSCalculator.hpp" />
+    <ClInclude Include="Managers\InputManager.hpp" />
+    <ClInclude Include="Managers\MediaManager.hpp" />
+    <ClInclude Include="Managers\SettingsManager.hpp" />
+    <ClInclude Include="Math\CollisionDetection2D.hpp" />
+    <ClInclude Include="Math\GeometricFigures2D.hpp" />
+    <ClInclude Include="Math\Matrix4x4f.hpp" />
+    <ClInclude Include="Math\Vector3f.hpp" />
+    <ClInclude Include="Events\Input\MouseClickEvent.hpp" />
+    <ClInclude Include="Events\Input\MouseMoveEvent.hpp" />
+    <ClInclude Include="Game\Object.hpp" />
+    <ClInclude Include="Game\SceneData.hpp" />
+    <ClInclude Include="Managers\SceneGraphManager.hpp" />
+    <ClInclude Include="Macros\EventMacros.hpp" />
+    <ClInclude Include="Subsystems\Graphics\GraphicsSystem.hpp" />
+    <ClInclude Include="Templates\TSingleton.hpp" />
+    <ClInclude Include="TestEventSubscribtion.hpp" />
+    <ClInclude Include="Game\Light.hpp" />
+    <ClInclude Include="Game\Material.hpp" />
+    <ClInclude Include="Managers\LightingManager.hpp" />
+    <ClInclude Include="ThirdParty\pugixml\pugiconfig.hpp" />
+    <ClInclude Include="ThirdParty\pugixml\pugixml.hpp" />
+    <ClInclude Include="ThirdParty\SuperFastHash.hpp" />
+    <ClInclude Include="Utils\ShaderUtils.hpp" />
+    <ClInclude Include="Utils\StringUtils.hpp" />
+    <ClInclude Include="Utils\ThreadSafeEventQueue.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings.xml">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
