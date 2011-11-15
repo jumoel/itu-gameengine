@@ -63,6 +63,9 @@ void Window::InitSDL()
 
 	/* Sets up OpenGL double buffering */
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+	// Disably VSync
+	SDL_GL_SetAttribute(SDL_GL_SWAP_CONTROL, 0);
 }
 
 void Window::InitOpenGL()
