@@ -1,14 +1,112 @@
 #include <Managers/MediaManager.hpp>
+#include <iostream>
+#include <fstream>
 
-void MediaManager::Init()
+/* 
+	MS3D STRUCTURES 
+*/
+
+// byte-align structures
+#ifdef _MSC_VER
+#	pragma pack( push, packing )
+#	pragma pack( 1 )
+#	define PACK_STRUCT
+#elif defined( __GNUC__ )
+#	define PACK_STRUCT	__attribute__((packed))
+#else
+#	error you must byte-align these structures with the appropriate compiler directives
+#endif
+
+typedef unsigned char byte;
+typedef unsigned short word;
+
+// File header
+struct MS3DHeader
+{
+	char m_ID[10];
+	int m_version;
+} PACK_STRUCT;
+
+// Vertex information
+struct MS3DVertex
+{
+	byte m_flags;
+	float m_vertex[3];
+	char m_boneID;
+	byte m_refCount;
+} PACK_STRUCT;
+
+// Triangle information
+struct MS3DTriangle
+{
+	word m_flags;
+	word m_vertexIndices[3];
+	float m_vertexNormals[3][3];
+	float m_s[3], m_t[3];
+	byte m_smoothingGroup;
+	byte m_groupIndex;
+} PACK_STRUCT;
+
+// Material information
+struct MS3DMaterial
+{
+    char m_name[32];
+    float m_ambient[4];
+    float m_diffuse[4];
+    float m_specular[4];
+    float m_emissive[4];
+    float m_shininess;	// 0.0f - 128.0f
+    float m_transparency;	// 0.0f - 1.0f
+    byte m_mode;	// 0, 1, 2 is unused now
+    char m_texture[128];
+    char m_alphamap[128];
+} PACK_STRUCT;
+
+//	Joint information
+struct MS3DJoint
+{
+	byte m_flags;
+	char m_name[32];
+	char m_parentName[32];
+	float m_rotation[3];
+	float m_translation[3];
+	word m_numRotationKeyframes;
+	word m_numTranslationKeyframes;
+} PACK_STRUCT;
+
+// Keyframe data
+struct MS3DKeyframe
+{
+	float m_time;
+	float m_parameter[3];
+} PACK_STRUCT;
+
+// Default alignment
+#ifdef _MSC_VER
+#	pragma pack( pop, packing )
+#endif
+
+#undef PACK_STRUCT
+
+
+
+void MediaManager::StartUp()
 {
 	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
+	playerTex = LoadTexture("Resources/Wood.tga", "PlayerTex");
+	playerModel = LoadModel("Resources/Model.ms3d");
+}
+
+void MediaManager::ShutDown()
+{
+
 }
 
 Texture* MediaManager::LoadTexture(char *filename, char* name)                 // Loads A TGA File Into Memory
 {   
 	Texture *tex = new Texture();
 	tex->name = name;
+	tex->filename = filename;
 
     GLubyte     TGAheader[12]={0,0,2,0,0,0,0,0,0,0,0,0};					// Uncompressed TGA Header
     GLubyte     TGAcompare[12];												// Used To Compare TGA Header
@@ -27,7 +125,7 @@ Texture* MediaManager::LoadTexture(char *filename, char* name)                 /
 	{
 		if (file == NULL)													// Did The File Even Exist?
 		{
-			std::cout << "ERROR! The file does not exist!" << std::endl; 
+			std::cout << "ERROR! The file " << filename << " does not exist!" << std::endl; 
 			return NULL;													// Return False
 		}
 		else
@@ -95,7 +193,191 @@ Texture* MediaManager::LoadTexture(char *filename, char* name)                 /
 	
 	gluBuild2DMipmaps( GL_TEXTURE_2D, 3, tex->width, tex->height, type, GL_UNSIGNED_BYTE, tex->imageData );
  
-    
+	textures.push_back(tex);
+
 	std::cout << "The TGA has been loaded successfully" << std::endl;
 	return tex;															// Success - Texture Building Went Ok, Return True
+}
+
+GfxModel* MediaManager::LoadModel(const char *filename)
+{
+	std::cout << "Loading model" << std::endl;
+
+	GfxModel* model = new GfxModel();
+
+	std::ifstream inputFile( filename, std::ios::in | std::ios::binary );
+
+	if(inputFile.fail())
+	{
+		std::cout << "Loading file into stream failed!!!" << std::endl;
+		return NULL;
+	}
+	inputFile.seekg(0, std::ios::end);
+	long fileSize = inputFile.tellg();
+	inputFile.seekg(0, std::ios::beg);
+
+	byte *buffer = new byte[fileSize];
+	//inputFile.read( buffer, fileSize);
+	inputFile.read(reinterpret_cast<char*>(buffer), fileSize);
+	inputFile.close();
+
+	const byte *ptr = buffer;
+	MS3DHeader *headerPtr = (MS3DHeader*) ptr;
+	ptr += sizeof( MS3DHeader );
+	
+	if(strncmp( headerPtr->m_ID, "MS3D000000", 10 ) != 0 )
+	{
+		std::cout << "Error loading model: 'Not a Milkshape file'" << std::endl;
+		return NULL; //Not a milkshape file
+	}
+
+	if(headerPtr->m_version < 3 || headerPtr->m_version > 4)
+	{
+		std::cout << "Error loading model: 'Unhandled file version. Only Milkshape version 1.3 and 1.4 is supported'" << std::endl;
+		return NULL;
+	}
+
+	int nVertices = *(word *) ptr;
+	model->numVertices = nVertices;
+	model->mVertices = new Vertex[nVertices];
+	ptr += sizeof( word );
+	int i;
+	for(i = 0; i < nVertices; i++)
+	{
+		MS3DVertex *vertexPtr = (MS3DVertex* ) ptr;
+		model->mVertices[i].boneID = vertexPtr->m_boneID;
+		memcpy(model->mVertices[i].location, vertexPtr->m_vertex, sizeof(float) * 3);
+		ptr += sizeof(MS3DVertex);
+	}
+
+	int nTriangles = *( word*) ptr;
+	model->numTriangles = nTriangles;
+	model->mTriangles = new Triangle[nTriangles];
+	ptr += sizeof(word);
+
+	for(i = 0; i < nTriangles; i++)
+	{
+		MS3DTriangle* trianglePtr = (MS3DTriangle* ) ptr;
+		int vertexIndices[3] = { trianglePtr->m_vertexIndices[0], trianglePtr->m_vertexIndices[1], trianglePtr->m_vertexIndices[2]};
+		
+		float t[3] = {1.0f-trianglePtr->m_t[0], 1.0f-trianglePtr->m_t[1], 1.0f-trianglePtr->m_t[2]};
+		memcpy(model->mTriangles[i].vertexNormals, trianglePtr->m_vertexNormals, sizeof(float)*3*3);
+		memcpy(model->mTriangles[i].sTex, trianglePtr->m_s, sizeof(float)*3);
+		memcpy(model->mTriangles[i].tTex, t, sizeof(float)*3);
+		memcpy(model->mTriangles[i].verticeIndices, vertexIndices, sizeof(int)*3);
+		ptr += sizeof(MS3DTriangle);
+		/*for(int f = 0; f < 3; f++)
+		{
+			std::cout << "Vertex index: " << model->mTriangles->verticeIndices[f] << std::endl;
+		}*/
+	}
+
+	int nGroups = *(word*) ptr;
+	model->numMeshes = nGroups;
+	model->mMeshes = new Mesh[nGroups];
+	ptr += sizeof(word);
+
+	for(i = 0; i < nGroups; i++)
+	{
+		ptr += sizeof(byte); //Flags
+		ptr += 32; //name
+
+		word nTriangles = *(word*) ptr;
+		ptr += sizeof(word);
+		int* triangleIndicesPtr = new int[nTriangles];
+		for(int j = 0; j < nTriangles; j++)
+		{
+			triangleIndicesPtr[j] = *(word*) ptr;
+			ptr += sizeof(word);
+		}
+
+		char materialIndex = *(char*) ptr;
+		ptr += sizeof(char);
+
+		model->mMeshes[i].materialIndex = materialIndex;
+		model->mMeshes[i].numTriangles = nTriangles;
+		model->mMeshes[i].triangleIndices = triangleIndicesPtr;
+		/*
+		for(int f = 0; f < model->mMeshes[i].numTriangles; f++)
+		{
+			int triangleIndex = model->mMeshes[i].triangleIndices[f];
+			std::cout << "index: " << triangleIndex << std::endl;
+			for ( int k = 0; k < 3; k++ )
+				{
+					int index =  model->mTriangles[triangleIndex].verticeIndices[k]; //pTri->verticeIndices[k];
+					//std::cout << "index: " << index << std::endl;
+				}
+
+		}*/
+	}
+
+	
+	int nMaterials = *( word* )ptr;
+	model->numMaterials = nMaterials;
+	model->mMaterials = new Mat[nMaterials];
+	ptr += sizeof( word );
+
+	for ( i = 0; i < nMaterials; i++ )
+	{
+
+		MS3DMaterial *pMaterial = ( MS3DMaterial* )ptr;
+		memcpy( model->mMaterials[i].ambient, pMaterial->m_ambient, sizeof( float )*4 );
+		memcpy( model->mMaterials[i].diffuse, pMaterial->m_diffuse, sizeof( float )*4 );
+		memcpy( model->mMaterials[i].specular, pMaterial->m_specular, sizeof( float )*4 );
+		memcpy( model->mMaterials[i].emissive, pMaterial->m_emissive, sizeof( float )*4 );
+		model->mMaterials[i].shininess = pMaterial->m_shininess;
+		model->mMaterials[i].textureFileName = new char[strlen( pMaterial->m_texture )+1];
+		strcpy( model->mMaterials[i].textureFileName, pMaterial->m_texture );
+		ptr += sizeof( MS3DMaterial );
+	}
+	
+	for(int k = 0; k < model->numMaterials; k++)
+	{
+		//std::cout << "model texture file name: " << model->mMaterials[k].textureFileName << std::endl;
+		model->mMaterials[k].tex = LoadTexture(model->mMaterials[k].textureFileName, model->mMaterials[k].textureFileName);
+	}
+	reloadTextures(model);
+
+	delete buffer;
+	std::cout << "The MS3D has been loaded successfully " << std::endl;
+	return model;
+
+}
+
+void MediaManager::reloadTextures(GfxModel* model)
+{
+	for ( int i = 0; i < model->numMaterials; i++ )
+	{
+		if ( strlen( model->mMaterials[i].textureFileName ) > 0 )
+		{
+			bool exists = false;
+			Texture* tex = FindTexture(model->mMaterials[i].textureFileName);
+			
+			if(tex != NULL)
+			{
+				model->mMaterials[i].mTexture = tex->texID;
+			}
+			else
+			{
+				model->mMaterials[i].mTexture = 0;
+			}
+		}
+        else
+		{
+			model->mMaterials[i].mTexture = 0;
+		}
+	}
+}
+
+
+Texture* MediaManager::FindTexture(const char* name)
+{
+	for(int j = 0; j < textures.size(); j++)
+	{
+		if(textures[j]->filename == name || textures[j]->name)
+		{
+			return textures[j];
+		}
+	}
+	return NULL;
 }
