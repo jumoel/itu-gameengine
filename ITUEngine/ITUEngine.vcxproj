@@ -109,6 +109,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClCompile Include="Game\SceneData.cpp" />
     <ClCompile Include="Managers\SceneGraphManager.cpp" />
     <ClCompile Include="Subsystems\Graphics\GraphicsSystem.cpp" />
+    <ClCompile Include="Subsystems\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="TestEventSubscribtion.cpp" />
     <ClCompile Include="ThirdParty\pugixml\pugixml.cpp" />
     <ClCompile Include="Utils\StringUtils.cpp" />
@@ -122,6 +123,8 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Events\EventData\BaseEventData.hpp" />
     <ClInclude Include="Events\EventData\EmptyEventData.hpp" />
     <ClInclude Include="Events\EventData\EventData.hpp" />
+    <ClInclude Include="Subsystems\Physics\PhysicsModels\CirclePhysicsModel.hpp" />
+    <ClInclude Include="Subsystems\Physics\PhysicsModels\PhysicsModel.hpp" />
     <ClInclude Include="Managers\EventManager.hpp" />
     <ClInclude Include="Events\Interfaces\IEventData.hpp" />
     <ClInclude Include="Events\Interfaces\IEventListener.hpp" />
@@ -149,6 +152,8 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Managers\SceneGraphManager.hpp" />
     <ClInclude Include="Macros\EventMacros.hpp" />
     <ClInclude Include="Subsystems\Graphics\GraphicsSystem.hpp" />
+    <ClInclude Include="Subsystems\Physics\PhysicsModels\RectanglePhysicsModel.hpp" />
+    <ClInclude Include="Subsystems\Physics\PhysicsSystem.hpp" />
     <ClInclude Include="Templates\TSingleton.hpp" />
     <ClInclude Include="TestEventSubscribtion.hpp" />
     <ClInclude Include="Game\Light.hpp" />

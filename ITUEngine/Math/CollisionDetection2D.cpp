@@ -44,6 +44,11 @@ bool CollisionDetection2D::Intersection( Point point, Circle circle )
 	return (circle.Radius * circle.Radius) > centerDistanceSquared;
 }
 
+bool CollisionDetection2D::Intersection( Circle circle, Rectangle rectangle )
+{
+	return Intersection(rectangle, circle);
+}
+
 bool CollisionDetection2D::Intersection( Rectangle rectangle, Circle circle )
 {
 	//Get the Squared distance

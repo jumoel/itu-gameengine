@@ -34,6 +34,7 @@ public:
 	*/
 
 	static bool Intersection(Rectangle rectangle, Circle circle);
+	static bool Intersection(Circle circle, Rectangle rectangle);
 
 	static bool Intersection(Circle c1, Circle c2);
 
