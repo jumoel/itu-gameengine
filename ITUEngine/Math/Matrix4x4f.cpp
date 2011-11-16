@@ -146,3 +146,26 @@ Matrix4x4f* Matrix4x4f::Rotate(float degrees, float x, float y, float z)
 
 	return this;
 }
+
+Vector3f Matrix4x4f::MultiplyWithVector(Vector3f inVector)
+{
+	
+	float t[16] = {this->data[0], this->data[1], this->data[2], this->data[3],
+                    this->data[4], this->data[5], this->data[6], this->data[7],
+                    this->data[8], this->data[9], this->data[10], this->data[11],
+                    this->data[12], this->data[13], this->data[14], this->data[15]};
+	
+	float o[4] = {inVector.x(),inVector.y(),inVector.z(), 1};
+
+	float f1 = t[0]*o[0] + t[1]*o[1] + t[2]*o[2]  + t[3]*o[3];
+	float f2 = t[4]*o[0] + t[5]*o[1] + t[6]*o[2]  + t[7]*o[3];
+	float f3 = t[8]*o[0] + t[9]*o[1] + t[10]*o[2] + t[11]*o[3];
+	//float f4 = t[12]*o[3] + t[13]*o[7] + t[14]*o[11] + t[15]*o[15];
+
+	Vector3f outVector;
+	outVector.SetX(f1);
+	outVector.SetY(f2);
+	outVector.SetZ(f3);
+
+	return outVector;
+}

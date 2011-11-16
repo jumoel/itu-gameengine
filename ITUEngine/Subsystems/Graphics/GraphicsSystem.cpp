@@ -22,6 +22,13 @@ void GraphicsSystem::StartUp()
 
 	auto verts = new std::vector<float>();
 
+	//m_VectorList->push_back(Vector3f(0.75f, 0.75f, 0.0f)); 
+	
+	
+		
+	verts->push_back( 0.75f); verts->push_back( 0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
+	verts->push_back( 0.75f); verts->push_back(-0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
+	verts->push_back(-0.75f); verts->push_back(-0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
 	
 
 	for (auto it = m_VectorList->begin(); it != m_VectorList->end(); ++it)
@@ -33,11 +40,7 @@ void GraphicsSystem::StartUp()
 		verts->push_back(it->z());
 		//std::cout << it->z() << std::endl;
 	}
-	/*
-	verts->push_back( 0.75f); verts->push_back( 0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
-	verts->push_back( 0.75f); verts->push_back(-0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
-	verts->push_back(-0.75f); verts->push_back(-0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
-	*/
+	
 	
 
 	// Setup passthrough shaders
@@ -77,7 +80,7 @@ void GraphicsSystem::StartUp()
 		glBufferData(GL_ARRAY_BUFFER, verts->size() * sizeof(float), &verts->front(), GL_STATIC_DRAW_ARB);
 		
 	}
-	glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_VertexBuffer);
+	glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 	//glVertexPointer(3, GL_FLOAT, 0, (char *) NULL);
 
 	//glDrawArrays( GL_TRIANGLES, 0, verts->size()/3 );
@@ -111,7 +114,7 @@ void GraphicsSystem::AddToVBORecursive(Object *obj, std::vector<Vector3f> *vecto
 	int k = 0;
 	std::vector<Vector3f> *v_list = new vector<Vector3f>();
 	
-	// Draw By Group
+	// By Group
 	if(obj->gfx->numMeshes > 0)
 	{
 		for ( int i = 0; i < obj->gfx->numMeshes; i++ )
@@ -156,9 +159,10 @@ void GraphicsSystem::AddToVBORecursive(Object *obj, std::vector<Vector3f> *vecto
 					temp.SetX(obj->gfx->mVertices[index].location[0]);
 					temp.SetY(obj->gfx->mVertices[index].location[1]);
 					temp.SetZ(obj->gfx->mVertices[index].location[2]);
-					std::cout << "Vertex.x: " << temp.x() << std::endl;
-					std::cout << "Vertex.y: " << temp.y() << std::endl;
-					std::cout << "Vertex.z: " << temp.z() << std::endl;
+					temp = obj->transformation->MultiplyWithVector(temp);
+					//std::cout << "Vertex.x: " << temp.x() << std::endl;
+					//std::cout << "Vertex.y: " << temp.y() << std::endl;
+					//std::cout << "Vertex.z: " << temp.z() << std::endl;
 					v_list->push_back(temp);
 				}
 			}
@@ -187,18 +191,19 @@ void GraphicsSystem::AddToVBORecursive(Object *obj, std::vector<Vector3f> *vecto
 
 void GraphicsSystem::Render()
 {
+
 	// Clear the window
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear( GL_COLOR_BUFFER_BIT); //  | GL_DEPTH_BUFFER_BIT 
-
-	/*Camera *CameraObject = m_SceneGraph->CameraObject;
+	
+	Camera *CameraObject = m_SceneGraph->CameraObject;
 
 	gluLookAt(
 		CameraObject->Position.x(), CameraObject->Position.y(), CameraObject->Position.z(), 
 		CameraObject->LookAt.x(), CameraObject->LookAt.y(), CameraObject->LookAt.z(), 
 		CameraObject->Up.x(), CameraObject->Up.y(), CameraObject->Up.z()
 		);
-		*/
+		
 	glUseProgram(theProgram);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);

@@ -94,8 +94,7 @@ void MediaManager::StartUp()
 {
 	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
 	playerTex = LoadTexture("Resources/Wood.tga", "PlayerTex");
-	playerModel = LoadModel("Resources/model.ms3d");
-	std::cout << "number of vertices: " << playerModel->numVertices << std::endl;
+	playerModel = LoadModel("Resources/Model.ms3d");
 }
 
 void MediaManager::ShutDown()
