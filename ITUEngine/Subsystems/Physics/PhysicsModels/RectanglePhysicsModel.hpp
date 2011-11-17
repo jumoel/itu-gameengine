@@ -1,9 +1,9 @@
-#ifndef ITUENGINE_CIRCLEPHYSICSMODEL_H
-#define ITUENGINE_CIRCLEPHYSICSMODEL_H
+#ifndef ITUENGINE_RECTANGLEPHYSICSMODEL_H
+#define ITUENGINE_RECTANGLEPHYSICSMODEL_H
 
 #include <Subsystems/Physics/PhysicsModels/PhysicsModel.hpp>
 
-class StaticRectanglePhysicsModel : StaticObjectModel<Rectangle>
+class StaticRectanglePhysicsModel : public StaticObjectModel<Rectangle>
 {
 public:
 	StaticRectanglePhysicsModel(Point &topLeft, float width, float height) : StaticObjectModel()
@@ -18,4 +18,4 @@ private:
 
 };
 
-#endif //ITUENGINE_CIRCLEPHYSICSMODEL_H
+#endif //ITUENGINE_RECTANGLEPHYSICSMODEL_H

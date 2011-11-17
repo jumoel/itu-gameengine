@@ -3,7 +3,8 @@
 
 #include <Subsystems/Physics/PhysicsModels/PhysicsModel.hpp>
 #include <vector>
-#include <Math/GeometricFigures2D.hpp>
+#include "PhysicsModels/RectanglePhysicsModel.hpp"
+#include "PhysicsModels/CirclePhysicsModel.hpp"
 
 class PhysicsSystem
 {
@@ -14,14 +15,17 @@ public:
 	void StartUp();
 	void ShutDown();
 
-	void PhantomStep();
-	void Step();
+	void PhantomStep(unsigned int deltaT);
+	void Step(unsigned int deltaT);
+
+	void AddMovingCircleObject(MovingCirclePhysicsModel *movingObject);
+	void AddStaticRectangleObject(StaticRectanglePhysicsModel *staticObject);
 
 protected:
 	
 private:
-	std::vector<StaticObjectModel<GeometricFigure>> *m_StaticObjects;
-	std::vector<MovingObjectModel<GeometricFigure>> *m_MovingObjects;
+	std::vector<StaticRectanglePhysicsModel*> *m_StaticObjects;
+	std::vector<MovingCirclePhysicsModel*> *m_MovingObjects;
 };
 
 #endif //ITUENGINE_PHYSICSSYSTEM_H
