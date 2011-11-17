@@ -3,15 +3,29 @@
 
 #include <Subsystems/Physics/PhysicsModels/PhysicsModel.hpp>
 
-class MovingCirclePhysicsModel : MovingObjectModel<Circle>
+class MovingCirclePhysicsModel : public MovingObjectModel<Circle>
 {
 public:
-	MovingCirclePhysicsModel(Point &pos, Point &dir, float radius) : PhysicsModel(pos, dir)
+	MovingCirclePhysicsModel(float movementSpeed, Point &pos, Point &dir, float radius) : MovingObjectModel(movementSpeed, pos, dir)
 	{
 		Init(Circle(pos, radius));
 	}
 	
 	~MovingCirclePhysicsModel() {}
+
+private:
+
+};
+
+class StaticCirclePhysicsModel : public StaticObjectModel<Circle>
+{
+public:
+	StaticCirclePhysicsModel(Point &pos, float radius) : StaticObjectModel()
+	{
+		Init(Circle(pos, radius));
+	}
+
+	~StaticCirclePhysicsModel() {}
 
 private:
 

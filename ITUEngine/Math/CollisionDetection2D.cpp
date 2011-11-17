@@ -14,7 +14,7 @@ float CollisionDetection2D::DistanceSquared( Point p1, Point p2 )
 float CollisionDetection2D::DistanceSquared( Point point, Rectangle rectangle )
 {
 	// Find the closest point to the point within the rectangle
-	Point closestPoint(GetValueBetween(point.X, rectangle.Left, rectangle.Right), GetValueBetween(point.Y, rectangle.Top, rectangle.Bottom));
+	Point closestPoint(GetValueBetween(point.X, rectangle.MinX, rectangle.MaxX), GetValueBetween(point.Y, rectangle.MinY, rectangle.MaxY));
 
 	// Calculate the distance between the point and this closest point
 	return DistanceSquared(closestPoint, point);
@@ -22,11 +22,9 @@ float CollisionDetection2D::DistanceSquared( Point point, Rectangle rectangle )
 
 bool CollisionDetection2D::Intersection( Point point, Rectangle rectangle )
 {
-	//NOTE: Only works in a TopLeft (0,0) coordinate system.
-
-	if(rectangle.Left <= point.X && point.X <= rectangle.Right)
+	if(rectangle.MinX <= point.X && point.X <= rectangle.MaxX)
 	{
-		if(rectangle.Top <= point.Y && point.Y <= rectangle.Bottom)
+		if(rectangle.MinY <= point.Y && point.Y <= rectangle.MaxY)
 		{
 			return true;
 		}
