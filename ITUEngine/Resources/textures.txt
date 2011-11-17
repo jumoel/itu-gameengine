@@ -1,0 +1,41 @@
+Textures:
+----------------------
+GRASS1 - Grass texture
+http://opengameart.org/content/grass-texture
+
+Author: 
+Lamoot (Submitted by qubodup)
+Sunday, May 24, 2009 - 11:26
+
+License(s):
+CC-BY 3.0
+
+The texture is based on another from the apricot project, so include the text below when using/modifying too! copyright Blender Foundation | apricot.blender.org
+File(s): http://opengameart.org/sites/default/files/grass.png
+----------------------
+GRASS2 - Grass with moss
+http://opengameart.org/content/grass-with-moss
+
+Author: 
+Lamoot (Submitted by Lamoot)
+Saturday, January 30, 2010 - 16:59
+
+License(s):
+CC-BY 3.0
+
+512x512 seamless grass (with some moss) texture, made using CC-BY 3.0 photos from the Yo Frankie! DVD. (c) copyright Blender Foundation | apricot.blender.org.
+File(s): http://opengameart.org/sites/default/files/grass_mossy.png
+----------------------
+SKY1 - Cloudy Sky
+http://opengameart.org/content/cloudy-sky
+
+Author: 
+MiniBjorn (Submitted by qubodup)
+Sunday, August 14, 2011 - 15:50
+
+License(s): 
+CC-BY-SA 3.0
+
+A very pretty Sky from SuperTuxKart.
+File(s): http://opengameart.org/sites/default/files/sky2.jpg
+----------------------
