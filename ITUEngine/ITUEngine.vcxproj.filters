@@ -335,6 +335,9 @@
     <ClInclude Include="Math\GeometricFigures2D.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Globals.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Subsystems\Physics\PhysicsModels\CirclePhysicsModel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

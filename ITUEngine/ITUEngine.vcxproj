@@ -125,6 +125,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Events\EventData\EmptyEventData.hpp" />
     <ClInclude Include="Events\EventData\EventData.hpp" />
     <ClInclude Include="Managers\MemoryManager.hpp" />
+    <ClInclude Include="Globals.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsModels\CirclePhysicsModel.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsModels\PhysicsModel.hpp" />
     <ClInclude Include="Managers\EventManager.hpp" />

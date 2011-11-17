@@ -7,6 +7,7 @@
 #include <Events/EventData/EventData.hpp>
 #include <Events/Interfaces/IEventManager.hpp>
 #include <Events/Interfaces/IEventData.hpp>
+#include <Managers\MediaManager.hpp>
 
 void Engine::Run()
 {
@@ -44,11 +45,13 @@ void Engine::Run()
 			case SDL_MOUSEBUTTONUP:
 				handleMouseButtonPress(&event.button, event.type);
 				break;
-
+				*/
 			case SDL_MOUSEMOTION:
-				handleMouseMove(&event.motion, event.type);
+				mousex = event.motion.x;
+			    mousey = event.motion.y;
+				//handleMouseMove(&event.motion, event.type);
 				break;
-			*/
+			
 			default:
 				break;
 			}
