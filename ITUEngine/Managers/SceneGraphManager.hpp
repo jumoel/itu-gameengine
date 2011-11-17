@@ -16,14 +16,14 @@ public:
 	SceneGraphManager(Camera *Camera, Object *RootNode);
 	~SceneGraphManager();
 
-	void Render(Uint32 CurrentTime, bool vboOn);
+	//void Render(Uint32 CurrentTime, bool vboOn);
 
 	Camera* CameraObject;
 	Object* RootNode;
 
 private:
-	void RenderObject(Object *obj);
-	void RenderObjectVBO(Object *obj);
+	//void RenderObject(Object *obj);
+	//void RenderObjectVBO(Object *obj);
 
 	Uint32 LastTime;
 	Uint32 DeltaTime;

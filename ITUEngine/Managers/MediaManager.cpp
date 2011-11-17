@@ -90,10 +90,16 @@ struct MS3DKeyframe
 
 
 
-void MediaManager::Init()
+void MediaManager::StartUp()
 {
 	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
-	someModel = LoadModel("Resources/Model.ms3d");
+	playerTex = LoadTexture("Resources/Wood.tga", "PlayerTex");
+	playerModel = LoadModel("Resources/Model.ms3d");
+}
+
+void MediaManager::ShutDown()
+{
+
 }
 
 Texture* MediaManager::LoadTexture(char *filename, char* name)                 // Loads A TGA File Into Memory
@@ -119,7 +125,7 @@ Texture* MediaManager::LoadTexture(char *filename, char* name)                 /
 	{
 		if (file == NULL)													// Did The File Even Exist?
 		{
-			std::cout << "ERROR! The file does not exist!" << std::endl; 
+			std::cout << "ERROR! The file " << filename << " does not exist!" << std::endl; 
 			return NULL;													// Return False
 		}
 		else
@@ -195,18 +201,23 @@ Texture* MediaManager::LoadTexture(char *filename, char* name)                 /
 
 GfxModel* MediaManager::LoadModel(const char *filename)
 {
+	std::cout << "Loading model" << std::endl;
+
 	GfxModel* model = new GfxModel();
 
 	std::ifstream inputFile( filename, std::ios::in | std::ios::binary );
 
 	if(inputFile.fail())
+	{
+		std::cout << "Loading file into stream failed!!!" << std::endl;
 		return NULL;
-
+	}
 	inputFile.seekg(0, std::ios::end);
 	long fileSize = inputFile.tellg();
 	inputFile.seekg(0, std::ios::beg);
 
-	byte *buffer = new byte(fileSize);
+	byte *buffer = new byte[fileSize];
+	//inputFile.read( buffer, fileSize);
 	inputFile.read(reinterpret_cast<char*>(buffer), fileSize);
 	inputFile.close();
 
@@ -248,12 +259,17 @@ GfxModel* MediaManager::LoadModel(const char *filename)
 	{
 		MS3DTriangle* trianglePtr = (MS3DTriangle* ) ptr;
 		int vertexIndices[3] = { trianglePtr->m_vertexIndices[0], trianglePtr->m_vertexIndices[1], trianglePtr->m_vertexIndices[2]};
+		
 		float t[3] = {1.0f-trianglePtr->m_t[0], 1.0f-trianglePtr->m_t[1], 1.0f-trianglePtr->m_t[2]};
-		memcpy(model->mTriangles->vertexNormals, trianglePtr->m_vertexNormals, sizeof(float)*3*3);
-		memcpy(model->mTriangles->sTex, trianglePtr->m_s, sizeof(float)*3);
-		memcpy(model->mTriangles->tTex, t, sizeof(float)*3);
-		memcpy(model->mTriangles->verticeIndices, vertexIndices, sizeof(int)*3);
+		memcpy(model->mTriangles[i].vertexNormals, trianglePtr->m_vertexNormals, sizeof(float)*3*3);
+		memcpy(model->mTriangles[i].sTex, trianglePtr->m_s, sizeof(float)*3);
+		memcpy(model->mTriangles[i].tTex, t, sizeof(float)*3);
+		memcpy(model->mTriangles[i].verticeIndices, vertexIndices, sizeof(int)*3);
 		ptr += sizeof(MS3DTriangle);
+		/*for(int f = 0; f < 3; f++)
+		{
+			std::cout << "Vertex index: " << model->mTriangles->verticeIndices[f] << std::endl;
+		}*/
 	}
 
 	int nGroups = *(word*) ptr;
@@ -263,8 +279,8 @@ GfxModel* MediaManager::LoadModel(const char *filename)
 
 	for(i = 0; i < nGroups; i++)
 	{
-		ptr += sizeof(word); //Flags
-		ptr += sizeof(byte); //name
+		ptr += sizeof(byte); //Flags
+		ptr += 32; //name
 
 		word nTriangles = *(word*) ptr;
 		ptr += sizeof(word);
@@ -281,6 +297,18 @@ GfxModel* MediaManager::LoadModel(const char *filename)
 		model->mMeshes[i].materialIndex = materialIndex;
 		model->mMeshes[i].numTriangles = nTriangles;
 		model->mMeshes[i].triangleIndices = triangleIndicesPtr;
+		/*
+		for(int f = 0; f < model->mMeshes[i].numTriangles; f++)
+		{
+			int triangleIndex = model->mMeshes[i].triangleIndices[f];
+			std::cout << "index: " << triangleIndex << std::endl;
+			for ( int k = 0; k < 3; k++ )
+				{
+					int index =  model->mTriangles[triangleIndex].verticeIndices[k]; //pTri->verticeIndices[k];
+					//std::cout << "index: " << index << std::endl;
+				}
+
+		}*/
 	}
 
 	
@@ -302,10 +330,16 @@ GfxModel* MediaManager::LoadModel(const char *filename)
 		strcpy( model->mMaterials[i].textureFileName, pMaterial->m_texture );
 		ptr += sizeof( MS3DMaterial );
 	}
+	
+	for(int k = 0; k < model->numMaterials; k++)
+	{
+		//std::cout << "model texture file name: " << model->mMaterials[k].textureFileName << std::endl;
+		model->mMaterials[k].tex = LoadTexture(model->mMaterials[k].textureFileName, model->mMaterials[k].textureFileName);
+	}
 	reloadTextures(model);
 
 	delete buffer;
-
+	std::cout << "The MS3D has been loaded successfully " << std::endl;
 	return model;
 
 }
@@ -329,8 +363,9 @@ void MediaManager::reloadTextures(GfxModel* model)
 			}
 		}
         else
-
+		{
 			model->mMaterials[i].mTexture = 0;
+		}
 	}
 }
 

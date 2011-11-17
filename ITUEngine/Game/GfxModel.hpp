@@ -33,6 +33,7 @@ struct Mat
 	float shininess;
 	GLuint mTexture;
 	char* textureFileName;
+	Texture* tex;
 };
 
 class GfxModel
@@ -54,15 +55,12 @@ public:
 	int numMaterials;
 	Mat *mMaterials;
 
-	Material *material;
-	std::vector<Vector3f> *vertices;
-
-	void SetTexture(Texture* tex);
+	void SetTexture(Texture* tex, Mat* mat);
 	GfxModel();
 	~GfxModel();
 
-	void CreateVBO();
-	void CreateVBO2();
+	//void CreateVBO();
+	
 	void draw();
 	
 };
