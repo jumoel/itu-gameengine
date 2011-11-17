@@ -3,101 +3,76 @@
 
 #include <GL/glew.h>
 #include <Assertion.hpp>
+#include <vector>
 
-namespace ShaderUtils {
-	// Create a NULL-terminated string by reading the provided file
-	static char* readShaderSource(const char* shaderFile)
+/* Methods copied from Jason L. McKessons OpenGL tutorial:
+ * http://www.arcsynthesis.org/gltut/Basics/Tutorial%2001.html
+ * Copyright (C) 2010-2011 by Jason L. McKesson
+ * MIT License
+ */
+namespace ShaderUtils
+{	
+	GLuint CreateShader(GLenum eShaderType, const std::string &strShaderFile)
 	{
-		FILE* fp = fopen(shaderFile, "r");
-		if ( fp == NULL ) { return NULL; }
-		fseek(fp, 0L, SEEK_END);
-		long size = ftell(fp);
-		fseek(fp, 0L, SEEK_SET);
-		char* buf = new char[size + 1];
-		fread(buf, 1, size, fp);
-		buf[size] = ' ';
-		fclose(fp);
-		return buf;
-	}
+		GLuint shader = glCreateShader(eShaderType);
+		const char *strFileData = strShaderFile.c_str();
+		glShaderSource(shader, 1, &strFileData, NULL);
 
-	// Create a GLSL program object from vertex and fragment shader files
-	GLuint initShader(const char* vShaderFile, const char* fShaderFile)
-	{
-		struct Shader {
-			const char* filename;
-			GLenum type;
-			GLchar* source;
-		};
+		glCompileShader(shader);
 
-		Shader shaders[2] =
+		GLint status;
+		glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+		if (status == GL_FALSE)
 		{
-			{ vShaderFile, GL_VERTEX_SHADER, NULL },
-			{ fShaderFile, GL_FRAGMENT_SHADER, NULL }
-		};
+			GLint infoLogLength;
+			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
 
-		GLuint program = glCreateProgram( void );
+			GLchar *strInfoLog = new GLchar[infoLogLength + 1];
+			glGetShaderInfoLog(shader, infoLogLength, NULL, strInfoLog);
 
-		std::string error;
-
-		for (int i = 0; i < 2; ++i)
-		{
-			Shader& s = shaders[i];
-			s.source = readShaderSource( s.filename );
-
-			error = "Failed to read " << s.filename;
-			ASSERT_MSG(shaders[i].source == NULL, error);
-
-			GLuint shader = glCreateShader(s.type);
-
-			glShaderSource(shader, 1, (const GLchar**) &s.source, NULL);
-
-			glCompileShader(shader);
-
-			GLint  compiled;
-			glGetShaderiv( shader, GL_COMPILE_STATUS, &compiled );
-
-			if ( !compiled ) {
-
-				error = s.filename << " failed to compile:" << std::endl;
-
-				GLint  logSize;
-				glGetShaderiv( shader, GL_INFO_LOG_LENGTH, &logSize );
-				char* logMsg = new char[logSize];
-				glGetShaderInfoLog( shader, logSize, NULL, logMsg );
-
-				error = error << logMsg << std::endl;
-				delete [] logMsg;
-
-				ASSERT_MSG(compiled, error);
+			const char *strShaderType = NULL;
+			switch(eShaderType)
+			{
+			case GL_VERTEX_SHADER: strShaderType = "vertex"; break;
+			case GL_GEOMETRY_SHADER: strShaderType = "geometry"; break;
+			case GL_FRAGMENT_SHADER: strShaderType = "fragment"; break;
 			}
 
-			delete [] s.source;
-			glAttachShader( program, shader );
+			fprintf(stderr, "Compile failure in %s shader:\n%s\n", strShaderType, strInfoLog);
+			delete[] strInfoLog;
 		}
 
-		// link  and error check
+		return shader;
+	}
+
+	GLuint CreateProgram(const std::vector<GLuint> &shaderList)
+	{
+		GLuint program = glCreateProgram();
+
+		for(size_t iLoop = 0; iLoop < shaderList.size(); iLoop++)
+		{
+			glAttachShader(program, shaderList[iLoop]);
+		}
+
 		glLinkProgram(program);
 
-		GLint  linked;
-		glGetProgramiv( program, GL_LINK_STATUS, &linked );
+		GLint status;
+		glGetProgramiv (program, GL_LINK_STATUS, &status);
+		if (status == GL_FALSE)
+		{
+			GLint infoLogLength;
+			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLength);
 
-		if ( !linked ) {
-			error = "Shader program failed to link" << std::endl;
-
-			GLint  logSize;
-			glGetProgramiv( program, GL_INFO_LOG_LENGTH, &logSize);
-			char* logMsg = new char[logSize];
-			glGetProgramInfoLog( program, logSize, NULL, logMsg );
-			
-			error = error << logMsg << std::endl;
-
-			delete [] logMsg;
-
-			ASSERT_MSG(linked, error);
+			GLchar *strInfoLog = new GLchar[infoLogLength + 1];
+			glGetProgramInfoLog(program, infoLogLength, NULL, strInfoLog);
+			fprintf(stderr, "Linker failure: %s\n", strInfoLog);
+			delete[] strInfoLog;
 		}
 
-		// use program object
-		glUseProgram(program);
+		for(size_t iLoop = 0; iLoop < shaderList.size(); iLoop++)
+		{
+			glDetachShader(program, shaderList[iLoop]);
+		}
 
 		return program;
 	}

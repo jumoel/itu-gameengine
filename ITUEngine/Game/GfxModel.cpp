@@ -4,16 +4,61 @@
 
 GfxModel::GfxModel()
 {
-	this->vertices = new std::vector<Vector3f>();
-	this->material = new Material();
+	numMeshes = 0;
+	mMeshes = NULL;
+	numMaterials = 0;
+	mMaterials = NULL;
+	numTriangles = 0;
+	mTriangles = NULL;
+	numVertices = 0;
+	mVertices = NULL;
 }
 
 GfxModel::~GfxModel()
 {	
-	delete this->vertices;
+	int i;
+	for ( i = 0; i < numMeshes; i++ )
+		delete[] mMeshes[i].triangleIndices;
+	for ( i = 0; i < numMaterials; i++ )
+		delete[] mMaterials[i].textureFileName;
+
+	numMeshes = 0;
+	if ( mMeshes != NULL )
+	{
+		delete[] mMeshes;
+		mMeshes = NULL;
+	}
+
+	numMaterials = 0;
+	if ( mMaterials != NULL )
+	{
+		delete[] mMaterials;
+		mMaterials = NULL;
+	}
+
+	numTriangles = 0;
+	if ( mTriangles != NULL )
+	{
+		delete[] mTriangles;
+		mTriangles = NULL;
+	}
+
+	numVertices = 0;
+	if ( mVertices != NULL )
+	{
+		delete[] mVertices;
+		mVertices = NULL;
+	}
 }
 
+void GfxModel::SetTexture(Texture* tex, Mat* mat)
+{
+	mat->tex = tex;
+	mat->mTexture = tex->texID;
+	mat->textureFileName = tex->filename;
+}
 
+/*
 void GfxModel::CreateVBO()
 {
 	GLfloat *verts = new GLfloat[vertices->size()*3];
@@ -81,4 +126,66 @@ void GfxModel::CreateVBO()
 
 	delete [] verts;
 	delete [] color;
+}
+*/
+
+
+void GfxModel::draw()
+{
+	GLboolean texEnabled = glIsEnabled( GL_TEXTURE_2D );
+	
+	// Draw By Group
+	for ( int i = 0; i < numMeshes; i++ )
+	{		
+		int materialIndex = mMeshes[i].materialIndex;
+		
+		if ( materialIndex >= 0 )
+		{
+			glMaterialfv( GL_FRONT, GL_AMBIENT, mMaterials[materialIndex].ambient );
+			glMaterialfv( GL_FRONT, GL_DIFFUSE, mMaterials[materialIndex].diffuse );
+			glMaterialfv( GL_FRONT, GL_SPECULAR, mMaterials[materialIndex].specular );
+			glMaterialfv( GL_FRONT, GL_EMISSION, mMaterials[materialIndex].emissive );
+			glMaterialf( GL_FRONT, GL_SHININESS, mMaterials[materialIndex].shininess );
+
+			if ( mMaterials[materialIndex].mTexture > 0 )
+			{
+				glBindTexture( GL_TEXTURE_2D, mMaterials[materialIndex].mTexture );
+				glEnable( GL_TEXTURE_2D );
+			}
+			else
+			{
+				glDisable( GL_TEXTURE_2D );
+			}
+		}
+		else
+		{
+			glDisable( GL_TEXTURE_2D );
+		}
+		glBegin( GL_TRIANGLES );
+		{
+			for ( int j = 0; j < mMeshes[i].numTriangles; j++ )
+			{
+				int triangleIndex = mMeshes[i].triangleIndices[j];
+				const Triangle* pTri = &mTriangles[triangleIndex];
+				for ( int k = 0; k < 3; k++ )
+				{
+					int index = pTri->verticeIndices[k];
+
+					glNormal3fv( pTri->vertexNormals[k] );
+					glTexCoord2f( pTri->sTex[k], pTri->tTex[k] );
+					glVertex3fv( mVertices[index].location );
+				}
+			}
+		}
+		glEnd();
+	}
+
+	if ( texEnabled )
+	{
+        glEnable( GL_TEXTURE_2D );
+	}
+    else
+	{
+        glDisable( GL_TEXTURE_2D );
+	}
 }

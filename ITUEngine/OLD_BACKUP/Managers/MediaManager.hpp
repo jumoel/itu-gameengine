@@ -4,7 +4,6 @@
 #include <list>
 #include <vector>
 #include <Game/Texture.hpp>
-#include <Game/GfxModel.hpp>
 #include <Templates/TSingleton.hpp>
 
 class MediaManager
@@ -13,19 +12,11 @@ class MediaManager
 
 public:
 	
-	
 	Texture* warrior;
-	Texture* playerTex;
-	GfxModel *playerModel;
-	std::vector<Texture*> textures;
+	//std::list<Texture*> *textures;
 	Texture* LoadTexture(char *filename, char* name);
-	GfxModel* LoadModel(const char *filename);
-	Texture* FindTexture(const char *name);
-	void reloadTextures(GfxModel* model);
 
-	void StartUp();
-	void ShutDown();
-	
+	void Init();
 };
 
 #endif

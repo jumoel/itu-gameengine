@@ -11,7 +11,7 @@ SceneGraphManager::SceneGraphManager(Camera *CameraObject, Object *RootNode) :
 	DeltaTime(0)
 {
 }
-/*
+
 void SceneGraphManager::Render(Uint32 CurrentTime, bool vboOn)
 {	
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
@@ -37,7 +37,6 @@ void SceneGraphManager::Render(Uint32 CurrentTime, bool vboOn)
 
 	LastTime = CurrentTime;
 }
-
 
 void SceneGraphManager::RenderObject(Object *obj)
 {
@@ -109,4 +108,4 @@ void SceneGraphManager::RenderObjectVBO(Object *obj)
 	}
 
 	glPopMatrix();
-}*/
+}

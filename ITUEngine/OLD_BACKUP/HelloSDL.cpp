@@ -1,7 +1,7 @@
 /*
  * This is template created for Game Engines 2011 based on the SDL examples from http://nehe.gamedev.net/
  */
-#if 0
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -240,7 +240,7 @@ int drawGLScene( GLvoid )
 {
 	auto time = SDL_GetTicks();
 
-	//scenegraph_root->Render(time, vboOn);
+	scenegraph_root->Render(time, vboOn);
 	fps->SetCurrentTime(time);
 	fps->SetFPSTitle();
 
@@ -384,4 +384,3 @@ int main_old( int argc, char **argv )
 	/* Should never get here */
 	return( 0 );
 }
-#endif

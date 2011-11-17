@@ -6,6 +6,7 @@
 #include <Abstractions/Window.hpp>
 #include <Subsystems/Graphics/GraphicsSystem.hpp>
 #include <Managers/EventManager.hpp>
+#include <Subsystems/Physics/PhysicsSystem.hpp>
 
 class Engine
 {
@@ -18,12 +19,14 @@ public:
 	Window *GetWindow() { return m_Window; }
 	GraphicsSystem *GetGraphicsSystem() { return m_Graphics; }
 	EventManager *GetEventManager() { return m_EventManager; }
+	PhysicsSystem *GetPhysicsSystem() { return m_Physics; }
 
 private:
 	SettingsManager *m_SettingsManager;
 	Window *m_Window;
 	FPSCalculator *m_FPSCalculator;
 	GraphicsSystem *m_Graphics;
+	PhysicsSystem *m_Physics;
 	EventManager *m_EventManager;
 
 	bool m_Running;
