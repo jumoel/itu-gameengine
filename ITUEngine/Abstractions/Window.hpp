@@ -26,9 +26,11 @@ public:
 
 	void SetWindowTitle(char *Title);
 
-private:
 	int m_Height;
 	int m_Width;
+
+private:
+
 	int m_ColorDepth;
 	int m_VideoFlags;
 

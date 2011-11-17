@@ -10,3 +10,4 @@ ipch
 *.orig
 .DS_Store
 *.cd
+ITUEngine/Settings2.xml

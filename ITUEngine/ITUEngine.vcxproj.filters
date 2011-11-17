@@ -329,6 +329,9 @@
     <ClInclude Include="Math\GeometricFigures2D.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Globals.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Settings.xml" />
