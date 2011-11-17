@@ -14,6 +14,8 @@ public:
 	void Run();
 	void StartUp();
 	void ShutDown();
+	int mousex;
+	int mousey;
 	
 	FPSCalculator *GetFPSCalculator() { return m_FPSCalculator; }
 	Window *GetWindow() { return m_Window; }
