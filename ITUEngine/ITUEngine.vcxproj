@@ -38,10 +38,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\SDL\SDL-1.2.14\include;C:\GLEW\glew-1.7.0\include;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>C:\ASSIMP\assimp--2.0.863-sdk\include;C:\SDL\SDL-1.2.14\include;C:\GLEW\glew-1.7.0\include;$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\SDL\SDL-1.2.14\lib;C:\GLEW\glew-1.7.0\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\ASSIMP\assimp--2.0.863-sdk\lib\assimp_debug-dll_win32;C:\SDL\SDL-1.2.14\lib;C:\GLEW\glew-1.7.0\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -50,17 +50,21 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\ASSIMP\assimp--2.0.863-sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32.lib;SDL.lib;SDLmain.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;SDL.lib;SDLmain.lib;opengl32.lib;glu32.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>C:\ASSIMP\assimp--2.0.863-sdk\lib\assimp_debug-dll_win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>xcopy C:\SDL\SDL-1.2.14\lib\SDL.dll "$(OutDir)" /y
 xcopy C:\GLEW\glew-1.7.0\bin\glew32.dll "$(OutDir)" /y
-xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
+xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y
+xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$(OutDir)" /y</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>xcopy "$(ProjectDir)Resources\Settings.xml" "$(OutDir)" /y</Command>
@@ -99,6 +103,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClCompile Include="Managers\InputManager.cpp" />
     <ClCompile Include="Managers\LightingManager.cpp" />
     <ClCompile Include="Managers\MediaManager.cpp" />
+    <ClCompile Include="Managers\MemoryManager.cpp" />
     <ClCompile Include="Managers\SettingsManager.cpp" />
     <ClCompile Include="Math\CollisionDetection2D.cpp" />
     <ClCompile Include="Math\Matrix4x4f.cpp" />
@@ -123,6 +128,7 @@ xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y</Command>
     <ClInclude Include="Events\EventData\BaseEventData.hpp" />
     <ClInclude Include="Events\EventData\EmptyEventData.hpp" />
     <ClInclude Include="Events\EventData\EventData.hpp" />
+    <ClInclude Include="Managers\MemoryManager.hpp" />
     <ClInclude Include="Globals.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsModels\CirclePhysicsModel.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsModels\PhysicsModel.hpp" />
