@@ -1,6 +1,7 @@
 #ifndef ITUENGINE_RECTANGLEPHYSICSMODEL_H
 #define ITUENGINE_RECTANGLEPHYSICSMODEL_H
 
+#include <Math/GeometricFigures2D.hpp>
 #include <Subsystems/Physics/PhysicsModels/PhysicsModel.hpp>
 
 class StaticRectanglePhysicsModel : public StaticObjectModel<Rectangle>

@@ -8,7 +8,9 @@
 #include <Utils/ShaderUtils.hpp>
 #include "GL/glew.h"
 #include "GL/wglew.h"
-#include <Globals.hpp>
+//#include <Globals.hpp>
+#include <Managers/SceneGraphManager.hpp>
+#include <Game/Camera.hpp>
 
 
 void GraphicsSystem::StartUp()
@@ -269,8 +271,8 @@ void GraphicsSystem::Render()
 		glVertex3f( 0.5,-0.0,-1.0);
 	glEnd();
 	*/
-	float mousex = g_Engine->mousex;
-	float mousey = g_Engine->mousey;
+	float mousex = 1.0f;//g_Engine->mousex;
+	float mousey = 1.0f;//g_Engine->mousey;
 	float mouseW = 10.0;
 	float mouseH = 10.0;
 	float offset = 0.0;
