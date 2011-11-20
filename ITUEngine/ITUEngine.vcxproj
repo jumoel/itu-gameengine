@@ -103,6 +103,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClCompile Include="Managers\InputManager.cpp" />
     <ClCompile Include="Managers\LightingManager.cpp" />
     <ClCompile Include="Managers\MediaManager.cpp" />
+    <ClCompile Include="Managers\MemoryManager.cpp" />
     <ClCompile Include="Managers\SettingsManager.cpp" />
     <ClCompile Include="Math\CollisionDetection2D.cpp" />
     <ClCompile Include="Math\Matrix4x4f.cpp" />
@@ -127,6 +128,8 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClInclude Include="Events\EventData\BaseEventData.hpp" />
     <ClInclude Include="Events\EventData\EmptyEventData.hpp" />
     <ClInclude Include="Events\EventData\EventData.hpp" />
+    <ClInclude Include="Managers\MemoryManager.hpp" />
+    <ClInclude Include="Globals.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsModels\CirclePhysicsModel.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsModels\PhysicsModel.hpp" />
     <ClInclude Include="Managers\EventManager.hpp" />

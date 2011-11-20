@@ -8,34 +8,32 @@ class PhysicsModel
 {
 public:
 
-	PhysicsModel(bool isStationary) : isStatic(isStationary) 
-	{
-	}
+	PhysicsModel(bool isStationary) : m_IsStationary(isStationary) { }
 
 	~PhysicsModel()
 	{
-		delete &geometricRepresentation;
+		delete &m_GeometricRepresentation;
 	}
 
-	void Init(T &geoRep)
+	void Init(T &geometricRepresentation)
 	{
 		//Copy the geometric representation.
-		geometricRepresentation = T(geoRep);		
+		m_GeometricRepresentation = T(geometricRepresentation);		
 	}
 
 	T* GetGeometricRepresentation()
 	{
-		return &geometricRepresentation;
+		return &m_GeometricRepresentation;
 	}
 
 protected:
-	T geometricRepresentation;
+	T m_GeometricRepresentation;
 
-	bool isStatic;
+	bool m_IsStationary;
 };
 
 template <typename T>
-class StaticObjectModel : PhysicsModel<T>
+class StaticObjectModel : public PhysicsModel<T>
 {
 public:
 	StaticObjectModel() : PhysicsModel(true)
@@ -53,57 +51,70 @@ protected:
 };
 
 template <typename T>
-class MovingObjectModel : PhysicsModel<T>
+class MovingObjectModel : public PhysicsModel<T>
 {
 public:
-	MovingObjectModel(Point &pos, Point &dir) : PhysicsModel(false), position(pos), direction(dir),
+	MovingObjectModel(float movementSpeed, Point &pos, Point &dir) : PhysicsModel(false), m_Position(pos), m_Direction(dir)
 	{
-		targetPosition = NULL;
+		m_MovementSpeed = movementSpeed;
+		
+		//Set to null
+		m_TargetPosition = 0;
 	}
 
 	~MovingObjectModel()
 	{
-		delete &phantom;
-		delete &position;
-		delete &direction;
-		delete &targetPosition;
+		delete &m_Phantom;
+		delete &m_Position;
+		delete &m_Direction;
+		delete m_TargetPosition;
 	}
 
 	void Init(T &geoRep)
 	{
 		//Copy the geometric representation.
-		geometricRepresentation = T(geoRep);		
-		phantom = T(geoRep);
+		m_GeometricRepresentation = T(geoRep);		
+		m_Phantom = T(geoRep);
 	}
 
 	T* GetPhantom()
 	{
-		return &phantom;
+		return &m_Phantom;
 	}
 
 	Point* GetPosition()
 	{
-		return &position;
+		return &m_Position;
 	}
 
 	Point* GetDirection()
 	{
-		return &direction;
+		return &m_Direction;
 	}
 
 	Point* GetTargetPosition()
 	{
-		return &targetPosition;
+		return m_TargetPosition;
+	}
+
+	void SetTargetPosition(Point *target)
+	{
+		delete m_TargetPosition;
+		m_TargetPosition = target;
+	}
+
+	float GetMovementSpeed()
+	{
+		return m_MovementSpeed;
 	}
 
 protected:
-	Point position;
-	Point direction;
-	Point targetPosition;
+	Point m_Position;
+	Point m_Direction;
+	Point *m_TargetPosition;
+	float m_MovementSpeed;
 
-	T phantom;
+	T m_Phantom;
 };
-
-
 
 #endif //ITUENGINE_PHYSICSMODEL_H

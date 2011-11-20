@@ -8,6 +8,8 @@
 #include <Utils/ShaderUtils.hpp>
 #include "GL/glew.h"
 #include "GL/wglew.h"
+#include <Globals.hpp>
+
 
 void GraphicsSystem::StartUp()
 {
@@ -247,6 +249,56 @@ void GraphicsSystem::Render()
 	
 	glDisableVertexAttribArray(0);
 	glUseProgram(0);
+
+	SDL_WM_GrabInput(SDL_GrabMode::SDL_GRAB_ON);
+	SDL_ShowCursor(0);
+	/* draw HUD */
+	glDisable(GL_DEPTH_TEST);
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0,640,480,0,-5,1);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	/*
+	glBegin(GL_QUADS);
+		glColor3f(1,0,0);
+		glVertex3f( 0.5, 0.1,-1.0);
+		glVertex3f(-0.0, 0.1,-1.0);
+		glVertex3f(-0.0,-0.0,-1.0);
+		glVertex3f( 0.5,-0.0,-1.0);
+	glEnd();
+	*/
+	float mousex = g_Engine->mousex;
+	float mousey = g_Engine->mousey;
+	float mouseW = 10.0;
+	float mouseH = 10.0;
+	float offset = 0.0;
+
+
+	float x1 = mousex;
+	float y1 = mousey;
+	float x2 = mousex+mouseW;
+	float y2 = mousey+mouseH;
+
+
+
+	
+	
+	std::cout<<x2<<","<<y2<<std::endl;
+	/* draw Mouse */
+	glBegin(GL_QUADS);
+		glColor3f(1,0,0);
+		glVertex3f(x2,y1,1.0);
+		glVertex3f(x1,y1,1.0);
+		glVertex3f(x1,y2,1.0);
+		glVertex3f(x2,y2,1.0);
+	glEnd();
+	
+	glEnable(GL_DEPTH_TEST);
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
 
 	SDL_GL_SwapBuffers();
 }

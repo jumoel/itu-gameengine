@@ -1,63 +1,74 @@
 #ifndef ITUENGINE_GEOMETRICFIGURES2D_H
 #define ITUENGINE_GEOMETRICFIGURES2D_H
 
-struct GeometricFigure
-{
-	
-};
-
-struct Point : GeometricFigure
+struct Point
 {
 public:
+	//Do not use this, to initialize use other constructors 
+	Point() {}
+
 	Point(float x, float y) : X(x), Y(y) {}
 	Point(Point &point) : X(point.X), Y(point.Y) {}
 
 	float X, Y;
 };
 
-struct Line : GeometricFigure
+struct Line
 {
 public:
+	//Do not use this, to initialize use other constructors 
+	Line() {}
+
 	Line(Point a, Point b) : A(a), B(b) {}
 	Line(Line &line) : A(line.A), B(line.B) {}
+	~Line() { delete &A; delete &B; }
 
 	Point A, B;
 };
 
-struct Circle : GeometricFigure
+struct Circle
 {
 public:
+	//Do not use this, to initialize use other constructors 
+	Circle() {}
+
 	Circle(Point center, float radius) : Center(center), Radius(radius) {}
 	Circle(Circle &circle) : Center(circle.Center), Radius(circle.Radius) {}
+	~Circle() { delete &Center; }
 
 	Point Center;
 	float Radius;
 };
 
-struct Rectangle : GeometricFigure
+struct Rectangle
 {
 public:
-	Rectangle(Point topLeft, float width, float height) : TopLeft(topLeft), Width(width), Height(height)
+	//Do not use this, to initialize use other constructors 
+	Rectangle() {}
+
+	Rectangle(Point minXY, float width, float height) : MinXY(minXY), Width(width), Height(height)
 	{
 		Init();
 	}
 
-	Rectangle(Rectangle &rectangle) : TopLeft(rectangle.TopLeft), Width(rectangle.Width), Height(rectangle.Height) 
+	Rectangle(Rectangle &rectangle) : MinXY(rectangle.MinXY), Width(rectangle.Width), Height(rectangle.Height) 
 	{
 		Init();
 	}
 
-	Point TopLeft;
-	float Width, Height, Top, Bottom, Left, Right;
+	~Rectangle() { delete &MinXY; }
+
+	Point MinXY;
+	float Width, Height, MinY, MaxY, MinX, MaxX;
 
 private:
 	void Init() 
 	{
-		Left = TopLeft.X;
-		Right = TopLeft.X + Width;
+		MinX = MinXY.X;
+		MaxX = MinXY.X + Width;
 
-		Top = TopLeft.Y;
-		Bottom = TopLeft.Y + Height;
+		MinY = MinXY.Y;
+		MaxY = MinXY.Y + Height;
 	}
 };
 
