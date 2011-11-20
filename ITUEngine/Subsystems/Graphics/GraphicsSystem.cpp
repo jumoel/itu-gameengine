@@ -271,6 +271,8 @@ void GraphicsSystem::Render()
 		glVertex3f( 0.5,-0.0,-1.0);
 	glEnd();
 	*/
+
+	//Der er en fejl i den uploaded måde at referere g_Engine på.... FIX §!
 	float mousex = 1.0f;//g_Engine->mousex;
 	float mousey = 1.0f;//g_Engine->mousey;
 	float mouseW = 10.0;
