@@ -95,6 +95,7 @@ void MediaManager::StartUp()
 	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
 	playerTex = LoadTexture("Resources/Wood.tga", "PlayerTex");
 	playerModel = LoadModel("Resources/Model.ms3d");
+	DoTheImportThing("Resources/kalahk.ms3d");
 }
 
 void MediaManager::ShutDown()
@@ -381,3 +382,34 @@ Texture* MediaManager::FindTexture(const char* name)
 	}
 	return NULL;
 }
+
+bool MediaManager::DoTheImportThing( const std::string& pFile)
+{
+
+  // Create an instance of the Importer class
+  Assimp::Importer importer;
+  
+  // And have it read the given file with some example postprocessing
+  // Usually - if speed is not the most important aspect for you - you'll 
+  // propably to request more postprocessing than we do in this example.
+  scene = importer.ReadFile( pFile, 
+        aiProcess_CalcTangentSpace       | 
+        aiProcess_Triangulate            |
+        aiProcess_JoinIdenticalVertices  |
+        aiProcess_SortByPType);
+  
+  // If the import failed, report it
+  if( !scene)
+  {
+    //DoTheErrorLogging( importer.GetErrorString());
+    return false;
+  }
+
+  // Now we can access the file's contents. 
+  //DoTheSceneProcessing( scene);
+  
+  // We're done. Everything will be cleaned up by the importer destructor
+  //delete scene;
+  return true;
+}
+

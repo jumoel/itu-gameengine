@@ -1,10 +1,13 @@
 #include <Subsystems/Graphics/GraphicsSystem.hpp>
 #include <Managers/MediaManager.hpp>
+#include <Managers/LightingManager.hpp>
 #include <Game/SceneData.hpp>
 #include <stdio.h>
 #include <vector>
 #include <Assertion.hpp>
 #include <Utils/ShaderUtils.hpp>
+#include "GL/glew.h"
+#include "GL/wglew.h"
 
 void GraphicsSystem::StartUp()
 {
@@ -16,20 +19,16 @@ void GraphicsSystem::StartUp()
 	m_SceneGraph = createGraph();
 	m_VectorList = new std::vector<Vector3f>();
 
+	m_VectorList->push_back(Vector3f(0.75f, 0.75f, 0.0f));
+	m_VectorList->push_back(Vector3f(0.75f, -0.75f, 0.0f)); 
+	m_VectorList->push_back(Vector3f(-0.75f, -0.75f, 0.0f)); 
+	
+
 	AddToVBORecursive(m_SceneGraph->RootNode, m_VectorList);
 
 	//std::cout << "Size: " << m_VectorList->size() << std::endl;
 
 	auto verts = new std::vector<float>();
-
-	//m_VectorList->push_back(Vector3f(0.75f, 0.75f, 0.0f)); 
-	
-	
-		
-	verts->push_back( 0.75f); verts->push_back( 0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
-	verts->push_back( 0.75f); verts->push_back(-0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
-	verts->push_back(-0.75f); verts->push_back(-0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
-	
 
 	for (auto it = m_VectorList->begin(); it != m_VectorList->end(); ++it)
 	{
@@ -39,6 +38,7 @@ void GraphicsSystem::StartUp()
 		//std::cout << it->y() << std::endl;
 		verts->push_back(it->z());
 		//std::cout << it->z() << std::endl;
+		verts->push_back(1.0f);
 	}
 	
 	
@@ -92,6 +92,30 @@ void GraphicsSystem::StartUp()
 
 void GraphicsSystem::InitOpenGL()
 {
+	
+     // Get Pointers To The GL Functions
+     glGenBuffers = (PFNGLGENBUFFERSARBPROC) wglGetProcAddress("glGenBuffers");
+     glBindBuffer = (PFNGLBINDBUFFERARBPROC) wglGetProcAddress("glBindBuffer");
+     glBufferData = (PFNGLBUFFERDATAARBPROC) wglGetProcAddress("glBufferData");
+     glDeleteBuffers = (PFNGLDELETEBUFFERSARBPROC) wglGetProcAddress("glDeleteBuffers");
+    
+
+	
+
+	//Enable textures
+	//glEnable(GL_TEXTURE_2D);
+
+	//Enable lighting
+	//SINGLETONINSTANCE(LightingManager)->Init();
+
+	//Enable color tracking
+	//glEnable(GL_COLOR_MATERIAL);
+
+	/*set reflective properties */
+	//glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+
+
+
 	/* Enable smooth shading */
 	// glShadeModel( GL_SMOOTH );
 
@@ -195,9 +219,18 @@ void GraphicsSystem::Render()
 	// Clear the window
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear( GL_COLOR_BUFFER_BIT); //  | GL_DEPTH_BUFFER_BIT 
+
+	//glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	
 	Camera *CameraObject = m_SceneGraph->CameraObject;
 
+	/*std::cout << "Camera Position: (" << CameraObject->Position.x() << ", " << CameraObject->Position.y() << ", " << CameraObject->Position.z() << ")" << std::endl;
+	std::cout << "Camera LookAt: (" << CameraObject->LookAt.x() << ", " << CameraObject->LookAt.y() << ", " << CameraObject->LookAt.z() << ")" << std::endl;
+	std::cout << "Camera Up: (" << CameraObject->Up.x() << ", " << CameraObject->Up.y() << ", " << CameraObject->Up.z() << ")" << std::endl;
+	*/
 	gluLookAt(
 		CameraObject->Position.x(), CameraObject->Position.y(), CameraObject->Position.z(), 
 		CameraObject->LookAt.x(), CameraObject->LookAt.y(), CameraObject->LookAt.z(), 

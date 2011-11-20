@@ -6,6 +6,11 @@
 #include <Game/Texture.hpp>
 #include <Game/GfxModel.hpp>
 #include <Templates/TSingleton.hpp>
+#include <string>
+#include <assimp.hpp>      // C++ importer interface
+#include <aiScene.h>       // Output data structure
+#include <aiPostProcess.h> // Post processing flags
+
 
 class MediaManager
 {
@@ -13,7 +18,7 @@ class MediaManager
 
 public:
 	
-	
+	const aiScene* scene;
 	Texture* warrior;
 	Texture* playerTex;
 	GfxModel *playerModel;
@@ -22,6 +27,8 @@ public:
 	GfxModel* LoadModel(const char *filename);
 	Texture* FindTexture(const char *name);
 	void reloadTextures(GfxModel* model);
+
+	bool DoTheImportThing( const std::string& pFile);
 
 	void StartUp();
 	void ShutDown();
