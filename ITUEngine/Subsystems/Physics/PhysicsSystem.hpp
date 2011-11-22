@@ -16,6 +16,9 @@ public:
 	void ShutDown();
 
 	void PhantomStep(unsigned int deltaT);
+
+	void MoveCircleObject( Circle *circle, std::vector<MovingCirclePhysicsModel*>::iterator movingObjectIterator, unsigned int deltaT );
+
 	void Step(unsigned int deltaT);
 
 	void AddMovingCircleObject(MovingCirclePhysicsModel *movingObject);

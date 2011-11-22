@@ -21,7 +21,10 @@ public:
 
 	Line(Point a, Point b) : A(a), B(b) {}
 	Line(Line &line) : A(line.A), B(line.B) {}
-	~Line() { delete &A; delete &B; }
+	~Line() 
+	{ 
+		//delete &A; delete &B; 
+	}
 
 	Point A, B;
 };
@@ -34,7 +37,10 @@ public:
 
 	Circle(Point center, float radius) : Center(center), Radius(radius) {}
 	Circle(Circle &circle) : Center(circle.Center), Radius(circle.Radius) {}
-	~Circle() { delete &Center; }
+	~Circle() 
+	{ 
+		//delete &Center; 
+	}
 
 	Point Center;
 	float Radius;
@@ -56,7 +62,10 @@ public:
 		Init();
 	}
 
-	~Rectangle() { delete &MinXY; }
+	~Rectangle() 
+	{ 
+		//delete &MinXY; 
+	}
 
 	Point MinXY;
 	float Width, Height, MinY, MaxY, MinX, MaxX;
