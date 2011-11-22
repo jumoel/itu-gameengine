@@ -92,10 +92,14 @@ struct MS3DKeyframe
 
 void MediaManager::StartUp()
 {
-	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
+	///IMPORTANT: LOAD TEXTURES BEFORE MODELS
+	defaultTex = LoadTexture("Resources/Wood.tga", "DefaultTex");
 	playerTex = LoadTexture("Resources/Wood.tga", "PlayerTex");
+	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
+	
+	
 	playerModel = LoadModel("Resources/Model.ms3d");
-	DoTheImportThing("Resources/kalahk.ms3d");
+	crazyModel = ImportAssimpModel("Resources/Player/Kalahk.ms3d");
 }
 
 void MediaManager::ShutDown()
@@ -383,26 +387,44 @@ Texture* MediaManager::FindTexture(const char* name)
 	return NULL;
 }
 
-bool MediaManager::DoTheImportThing( const std::string& pFile)
+Model* MediaManager::ImportAssimpModel( const std::string& Filename)
 {
+	
+	Model* model = new Model();
+	
+    bool Ret = false;
+    Assimp::Importer Importer;
 
+    helper = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
+
+    if (helper) {
+        Ret = model->InitFromScene(helper, Filename);
+    }
+    else {
+        printf("Error parsing '%s': '%s'\n", Filename.c_str(), Importer.GetErrorString());
+    }
+
+    return model;
+
+	/*
   // Create an instance of the Importer class
   Assimp::Importer importer;
   
   // And have it read the given file with some example postprocessing
   // Usually - if speed is not the most important aspect for you - you'll 
   // propably to request more postprocessing than we do in this example.
-  scene = importer.ReadFile( pFile, 
+  helper = importer.ReadFile( Filename, 
         aiProcess_CalcTangentSpace       | 
         aiProcess_Triangulate            |
         aiProcess_JoinIdenticalVertices  |
         aiProcess_SortByPType);
   
   // If the import failed, report it
-  if( !scene)
+  if( !helper)
   {
+	  std::cout << "Import failed" << std::endl;
     //DoTheErrorLogging( importer.GetErrorString());
-    return false;
+    return model;
   }
 
   // Now we can access the file's contents. 
@@ -410,6 +432,6 @@ bool MediaManager::DoTheImportThing( const std::string& pFile)
   
   // We're done. Everything will be cleaned up by the importer destructor
   //delete scene;
-  return true;
+  return model;*/
 }
 

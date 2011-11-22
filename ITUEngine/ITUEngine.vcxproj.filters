@@ -198,6 +198,9 @@
     <ClCompile Include="Managers\MemoryManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Model.cpp">
+      <Filter>Source Files\World\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Managers\Engine.hpp">
@@ -352,6 +355,9 @@
     </ClInclude>
     <ClInclude Include="Managers\MemoryManager.hpp">
       <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Model.hpp">
+      <Filter>Header Files\World\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

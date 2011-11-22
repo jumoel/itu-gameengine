@@ -19,6 +19,7 @@ SceneGraphManager *createGraph()
 	auto player = new Object();
 	player->Name = "Player";
 	player->gfx = SINGLETONINSTANCE( MediaManager )->playerModel;
+	player->model =  SINGLETONINSTANCE( MediaManager )->crazyModel;
 	player->transformation->Translate(0,0,-100);
 	
 	//std::cout << "num of vertices: " << player->gfx->numVertices << std::endl;
