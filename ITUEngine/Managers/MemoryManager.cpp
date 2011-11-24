@@ -1,13 +1,14 @@
-#include <Managers/MemoryManager.hpp>
 #include <iostream>
 #include <fstream>
+
+#include <Managers/MemoryManager.hpp>
 
 /* 
  * Basic functions
  */
-void MemoryManager::StartUp()
+void MemoryManager::StartUp(Uint32 stackSize_bytes)
 {
-	// Needs a "size" parameter, based on the memory needs to be allocated in the stack.
+	// Constructs a stack allocator with the given total size.
 	// That is, alloc(ALOT), which is then converted into a local stack.
 }
 
@@ -15,22 +16,29 @@ void MemoryManager::ShutDown()
 {
 	// All of the memory should be freed, everything destroyed... and such.
 	// That is, all of the virtual stack is freed.
+	this->Clear();
 }
 
 /* 
  * MemoryManager specific functions
  */
-
-void MemoryManager::Allocate()
+void* MemoryManager::Allocate(Uint32 size_bytes)
 {
-	// Needs fitting input-value.
-	// Allocates memory from the local MemoryManager-stack,
-	// and potentially override already existing "new()"/"alloc()".
+	// Allocates a new block of the given size from stack top.
 }
 
-void MemoryManager::Free()
+/*
+Marker MemoryManager::GetMarker()
 {
-	// Needs fitting input-value.
-	// Frees memory from the local MemoryManager-stack,
-	// and potentially override already existing "~new()"/"free()".
+	// Returns a marker to the current stack top.
+}
+*/
+void MemoryManager::FreeToMarker(Marker marker)
+{
+	// Rolls the stack back to a previous marker.
+}
+
+void MemoryManager::Clear()
+{
+	// Clears the entire stack (rolls the stack back to zero).
 }
