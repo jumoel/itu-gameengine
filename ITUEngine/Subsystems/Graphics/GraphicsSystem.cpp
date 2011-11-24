@@ -1,12 +1,16 @@
 #include <Subsystems/Graphics/GraphicsSystem.hpp>
 #include <Managers/MediaManager.hpp>
+#include <Managers/LightingManager.hpp>
 #include <Game/SceneData.hpp>
 #include <stdio.h>
 #include <vector>
 #include <Assertion.hpp>
 #include <Utils/ShaderUtils.hpp>
-#include <Globals.hpp>
-
+#include "GL/glew.h"
+#include "GL/wglew.h"
+//#include <Globals.hpp>
+#include <Managers/SceneGraphManager.hpp>
+#include <Game/Camera.hpp>
 
 
 void GraphicsSystem::StartUp()
@@ -19,20 +23,16 @@ void GraphicsSystem::StartUp()
 	m_SceneGraph = createGraph();
 	m_VectorList = new std::vector<Vector3f>();
 
+	m_VectorList->push_back(Vector3f(0.75f, 0.75f, 0.0f));
+	m_VectorList->push_back(Vector3f(0.75f, -0.75f, 0.0f)); 
+	m_VectorList->push_back(Vector3f(-0.75f, -0.75f, 0.0f)); 
+	
+
 	AddToVBORecursive(m_SceneGraph->RootNode, m_VectorList);
 
 	//std::cout << "Size: " << m_VectorList->size() << std::endl;
 
 	auto verts = new std::vector<float>();
-
-	//m_VectorList->push_back(Vector3f(0.75f, 0.75f, 0.0f)); 
-	
-	
-		
-	verts->push_back( 0.75f); verts->push_back( 0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
-	verts->push_back( 0.75f); verts->push_back(-0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
-	verts->push_back(-0.75f); verts->push_back(-0.75f); verts->push_back(0.0f); verts->push_back(1.0f);
-	
 
 	for (auto it = m_VectorList->begin(); it != m_VectorList->end(); ++it)
 	{
@@ -42,6 +42,7 @@ void GraphicsSystem::StartUp()
 		//std::cout << it->y() << std::endl;
 		verts->push_back(it->z());
 		//std::cout << it->z() << std::endl;
+		verts->push_back(1.0f);
 	}
 	
 	
@@ -95,6 +96,30 @@ void GraphicsSystem::StartUp()
 
 void GraphicsSystem::InitOpenGL()
 {
+	
+     // Get Pointers To The GL Functions
+     glGenBuffers = (PFNGLGENBUFFERSARBPROC) wglGetProcAddress("glGenBuffers");
+     glBindBuffer = (PFNGLBINDBUFFERARBPROC) wglGetProcAddress("glBindBuffer");
+     glBufferData = (PFNGLBUFFERDATAARBPROC) wglGetProcAddress("glBufferData");
+     glDeleteBuffers = (PFNGLDELETEBUFFERSARBPROC) wglGetProcAddress("glDeleteBuffers");
+    
+
+	
+
+	//Enable textures
+	//glEnable(GL_TEXTURE_2D);
+
+	//Enable lighting
+	//SINGLETONINSTANCE(LightingManager)->Init();
+
+	//Enable color tracking
+	//glEnable(GL_COLOR_MATERIAL);
+
+	/*set reflective properties */
+	//glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+
+
+
 	/* Enable smooth shading */
 	// glShadeModel( GL_SMOOTH );
 
@@ -112,65 +137,103 @@ void GraphicsSystem::InitOpenGL()
 	// glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
 }
 
+void GraphicsSystem::AddAssimpModelToVBORecursive(const aiScene* scene, const aiNode* node, std::vector<Vector3f> *vectors)
+{
+	int i;
+	unsigned int n = 0, t;
+
+	// get all vectors assigned to this node
+	for (; n < node->mNumMeshes; ++n) {
+		const struct aiMesh* mesh = scene->mMeshes[node->mMeshes[n]];
+		for (t = 0; t < mesh->mNumFaces; ++t) {
+			const struct aiFace* face = &mesh->mFaces[t];
+
+			for(i = 0; i < face->mNumIndices; i++) {
+				int index = face->mIndices[i];
+				Vector3f temp;
+				temp.SetX(mesh->mVertices[index].x);
+				temp.SetY(mesh->mVertices[index].x);
+				temp.SetZ(mesh->mVertices[index].x);
+				vectors->push_back(temp);
+			}
+		}
+	}
+
+	// draw all children
+	for (n = 0; n < node->mNumChildren; ++n) {
+		AddAssimpModelToVBORecursive(scene, node->mChildren[n], vectors);
+	}
+
+}
+
 void GraphicsSystem::AddToVBORecursive(Object *obj, std::vector<Vector3f> *vectors)
 {
 	int k = 0;
 	std::vector<Vector3f> *v_list = new vector<Vector3f>();
 	
-	// By Group
-	if(obj->gfx->numMeshes > 0)
+	/*
+	if(obj->gfx->model != NULL)
 	{
-		for ( int i = 0; i < obj->gfx->numMeshes; i++ )
-		{		
-			/*int materialIndex = obj->gfx->mMeshes[i].materialIndex;
+		AddAssimpModelToVBORecursive(obj->gfx->model, obj->gfx->model->mRootNode, v_list);
+	}
+	else
+	{
+	*/
+		// By Group
+		if(obj->gfx->numMeshes > 0)
+		{
+			for ( int i = 0; i < obj->gfx->numMeshes; i++ )
+			{		
+				/*int materialIndex = obj->gfx->mMeshes[i].materialIndex;
 		
-			if ( materialIndex >= 0 )
-			{
-				glMaterialfv( GL_FRONT, GL_AMBIENT, obj->gfx->mMaterials[materialIndex].ambient );
-				glMaterialfv( GL_FRONT, GL_DIFFUSE, obj->gfx->mMaterials[materialIndex].diffuse );
-				glMaterialfv( GL_FRONT, GL_SPECULAR, obj->gfx->mMaterials[materialIndex].specular );
-				glMaterialfv( GL_FRONT, GL_EMISSION, obj->gfx->mMaterials[materialIndex].emissive );
-				glMaterialf( GL_FRONT, GL_SHININESS, obj->gfx->mMaterials[materialIndex].shininess );
-
-				if ( obj->gfx->mMaterials[materialIndex].mTexture > 0 )
+				if ( materialIndex >= 0 )
 				{
-					glBindTexture( GL_TEXTURE_2D, obj->gfx->mMaterials[materialIndex].mTexture );
-					glEnable( GL_TEXTURE_2D );
+					glMaterialfv( GL_FRONT, GL_AMBIENT, obj->gfx->mMaterials[materialIndex].ambient );
+					glMaterialfv( GL_FRONT, GL_DIFFUSE, obj->gfx->mMaterials[materialIndex].diffuse );
+					glMaterialfv( GL_FRONT, GL_SPECULAR, obj->gfx->mMaterials[materialIndex].specular );
+					glMaterialfv( GL_FRONT, GL_EMISSION, obj->gfx->mMaterials[materialIndex].emissive );
+					glMaterialf( GL_FRONT, GL_SHININESS, obj->gfx->mMaterials[materialIndex].shininess );
+
+					if ( obj->gfx->mMaterials[materialIndex].mTexture > 0 )
+					{
+						glBindTexture( GL_TEXTURE_2D, obj->gfx->mMaterials[materialIndex].mTexture );
+						glEnable( GL_TEXTURE_2D );
+					}
+					else
+					{
+						glDisable( GL_TEXTURE_2D );
+					}
 				}
 				else
 				{
 					glDisable( GL_TEXTURE_2D );
-				}
-			}
-			else
-			{
-				glDisable( GL_TEXTURE_2D );
-			}*/
+				}*/
 
-			for ( int j = 0; j < obj->gfx->mMeshes[i].numTriangles; j++ )
-			{
-				int triangleIndex = obj->gfx->mMeshes[i].triangleIndices[j];
-				//const Triangle* pTri = &obj->gfx->mTriangles[triangleIndex];
-				for ( int k = 0; k < 3; k++ )
+				for ( int j = 0; j < obj->gfx->mMeshes[i].numTriangles; j++ )
 				{
-					int index =  obj->gfx->mTriangles[triangleIndex].verticeIndices[k]; //pTri->verticeIndices[k];
-					//std::cout << "index: " << index << std::endl;
-					//glNormal3fv( pTri->vertexNormals[k] );
-					//glTexCoord2f( pTri->sTex[k], pTri->tTex[k] );
-					//glVertex3fv( obj->gfx->mVertices[index].location );
-					Vector3f temp;
-					temp.SetX(obj->gfx->mVertices[index].location[0]);
-					temp.SetY(obj->gfx->mVertices[index].location[1]);
-					temp.SetZ(obj->gfx->mVertices[index].location[2]);
-					temp = obj->transformation->MultiplyWithVector(temp);
-					//std::cout << "Vertex.x: " << temp.x() << std::endl;
-					//std::cout << "Vertex.y: " << temp.y() << std::endl;
-					//std::cout << "Vertex.z: " << temp.z() << std::endl;
-					v_list->push_back(temp);
+					int triangleIndex = obj->gfx->mMeshes[i].triangleIndices[j];
+					//const Triangle* pTri = &obj->gfx->mTriangles[triangleIndex];
+					for ( int k = 0; k < 3; k++ )
+					{
+						int index =  obj->gfx->mTriangles[triangleIndex].verticeIndices[k]; //pTri->verticeIndices[k];
+						//std::cout << "index: " << index << std::endl;
+						//glNormal3fv( pTri->vertexNormals[k] );
+						//glTexCoord2f( pTri->sTex[k], pTri->tTex[k] );
+						//glVertex3fv( obj->gfx->mVertices[index].location );
+						Vector3f temp;
+						temp.SetX(obj->gfx->mVertices[index].location[0]);
+						temp.SetY(obj->gfx->mVertices[index].location[1]);
+						temp.SetZ(obj->gfx->mVertices[index].location[2]);
+						temp = obj->transformation->MultiplyWithVector(temp);
+						//std::cout << "Vertex.x: " << temp.x() << std::endl;
+						//std::cout << "Vertex.y: " << temp.y() << std::endl;
+						//std::cout << "Vertex.z: " << temp.z() << std::endl;
+						v_list->push_back(temp);
+					}
 				}
 			}
 		}
-	}
+	//}
 	/*
 	for(int i = 0; i < obj->gfx->numVertices; i++)
 	{
@@ -192,15 +255,37 @@ void GraphicsSystem::AddToVBORecursive(Object *obj, std::vector<Vector3f> *vecto
 	}
 }
 
+void GraphicsSystem::RenderRecursive(Object *obj)
+{
+	if(obj->model != NULL)
+	{
+		obj->model->Render();
+	}
+	
+	for (auto it = obj->children->begin(); it != obj->children->end(); ++it)
+	{
+		RenderRecursive(&(*it));
+	}
+}
+
 void GraphicsSystem::Render()
 {
 
 	// Clear the window
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear( GL_COLOR_BUFFER_BIT); //  | GL_DEPTH_BUFFER_BIT 
+
+	//glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	
 	Camera *CameraObject = m_SceneGraph->CameraObject;
 
+	/*std::cout << "Camera Position: (" << CameraObject->Position.x() << ", " << CameraObject->Position.y() << ", " << CameraObject->Position.z() << ")" << std::endl;
+	std::cout << "Camera LookAt: (" << CameraObject->LookAt.x() << ", " << CameraObject->LookAt.y() << ", " << CameraObject->LookAt.z() << ")" << std::endl;
+	std::cout << "Camera Up: (" << CameraObject->Up.x() << ", " << CameraObject->Up.y() << ", " << CameraObject->Up.z() << ")" << std::endl;
+	*/
 	gluLookAt(
 		CameraObject->Position.x(), CameraObject->Position.y(), CameraObject->Position.z(), 
 		CameraObject->LookAt.x(), CameraObject->LookAt.y(), CameraObject->LookAt.z(), 
@@ -217,6 +302,8 @@ void GraphicsSystem::Render()
 	
 	glDisableVertexAttribArray(0);
 	glUseProgram(0);
+
+	RenderRecursive(m_SceneGraph->RootNode);
 
 	SDL_WM_GrabInput(SDL_GrabMode::SDL_GRAB_ON);
 	SDL_ShowCursor(0);
@@ -237,8 +324,10 @@ void GraphicsSystem::Render()
 		glVertex3f( 0.5,-0.0,-1.0);
 	glEnd();
 	*/
-	float mousex = g_Engine->mousex;
-	float mousey = g_Engine->mousey;
+
+	//Der er en fejl i den uploaded måde at referere g_Engine på.... FIX §!
+	float mousex = 1.0f;//g_Engine->mousex;
+	float mousey = 1.0f;//g_Engine->mousey;
 	float mouseW = 10.0;
 	float mouseH = 10.0;
 	float offset = 0.0;
@@ -253,7 +342,7 @@ void GraphicsSystem::Render()
 
 	
 	
-	std::cout<<x2<<","<<y2<<std::endl;
+	//std::cout<<x2<<","<<y2<<std::endl;
 	/* draw Mouse */
 	glBegin(GL_QUADS);
 		glColor3f(1,0,0);

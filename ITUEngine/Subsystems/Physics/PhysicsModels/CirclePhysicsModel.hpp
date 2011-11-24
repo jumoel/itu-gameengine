@@ -2,6 +2,7 @@
 #define ITUENGINE_CIRCLEPHYSICSMODEL_H
 
 #include <Subsystems/Physics/PhysicsModels/PhysicsModel.hpp>
+#include <Math/GeometricFigures2D.hpp>
 
 class MovingCirclePhysicsModel : public MovingObjectModel<Circle>
 {

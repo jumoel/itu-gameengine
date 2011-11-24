@@ -5,6 +5,9 @@
 
 #include <Math/Matrix4x4f.hpp>
 #include <Math/Vector3f.hpp>
+#include <assimp.hpp>      // C++ importer interface
+#include <aiScene.h>       // Output data structure
+#include <aiPostProcess.h> // Post processing flags
 #include <Game/Material.hpp>
 
 struct Vertex
@@ -45,6 +48,8 @@ public:
 
 	int numVertices;
 	Vertex *mVertices;
+
+	const aiScene *model;
 
 	int numTriangles;
 	Triangle *mTriangles;

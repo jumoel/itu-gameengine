@@ -65,12 +65,12 @@ void Engine::Run()
 		m_Window->SetWindowTitle(title);
 
 		//Check Phantom collisions  // NOTE // (BØR MÅSKE VÆRE INDBYGGET I Step() funktionen)
-		m_Physics->PhantomStep();
+		m_Physics->PhantomStep(1.0f);
 		
 		//TODO: Do stuff to change the directions before things really happen
 
 		//Check real collisions
-		m_Physics->Step();
+		m_Physics->Step(1.0f);
 
 		// Display the graphics
 		m_Graphics->Render();

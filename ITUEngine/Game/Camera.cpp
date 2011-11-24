@@ -416,6 +416,7 @@ bool Camera::HandleEvent( IEventData const & eventData )
 
 		//Control position Left/Right
 	case SDLK_d:
+		//std::cout << "Move Camera Right!" << std::endl;
 		MoveCameraLeftRight2D(0.5f);
 		break;
 	case SDLK_a:

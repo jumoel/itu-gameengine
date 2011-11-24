@@ -27,9 +27,13 @@ public:
     GLuint  width;                                  // Image Width
     GLuint  height;                                 // Image Height
     GLuint  texID;
+	GLenum	textureTarget;
 
 	Texture();
+	Texture(GLenum TextureTarget, char* FileName);
 	~Texture();
+
+	void Bind(GLenum TextureUnit);
 };
 
 #endif

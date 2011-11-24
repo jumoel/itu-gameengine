@@ -19,6 +19,7 @@ SceneGraphManager *createGraph()
 	auto player = new Object();
 	player->Name = "Player";
 	player->gfx = SINGLETONINSTANCE( MediaManager )->playerModel;
+	player->model =  SINGLETONINSTANCE( MediaManager )->crazyModel;
 	player->transformation->Translate(0,0,-100);
 	
 	//std::cout << "num of vertices: " << player->gfx->numVertices << std::endl;
@@ -26,7 +27,7 @@ SceneGraphManager *createGraph()
 	{
 		player->gfx->SetTexture(SINGLETONINSTANCE( MediaManager )->playerTex, &player->gfx->mMaterials[i]);
 	}
-
+	
 	auto m = new Matrix4x4f();
 	m->Translate(0.0f, 0.0f, -4.0f);
 	
@@ -37,7 +38,7 @@ SceneGraphManager *createGraph()
 	camera->Position.SetX(0);
 	camera->Position.SetY(0);
 	camera->Position.SetZ(100);
-	camera->MoveCamera3D(new Vector3f(0, 0, 100));
+	//camera->MoveCamera3D(new Vector3f(0, 0, 100));
 	camera->LookAt.SetX(0);
 	camera->LookAt.SetY(0);
 	camera->LookAt.SetZ(-1);
