@@ -53,19 +53,19 @@ Model::~Model()
 
 void Model::Clear()
 {
-    for (unsigned int i = 0 ; i < m_Textures.size() ; i++) {
-        SAFE_DELETE(m_Textures[i]);
+    for (unsigned int i = 0 ; i < m_Materials.size() ; i++) {
+        SAFE_DELETE(m_Materials[i]);
     }
 }
 
 bool Model::InitFromScene(const aiScene* pScene, const std::string& Filename)
 {  
-	std::cout << "Number of meshes: " << + pScene->mNumMeshes << std::endl;
-	std::cout << "Number of materials: " << + pScene->mNumMaterials << std::endl;
+	//std::cout << "Number of meshes: " << + pScene->mNumMeshes << std::endl;
+	//std::cout << "Number of materials: " << + pScene->mNumMaterials << std::endl;
 
     m_Entries.resize(pScene->mNumMeshes);
 
-    m_Textures.resize(pScene->mNumMaterials);
+    m_Materials.resize(pScene->mNumMaterials);
 
     // Initialize the meshes in the scene one by one
     for (unsigned int i = 0 ; i < m_Entries.size() ; i++) {
@@ -89,7 +89,7 @@ void Model::InitModel(unsigned int Index, const aiMesh* paiMesh)
         const aiVector3D* pPos      = &(paiMesh->mVertices[i]);
         const aiVector3D* pNormal   = &(paiMesh->mNormals[i]);
         const aiVector3D* pTexCoord = paiMesh->HasTextureCoords(0) ? &(paiMesh->mTextureCoords[0][i]) : &Zero3D;
-
+		//std::cout << "x: " << pPos->x << ", y: " << pPos->y << ", z: " << pPos->z << std::endl;
         Vert v(Vector3f(pPos->x, pPos->y, pPos->z),
                  pTexCoord->x, pTexCoord->y,
                  Vector3f(pNormal->x, pNormal->y, pNormal->z));
@@ -131,7 +131,24 @@ bool Model::InitMaterials(const aiScene* pScene, const std::string& Filename)
     for (unsigned int i = 0 ; i < pScene->mNumMaterials ; i++) {
         const aiMaterial* pMaterial = pScene->mMaterials[i];
 
-        m_Textures[i] = NULL;
+        m_Materials[i] = NULL;
+		aiColor3D color(0.0f,0.0f,0.0f);
+		pMaterial->Get(AI_MATKEY_COLOR_DIFFUSE, color);
+		m_Materials[i]->diffuse[0] = color.r, m_Materials[i]->diffuse[1] = color.g, m_Materials[i]->diffuse[2] = color.b, m_Materials[i]->diffuse[3] = 1.0f;
+
+		pMaterial->Get(AI_MATKEY_COLOR_SPECULAR, color);
+		m_Materials[i]->specular[0] = color.r, m_Materials[i]->specular[1] = color.g, m_Materials[i]->specular[2] = color.b, m_Materials[i]->specular[3] = 1.0f;
+
+		pMaterial->Get(AI_MATKEY_COLOR_AMBIENT, color);
+		m_Materials[i]->ambient[0] = color.r, m_Materials[i]->ambient[1] = color.g, m_Materials[i]->ambient[2] = color.b, m_Materials[i]->ambient[3] = 1.0f;
+
+		pMaterial->Get(AI_MATKEY_COLOR_EMISSIVE, color);
+		m_Materials[i]->emissive[0] = color.r, m_Materials[i]->emissive[1] = color.g, m_Materials[i]->emissive[2] = color.b, m_Materials[i]->emissive[3] = 1.0f;
+
+		pMaterial->Get(AI_MATKEY_SHININESS, m_Materials[i]->shininess);
+
+		pMaterial->Get(AI_MATKEY_SHADING_MODEL, m_Materials[i]->shader);
+
 
         if (pMaterial->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
             aiString Path;
@@ -141,22 +158,22 @@ bool Model::InitMaterials(const aiScene* pScene, const std::string& Filename)
 				char* temp = new char();
 				strcpy(temp, FullPath.c_str());
 
-				if (!m_Textures[i]) {
-					m_Textures[i] =  SINGLETONINSTANCE( MediaManager )->defaultTex;
+				if (!m_Materials[i]->texture) {
+					m_Materials[i]->texture =  SINGLETONINSTANCE( MediaManager )->defaultTex;
 				}
 				else
 				{
 
-					m_Textures[i] = SINGLETONINSTANCE( MediaManager )->FindTexture(temp);
-					if(m_Textures[i] == NULL)
+					m_Materials[i]->texture = SINGLETONINSTANCE( MediaManager )->FindTexture(temp);
+					if(m_Materials[i]->texture == NULL)
 					{
-						m_Textures[i] = SINGLETONINSTANCE( MediaManager )->LoadTexture(temp, temp);
+						m_Materials[i]->texture = SINGLETONINSTANCE( MediaManager )->LoadTexture(temp, temp);
 					}
 				}
 					
 
 
-				m_Textures[i]->textureTarget = GL_TEXTURE_2D;
+				m_Materials[i]->texture->textureTarget = GL_TEXTURE_2D;
 
             }
         }
@@ -181,9 +198,19 @@ void Model::Render()
 
         const unsigned int MaterialIndex = m_Entries[i].MaterialIndex;
 
-        if (MaterialIndex < m_Textures.size() && m_Textures[MaterialIndex]) {
-            m_Textures[MaterialIndex]->Bind(GL_TEXTURE0);
+        if (MaterialIndex < m_Materials.size()) {
+			if(m_Materials[MaterialIndex]->texture)
+			{
+				m_Materials[MaterialIndex]->texture->Bind(GL_TEXTURE0);
+			}
+			glMaterialfv(GL_FRONT, GL_DIFFUSE, m_Materials[MaterialIndex]->diffuse);
+			glMaterialfv(GL_FRONT, GL_SPECULAR, m_Materials[MaterialIndex]->specular);
+			glMaterialfv(GL_FRONT, GL_AMBIENT, m_Materials[MaterialIndex]->ambient);
+			glMaterialfv(GL_FRONT, GL_EMISSION, m_Materials[MaterialIndex]->emissive);
+			glMaterialf(GL_FRONT, GL_SHININESS, m_Materials[MaterialIndex]->shininess);
         }
+
+		
 
         glDrawElements(GL_TRIANGLES, m_Entries[i].NumIndices, GL_UNSIGNED_INT, 0);
     }

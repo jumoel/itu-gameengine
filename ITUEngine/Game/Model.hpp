@@ -8,6 +8,7 @@
 #include <GL/glew.h>
 #include <Game/Texture.hpp>
 #include <Math/Vector3f.hpp>
+#include <Game/Material.hpp>
 
 struct Vert
 {
@@ -61,7 +62,7 @@ private:
     };
 
     std::vector<ModelEntry> m_Entries;
-    std::vector<Texture*> m_Textures;
+    std::vector<Material*> m_Materials;
 
 };
 
