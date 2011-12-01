@@ -198,16 +198,14 @@
     <ClCompile Include="Game\Model.cpp">
       <Filter>Source Files\World\GameObjects</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Game\aStar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vector2f.cpp">
       <Filter>Source Files</Filter>
-=======
+    </ClCompile>
     <ClCompile Include="Utils\StackAllocator.cpp">
-      <Filter>Source Files\Managers</Filter>
->>>>>>> 8b0e713e3a9394d70a5285b680a3387fba03ef77
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -364,7 +362,6 @@
     <ClInclude Include="Game\Model.hpp">
       <Filter>Header Files\World\GameObjects</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Game\aStar.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -373,10 +370,9 @@
     </ClInclude>
     <ClInclude Include="Vector2f.hpp">
       <Filter>Header Files</Filter>
-=======
+    </ClInclude>
     <ClInclude Include="Utils\StackAllocator.hpp">
-      <Filter>Header Files\Managers</Filter>
->>>>>>> 8b0e713e3a9394d70a5285b680a3387fba03ef77
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
