@@ -6,6 +6,7 @@
 #include <vector>
 #include <Assertion.hpp>
 #include <Utils/ShaderUtils.hpp>
+#include <SDL.h>
 #include "GL/glew.h"
 #include "GL/wglew.h"
 //#include <Globals.hpp>
@@ -127,11 +128,23 @@ void GraphicsSystem::InitOpenGL()
 	glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
 
 	/* Depth buffer setup */
-	glClearDepth( 1.0f );
+	//glClearDepth( 1.0f );
 
 	glEnable( GL_DEPTH_TEST );
 
 	glDepthFunc( GL_LEQUAL );
+	glDepthMask(GL_TRUE);
+
+	// Render depth values to a buffer. 
+	/*glGenRenderbuffersEXT(1, &renderBuffer); 
+	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, renderBuffer); 
+	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT24, width, height); 
+
+	glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, 
+	GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, renderBuffer); 
+	*/
+
+	//glDisable( GL_CULL_FACE );
 
 	/* Really Nice Perspective Calculations */
 	glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
@@ -273,7 +286,7 @@ void GraphicsSystem::RenderRecursive(Object *obj)
 
 void GraphicsSystem::Render()
 {
-
+	
 	// Clear the window
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	//glClear( GL_COLOR_BUFFER_BIT); //  | GL_DEPTH_BUFFER_BIT 
@@ -281,6 +294,7 @@ void GraphicsSystem::Render()
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	
 	//glMatrixMode(GL_PROJECTION);
+	//gluPerspective(
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	

@@ -98,10 +98,13 @@ void MediaManager::StartUp()
 	carTexture2 = LoadTexture("Resources/truck_1915.tga", "Resources/truck_1915.jpg");
 	playerTex = LoadTexture("Resources/kalahk.tga", "Resources/kalahk.jpg");
 	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
+	boxTex1 = LoadTexture("Resources/WoodPlanks_Color.tga", "Resources/WoodPlanks_Color.jpg");
+	boxTex2 = LoadTexture("Resources/WoodPlanks_Greyscale.tga", "Resources/WoodPlanks_Greyscale.jpg");
+	//boxTex3 = LoadTexture("Resources/WoodPlanks_Normal.tga", "Resources/WoodPlanks_Normal.jpg");
 	
 
 	
-	
+	boxModel = ImportAssimpModel("Resources/WoodenBox02.3ds");
 	carModel = ImportAssimpModel("Resources/truck_1915.ms3d");
 	playerModel = LoadModel("Resources/Model.ms3d");
 	crazyModel = ImportAssimpModel("Resources/Kalahk.ms3d");
