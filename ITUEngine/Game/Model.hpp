@@ -56,6 +56,8 @@ private:
 
         GLuint VB;
         GLuint IB;
+		std::vector<Vert> Verts;
+		unsigned int NumVertices;
         unsigned int NumIndices;
         unsigned int MaterialIndex;
     };

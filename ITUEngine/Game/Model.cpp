@@ -1,6 +1,7 @@
 #include <Game/Model.hpp>
 #include <assert.h>
 #include <Managers/MediaManager.hpp>
+#include <cmath>
 
 #define INVALID_OGL_VALUE 0xFFFFFFFF
 #define SAFE_DELETE(p) if (p) { delete p; p = NULL; }
@@ -30,6 +31,8 @@ void Model::ModelEntry::Init(const std::vector<Vert>& Vertices,
                           const std::vector<unsigned int>& Indices)
 {
     NumIndices = Indices.size();
+	NumVertices = Vertices.size();
+	Verts = Vertices;
 
     glGenBuffers(1, &VB);
   	glBindBuffer(GL_ARRAY_BUFFER, VB);
@@ -92,11 +95,12 @@ void Model::InitModel(unsigned int Index, const aiMesh* paiMesh)
 		
         Vert v(Vector3f(pPos->x, pPos->y, pPos->z),
                  Vector2f(pTexCoord->x, pTexCoord->y),
-                 Vector3f(-pNormal->x, -pNormal->y, -pNormal->z));
+                 Vector3f(pNormal->x, pNormal->y, pNormal->z));
 		//std::cout << "x: " << v.m_normal.x() << ", y: " << v.m_normal.y() <<  ", z: " << v.m_normal.z() << std::endl;
+		//std::cout << "Length of normal: " << sqrt( v.m_normal.x() * v.m_normal.x() + v.m_normal.y() * v.m_normal.y() + v.m_normal.z() * v.m_normal.z()) << std::endl;
         Vertices.push_back(v);
     }
-
+	
     for (unsigned int i = 0 ; i < paiMesh->mNumFaces ; i++) {
         const aiFace& Face = paiMesh->mFaces[i];
         assert(Face.mNumIndices == 3);
@@ -196,6 +200,19 @@ void Model::Render()
 		glTexCoordPointer( 2, GL_FLOAT, sizeof(Vert), (const GLvoid*)12 );	
 		glNormalPointer( GL_FLOAT, sizeof(Vert), (const GLvoid*)20);
 
+		
+		/*for(int j = 0; j < m_Entries[i].Verts.size(); j++)
+		{
+			glBegin(GL_LINE);
+			glColor3f(1,0,0);
+			glVertex3f(m_Entries[i].Verts[j].m_pos.x(),m_Entries[i].Verts[j].m_pos.y(),m_Entries[i].Verts[j].m_pos.z());
+			glVertex3f(m_Entries[i].Verts[j].m_normal.x()*3.0f,m_Entries[i].Verts[j].m_normal.y()*3.0f,m_Entries[i].Verts[j].m_normal.z()*3.0f);
+
+			glEnd();
+		}
+		glColor3f(1,1,1);
+		*/
+
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Entries[i].IB);
 
         const unsigned int MaterialIndex = m_Entries[i].MaterialIndex;
@@ -212,7 +229,7 @@ void Model::Render()
 			glMaterialf(GL_FRONT, GL_SHININESS, m_Materials[MaterialIndex]->shininess);
         }
 
-		
+		//glDrawArrays( GL_TRIANGLES, 0, m_Entries[i].NumVertices );
 
         glDrawElements(GL_TRIANGLES, m_Entries[i].NumIndices, GL_UNSIGNED_INT, 0);
     }

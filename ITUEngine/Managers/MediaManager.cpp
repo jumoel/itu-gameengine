@@ -100,8 +100,6 @@ void MediaManager::StartUp()
 	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
 	
 
-	
-	
 	carModel = ImportAssimpModel("Resources/truck_1915.ms3d");
 	playerModel = LoadModel("Resources/Model.ms3d");
 	crazyModel = ImportAssimpModel("Resources/Kalahk.ms3d");

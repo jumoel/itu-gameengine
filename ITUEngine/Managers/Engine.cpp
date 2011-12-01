@@ -39,19 +39,19 @@ void Engine::Run()
 
 				
 				
-			/*
-			case SDL_KEYUP:
+			
+			//case SDL_KEYUP:
 
 
 			case SDL_MOUSEBUTTONDOWN:
 			case SDL_MOUSEBUTTONUP:
 				handleMouseButtonPress(&event.button, event.type);
 				break;
-				*/
+				
 			case SDL_MOUSEMOTION:
 				mousex = event.motion.x;
 			    mousey = event.motion.y;
-				//handleMouseMove(&event.motion, event.type);
+				handleMouseMove(&event.motion, event.type);
 				break;
 			
 			default:
@@ -134,4 +134,32 @@ void Engine::handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_key
 	}
 
 	delete(keyEvent);
+}
+
+void Engine::handleMouseButtonPress( SDL_MouseButtonEvent *key, Uint8 eventtype)
+{
+	auto mouseButtonEvent = new MouseClickEvent(key, eventtype);
+
+	if(eventtype == SDL_MOUSEBUTTONDOWN)
+	{
+		InputManager::NotifyButtonDown(mouseButtonEvent);
+	}
+	else if(eventtype == SDL_MOUSEBUTTONUP)
+	{
+		InputManager::NotifyButtonUp(mouseButtonEvent);
+	}
+
+	delete mouseButtonEvent;
+}
+
+void Engine::handleMouseMove( SDL_MouseMotionEvent *key, Uint8 eventtype)
+{
+	auto mouseMoveEvent = new MouseMoveEvent(key, eventtype);
+
+	if(eventtype == SDL_MOUSEMOTION)
+	{
+		InputManager::NotifyMotion(mouseMoveEvent);
+	}
+	
+	delete mouseMoveEvent;
 }

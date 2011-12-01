@@ -101,7 +101,7 @@ void Window::Resize()
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45.0f, ratio, 0.0f, 100.0f);
+	gluPerspective(45.0f, ratio, 5.0f, 100.0f);
 }
 
 void Window::SetWindowTitle(char *Title)
