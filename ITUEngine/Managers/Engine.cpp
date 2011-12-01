@@ -64,13 +64,8 @@ void Engine::Run()
 		sprintf_s(title,"FPS: %d", m_FPSCalculator->GetFPS());
 		m_Window->SetWindowTitle(title);
 
-		//Check Phantom collisions  // NOTE // (BØR MÅSKE VÆRE INDBYGGET I Step() funktionen)
-		m_Physics->PhantomStep(1.0f);
-		
-		//TODO: Do stuff to change the directions before things really happen
-
-		//Check real collisions
-		m_Physics->Step(1.0f);
+		//Step the physics system
+		m_Physics->Step(1);
 
 		// Display the graphics
 		m_Graphics->Render();

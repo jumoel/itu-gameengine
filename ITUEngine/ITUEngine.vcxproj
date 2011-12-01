@@ -132,7 +132,6 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClInclude Include="Game\Model.hpp" />
     <ClInclude Include="Managers\MemoryManager.hpp" />
     <ClInclude Include="Globals.hpp" />
-    <ClInclude Include="Subsystems\Physics\PhysicsModels\CirclePhysicsModel.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsModels\PhysicsModel.hpp" />
     <ClInclude Include="Managers\EventManager.hpp" />
     <ClInclude Include="Events\Interfaces\IEventData.hpp" />
@@ -161,7 +160,6 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClInclude Include="Managers\SceneGraphManager.hpp" />
     <ClInclude Include="Macros\EventMacros.hpp" />
     <ClInclude Include="Subsystems\Graphics\GraphicsSystem.hpp" />
-    <ClInclude Include="Subsystems\Physics\PhysicsModels\RectanglePhysicsModel.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsSystem.hpp" />
     <ClInclude Include="Templates\TSingleton.hpp" />
     <ClInclude Include="TestEventSubscribtion.hpp" />

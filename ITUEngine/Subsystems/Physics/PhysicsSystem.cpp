@@ -1,39 +1,52 @@
 #include <Subsystems/Physics/PhysicsSystem.hpp>
-#include "PhysicsModels/RectanglePhysicsModel.hpp"
-#include "PhysicsModels/CirclePhysicsModel.hpp"
 #include "PhysicsModels/PhysicsModel.hpp"
 #include <Math/CollisionDetection2D.hpp>
 #include <iostream>
 
 void PhysicsSystem::StartUp()
 {
-	m_StaticObjects = new std::vector<StaticRectanglePhysicsModel*>();
-	m_MovingObjects = new std::vector<MovingCirclePhysicsModel*>();
+	m_StaticObjects = new std::vector<StaticObjectModel*>();
+	m_MovingObjects = new std::vector<MovingObjectModel*>();
 
 	// Insert test data
 
 	//Rectangles:
 	//MinXY = 0,0 - Width 1 - Height: 10
-	m_StaticObjects->push_back(new StaticRectanglePhysicsModel(Point(0.0f, 0.0f), 1.0f, 10.0f));
+	auto staticTestItem1 = new StaticObjectModel(RECTANGULARSHAPE);
+	staticTestItem1->InitializeAsRectangle(Rectangle(Point(0.0f, 0.0f), 1.0f, 10.0f));
+	m_StaticObjects->push_back(staticTestItem1);
 
 	//MinXY = 1,0 - Width 18 - Height: 1
-	m_StaticObjects->push_back(new StaticRectanglePhysicsModel(Point(1.0f, 0.0f), 18.0f, 1.0f));
+	auto staticTestItem2 = new StaticObjectModel(RECTANGULARSHAPE);
+	staticTestItem2->InitializeAsRectangle(Rectangle(Point(1.0f, 0.0f), 18.0f, 1.0f));
+	m_StaticObjects->push_back(staticTestItem2);
 	
 	//MinXY = 1,9 - Width 18 - Height: 1
-	m_StaticObjects->push_back(new StaticRectanglePhysicsModel(Point(1.0f, 9.0f), 18.0f, 1.0f));
+	auto staticTestItem3 = new StaticObjectModel(RECTANGULARSHAPE);
+	staticTestItem3->InitializeAsRectangle(Rectangle(Point(1.0f, 9.0f), 18.0f, 1.0f));
+	m_StaticObjects->push_back(staticTestItem3);
 	
 	//MinXY = 19,0 - Width 1 - Height: 10
-	m_StaticObjects->push_back(new StaticRectanglePhysicsModel(Point(19.0f, 0.0f), 1.0f, 10.0f));
+	auto staticTestItem4 = new StaticObjectModel(RECTANGULARSHAPE);
+	staticTestItem4->InitializeAsRectangle(Rectangle(Point(19.0f, 0.0f), 1.0f, 10.0f));
+	m_StaticObjects->push_back(staticTestItem4);
 
 	//Circles: Assumed to be moving
 	//Center = (5,6) - Radius: 1 - Direction: (1,1)
-	m_MovingObjects->push_back(new MovingCirclePhysicsModel(1.0f, Point(5.0f, 6.0f), Point(1.0f, 1.0f), 1.0f));
+	auto movingTestItem1 = new MovingObjectModel(CIRCULARSHAPE, 1.0f, Point(1.0f, 1.0f));
+	movingTestItem1->InitializeAsCircle(Circle(Point(5.0f, 6.0f), 1.0f));
+	m_MovingObjects->push_back(movingTestItem1);
 
 	//Center = (7,3) - Radius: 1 - Direction: (1,1)
-	m_MovingObjects->push_back(new MovingCirclePhysicsModel(1.0f, Point(7.0f, 3.0f), Point(1.0f, 1.0f), 1.0f));
+
+	auto movingTestItem2 = new MovingObjectModel(CIRCULARSHAPE, 1.0f, Point(1.0f, 1.0f));
+	movingTestItem2->InitializeAsCircle( Circle(Point(7.0f, 3.0f), 1.0f) );
+	m_MovingObjects->push_back(movingTestItem2);
 
 	//Center = (10,5) - Radius: 1 - Direction: (-1,-1)
-	m_MovingObjects->push_back(new MovingCirclePhysicsModel(1.0f, Point(10.0f, 5.0f), Point(-1.0f, -1.0f), 1.0f));
+	auto movingTestItem3 = new MovingObjectModel(CIRCULARSHAPE, 1.0f, Point(-1.0f, -1.0f) );
+	movingTestItem3->InitializeAsCircle( Circle(Point(10.0f, 5.0f), 1.0f) );
+	m_MovingObjects->push_back(movingTestItem3);
 }
 
 void PhysicsSystem::ShutDown()
@@ -44,16 +57,25 @@ void PhysicsSystem::ShutDown()
 
 void PhysicsSystem::PhantomStep(unsigned int deltaT)
 {
-	std::vector<MovingCirclePhysicsModel*>::iterator movingObjectIterator;
+	std::vector<MovingObjectModel*>::iterator movingObjectIterator;
 
 	//Move phantoms
 	for(movingObjectIterator = m_MovingObjects->begin(); 
 		movingObjectIterator != m_MovingObjects->end();
 		movingObjectIterator++)
 	{
-		auto phantom = (*movingObjectIterator)->GetPhantom();
-		
-		MoveCircleObject(phantom, movingObjectIterator, deltaT);
+		if((*movingObjectIterator)->GetShape() == CIRCULARSHAPE)
+		{
+			Circle* phantom = (*movingObjectIterator)->GetCirclePhantom();
+
+			MoveCircleObject(phantom, movingObjectIterator, deltaT);
+		}
+
+		if((*movingObjectIterator)->GetShape() == RECTANGULARSHAPE)
+		{
+			//Moving Rectangles 
+			//NOT IMPLEMENTED
+		}
 	}
 
 	//Check for collisions with stuff
@@ -61,20 +83,55 @@ void PhysicsSystem::PhantomStep(unsigned int deltaT)
 		movingObjectIterator != m_MovingObjects->end();
 		movingObjectIterator++)
 	{
-		auto phantom = (*movingObjectIterator)->GetPhantom();
-		std::vector<MovingCirclePhysicsModel*>::iterator movingObject2Iterator;
-		std::vector<StaticRectanglePhysicsModel*>::iterator staticObjectIterator;
+		Circle* circlePhantom = NULL;
+		Rectangle* rectanglePhantom = NULL;
+
+		if((*movingObjectIterator)->GetShape() == CIRCULARSHAPE)
+		{
+			circlePhantom = (*movingObjectIterator)->GetCirclePhantom();
+		}
+
+		if((*movingObjectIterator)->GetShape() == RECTANGULARSHAPE)
+		{
+			rectanglePhantom = (*movingObjectIterator)->GetRectanglePhantom();
+		}
+		 
+		std::vector<MovingObjectModel*>::iterator movingObject2Iterator;
+		std::vector<StaticObjectModel*>::iterator staticObjectIterator;
 
 		//First check static objects
 		for(staticObjectIterator = m_StaticObjects->begin(); 
 			staticObjectIterator != m_StaticObjects->end();
 			staticObjectIterator++)
 		{
-			auto staticElement = (*staticObjectIterator)->GetGeometricRepresentation();
-			if(CollisionDetection2D::Intersection(*staticElement, *phantom))
+			Circle* staticCircle = NULL;
+			Rectangle* staticRectangle = NULL;
+
+			if((*staticObjectIterator)->GetShape() == CIRCULARSHAPE)
+			{
+				staticCircle = (*staticObjectIterator)->GetCircularRepresentation();
+			}
+
+			if((*staticObjectIterator)->GetShape() == RECTANGULARSHAPE)
+			{
+				staticRectangle = (*staticObjectIterator)->GetRectangularRepresentation();
+			}
+
+			if(	CollisionDetection2D::Intersection(staticCircle, circlePhantom) ) //Rectangle to Rectangle not implemented
 			{
 				//Handle collision
-				std::cout << "Collision occurred between circle phantom at: (" << phantom->Center.X << ", " << phantom->Center.Y << ") and rectangle (MinX: " << staticElement->MinX << ", MinY: " << staticElement->MinY << ")" << std::endl;
+				std::cout << "Collision occurred between circle phantom at: (" << circlePhantom->Center.X << ", " << circlePhantom->Center.Y << ") and static circle at: (" << staticCircle->Center.X << ", " << staticCircle->Center.Y << ")" << std::endl;
+			}
+			if( CollisionDetection2D::Intersection(staticRectangle, circlePhantom) )
+			{
+				//Handle collision
+				std::cout << "Collision occurred between circle phantom at: (" << circlePhantom->Center.X << ", " << circlePhantom->Center.Y << ") and static rectangle at (MinX: " << staticRectangle->MinX << ", MinY: " << staticRectangle->MinY << ")" << std::endl;
+			}
+
+			if( CollisionDetection2D::Intersection(staticCircle, rectanglePhantom) )
+			{
+				//Handle collision
+				std::cout << "Collision occurred between static circle at: (" << staticCircle->Center.X << ", " << staticCircle->Center.Y << ") and rectangle phantom at (MinX: " << rectanglePhantom->MinX << ", MinY: " << rectanglePhantom->MinY << ")" << std::endl;
 			}
 		}
 
@@ -88,11 +145,34 @@ void PhysicsSystem::PhantomStep(unsigned int deltaT)
 				continue;
 			}
 
-			auto movingElement = (*movingObject2Iterator)->GetPhantom();
-			if(CollisionDetection2D::Intersection(*movingElement, *phantom))
+			Circle* movingCircle = NULL;
+			Rectangle* movingRectangle = NULL;
+
+			if((*movingObject2Iterator)->GetShape() == CIRCULARSHAPE)
+			{
+				movingCircle = (*movingObject2Iterator)->GetCirclePhantom();
+			}
+
+			if((*movingObject2Iterator)->GetShape() == RECTANGULARSHAPE)
+			{
+				movingRectangle = (*movingObject2Iterator)->GetRectanglePhantom();
+			}
+
+			if(	CollisionDetection2D::Intersection(movingCircle, circlePhantom) ) //Rectangle to Rectangle not implemented
 			{
 				//Handle collision
-				std::cout << "Collision occurred between circle phantom at: (" << phantom->Center.X << ", " << phantom->Center.Y << ") and circle at: ( " << movingElement->Center.X << ", " << movingElement->Center.Y << ")" << std::endl;
+				std::cout << "Collision occurred between circle phantom at: (" << movingCircle->Center.X << ", " << movingCircle->Center.Y << ") and circle phantom at: (" << circlePhantom->Center.X << ", " << circlePhantom->Center.Y << ")" << std::endl;
+			}
+			if( CollisionDetection2D::Intersection(movingRectangle, circlePhantom) )
+			{
+				//Handle collision
+				std::cout << "Collision occurred between circle phantom at: (" << circlePhantom->Center.X << ", " << circlePhantom->Center.Y << ") and rectangle phantom at (MinX: " << movingRectangle->MinX << ", MinY: " << movingRectangle->MinY << ")" << std::endl;
+			}
+
+			if( CollisionDetection2D::Intersection(movingCircle, rectanglePhantom) )
+			{
+				//Handle collision
+				std::cout << "Collision occurred between circle phantom at: (" << movingCircle->Center.X << ", " << movingCircle->Center.Y << ") and rectangle phantom at (MinX: " << rectanglePhantom->MinX << ", MinY: " << rectanglePhantom->MinY << ")" << std::endl;
 			}
 		}
 	}
@@ -100,7 +180,13 @@ void PhysicsSystem::PhantomStep(unsigned int deltaT)
 
 void PhysicsSystem::Step(unsigned int deltaT)
 {
-	std::vector<MovingCirclePhysicsModel*>::iterator movingObjectIterator;
+	//Check Phantom collisions
+	PhantomStep(deltaT);
+
+	//TODO: Do stuff to change the directions before things really happen
+
+	//Check real collisions
+	std::vector<MovingObjectModel*>::iterator movingObjectIterator;
 	//Move real Objects
 
 	//Move phantoms
@@ -108,9 +194,18 @@ void PhysicsSystem::Step(unsigned int deltaT)
 		movingObjectIterator != m_MovingObjects->end();
 		movingObjectIterator++)
 	{
-		auto geoRep = (*movingObjectIterator)->GetGeometricRepresentation();
+		if((*movingObjectIterator)->GetShape() == CIRCULARSHAPE)
+		{
+			Circle* geoRep = (*movingObjectIterator)->GetCircularRepresentation();
 
-		MoveCircleObject(geoRep, movingObjectIterator, deltaT);
+			MoveCircleObject(geoRep, movingObjectIterator, deltaT);
+		}
+
+		if((*movingObjectIterator)->GetShape() == RECTANGULARSHAPE)
+		{
+			//Moving Rectangles 
+			//NOT IMPLEMENTED
+		}
 	}
 
 	//Check for collisions with stuff
@@ -118,57 +213,115 @@ void PhysicsSystem::Step(unsigned int deltaT)
 		movingObjectIterator != m_MovingObjects->end();
 		movingObjectIterator++)
 	{
-		auto geoRep = (*movingObjectIterator)->GetGeometricRepresentation();
-		std::vector<MovingCirclePhysicsModel*>::iterator comparisonMovingObjectIterator;
-		std::vector<StaticRectanglePhysicsModel*>::iterator staticObjectIterator;
+		Circle* circle = NULL;
+		Rectangle* rectangle = NULL;
+
+		if((*movingObjectIterator)->GetShape() == CIRCULARSHAPE)
+		{
+			circle = (*movingObjectIterator)->GetCircularRepresentation();
+		}
+
+		if((*movingObjectIterator)->GetShape() == RECTANGULARSHAPE)
+		{
+			rectangle = (*movingObjectIterator)->GetRectangularRepresentation();
+		}
+
+		std::vector<MovingObjectModel*>::iterator movingObject2Iterator;
+		std::vector<StaticObjectModel*>::iterator staticObjectIterator;
 
 		//First check static objects
 		for(staticObjectIterator = m_StaticObjects->begin(); 
 			staticObjectIterator != m_StaticObjects->end();
 			staticObjectIterator++)
 		{
-			auto staticElement = (*staticObjectIterator)->GetGeometricRepresentation();
-			if(CollisionDetection2D::Intersection(*staticElement, *geoRep))
+			Circle* staticCircle = NULL;
+			Rectangle* staticRectangle = NULL;
+
+			if((*staticObjectIterator)->GetShape() == CIRCULARSHAPE)
+			{
+				staticCircle = (*staticObjectIterator)->GetCircularRepresentation();
+			}
+
+			if((*staticObjectIterator)->GetShape() == RECTANGULARSHAPE)
+			{
+				staticRectangle = (*staticObjectIterator)->GetRectangularRepresentation();
+			}
+
+			if(	CollisionDetection2D::Intersection(staticCircle, circle) ) //Rectangle to Rectangle not implemented
 			{
 				//Handle collision
-				std::cout << "Collision occurred between circle at: (" << geoRep->Center.X << ", " << geoRep->Center.Y << ") and rectangle (MinX: " << staticElement->MinX << ", MinY: " << staticElement->MinY << ")" << std::endl;
+				std::cout << "Collision occurred between circle at: (" << circle->Center.X << ", " << circle->Center.Y << ") and static circle at: (" << staticCircle->Center.X << ", " << staticCircle->Center.Y << ")" << std::endl;
+			}
+			if( CollisionDetection2D::Intersection(staticRectangle, circle) )
+			{
+				//Handle collision
+				std::cout << "Collision occurred between circle at: (" << circle->Center.X << ", " << circle->Center.Y << ") and static rectangle at (MinX: " << staticRectangle->MinX << ", MinY: " << staticRectangle->MinY << ")" << std::endl;
+			}
+
+			if( CollisionDetection2D::Intersection(staticCircle, rectangle) )
+			{
+				//Handle collision
+				std::cout << "Collision occurred between static circle at: (" << staticCircle->Center.X << ", " << staticCircle->Center.Y << ") and rectangle at (MinX: " << rectangle->MinX << ", MinY: " << rectangle->MinY << ")" << std::endl;
 			}
 		}
 
 		//Then check other moving objects
-		for(comparisonMovingObjectIterator = m_MovingObjects->begin(); 
-			comparisonMovingObjectIterator != m_MovingObjects->end();
-			comparisonMovingObjectIterator++)
+		for(movingObject2Iterator = m_MovingObjects->begin(); 
+			movingObject2Iterator != m_MovingObjects->end();
+			movingObject2Iterator++)
 		{
-			if((*movingObjectIterator) == (*comparisonMovingObjectIterator))
+			if((*movingObjectIterator) == (*movingObject2Iterator))
 			{
 				continue;
 			}
 
-			auto movingElement = (*comparisonMovingObjectIterator)->GetPhantom();
-			if(CollisionDetection2D::Intersection(*movingElement, *geoRep))
+			Circle* movingCircle = NULL;
+			Rectangle* movingRectangle = NULL;
+
+			if((*movingObject2Iterator)->GetShape() == CIRCULARSHAPE)
+			{
+				movingCircle = (*movingObject2Iterator)->GetCircularRepresentation();
+			}
+
+			if((*movingObject2Iterator)->GetShape() == RECTANGULARSHAPE)
+			{
+				movingRectangle = (*movingObject2Iterator)->GetRectangularRepresentation();
+			}
+
+			if(	CollisionDetection2D::Intersection(movingCircle, circle) ) //Rectangle to Rectangle not implemented
 			{
 				//Handle collision
-				std::cout << "Collision occurred between circle at: (" << geoRep->Center.X << ", " << geoRep->Center.Y << ") and circle at: ( " << movingElement->Center.X << ", " << movingElement->Center.Y << ")" << std::endl;
+				std::cout << "Collision occurred between circle at: (" << movingCircle->Center.X << ", " << movingCircle->Center.Y << ") and circle at: (" << circle->Center.X << ", " << circle->Center.Y << ")" << std::endl;
+			}
+			if( CollisionDetection2D::Intersection(movingRectangle, circle) )
+			{
+				//Handle collision
+				std::cout << "Collision occurred between circle at: (" << circle->Center.X << ", " << circle->Center.Y << ") and rectangle at (MinX: " << movingRectangle->MinX << ", MinY: " << movingRectangle->MinY << ")" << std::endl;
+			}
+
+			if( CollisionDetection2D::Intersection(movingCircle, rectangle) )
+			{
+				//Handle collision
+				std::cout << "Collision occurred between circle at: (" << movingCircle->Center.X << ", " << movingCircle->Center.Y << ") and rectangle at (MinX: " << rectangle->MinX << ", MinY: " << rectangle->MinY << ")" << std::endl;
 			}
 		}
 	}
 }
 
-void PhysicsSystem::AddMovingCircleObject( MovingCirclePhysicsModel *movingObject )
+void PhysicsSystem::AddMovingObject( MovingObjectModel *movingObject )
 {
 	m_MovingObjects->push_back(movingObject);
 }
 
-void PhysicsSystem::AddStaticRectangleObject( StaticRectanglePhysicsModel *staticObject )
+void PhysicsSystem::AddStaticObject( StaticObjectModel *staticObject )
 {
 	m_StaticObjects->push_back(staticObject);
 }
 
-void PhysicsSystem::MoveCircleObject( Circle *circle, std::vector<MovingCirclePhysicsModel*>::iterator movingObjectIterator, unsigned int deltaT )
+void PhysicsSystem::MoveCircleObject( Circle *circle, std::vector<MovingObjectModel*>::iterator movingObjectIterator, unsigned int deltaT )
 {
-	circle->Center.X = (*movingObjectIterator)->GetGeometricRepresentation()->Center.X 
+	circle->Center.X = (*movingObjectIterator)->GetCircularRepresentation()->Center.X 
 		+ (*movingObjectIterator)->GetDirection()->X * (*movingObjectIterator)->GetMovementSpeed() * deltaT;
-	circle->Center.Y = (*movingObjectIterator)->GetGeometricRepresentation()->Center.Y 
+	circle->Center.Y = (*movingObjectIterator)->GetCircularRepresentation()->Center.Y 
 		+ (*movingObjectIterator)->GetDirection()->Y * (*movingObjectIterator)->GetMovementSpeed() * deltaT;
 }
