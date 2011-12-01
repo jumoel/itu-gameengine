@@ -289,7 +289,7 @@ Vector3f GetOGLPos(float mousex, float mousey)
     glReadPixels( int(winX), int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ );
  
     gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
-	std::cout<<"winX:"<<winX<<" , winY:"<<winY<<" , winZ:"<<winZ<<" , posX:"<<posX<<" , posY:"<<posY<<" , posZ:"<<posZ<<std::endl;
+	//std::cout<<"winX:"<<winX<<" , winY:"<<winY<<" , winZ:"<<winZ<<" , posX:"<<posX<<" , posY:"<<posY<<" , posZ:"<<posZ<<std::endl;
 
     return Vector3f(posX, posY, posZ);
 }
