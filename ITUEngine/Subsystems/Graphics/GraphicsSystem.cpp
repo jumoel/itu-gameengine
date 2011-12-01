@@ -397,7 +397,7 @@ void GraphicsSystem::Render()
 	//glMatrixMode(GL_MODELVIEW);
 
 
-	Vector3f collide = GetOGLPos(mousex, mousey);
+	Vector3f collide = GetOGLPos(1.0f, 1.0f);
 	SDL_GL_SwapBuffers();
 }
 
