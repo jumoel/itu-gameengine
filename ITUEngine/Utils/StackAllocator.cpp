@@ -1,6 +1,3 @@
-#include <iostream>
-#include <fstream>
-
 #include <Utils/StackAllocator.hpp>
 
 StackAllocator::StackAllocator(Uint32 stackSize_bytes)

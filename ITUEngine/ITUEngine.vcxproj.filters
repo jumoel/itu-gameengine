@@ -199,7 +199,7 @@
       <Filter>Source Files\World\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Utils\StackAllocator.cpp">
-      <Filter>Source Files\Managers</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -357,7 +357,7 @@
       <Filter>Header Files\World\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Utils\StackAllocator.hpp">
-      <Filter>Header Files\Managers</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
