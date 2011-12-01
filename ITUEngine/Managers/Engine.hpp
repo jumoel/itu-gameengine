@@ -24,6 +24,8 @@ public:
 	PhysicsSystem *GetPhysicsSystem() { return m_Physics; }
 
 private:
+	void handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype );
+
 	SettingsManager *m_SettingsManager;
 	Window *m_Window;
 	FPSCalculator *m_FPSCalculator;
