@@ -207,6 +207,9 @@
     <ClCompile Include="Utils\StackAllocator.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="GetOGLPos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Managers\Engine.hpp">
@@ -373,6 +376,9 @@
     </ClInclude>
     <ClInclude Include="Utils\StackAllocator.hpp">
       <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GetOGLPos.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

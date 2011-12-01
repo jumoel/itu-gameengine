@@ -89,6 +89,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClCompile Include="Events\EventData\EmptyEventData.cpp" />
     <ClCompile Include="Game\aStar.cpp" />
     <ClCompile Include="Game\Model.cpp" />
+    <ClCompile Include="GetOGLPos.cpp" />
     <ClCompile Include="Managers\EventManager.cpp" />
     <ClCompile Include="Events\Interfaces\IEventManager.cpp" />
     <ClCompile Include="Game\Camera.cpp" />
@@ -134,6 +135,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClInclude Include="Game\aStar.hpp" />
     <ClInclude Include="Game\dataTypes.hpp" />
     <ClInclude Include="Game\Model.hpp" />
+    <ClInclude Include="GetOGLPos.hpp" />
     <ClInclude Include="Utils\StackAllocator.hpp" />
     <ClInclude Include="Globals.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsModels\CirclePhysicsModel.hpp" />
