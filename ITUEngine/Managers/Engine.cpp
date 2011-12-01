@@ -10,6 +10,12 @@
 #include <Managers/MediaManager.hpp>
 #include <Managers/InputManager.hpp>
 
+
+#include <GetOGLPos.hpp>
+
+
+
+
 void Engine::Run()
 {
 	m_Running = true;
@@ -51,6 +57,10 @@ void Engine::Run()
 			case SDL_MOUSEMOTION:
 				mousex = event.motion.x;
 			    mousey = event.motion.y;
+				GetOGLPos testing;
+				test = testing.GetPos(mousex, mousey);
+				
+				
 				handleMouseMove(&event.motion, event.type);
 				break;
 			

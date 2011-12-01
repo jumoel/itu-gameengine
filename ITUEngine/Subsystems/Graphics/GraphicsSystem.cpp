@@ -337,7 +337,7 @@ void GraphicsSystem::Render()
 	RenderRecursive(m_SceneGraph->RootNode);
 
 	SDL_WM_GrabInput(SDL_GrabMode::SDL_GRAB_ON);
-	SDL_ShowCursor(0);
+	SDL_ShowCursor(1);
 	//
 	///* draw HUD */
 	//glDisable(GL_DEPTH_TEST);
