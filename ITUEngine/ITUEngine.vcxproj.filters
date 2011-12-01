@@ -350,13 +350,7 @@
     <ClInclude Include="Globals.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\Physics\PhysicsModels\CirclePhysicsModel.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Subsystems\Physics\PhysicsModels\PhysicsModel.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Subsystems\Physics\PhysicsModels\RectanglePhysicsModel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Subsystems\Physics\PhysicsSystem.hpp">

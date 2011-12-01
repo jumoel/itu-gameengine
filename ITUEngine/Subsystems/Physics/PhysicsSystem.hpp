@@ -1,8 +1,6 @@
 #ifndef ITUENGINE_PHYSICSSYSTEM_H
 #define ITUENGINE_PHYSICSSYSTEM_H
 
-#include "PhysicsModels/RectanglePhysicsModel.hpp"
-#include "PhysicsModels/CirclePhysicsModel.hpp"
 #include <Subsystems/Physics/PhysicsModels/PhysicsModel.hpp>
 #include <vector>
 
@@ -17,18 +15,18 @@ public:
 
 	void PhantomStep(unsigned int deltaT);
 
-	void MoveCircleObject( Circle *circle, std::vector<MovingCirclePhysicsModel*>::iterator movingObjectIterator, unsigned int deltaT );
+	void MoveCircleObject( Circle *circle, std::vector<MovingObjectModel*>::iterator movingObjectIterator, unsigned int deltaT );
 
 	void Step(unsigned int deltaT);
 
-	void AddMovingCircleObject(MovingCirclePhysicsModel *movingObject);
-	void AddStaticRectangleObject(StaticRectanglePhysicsModel *staticObject);
+	void AddMovingObject(MovingObjectModel *movingObject);
+	void AddStaticObject(StaticObjectModel *staticObject);
 
 protected:
 	
 private:
-	std::vector<StaticRectanglePhysicsModel*> *m_StaticObjects;
-	std::vector<MovingCirclePhysicsModel*> *m_MovingObjects;
+	std::vector<StaticObjectModel*> *m_StaticObjects;
+	std::vector<MovingObjectModel*> *m_MovingObjects;
 };
 
 #endif //ITUENGINE_PHYSICSSYSTEM_H

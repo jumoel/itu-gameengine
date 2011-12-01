@@ -2,41 +2,58 @@
 #define ITUENGINE_PHYSICSMODEL_H
 
 #include <Math/GeometricFigures2D.hpp>
+#include <assert.h>
 
-template <typename T>
+#define RECTANGULARSHAPE 1
+#define CIRCULARSHAPE 2
+
 class PhysicsModel
 {
 public:
 
-	PhysicsModel(bool isStationary) : m_IsStationary(isStationary) { }
+	PhysicsModel(int shape, bool isStationary) : m_IsStationary(isStationary), m_Shape(shape) { }
 
-	~PhysicsModel()
+	~PhysicsModel() { }
+	
+	const int GetShape()
 	{
-		delete &m_GeometricRepresentation;
+		return m_Shape;
 	}
 
-	void Init(T &geometricRepresentation)
+	void InitializeAsRectangle(Rectangle &rectangularRepresentation)
 	{
 		//Copy the geometric representation.
-		m_GeometricRepresentation = T(geometricRepresentation);		
+		m_RectangularRepresentation = Rectangle(rectangularRepresentation);
 	}
 
-	T* GetGeometricRepresentation()
+	void InitializeAsCircle(Circle &circularRepresentation)
 	{
-		return &m_GeometricRepresentation;
+		//Copy the geometric representation.
+		m_CircularRepresentation = Circle(circularRepresentation);		
+	}
+
+	Rectangle* GetRectangularRepresentation()
+	{
+		return &m_RectangularRepresentation;
+	}
+
+	Circle* GetCircularRepresentation()
+	{
+		return &m_CircularRepresentation;
 	}
 
 protected:
-	T m_GeometricRepresentation;
+	Circle m_CircularRepresentation;
+	Rectangle m_RectangularRepresentation;
 
 	bool m_IsStationary;
+	const int m_Shape;
 };
 
-template <typename T>
-class StaticObjectModel : public PhysicsModel<T>
+class StaticObjectModel : public PhysicsModel
 {
 public:
-	StaticObjectModel() : PhysicsModel(true)
+	StaticObjectModel(int shape) : PhysicsModel(shape, true)
 	{
 
 	}
@@ -50,11 +67,10 @@ protected:
 
 };
 
-template <typename T>
-class MovingObjectModel : public PhysicsModel<T>
+class MovingObjectModel : public PhysicsModel
 {
 public:
-	MovingObjectModel(float movementSpeed, Point &pos, Point &dir) : PhysicsModel(false), m_Position(pos), m_Direction(dir)
+	MovingObjectModel(int shape, float movementSpeed, Point &dir) : PhysicsModel(shape, false), m_Direction(dir)
 	{
 		m_MovementSpeed = movementSpeed;
 		
@@ -64,27 +80,47 @@ public:
 
 	~MovingObjectModel()
 	{
-		delete &m_Phantom;
-		delete &m_Position;
-		delete &m_Direction;
+		delete &m_CirclePhantom;
 		delete m_TargetPosition;
 	}
 
-	void Init(T &geoRep)
+	void InitializeAsCircle(Circle &geoRep)
 	{
 		//Copy the geometric representation.
-		m_GeometricRepresentation = T(geoRep);		
-		m_Phantom = T(geoRep);
+		m_CircularRepresentation = Circle(geoRep);		
+		m_CirclePhantom = Circle(geoRep);
 	}
 
-	T* GetPhantom()
+	void InitializeAsRectangle(Rectangle &geoRep)
 	{
-		return &m_Phantom;
+		//Copy the geometric representation.
+		m_RectangularRepresentation = Rectangle(geoRep);
+		m_RectanglePhantom = Rectangle(geoRep);
+	}
+
+	Circle* GetCirclePhantom()
+	{
+		return &m_CirclePhantom;
+	}
+	
+	Rectangle* GetRectanglePhantom()
+	{
+		return &m_RectanglePhantom;
 	}
 
 	Point* GetPosition()
 	{
-		return &m_Position;
+		if(m_Shape == RECTANGULARSHAPE)
+		{
+			return &(m_RectangularRepresentation.MinXY);
+		}
+		else if(m_Shape == CIRCULARSHAPE)
+		{
+			return &(m_CircularRepresentation.Center);
+		}
+
+		assert(false && "Failed to get the position because the shape is defined wrong.");
+		return 0;
 	}
 
 	Point* GetDirection()
@@ -109,12 +145,12 @@ public:
 	}
 
 protected:
-	Point m_Position;
 	Point m_Direction;
 	Point *m_TargetPosition;
 	float m_MovementSpeed;
 
-	T m_Phantom;
+	Circle m_CirclePhantom;
+	Rectangle m_RectanglePhantom;
 };
 
 #endif //ITUENGINE_PHYSICSMODEL_H
