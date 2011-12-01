@@ -23,6 +23,9 @@ public:
 	const aiScene* playerScene;
 
 	Model* crazyModel;
+	Model* carModel;
+	Texture* carTexture1;
+	Texture* carTexture2;
 	Texture* warrior;
 	Texture* playerTex;
 	Texture* defaultTex;

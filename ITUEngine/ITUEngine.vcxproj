@@ -87,6 +87,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClCompile Include="Abstractions\Window.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Events\EventData\EmptyEventData.cpp" />
+    <ClCompile Include="Game\aStar.cpp" />
     <ClCompile Include="Game\Model.cpp" />
     <ClCompile Include="Managers\EventManager.cpp" />
     <ClCompile Include="Events\Interfaces\IEventManager.cpp" />
@@ -120,6 +121,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClCompile Include="ThirdParty\pugixml\pugixml.cpp" />
     <ClCompile Include="Utils\StringUtils.cpp" />
     <ClCompile Include="Utils\ThreadSafeEventQueue.cpp" />
+    <ClCompile Include="Vector2f.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Abstractions\DataTypes.hpp" />
@@ -129,6 +131,8 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClInclude Include="Events\EventData\BaseEventData.hpp" />
     <ClInclude Include="Events\EventData\EmptyEventData.hpp" />
     <ClInclude Include="Events\EventData\EventData.hpp" />
+    <ClInclude Include="Game\aStar.hpp" />
+    <ClInclude Include="Game\dataTypes.hpp" />
     <ClInclude Include="Game\Model.hpp" />
     <ClInclude Include="Managers\MemoryManager.hpp" />
     <ClInclude Include="Globals.hpp" />
@@ -174,6 +178,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClInclude Include="Utils\ShaderUtils.hpp" />
     <ClInclude Include="Utils\StringUtils.hpp" />
     <ClInclude Include="Utils\ThreadSafeEventQueue.hpp" />
+    <ClInclude Include="Vector2f.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Settings.xml">

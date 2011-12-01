@@ -8,22 +8,21 @@
 #include <GL/glew.h>
 #include <Game/Texture.hpp>
 #include <Math/Vector3f.hpp>
+#include <Vector2f.hpp>
 #include <Game/Material.hpp>
 
 struct Vert
 {
     Vector3f m_pos;
-    float m_texX;
-	float m_texY;
+	Vector2f m_tex;
     Vector3f m_normal;
 
     Vert() {}
 
-    Vert(const Vector3f& pos, const float texX, const float texY, const Vector3f& normal)
+    Vert(const Vector3f& pos, Vector2f& tex, const Vector3f& normal)
     {
         m_pos    = pos;
-        m_texX   = texX;
-		m_texX   = texY;
+        m_tex	 = tex;
         m_normal = normal;
     }
 };

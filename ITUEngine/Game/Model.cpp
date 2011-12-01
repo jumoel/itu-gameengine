@@ -89,11 +89,11 @@ void Model::InitModel(unsigned int Index, const aiMesh* paiMesh)
         const aiVector3D* pPos      = &(paiMesh->mVertices[i]);
         const aiVector3D* pNormal   = &(paiMesh->mNormals[i]);
         const aiVector3D* pTexCoord = paiMesh->HasTextureCoords(0) ? &(paiMesh->mTextureCoords[0][i]) : &Zero3D;
-		//std::cout << "x: " << pPos->x << ", y: " << pPos->y << ", z: " << pPos->z << std::endl;
+		
         Vert v(Vector3f(pPos->x, pPos->y, pPos->z),
-                 pTexCoord->x, pTexCoord->y,
-                 Vector3f(pNormal->x, pNormal->y, pNormal->z));
-
+                 Vector2f(pTexCoord->x, pTexCoord->y),
+                 Vector3f(-pNormal->x, -pNormal->y, -pNormal->z));
+		//std::cout << "x: " << v.m_normal.x() << ", y: " << v.m_normal.y() <<  ", z: " << v.m_normal.z() << std::endl;
         Vertices.push_back(v);
     }
 
@@ -131,10 +131,13 @@ bool Model::InitMaterials(const aiScene* pScene, const std::string& Filename)
     for (unsigned int i = 0 ; i < pScene->mNumMaterials ; i++) {
         const aiMaterial* pMaterial = pScene->mMaterials[i];
 
-        m_Materials[i] = NULL;
+        m_Materials[i] = new Material();
 		aiColor3D color(0.0f,0.0f,0.0f);
 		pMaterial->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-		m_Materials[i]->diffuse[0] = color.r, m_Materials[i]->diffuse[1] = color.g, m_Materials[i]->diffuse[2] = color.b, m_Materials[i]->diffuse[3] = 1.0f;
+		m_Materials[i]->diffuse[0] = color.r;
+		m_Materials[i]->diffuse[1] = color.g;
+		m_Materials[i]->diffuse[2] = color.b;
+		m_Materials[i]->diffuse[3] = 1.0f;
 
 		pMaterial->Get(AI_MATKEY_COLOR_SPECULAR, color);
 		m_Materials[i]->specular[0] = color.r, m_Materials[i]->specular[1] = color.g, m_Materials[i]->specular[2] = color.b, m_Materials[i]->specular[3] = 1.0f;
@@ -147,7 +150,7 @@ bool Model::InitMaterials(const aiScene* pScene, const std::string& Filename)
 
 		pMaterial->Get(AI_MATKEY_SHININESS, m_Materials[i]->shininess);
 
-		pMaterial->Get(AI_MATKEY_SHADING_MODEL, m_Materials[i]->shader);
+		//pMaterial->Get(AI_MATKEY_SHADING_MODEL, m_Materials[i]->shader);
 
 
         if (pMaterial->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
@@ -158,17 +161,14 @@ bool Model::InitMaterials(const aiScene* pScene, const std::string& Filename)
 				char* temp = new char();
 				strcpy(temp, FullPath.c_str());
 
-				if (!m_Materials[i]->texture) {
-					m_Materials[i]->texture =  SINGLETONINSTANCE( MediaManager )->defaultTex;
-				}
-				else
+				m_Materials[i]->texture = SINGLETONINSTANCE( MediaManager )->FindTexture(temp);
+				if(m_Materials[i]->texture == NULL)
 				{
-
-					m_Materials[i]->texture = SINGLETONINSTANCE( MediaManager )->FindTexture(temp);
-					if(m_Materials[i]->texture == NULL)
-					{
-						m_Materials[i]->texture = SINGLETONINSTANCE( MediaManager )->LoadTexture(temp, temp);
-					}
+					m_Materials[i]->texture = SINGLETONINSTANCE( MediaManager )->LoadTexture(temp, temp);
+				}
+				
+				if(!m_Materials[i]->texture) {
+					m_Materials[i]->texture =  SINGLETONINSTANCE( MediaManager )->defaultTex;
 				}
 					
 
@@ -184,6 +184,45 @@ bool Model::InitMaterials(const aiScene* pScene, const std::string& Filename)
 
 void Model::Render()
 {
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	
+
+    for (unsigned int i = 0 ; i < m_Entries.size() ; i++) {
+        glBindBuffer(GL_ARRAY_BUFFER, m_Entries[i].VB);
+
+		glVertexPointer(3, GL_FLOAT, sizeof(Vert), 0);
+		glTexCoordPointer( 2, GL_FLOAT, sizeof(Vert), (const GLvoid*)12 );	
+		glNormalPointer( GL_FLOAT, sizeof(Vert), (const GLvoid*)20);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Entries[i].IB);
+
+        const unsigned int MaterialIndex = m_Entries[i].MaterialIndex;
+
+        if (MaterialIndex < m_Materials.size()) {
+			if(m_Materials[MaterialIndex]->texture)
+			{
+				m_Materials[MaterialIndex]->texture->Bind(GL_TEXTURE0);
+			}
+			glMaterialfv(GL_FRONT, GL_DIFFUSE, m_Materials[MaterialIndex]->diffuse);
+			glMaterialfv(GL_FRONT, GL_SPECULAR, m_Materials[MaterialIndex]->specular);
+			glMaterialfv(GL_FRONT, GL_AMBIENT, m_Materials[MaterialIndex]->ambient);
+			glMaterialfv(GL_FRONT, GL_EMISSION, m_Materials[MaterialIndex]->emissive);
+			glMaterialf(GL_FRONT, GL_SHININESS, m_Materials[MaterialIndex]->shininess);
+        }
+
+		
+
+        glDrawElements(GL_TRIANGLES, m_Entries[i].NumIndices, GL_UNSIGNED_INT, 0);
+    }
+
+    glDisableClientState( GL_VERTEX_ARRAY );
+	glDisableClientState( GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState( GL_NORMAL_ARRAY );
+	
+
+#if 0
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
     glEnableVertexAttribArray(2);
@@ -218,5 +257,6 @@ void Model::Render()
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);
+#endif
 }
 
