@@ -6,11 +6,12 @@
 #include <vector>
 #include <Assertion.hpp>
 #include <Utils/ShaderUtils.hpp>
+#include <SDL.h>
 #include "GL/glew.h"
 #include "GL/wglew.h"
-//#include <Globals.hpp>
-#include <Managers/SceneGraphManager.hpp>
 #include <Game/Camera.hpp>
+
+
 
 
 void GraphicsSystem::StartUp()
@@ -98,43 +99,55 @@ void GraphicsSystem::InitOpenGL()
 {
 	
      // Get Pointers To The GL Functions
-     glGenBuffers = (PFNGLGENBUFFERSARBPROC) wglGetProcAddress("glGenBuffers");
+     /*glGenBuffers = (PFNGLGENBUFFERSARBPROC) wglGetProcAddress("glGenBuffers");
      glBindBuffer = (PFNGLBINDBUFFERARBPROC) wglGetProcAddress("glBindBuffer");
      glBufferData = (PFNGLBUFFERDATAARBPROC) wglGetProcAddress("glBufferData");
      glDeleteBuffers = (PFNGLDELETEBUFFERSARBPROC) wglGetProcAddress("glDeleteBuffers");
-    
+    */
 
 	
 
 	//Enable textures
-	//glEnable(GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_2D);
 
 	//Enable lighting
-	//SINGLETONINSTANCE(LightingManager)->Init();
+	SINGLETONINSTANCE(LightingManager)->Init();
 
 	//Enable color tracking
-	//glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_COLOR_MATERIAL);
 
 	/*set reflective properties */
-	//glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
 
 
 	/* Enable smooth shading */
-	// glShadeModel( GL_SMOOTH );
+	glShadeModel( GL_SMOOTH );
 
 	/* Set the backgroundColor*/
-	// glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
+	glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
 
 	/* Depth buffer setup */
-	// glClearDepth( 1.0f );
+	//glClearDepth( 1.0f );
 
-	// glEnable( GL_DEPTH_TEST );
+	glEnable( GL_DEPTH_TEST );
 
-	// glDepthFunc( GL_LEQUAL );
+	glDepthFunc( GL_LEQUAL );
+	glDepthMask(GL_TRUE);
+
+	// Render depth values to a buffer. 
+	/*glGenRenderbuffersEXT(1, &renderBuffer); 
+	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, renderBuffer); 
+	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT24, width, height); 
+
+	glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, 
+	GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, renderBuffer); 
+	*/
+
+	//glDisable( GL_CULL_FACE );
 
 	/* Really Nice Perspective Calculations */
-	// glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
+	glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
 }
 
 void GraphicsSystem::AddAssimpModelToVBORecursive(const aiScene* scene, const aiNode* node, std::vector<Vector3f> *vectors)
@@ -257,6 +270,8 @@ void GraphicsSystem::AddToVBORecursive(Object *obj, std::vector<Vector3f> *vecto
 
 void GraphicsSystem::RenderRecursive(Object *obj)
 {
+	glPushMatrix();
+	glMultMatrixf(obj->transformation->data);
 	if(obj->model != NULL)
 	{
 		obj->model->Render();
@@ -266,20 +281,27 @@ void GraphicsSystem::RenderRecursive(Object *obj)
 	{
 		RenderRecursive(&(*it));
 	}
+	glPopMatrix();
 }
+
+
 
 void GraphicsSystem::Render()
 {
-
+	
 	// Clear the window
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	glClear( GL_COLOR_BUFFER_BIT); //  | GL_DEPTH_BUFFER_BIT 
+	//glClear( GL_COLOR_BUFFER_BIT); //  | GL_DEPTH_BUFFER_BIT 
 
-	//glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	
+	//glMatrixMode(GL_PROJECTION);
+	//gluPerspective(
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	
+	
+
 	Camera *CameraObject = m_SceneGraph->CameraObject;
 
 	/*std::cout << "Camera Position: (" << CameraObject->Position.x() << ", " << CameraObject->Position.y() << ", " << CameraObject->Position.z() << ")" << std::endl;
@@ -291,71 +313,82 @@ void GraphicsSystem::Render()
 		CameraObject->LookAt.x(), CameraObject->LookAt.y(), CameraObject->LookAt.z(), 
 		CameraObject->Up.x(), CameraObject->Up.y(), CameraObject->Up.z()
 		);
-		
-	glUseProgram(theProgram);
 
-	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
-
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-	
-	glDisableVertexAttribArray(0);
-	glUseProgram(0);
-
-	RenderRecursive(m_SceneGraph->RootNode);
-
-	SDL_WM_GrabInput(SDL_GrabMode::SDL_GRAB_ON);
-	SDL_ShowCursor(0);
-	/* draw HUD */
-	glDisable(GL_DEPTH_TEST);
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	glOrtho(0,640,480,0,-5,1);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	/*
-	glBegin(GL_QUADS);
+	/*glBegin(GL_QUADS);
 		glColor3f(1,0,0);
 		glVertex3f( 0.5, 0.1,-1.0);
 		glVertex3f(-0.0, 0.1,-1.0);
 		glVertex3f(-0.0,-0.0,-1.0);
 		glVertex3f( 0.5,-0.0,-1.0);
 	glEnd();
-	*/
+		*/
+	//glUseProgram(theProgram);
 
-	//Der er en fejl i den uploaded måde at referere g_Engine på.... FIX §!
-	float mousex = 1.0f;//g_Engine->mousex;
-	float mousey = 1.0f;//g_Engine->mousey;
-	float mouseW = 10.0;
-	float mouseH = 10.0;
-	float offset = 0.0;
+	/*glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
 
-
-	float x1 = mousex;
-	float y1 = mousey;
-	float x2 = mousex+mouseW;
-	float y2 = mousey+mouseH;
-
-
-
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 	
-	
-	//std::cout<<x2<<","<<y2<<std::endl;
-	/* draw Mouse */
-	glBegin(GL_QUADS);
-		glColor3f(1,0,0);
-		glVertex3f(x2,y1,1.0);
-		glVertex3f(x1,y1,1.0);
-		glVertex3f(x1,y2,1.0);
-		glVertex3f(x2,y2,1.0);
-	glEnd();
-	
-	glEnable(GL_DEPTH_TEST);
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
-	glMatrixMode(GL_MODELVIEW);
+	glDisableVertexAttribArray(0);*/
+	//glUseProgram(0);
+
+
+	RenderRecursive(m_SceneGraph->RootNode);
+
+	SDL_WM_GrabInput(SDL_GrabMode::SDL_GRAB_ON);
+	SDL_ShowCursor(0);
+	//
+	///* draw HUD */
+	//glDisable(GL_DEPTH_TEST);
+	//glMatrixMode(GL_PROJECTION);
+	//glPushMatrix();
+	//glLoadIdentity();
+	//glOrtho(0,640,480,0,-5,1);
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
+	///*
+	//glBegin(GL_QUADS);
+	//	glColor3f(1,0,0);
+	//	glVertex3f( 0.5, 0.1,-1.0);
+	//	glVertex3f(-0.0, 0.1,-1.0);
+	//	glVertex3f(-0.0,-0.0,-1.0);
+	//	glVertex3f( 0.5,-0.0,-1.0);
+	//glEnd();
+	//*/
+
+	////Der er en fejl i den uploaded måde at referere g_Engine på.... FIX §!
+	//float mousex = 1.0f;//g_Engine->mousex;
+	//float mousey = 1.0f;//g_Engine->mousey;
+	//float mouseW = 10.0;
+	//float mouseH = 10.0;
+	//float offset = 0.0;
+
+
+	//float x1 = mousex;
+	//float y1 = mousey;
+	//float x2 = mousex+mouseW;
+	//float y2 = mousey+mouseH;
+
+
+
+	//
+	//
+	////std::cout<<x2<<","<<y2<<std::endl;
+	///* draw Mouse */
+	//glBegin(GL_QUADS);
+	//	glColor3f(1,0,0);
+	//	glVertex3f(x2,y1,1.0);
+	//	glVertex3f(x1,y1,1.0);
+	//	glVertex3f(x1,y2,1.0);
+	//	glVertex3f(x2,y2,1.0);
+	//glEnd();
+	//
+	//glEnable(GL_DEPTH_TEST);
+	//glMatrixMode(GL_PROJECTION);
+	//glPopMatrix();
+	//glMatrixMode(GL_MODELVIEW);
+
 
 	SDL_GL_SwapBuffers();
 }

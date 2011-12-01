@@ -24,6 +24,10 @@ public:
 	PhysicsSystem *GetPhysicsSystem() { return m_Physics; }
 
 private:
+	void handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype );
+	void handleMouseMove( SDL_MouseMotionEvent *key, Uint8 eventtype);
+	void handleMouseButtonPress( SDL_MouseButtonEvent *key, Uint8 eventtype);
+
 	SettingsManager *m_SettingsManager;
 	Window *m_Window;
 	FPSCalculator *m_FPSCalculator;

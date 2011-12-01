@@ -94,12 +94,15 @@ void MediaManager::StartUp()
 {
 	///IMPORTANT: LOAD TEXTURES BEFORE MODELS
 	defaultTex = LoadTexture("Resources/Wood.tga", "DefaultTex");
-	playerTex = LoadTexture("Resources/Wood.tga", "PlayerTex");
+	carTexture1 = LoadTexture("Resources/truck_thumb.tga", "Resources/truck_thumb.jpg");
+	carTexture2 = LoadTexture("Resources/truck_1915.tga", "Resources/truck_1915.jpg");
+	playerTex = LoadTexture("Resources/kalahk.tga", "Resources/kalahk.jpg");
 	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
 	
-	
+
+	carModel = ImportAssimpModel("Resources/truck_1915.ms3d");
 	playerModel = LoadModel("Resources/Model.ms3d");
-	crazyModel = ImportAssimpModel("Resources/Player/Kalahk.ms3d");
+	crazyModel = ImportAssimpModel("Resources/Kalahk.ms3d");
 }
 
 void MediaManager::ShutDown()
@@ -184,6 +187,8 @@ Texture* MediaManager::LoadTexture(char *filename, char* name)                 /
 	glBindTexture(GL_TEXTURE_2D, tex->texID);							// Bind Our Texture
 	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);       // Linear Filtered
 	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);       // Linear Filtered
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR );
 
@@ -379,7 +384,7 @@ Texture* MediaManager::FindTexture(const char* name)
 {
 	for(int j = 0; j < textures.size(); j++)
 	{
-		if(textures[j]->filename == name || textures[j]->name)
+		if(strcmp(textures[j]->filename, name) == 0 || strcmp(textures[j]->name, name) == 0)
 		{
 			return textures[j];
 		}
@@ -395,7 +400,21 @@ Model* MediaManager::ImportAssimpModel( const std::string& Filename)
     bool Ret = false;
     Assimp::Importer Importer;
 
-    helper = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
+    helper = Importer.ReadFile(Filename.c_str(),
+		aiProcess_CalcTangentSpace  |
+        aiProcess_Triangulate |
+        aiProcess_MakeLeftHanded |
+        aiProcess_JoinIdenticalVertices |
+        aiProcess_SortByPType |
+        aiProcess_CalcTangentSpace |
+        aiProcess_JoinIdenticalVertices |
+        aiProcess_GenNormals |
+        aiProcess_LimitBoneWeights |
+        aiProcess_RemoveRedundantMaterials |
+		aiProcess_GenUVCoords |
+		aiProcess_TransformUVCoords |
+		aiProcess_FixInfacingNormals |
+		aiProcess_OptimizeMeshes);
 
     if (helper) {
         Ret = model->InitFromScene(helper, Filename);
