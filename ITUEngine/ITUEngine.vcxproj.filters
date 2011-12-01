@@ -195,17 +195,19 @@
     <ClCompile Include="Subsystems\Physics\PhysicsSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Managers\MemoryManager.cpp">
-      <Filter>Source Files\Managers</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Model.cpp">
       <Filter>Source Files\World\GameObjects</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Game\aStar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vector2f.cpp">
       <Filter>Source Files</Filter>
+=======
+    <ClCompile Include="Utils\StackAllocator.cpp">
+      <Filter>Source Files\Managers</Filter>
+>>>>>>> 8b0e713e3a9394d70a5285b680a3387fba03ef77
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -359,12 +361,10 @@
     <ClInclude Include="Subsystems\Physics\PhysicsSystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Managers\MemoryManager.hpp">
-      <Filter>Header Files\Managers</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Model.hpp">
       <Filter>Header Files\World\GameObjects</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Game\aStar.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -373,6 +373,10 @@
     </ClInclude>
     <ClInclude Include="Vector2f.hpp">
       <Filter>Header Files</Filter>
+=======
+    <ClInclude Include="Utils\StackAllocator.hpp">
+      <Filter>Header Files\Managers</Filter>
+>>>>>>> 8b0e713e3a9394d70a5285b680a3387fba03ef77
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
