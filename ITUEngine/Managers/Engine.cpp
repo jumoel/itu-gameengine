@@ -7,7 +7,8 @@
 #include <Events/EventData/EventData.hpp>
 #include <Events/Interfaces/IEventManager.hpp>
 #include <Events/Interfaces/IEventData.hpp>
-#include <Managers\MediaManager.hpp>
+#include <Managers/MediaManager.hpp>
+#include <Managers/InputManager.hpp>
 
 void Engine::Run()
 {
@@ -33,9 +34,10 @@ void Engine::Run()
 			
 			case SDL_KEYDOWN:
 				safeTriggerEvent( EventData<SDL_KeyboardEvent>(event.key, keydown) );
+				handleKeyPress(&event.key, event.type);
 				break;
 
-				//handleKeyPress(&event.key, event.type);
+				
 				
 			/*
 			case SDL_KEYUP:
@@ -116,4 +118,20 @@ void Engine::ShutDown()
 	m_EventManager->ShutDown();
 
 	m_SettingsManager->ShutDown();
+}
+
+void Engine::handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_keysym *keysym, Uint8 eventtype )
+{
+	auto keyEvent = new KeyPressedEvent(key, eventtype);
+
+	if(eventtype == SDL_KEYDOWN)
+	{
+		InputManager::NotifyKeyDown(keyEvent);	
+	}
+	else if(eventtype == SDL_KEYUP)
+	{
+		InputManager::NotifyKeyUp(keyEvent);
+	}
+
+	delete(keyEvent);
 }

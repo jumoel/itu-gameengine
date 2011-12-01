@@ -16,32 +16,38 @@ SceneGraphManager *createGraph()
 	auto root = new Object();
 	root->Name = "Root";
 
-	auto player = new Object();
+	/*auto player = new Object();
 	player->Name = "Player";
-	player->gfx = SINGLETONINSTANCE( MediaManager )->playerModel;
+	//player->gfx = SINGLETONINSTANCE( MediaManager )->playerModel;
 	player->model =  SINGLETONINSTANCE( MediaManager )->crazyModel;
-	player->transformation->Translate(0,0,-100);
+	player->transformation->Translate(0,0,10);
+	*/
+	auto car = new Object();
+	car->Name = "Car";
+	car->model =  SINGLETONINSTANCE( MediaManager )->carModel;
+	car->transformation->Translate(3,0,10);
 	
 	//std::cout << "num of vertices: " << player->gfx->numVertices << std::endl;
-	for(int i = 0; i < player->gfx->numMaterials; i++)
+	/*for(int i = 0; i < player->gfx->numMaterials; i++)
 	{
 		player->gfx->SetTexture(SINGLETONINSTANCE( MediaManager )->playerTex, &player->gfx->mMaterials[i]);
-	}
+	}*/
 	
 	auto m = new Matrix4x4f();
 	m->Translate(0.0f, 0.0f, -4.0f);
 	
-	root->children->push_back(*player);
+	//root->children->push_back(*player);
+	root->children->push_back(*car);
 
 
 	auto camera = new Camera();
 	camera->Position.SetX(0);
 	camera->Position.SetY(0);
-	camera->Position.SetZ(100);
+	camera->Position.SetZ(0);
 	//camera->MoveCamera3D(new Vector3f(0, 0, 100));
 	camera->LookAt.SetX(0);
 	camera->LookAt.SetY(0);
-	camera->LookAt.SetZ(-1);
+	camera->LookAt.SetZ(1);
 	camera->Up.SetX(0);
 	camera->Up.SetY(1);
 	camera->Up.SetZ(0);
