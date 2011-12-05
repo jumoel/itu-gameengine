@@ -198,13 +198,13 @@
     <ClCompile Include="Game\Model.cpp">
       <Filter>Source Files\World\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Game\aStar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Vector2f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utils\StackAllocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PathPlanner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -362,9 +362,6 @@
     <ClInclude Include="Game\Model.hpp">
       <Filter>Header Files\World\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Game\aStar.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game\dataTypes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -372,6 +369,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils\StackAllocator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PathPlanner.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

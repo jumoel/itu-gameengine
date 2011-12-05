@@ -228,6 +228,16 @@ void Model::Render()
 			glMaterialfv(GL_FRONT, GL_EMISSION, m_Materials[MaterialIndex]->emissive);
 			glMaterialf(GL_FRONT, GL_SHININESS, m_Materials[MaterialIndex]->shininess);
         }
+		else
+		{
+			float *temp = new float[4];
+			temp[0] = 1.0f, temp[1] = 1.0f, temp[2] = 1.0f, temp[3] = 1.0f; 
+			glMaterialfv(GL_FRONT, GL_DIFFUSE, temp);
+			glMaterialfv(GL_FRONT, GL_SPECULAR, temp);
+			glMaterialfv(GL_FRONT, GL_AMBIENT, temp);
+			glMaterialfv(GL_FRONT, GL_EMISSION, temp);
+			glMaterialf(GL_FRONT, GL_SHININESS, 0.0f);
+		}
 
 		//glDrawArrays( GL_TRIANGLES, 0, m_Entries[i].NumVertices );
 

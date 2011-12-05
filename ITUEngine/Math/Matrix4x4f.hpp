@@ -18,6 +18,10 @@ public:
 	Matrix4x4f* MultiplyWith(Matrix4x4f other);
 	Vector3f MultiplyWithVector(Vector3f inVector);
 
+	Matrix4x4f* createScale(float x, float y, float z);
+	Matrix4x4f* createTranslate(float x, float y, float z);
+	Matrix4x4f* createRotate(float degrees, float x, float y, float z);
+
 	static Matrix4x4f Multiply(Matrix4x4f a, Matrix4x4f b);
 protected:
 

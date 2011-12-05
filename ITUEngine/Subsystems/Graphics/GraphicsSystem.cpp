@@ -135,15 +135,6 @@ void GraphicsSystem::InitOpenGL()
 	glDepthFunc( GL_LEQUAL );
 	glDepthMask(GL_TRUE);
 
-	// Render depth values to a buffer. 
-	/*glGenRenderbuffersEXT(1, &renderBuffer); 
-	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, renderBuffer); 
-	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT24, width, height); 
-
-	glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, 
-	GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, renderBuffer); 
-	*/
-
 	//glDisable( GL_CULL_FACE );
 
 	/* Really Nice Perspective Calculations */

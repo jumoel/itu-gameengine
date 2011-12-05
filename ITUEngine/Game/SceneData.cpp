@@ -3,6 +3,7 @@
 #include <Managers/SceneGraphManager.hpp>
 #include <Managers/MediaManager.hpp>
 #include <Managers/LightingManager.hpp>
+#include <Game/PathPlanner.hpp>
 
 SceneGraphManager *createGraph()
 {
@@ -15,18 +16,84 @@ SceneGraphManager *createGraph()
 
 	auto root = new Object();
 	root->Name = "Root";
+	root->transformation->Reset();
 
-	/*auto player = new Object();
+	auto ground = new Object();
+	ground->Name = "Ground";
+	//player->gfx = SINGLETONINSTANCE( MediaManager )->playerModel;
+	ground->model =  SINGLETONINSTANCE( MediaManager )->ground;
+	ground->transformation->Reset();
+	ground->transformation->Scale(2,2,1);
+	ground->transformation->Translate(9, 9, 0);
+
+	auto player = new Object();
 	player->Name = "Player";
 	//player->gfx = SINGLETONINSTANCE( MediaManager )->playerModel;
 	player->model =  SINGLETONINSTANCE( MediaManager )->crazyModel;
-	player->transformation->Translate(0,0,10);
+	player->transformation->Reset();
+	player->transformation->Rotate(90,1.0f,0.0f,0.0f);
+	player->transformation->Translate(18, 0, -20);
+
+	auto box = new Object();
+	box->Name = "Box";
+	box->model =  SINGLETONINSTANCE( MediaManager )->boxModel;
+	box->transformation->Reset();
+	box->transformation->Scale(20,20,20);
+	box->transformation->Translate(1.0f,1.0f,0);
+
+	auto box1 = new Object();
+	box1->Name = "Box";
+	box1->model =  SINGLETONINSTANCE( MediaManager )->boxModel;
+	box1->transformation->Reset();
+	box1->transformation->Scale(20,20,20);
+	box1->transformation->Translate(1.1f,1.1f,0);
+
+	auto box2 = new Object();
+	box2->Name = "Box";
+	box2->model =  SINGLETONINSTANCE( MediaManager )->boxModel;
+	box2->transformation->Reset();
+	box2->transformation->Scale(22,22,22);
+	box2->transformation->Translate(0.8f,1.15f,0);
+
+	auto box3 = new Object();
+	box3->Name = "Box";
+	box3->model =  SINGLETONINSTANCE( MediaManager )->boxModel;
+	box3->transformation->Reset();
+	box3->transformation->Scale(17,17,17);
+	box3->transformation->Translate(0.7f,1.3f,0);
+
+	auto box4 = new Object();
+	box4->Name = "Box";
+	//player->gfx = SINGLETONINSTANCE( MediaManager )->playerModel;
+	box4->model =  SINGLETONINSTANCE( MediaManager )->boxModel;
+	box4->transformation->Reset();
+	box4->transformation->Scale(30,30,30);
+	box4->transformation->Translate(0.9f,0.75f,0);
+	
+	//box->transformation->Translate(1.0f,0.0f,0.0f);
+
+	/*
+	Matrix4x4f *temp = new Matrix4x4f();
+	temp = temp->createRotate(90, 0.0f,0.0f,1.0f);
+	temp->MultiplyWith(*temp->createTranslate(0,1,0));
+	temp->MultiplyWith(*temp->createTranslate(1,0,0));
+	
+	player->transformation->MultiplyWith(*temp);
 	*/
-	auto car = new Object();
+	
+	//player->transformation->Rotate(90,0.0f,0.0f,1.0f);
+	
+	//player->transformation->Translate(0,1,0);
+	//player->transformation->Translate(1,0,0);
+	
+	/*auto car = new Object();
 	car->Name = "Car";
 	car->model =  SINGLETONINSTANCE( MediaManager )->carModel;
-	car->transformation->Translate(3,0,10);
+	car->transformation->Reset();
 	
+	car->transformation->Rotate(90,1.0f,0.0f,0.0f);
+	//car->transformation->Translate(-3,0,0);
+	*/
 	//std::cout << "num of vertices: " << player->gfx->numVertices << std::endl;
 	/*for(int i = 0; i < player->gfx->numMaterials; i++)
 	{
@@ -36,24 +103,33 @@ SceneGraphManager *createGraph()
 	auto m = new Matrix4x4f();
 	m->Translate(0.0f, 0.0f, -4.0f);
 	
-	//root->children->push_back(*player);
-	root->children->push_back(*car);
+	root->children->push_back(*ground);
+	root->children->push_back(*box);
+	root->children->push_back(*box1);
+	root->children->push_back(*box2);
+	root->children->push_back(*box3);
+	root->children->push_back(*box4);
+	root->children->push_back(*player);
+	
+	//root->children->push_back(*car);
 
 
 	auto camera = new Camera();
-	camera->Position.SetX(0);
-	camera->Position.SetY(0);
-	camera->Position.SetZ(0);
+	camera->Position.SetX(18);
+	camera->Position.SetY(18);
+	camera->Position.SetZ(30);
 	//camera->MoveCamera3D(new Vector3f(0, 0, 100));
-	camera->LookAt.SetX(0);
-	camera->LookAt.SetY(0);
-	camera->LookAt.SetZ(1);
+	camera->LookAt.SetX(18);
+	camera->LookAt.SetY(18);
+	camera->LookAt.SetZ(-1);
 	camera->Up.SetX(0);
 	camera->Up.SetY(1);
 	camera->Up.SetZ(0);
 	//camera->Up = *(new Vector3f(1, 1, 0));
 
-	return new SceneGraphManager(camera, root);
+	SceneGraphManager *sceneGraph = new SceneGraphManager(camera, root);
+	SINGLETONINSTANCE(PathPlanner)->StartUp(sceneGraph);
+	return sceneGraph;
 }
 /*
 SceneGraphManager *createGraphVBO()

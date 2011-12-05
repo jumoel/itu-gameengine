@@ -25,6 +25,7 @@ public:
 	Model* crazyModel;
 	Model* carModel;
 	Model* boxModel;
+	Model* ground;
 	Texture* boxTex1;
 	Texture* boxTex2;
 	Texture* boxTex3;

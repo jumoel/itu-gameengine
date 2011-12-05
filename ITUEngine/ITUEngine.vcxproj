@@ -87,7 +87,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClCompile Include="Abstractions\Window.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Events\EventData\EmptyEventData.cpp" />
-    <ClCompile Include="Game\aStar.cpp" />
+    <ClCompile Include="Game\PathPlanner.cpp" />
     <ClCompile Include="Game\Model.cpp" />
     <ClCompile Include="Managers\EventManager.cpp" />
     <ClCompile Include="Events\Interfaces\IEventManager.cpp" />
@@ -131,7 +131,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClInclude Include="Events\EventData\BaseEventData.hpp" />
     <ClInclude Include="Events\EventData\EmptyEventData.hpp" />
     <ClInclude Include="Events\EventData\EventData.hpp" />
-    <ClInclude Include="Game\aStar.hpp" />
+    <ClInclude Include="Game\PathPlanner.hpp" />
     <ClInclude Include="Game\dataTypes.hpp" />
     <ClInclude Include="Game\Model.hpp" />
     <ClInclude Include="Utils\StackAllocator.hpp" />
