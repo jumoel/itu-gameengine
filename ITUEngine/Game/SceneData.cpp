@@ -12,7 +12,7 @@ SceneGraphManager *createGraph()
 	SINGLETONINSTANCE(LightingManager)->lights[lightIndex].setDiffuse(0.5f,0.5f,0.5f, 1.0f);
 	SINGLETONINSTANCE(LightingManager)->lights[lightIndex].setSpecular(0.7f,0.2f,0.1f, 1.0f);
 	SINGLETONINSTANCE(LightingManager)->lights[lightIndex].setAmbient(0.2f,0.2f,0.2f, 1.0f);
-	SINGLETONINSTANCE(LightingManager)->lights[lightIndex].setPos(0.0f,0.0f,0.0f);
+	SINGLETONINSTANCE(LightingManager)->lights[lightIndex].setPos(10.0f,10.0f,10.0f);
 
 	auto root = new Object();
 	root->Name = "Root";
@@ -33,6 +33,9 @@ SceneGraphManager *createGraph()
 	player->transformation->Reset();
 	player->transformation->Rotate(90,1.0f,0.0f,0.0f);
 	player->transformation->Translate(18, 0, -20);
+	//player->transformation->Translate(18, 20, 0);
+	//player->transformation->Translate(0, 1, 0);
+	//player->transformation->Rotate(90,0.0f,0.0f,1.0f);
 
 	auto box = new Object();
 	box->Name = "Box";

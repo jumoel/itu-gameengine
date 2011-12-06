@@ -48,6 +48,8 @@ enum gridElements
 {
 	FREE,
 	BLOCKED,
+	PLAYER,
+	TARGET,
 };
 
 
@@ -55,7 +57,7 @@ enum gridElements
 //#define MULTIPLIER 100.0f
 //#define DANGER_DIST 3.0f
 
-class PathPlanner
+class PathPlanner : public IKeyboardEvent
 {
 	SINGLETON( PathPlanner )
 
@@ -63,9 +65,12 @@ public:
 	
 	std::vector<std::vector<int> > map;
 	SceneGraphManager *m_SceneGraph;
+	vector<Vector2f> route;
+	Vector2f playerPos;
 
 	void StartUp(SceneGraphManager *graph);
 	void ShutDown();
+	void Run();
 
 	void UpdateMap();
 
@@ -78,7 +83,8 @@ public:
 
 	std::vector<Vector2f> aStar(int distinationX, int distinationY, int locationX, int locationY);
 	//void aStar(int &steps, int &outX, int &outY, int distinationX, int distinationY, int locationX, int locationY, int weightX, int weightY, std::vector<std::vector<int> > &map);
-	
+protected:
+	void OnKeyDown(KeyPressedEvent *key);
 };
 
 

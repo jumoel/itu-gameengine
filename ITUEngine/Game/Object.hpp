@@ -3,6 +3,7 @@
 
 #include <Game/GfxModel.hpp>
 #include <Game/Model.hpp>
+#include <Subsystems/Physics/PhysicsModels/PhysicsModel.hpp>
 
 class Object
 {
@@ -12,6 +13,7 @@ public:
 	Matrix4x4f *transformation;
 	GfxModel *gfx;
 	Model *model;
+	PhysicsModel *physicsModel;
 
 	std::list<Object> *children;
 
@@ -19,6 +21,7 @@ public:
 	int VboOffset;
 
 	Object();
+	Object(PhysicsModel *physics);
 	~Object();
 
 };

@@ -9,9 +9,10 @@
 #include <SDL.h>
 #include "GL/glew.h"
 #include "GL/wglew.h"
-//#include <Globals.hpp>
-#include <Managers/SceneGraphManager.hpp>
 #include <Game/Camera.hpp>
+#include <Game/PathPlanner.hpp>
+
+
 
 
 void GraphicsSystem::StartUp()
@@ -275,32 +276,10 @@ void GraphicsSystem::RenderRecursive(Object *obj)
 	glPopMatrix();
 }
 
-Vector3f GetOGLPos(float mousex, float mousey)
-	
-{
-    GLint viewport[4];
-    GLdouble modelview[16];
-    GLdouble projection[16];
-    GLint winX, winY, winZ;
-    GLdouble posX, posY, posZ;
- 
-    glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
-    glGetDoublev( GL_PROJECTION_MATRIX, projection );
-    glGetIntegerv( GL_VIEWPORT, viewport );
- 
-	winX = mousex;
-	winY = mousey;
-    glReadPixels( int(winX), int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ );
- 
-    gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
-	//std::cout<<"winX:"<<winX<<" , winY:"<<winY<<" , winZ:"<<winZ<<" , posX:"<<posX<<" , posY:"<<posY<<" , posZ:"<<posZ<<std::endl;
-
-    return Vector3f(posX, posY, posZ);
-}
 
 void GraphicsSystem::Render()
 {
-	
+	SINGLETONINSTANCE(PathPlanner)->Run();
 	// Clear the window
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	//glClear( GL_COLOR_BUFFER_BIT); //  | GL_DEPTH_BUFFER_BIT 
@@ -349,7 +328,7 @@ void GraphicsSystem::Render()
 	RenderRecursive(m_SceneGraph->RootNode);
 
 	SDL_WM_GrabInput(SDL_GrabMode::SDL_GRAB_ON);
-	SDL_ShowCursor(0);
+	SDL_ShowCursor(1);
 	//
 	///* draw HUD */
 	//glDisable(GL_DEPTH_TEST);
@@ -402,7 +381,6 @@ void GraphicsSystem::Render()
 	//glMatrixMode(GL_MODELVIEW);
 
 
-	Vector3f collide = GetOGLPos(1.0f, 1.0f);
 	SDL_GL_SwapBuffers();
 }
 

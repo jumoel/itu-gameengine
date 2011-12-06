@@ -7,15 +7,16 @@
 #include <Subsystems/Graphics/GraphicsSystem.hpp>
 #include <Managers/EventManager.hpp>
 #include <Subsystems/Physics/PhysicsSystem.hpp>
-
+#include <Math\Vector3f.hpp>
 class Engine
 {
 public:
 	void Run();
 	void StartUp();
 	void ShutDown();
-	int mousex;
+	int mousex;	
 	int mousey;
+	Vector3f test;
 	
 	FPSCalculator *GetFPSCalculator() { return m_FPSCalculator; }
 	Window *GetWindow() { return m_Window; }

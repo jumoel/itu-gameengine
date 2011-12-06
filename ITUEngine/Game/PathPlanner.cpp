@@ -1,11 +1,67 @@
 #pragma once
 #include <Game/PathPlanner.hpp>
+#include <iostream>
+#include <Windows.h>
+#include <Managers\InputManager.hpp>
 
+#define MAP_SIZE 20
 
 void PathPlanner::StartUp(SceneGraphManager *graph)
 {
+	InputManager::RegisterKeyboardEventHandler(this);
 	m_SceneGraph = graph;
-	UpdateMap();
+	playerPos.SetX(5);
+	playerPos.SetY(5);
+
+
+	for(int x = 0; x < MAP_SIZE; x++)
+	{
+		vector<int> temp;
+		
+		for(int y = 0; y < MAP_SIZE; y++)
+		{
+			
+			if(x == 0 || y == 0 || x == MAP_SIZE-1 || y == MAP_SIZE-1)
+			{
+				temp.push_back(BLOCKED);
+			}
+			else if(x == playerPos.x() && y == playerPos.y())
+			{
+				temp.push_back(PLAYER);
+			}
+			else
+			{
+				temp.push_back(FREE);
+			}
+		}
+		map.push_back(temp);
+	}
+
+	map[6][1] = BLOCKED;
+	map[6][2] = BLOCKED;
+	map[6][3] = BLOCKED;
+	map[6][4] = BLOCKED;
+	map[6][5] = BLOCKED;
+	map[6][6] = BLOCKED;
+	map[6][7] = BLOCKED;
+	map[6][8] = BLOCKED;
+	map[6][9] = BLOCKED;
+	map[6][10] = BLOCKED;
+	map[5][10] = BLOCKED;
+	map[4][10] = BLOCKED;
+	map[4][9] = BLOCKED;
+	map[4][8] = BLOCKED;
+	map[4][7] = BLOCKED;
+	map[4][6] = BLOCKED;
+	map[4][5] = BLOCKED;
+	map[4][4] = BLOCKED;
+	map[4][3] = BLOCKED;
+	map[4][2] = BLOCKED;
+
+	map[7][5] = TARGET;
+	route = aStar(7, 5, playerPos.x(), playerPos.y());
+	std::cout << "route size: " << route.size() << std::endl;
+	//UpdateMap();
 }
 
 void PathPlanner::ShutDown()
@@ -13,9 +69,57 @@ void PathPlanner::ShutDown()
 	
 }
 
+void PathPlanner::Run()
+{
+	system("CLS");
+
+	for(int y = 0; y < MAP_SIZE; y++)
+	{
+		for(int x = 0; x < MAP_SIZE; x++)
+		{
+			if(map[x][y] == BLOCKED)
+			{
+				std::cout << "*";
+			}
+			else if(map[x][y] == FREE)
+			{
+				std::cout << " ";
+			}
+			else if(map[x][y] == PLAYER)
+			{
+				std::cout << "P";
+			}
+			else if(map[x][y] == TARGET)
+			{
+				std::cout << "T";
+			}
+		}
+		std::cout << std::endl;
+	}
+}
+
+void PathPlanner::OnKeyDown(KeyPressedEvent *key)
+{
+	auto keyInput = key->GetInput();
+
+	switch(keyInput->keysym.sym)
+	{
+		case SDLK_b:
+			UpdateMap();
+			break;
+	}
+}
+
 void PathPlanner::UpdateMap()
 {
-	
+	if(route.size() > 0)
+	{
+		map[playerPos.x()][playerPos.y()] = FREE;
+		playerPos.SetX(route[0].x());
+		playerPos.SetY(route[0].y());
+		route.erase(route.begin());
+		map[playerPos.x()][playerPos.y()] = PLAYER;
+	}
 }
 
 bool PathPlanner::isValidNeighbour(Node* neighbour, Plan* plan)
@@ -27,7 +131,7 @@ bool PathPlanner::isValidNeighbour(Node* neighbour, Plan* plan)
 	{
 		return false;
 	}
-	if(map[neighbour->pos.y()][neighbour->pos.x()] == BLOCKED)
+	if(map[neighbour->pos.x()][neighbour->pos.y()] == BLOCKED)
 	{
 		return false;
 	}
@@ -88,7 +192,7 @@ Node* PathPlanner::recursiveAstar(Node* currentNode, Plan* plan)
 	{
 		for(int j = -1; j <= 1; j++)
 		{
-			if(j != 0 && i != 0)
+			if(j != 0 || i != 0)
 			{
 				neighbours[k] = new Node();
 				neighbours[k]->pos.SetX(currentNode->pos.x() + i);
@@ -104,7 +208,7 @@ Node* PathPlanner::recursiveAstar(Node* currentNode, Plan* plan)
 		{
 
 			neighbours[i]->steps = currentNode->steps + 1;
-			neighbours[i]->distance = neighbours[i]->steps + abs(plan->targetX - currentNode->pos.x()) + abs(plan->targetY - currentNode->pos.y());
+			neighbours[i]->distance = neighbours[i]->steps + abs(plan->targetX - neighbours[i]->pos.x()) + abs(plan->targetY - neighbours[i]->pos.y());
 			neighbours[i]->child = currentNode;
 			plan->openList.push_back(neighbours[i]);
 		}
@@ -137,6 +241,7 @@ std::vector<Vector2f> PathPlanner::aStar(int distinationX, int distinationY, int
 	currentNode->pos.SetX(locationX);
 	currentNode->pos.SetY(locationY);
 	currentNode->child = NULL;
+	currentNode->steps = 0;
 	currentNode->distance = abs(distinationX - currentNode->pos.x()) + abs(distinationY - currentNode->pos.y());
 	backTrack(recursiveAstar(currentNode, &plan), &plan, locationX, locationY);
 	plan.clear();

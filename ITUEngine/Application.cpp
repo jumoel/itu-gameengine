@@ -1,5 +1,5 @@
 #include <Managers/Engine.hpp>
-
+//#include <Globals.hpp>
 Engine *g_Engine;
 
 int main(int argc, char **argv)

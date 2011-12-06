@@ -89,6 +89,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClCompile Include="Events\EventData\EmptyEventData.cpp" />
     <ClCompile Include="Game\PathPlanner.cpp" />
     <ClCompile Include="Game\Model.cpp" />
+    <ClCompile Include="GetOGLPos.cpp" />
     <ClCompile Include="Managers\EventManager.cpp" />
     <ClCompile Include="Events\Interfaces\IEventManager.cpp" />
     <ClCompile Include="Game\Camera.cpp" />
@@ -134,9 +135,9 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClInclude Include="Game\PathPlanner.hpp" />
     <ClInclude Include="Game\dataTypes.hpp" />
     <ClInclude Include="Game\Model.hpp" />
+    <ClInclude Include="GetOGLPos.hpp" />
     <ClInclude Include="Utils\StackAllocator.hpp" />
     <ClInclude Include="Globals.hpp" />
-    <ClInclude Include="Subsystems\Physics\PhysicsModels\CirclePhysicsModel.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsModels\PhysicsModel.hpp" />
     <ClInclude Include="Managers\EventManager.hpp" />
     <ClInclude Include="Events\Interfaces\IEventData.hpp" />
@@ -165,7 +166,6 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClInclude Include="Managers\SceneGraphManager.hpp" />
     <ClInclude Include="Macros\EventMacros.hpp" />
     <ClInclude Include="Subsystems\Graphics\GraphicsSystem.hpp" />
-    <ClInclude Include="Subsystems\Physics\PhysicsModels\RectanglePhysicsModel.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsSystem.hpp" />
     <ClInclude Include="Templates\TSingleton.hpp" />
     <ClInclude Include="TestEventSubscribtion.hpp" />

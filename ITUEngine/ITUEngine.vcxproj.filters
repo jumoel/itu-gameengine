@@ -197,6 +197,12 @@
     </ClCompile>
     <ClCompile Include="Game\Model.cpp">
       <Filter>Source Files\World\GameObjects</Filter>
+<<<<<<< HEAD
+=======
+    </ClCompile>
+    <ClCompile Include="Game\aStar.cpp">
+      <Filter>Source Files</Filter>
+>>>>>>> c9c746e576db1b0e8a134458696142d079328c81
     </ClCompile>
     <ClCompile Include="Vector2f.cpp">
       <Filter>Source Files</Filter>
@@ -204,7 +210,11 @@
     <ClCompile Include="Utils\StackAllocator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Game\PathPlanner.cpp">
+=======
+    <ClCompile Include="GetOGLPos.cpp">
+>>>>>>> c9c746e576db1b0e8a134458696142d079328c81
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -347,13 +357,7 @@
     <ClInclude Include="Globals.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\Physics\PhysicsModels\CirclePhysicsModel.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Subsystems\Physics\PhysicsModels\PhysicsModel.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Subsystems\Physics\PhysicsModels\RectanglePhysicsModel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Subsystems\Physics\PhysicsSystem.hpp">
@@ -371,7 +375,11 @@
     <ClInclude Include="Utils\StackAllocator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Game\PathPlanner.hpp">
+=======
+    <ClInclude Include="GetOGLPos.hpp">
+>>>>>>> c9c746e576db1b0e8a134458696142d079328c81
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

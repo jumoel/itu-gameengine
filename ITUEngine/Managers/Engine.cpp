@@ -10,6 +10,12 @@
 #include <Managers/MediaManager.hpp>
 #include <Managers/InputManager.hpp>
 
+
+#include <GetOGLPos.hpp>
+
+
+
+
 void Engine::Run()
 {
 	m_Running = true;
@@ -51,6 +57,10 @@ void Engine::Run()
 			case SDL_MOUSEMOTION:
 				mousex = event.motion.x;
 			    mousey = event.motion.y;
+				GetOGLPos testing;
+				test = testing.GetPos(mousex, mousey);
+				
+				
 				handleMouseMove(&event.motion, event.type);
 				break;
 			
@@ -66,13 +76,8 @@ void Engine::Run()
 		sprintf_s(title,"FPS: %d", m_FPSCalculator->GetFPS());
 		m_Window->SetWindowTitle(title);
 
-		//Check Phantom collisions  // NOTE // (BØR MÅSKE VÆRE INDBYGGET I Step() funktionen)
-		m_Physics->PhantomStep(1.0f);
-		
-		//TODO: Do stuff to change the directions before things really happen
-
-		//Check real collisions
-		m_Physics->Step(1.0f);
+		//Step the physics system
+		m_Physics->Step(1);
 
 		// Display the graphics
 		m_Graphics->Render();
