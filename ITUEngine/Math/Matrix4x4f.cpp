@@ -1,7 +1,7 @@
 #include <Math/Matrix4x4f.hpp>
 #include <cmath>
 
-#define REVERSED 1
+#define REVERSED 0
 
 Matrix4x4f::Matrix4x4f()
 {
@@ -29,7 +29,11 @@ void Matrix4x4f::Reset()
 	this->data[3][0] = this->data[3][1] = this->data[3][2] = 0.0f;
 	*/
 }
-
+    //data[16]
+    //|  0  1  2  3 |
+    //|  4  5  6  7 |
+    //|  8  9 10 11 |
+    //| 12 13 14 15 |
 Matrix4x4f* Matrix4x4f::MultiplyWith(Matrix4x4f other)
 {   
 	float t[16] = {this->data[0], this->data[1], this->data[2], this->data[3],
@@ -42,47 +46,7 @@ Matrix4x4f* Matrix4x4f::MultiplyWith(Matrix4x4f other)
                     other.data[12], other.data[13], other.data[14], other.data[15]};
 
 #if REVERSED
-	float f11 = t[0]*o[0] + t[1]*o[4] + t[2]*o[8]  + t[3]*o[12];
-	float f21 = t[0]*o[1] + t[1]*o[5] + t[2]*o[9]  + t[3]*o[13];
-	float f31 = t[0]*o[2] + t[1]*o[6] + t[2]*o[10] + t[3]*o[14];
-	float f41 = t[0]*o[3] + t[1]*o[7] + t[2]*o[11] + t[3]*o[15];
-
-	float f12 = t[4]*o[0] + t[5]*o[4] + t[6]*o[8]  + t[7]*o[12];
-	float f22 = t[4]*o[1] + t[5]*o[5] + t[6]*o[9]  + t[7]*o[13];
-	float f32 = t[4]*o[2] + t[5]*o[6] + t[6]*o[10] + t[7]*o[14];
-	float f42 = t[4]*o[3] + t[5]*o[7] + t[6]*o[11] + t[7]*o[15];
-
-	float f13 = t[8]*o[0] + t[9]*o[4] + t[10]*o[8]  + t[11]*o[12];
-	float f23 = t[8]*o[1] + t[9]*o[5] + t[10]*o[9]  + t[11]*o[13];
-	float f33 = t[8]*o[2] + t[9]*o[6] + t[10]*o[10] + t[11]*o[14];
-	float f43 = t[8]*o[3] + t[9]*o[7] + t[10]*o[11] + t[11]*o[15];
-
-	float f14 = t[12]*o[0] + t[13]*o[4] + t[14]*o[8]  + t[15]*o[12];
-	float f24 = t[12]*o[1] + t[13]*o[5] + t[14]*o[9]  + t[15]*o[13];
-	float f34 = t[12]*o[2] + t[13]*o[6] + t[14]*o[10] + t[15]*o[14];
-	float f44 = t[12]*o[3] + t[13]*o[7] + t[14]*o[11] + t[15]*o[15];
 	
-	this->data[0] = f11;
-	this->data[1] = f12;
-	this->data[2] = f13;
-	this->data[3] = f14;
-
-	this->data[4] = f21;
-	this->data[5] = f22;
-	this->data[6] = f23;
-	this->data[7] = f24;
-
-	this->data[8]  = f31;
-	this->data[9]  = f32;
-	this->data[10] = f33;
-	this->data[11] = f34;
-
-	this->data[12] = f41;
-	this->data[13] = f42;
-	this->data[14] = f43;
-	this->data[15] = f44;
-#else
-
 	float f0 = t[0]*o[0] + t[4]*o[1] + t[8]*o[2]  + t[12]*o[3];
 	float f1 = t[1]*o[0] + t[5]*o[1] + t[9]*o[2]  + t[13]*o[3];
 	float f2 = t[2]*o[0] + t[6]*o[1] + t[10]*o[2] + t[14]*o[3];
@@ -122,6 +86,49 @@ Matrix4x4f* Matrix4x4f::MultiplyWith(Matrix4x4f other)
 	this->data[13] = f13;
 	this->data[14] = f14;
 	this->data[15] = f15;
+
+#else
+
+	float f11 = t[0]*o[0] + t[1]*o[4] + t[2]*o[8]  + t[3]*o[12];
+	float f21 = t[0]*o[1] + t[1]*o[5] + t[2]*o[9]  + t[3]*o[13];
+	float f31 = t[0]*o[2] + t[1]*o[6] + t[2]*o[10] + t[3]*o[14];
+	float f41 = t[0]*o[3] + t[1]*o[7] + t[2]*o[11] + t[3]*o[15];
+
+	float f12 = t[4]*o[0] + t[5]*o[4] + t[6]*o[8]  + t[7]*o[12];
+	float f22 = t[4]*o[1] + t[5]*o[5] + t[6]*o[9]  + t[7]*o[13];
+	float f32 = t[4]*o[2] + t[5]*o[6] + t[6]*o[10] + t[7]*o[14];
+	float f42 = t[4]*o[3] + t[5]*o[7] + t[6]*o[11] + t[7]*o[15];
+
+	float f13 = t[8]*o[0] + t[9]*o[4] + t[10]*o[8]  + t[11]*o[12];
+	float f23 = t[8]*o[1] + t[9]*o[5] + t[10]*o[9]  + t[11]*o[13];
+	float f33 = t[8]*o[2] + t[9]*o[6] + t[10]*o[10] + t[11]*o[14];
+	float f43 = t[8]*o[3] + t[9]*o[7] + t[10]*o[11] + t[11]*o[15];
+
+	float f14 = t[12]*o[0] + t[13]*o[4] + t[14]*o[8]  + t[15]*o[12];
+	float f24 = t[12]*o[1] + t[13]*o[5] + t[14]*o[9]  + t[15]*o[13];
+	float f34 = t[12]*o[2] + t[13]*o[6] + t[14]*o[10] + t[15]*o[14];
+	float f44 = t[12]*o[3] + t[13]*o[7] + t[14]*o[11] + t[15]*o[15];
+	
+	this->data[0] = f11;
+	this->data[1] = f12;
+	this->data[2] = f13;
+	this->data[3] = f14;
+
+	this->data[4] = f21;
+	this->data[5] = f22;
+	this->data[6] = f23;
+	this->data[7] = f24;
+
+	this->data[8]  = f31;
+	this->data[9]  = f32;
+	this->data[10] = f33;
+	this->data[11] = f34;
+
+	this->data[12] = f41;
+	this->data[13] = f42;
+	this->data[14] = f43;
+	this->data[15] = f44;
+
 #endif
 	return this;
 
@@ -129,10 +136,10 @@ Matrix4x4f* Matrix4x4f::MultiplyWith(Matrix4x4f other)
     //data[16]
 	//   1  2  3  4
 	//.-------------. 
-    //|  0  4  8 12 |
-    //|  1  5  9 13 |
-    //|  2  6 10 14 |
-    //|  3  7 11 15 |
+    //|  0  1  2  3 |
+    //|  4  5  6  7 |
+    //|  8  9 10 11 |
+    //| 12 13 14 15 |
 }
 
 Matrix4x4f* Matrix4x4f::Scale(float x, float y, float z)
@@ -166,11 +173,11 @@ Matrix4x4f* Matrix4x4f::Rotate(float degrees, float x, float y, float z)
 {
 
     //data[16]
-    //|  0  4  8 12 |
-    //|  1  5  9 13 |
-    //|  2  6 10 14 |
-    //|  3  7 11 15 |
-    
+    //|  0  1  2  3 |
+    //|  4  5  6  7 |
+    //|  8  9 10 11 |
+    //| 12 13 14 15 |
+
     float length = sqrt(x*x + y*y + z*z);
 	if(length > 0)
 	{
@@ -190,7 +197,7 @@ Matrix4x4f* Matrix4x4f::Rotate(float degrees, float x, float y, float z)
 		temp.data[12] = temp.data[13] = temp.data[14] = temp.data[3] = temp.data[7] = temp.data[11] = 0.0f;
 		temp.data[15] = 1.0f;
 #else
-		temp.data[0] = t*x*x + c; temp.data[1] = t*x*y - s*z; temp.data[3] = t*x*z + s*y;
+		temp.data[0] = t*x*x + c; temp.data[1] = t*x*y - s*z; temp.data[2] = t*x*z + s*y;
 		temp.data[4] = t*x*y + s*z; temp.data[5] = t*y*y + c;  temp.data[6] = t*y*z - s*x;
 		temp.data[8] = t*x*z - s*y; temp.data[9] = t*y*z + s*x; temp.data[10] = t*z*z + c;
 		temp.data[12] = temp.data[13] = temp.data[14] = temp.data[3] = temp.data[7] = temp.data[11] = 0.0f;
@@ -232,10 +239,10 @@ Matrix4x4f* Matrix4x4f::createRotate(float degrees, float x, float y, float z)
 {
 
     //data[16]
-    //|  0  4  8 12 |
-    //|  1  5  9 13 |
-    //|  2  6 10 14 |
-    //|  3  7 11 15 |
+    //|  0  1  2  3 |
+    //|  4  5  6  7 |
+    //|  8  9 10 11 |
+    //| 12 13 14 15 |
     Matrix4x4f *temp = new Matrix4x4f();
     float length = sqrt(x*x + y*y + z*z);
 	if(length > 0)
@@ -256,11 +263,11 @@ Matrix4x4f* Matrix4x4f::createRotate(float degrees, float x, float y, float z)
 		temp->data[12] = temp->data[13] = temp->data[14] = temp->data[3] = temp->data[7] = temp->data[11] = 0.0f;
 		temp->data[15] = 1.0f;
 #else
-		temp.data[0] = t*x*x + c; temp.data[1] = t*x*y - s*z; temp.data[3] = t*x*z + s*y;
-		temp.data[4] = t*x*y + s*z; temp.data[5] = t*y*y + c;  temp.data[6] = t*y*z - s*x;
-		temp.data[8] = t*x*z - s*y; temp.data[9] = t*y*z + s*x; temp.data[10] = t*z*z + c;
-		temp.data[12] = temp.data[13] = temp.data[14] = temp.data[3] = temp.data[7] = temp.data[11] = 0.0f;
-		temp.data[15] = 1.0f;
+		temp->data[0] = t*x*x + c; temp->data[1] = t*x*y - s*z; temp->data[2] = t*x*z + s*y;
+		temp->data[4] = t*x*y + s*z; temp->data[5] = t*y*y + c;  temp->data[6] = t*y*z - s*x;
+		temp->data[8] = t*x*z - s*y; temp->data[9] = t*y*z + s*x; temp->data[10] = t*z*z + c;
+		temp->data[12] = temp->data[13] = temp->data[14] = temp->data[3] = temp->data[7] = temp->data[11] = 0.0f;
+		temp->data[15] = 1.0f;
 #endif
 	}
 	else
