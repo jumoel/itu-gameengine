@@ -6,7 +6,7 @@
 
 #define MAP_SIZE 20
 
-#define PATH_DEBUG
+//#define PATH_DEBUG
 
 void PathPlanner::StartUp()//SceneGraphManager *graph)
 {

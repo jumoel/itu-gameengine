@@ -23,16 +23,18 @@ SceneGraphManager *createGraph()
 	//player->gfx = SINGLETONINSTANCE( MediaManager )->playerModel;
 	ground->model =  SINGLETONINSTANCE( MediaManager )->ground;
 	ground->transformation->Reset();
-	ground->transformation->Scale(2,2,1);
 	ground->transformation->Translate(9, 9, 0);
+	ground->transformation->Scale(2,2,1);
+	//ground->transformation->Print();
+
 
 	auto player = new Object();
 	player->Name = "Player";
 	//player->gfx = SINGLETONINSTANCE( MediaManager )->playerModel;
 	player->model =  SINGLETONINSTANCE( MediaManager )->crazyModel;
 	player->transformation->Reset();
+	//player->transformation->Translate(18, 20, 0);
 	player->transformation->Rotate(90,1.0f,0.0f,0.0f);
-	player->transformation->Translate(18, 0, -20);
 	//player->transformation->Translate(18, 20, 0);
 	//player->transformation->Translate(0, 1, 0);
 	//player->transformation->Rotate(90,0.0f,0.0f,1.0f);
@@ -41,10 +43,16 @@ SceneGraphManager *createGraph()
 	box->Name = "Box";
 	box->model =  SINGLETONINSTANCE( MediaManager )->boxModel;
 	box->transformation->Reset();
+	box->transformation->Translate(0.5f,0.5f,0);
+	//box->transformation->Translate(10,10,0);
 	box->transformation->Scale(20,20,20);
-	box->transformation->Translate(1.0f,1.0f,0);
+	box->transformation->Print();
+	
+	
 
-	auto box1 = new Object();
+	//box->transformation->Translate(0.0f,0.0f,0);
+	//box->transformation->Translate(0.0f,0.0f,0);
+	/*auto box1 = new Object();
 	box1->Name = "Box";
 	box1->model =  SINGLETONINSTANCE( MediaManager )->boxModel;
 	box1->transformation->Reset();
@@ -72,7 +80,7 @@ SceneGraphManager *createGraph()
 	box4->transformation->Reset();
 	box4->transformation->Scale(30,30,30);
 	box4->transformation->Translate(0.9f,0.75f,0);
-	
+	*/
 	//box->transformation->Translate(1.0f,0.0f,0.0f);
 
 	/*
@@ -108,10 +116,11 @@ SceneGraphManager *createGraph()
 	
 	root->children->push_back(*ground);
 	root->children->push_back(*box);
-	root->children->push_back(*box1);
+	/*root->children->push_back(*box1);
 	root->children->push_back(*box2);
 	root->children->push_back(*box3);
 	root->children->push_back(*box4);
+	*/
 	root->children->push_back(*player);
 	
 	//root->children->push_back(*car);
