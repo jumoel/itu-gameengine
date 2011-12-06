@@ -6,6 +6,8 @@
 
 #define MAP_SIZE 20
 
+#define PATH_DEBUG
+
 void PathPlanner::StartUp(SceneGraphManager *graph)
 {
 	InputManager::RegisterKeyboardEventHandler(this);
@@ -71,6 +73,7 @@ void PathPlanner::ShutDown()
 
 void PathPlanner::Run()
 {
+#ifdef PATH_DEBUG
 	system("CLS");
 
 	for(int y = 0; y < MAP_SIZE; y++)
@@ -96,6 +99,7 @@ void PathPlanner::Run()
 		}
 		std::cout << std::endl;
 	}
+#endif
 }
 
 void PathPlanner::OnKeyDown(KeyPressedEvent *key)
