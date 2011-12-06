@@ -23,6 +23,8 @@ public:
 	Matrix4x4f* createRotate(float degrees, float x, float y, float z);
 
 	static Matrix4x4f Multiply(Matrix4x4f a, Matrix4x4f b);
+
+	void Print();
 protected:
 
 

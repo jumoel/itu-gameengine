@@ -1,7 +1,8 @@
 #include <Math/Matrix4x4f.hpp>
 #include <cmath>
+#include <iostream>
 
-#define REVERSED 0
+#define REVERSED 1
 
 Matrix4x4f::Matrix4x4f()
 {
@@ -110,26 +111,27 @@ Matrix4x4f* Matrix4x4f::MultiplyWith(Matrix4x4f other)
 	float f44 = t[12]*o[3] + t[13]*o[7] + t[14]*o[11] + t[15]*o[15];
 	
 	this->data[0] = f11;
-	this->data[1] = f12;
-	this->data[2] = f13;
-	this->data[3] = f14;
+	this->data[1] = f21;
+	this->data[2] = f31;
+	this->data[3] = f41;
 
-	this->data[4] = f21;
+	this->data[4] = f12;
 	this->data[5] = f22;
-	this->data[6] = f23;
-	this->data[7] = f24;
+	this->data[6] = f32;
+	this->data[7] = f42;
 
-	this->data[8]  = f31;
-	this->data[9]  = f32;
+	this->data[8]  = f13;
+	this->data[9]  = f23;
 	this->data[10] = f33;
-	this->data[11] = f34;
+	this->data[11] = f43;
 
-	this->data[12] = f41;
-	this->data[13] = f42;
-	this->data[14] = f43;
+	this->data[12] = f14;
+	this->data[13] = f24;
+	this->data[14] = f34;
 	this->data[15] = f44;
 
 #endif
+	
 	return this;
 
     
@@ -163,9 +165,9 @@ Matrix4x4f* Matrix4x4f::Translate(float x, float y, float z)
 	// Translate by (x,y,z)
 	auto temp = new Matrix4x4f();
 	temp->Reset();
-    temp->data[3] = x;
-    temp->data[7] = y;
-    temp->data[11] = z;
+    temp->data[12] = x;
+    temp->data[13] = y;
+    temp->data[14] = z;
 	return this->MultiplyWith(*temp);
 }
 
@@ -229,9 +231,9 @@ Matrix4x4f* Matrix4x4f::createTranslate(float x, float y, float z)
 	// Translate by (x,y,z)
 	auto temp = new Matrix4x4f();
 	temp->Reset();
-    temp->data[3] = x;
-    temp->data[7] = y;
-    temp->data[11] = z;
+    temp->data[12] = x;
+    temp->data[13] = y;
+    temp->data[14] = z;
 	return temp;
 }
 
@@ -301,4 +303,13 @@ Vector3f Matrix4x4f::MultiplyWithVector(Vector3f inVector)
 	outVector.SetZ(f3);
 
 	return outVector;
+}
+
+void Matrix4x4f::Print()
+{
+std::cout << "Matrix Data " << std::endl;
+std::cout << "|" << this->data[0] << "|" << this->data[1] << "|" << this->data[2] << "|" << this->data[3] << "|" << std::endl;
+std::cout << "|" << this->data[4] << "|" << this->data[5] << "|" << this->data[6] << "|" << this->data[7] << "|" << std::endl;
+std::cout << "|" << this->data[8] << "|" << this->data[9] << "|" << this->data[10] << "|" << this->data[11] << "|" << std::endl;
+std::cout << "|" << this->data[12] << "|" << this->data[13] << "|" << this->data[14] << "|" << this->data[15] << "|" << std::endl;
 }
