@@ -1,5 +1,7 @@
 #ifndef ITUENGINE_GEOMETRICFIGURES2D_H
 #define ITUENGINE_GEOMETRICFIGURES2D_H
+#include <Vector2f.hpp>
+#include <cmath>
 
 struct Point
 {
@@ -7,8 +9,49 @@ public:
 	//Do not use this, to initialize use other constructors 
 	Point() {}
 
-	Point(float x, float y) : X(x), Y(y) {}
 	Point(Point &point) : X(point.X), Y(point.Y) {}
+	Point(Vector2f vect) : X(vect.x()), Y(vect.y()) {}
+	Point(float x, float y) : X(x), Y(y) {}
+
+	Point operator -(Point *point)
+	{
+		return Point((this->X-point->X), (this->Y-point->Y));
+	}
+
+	bool operator ==(Point *point)
+	{
+		float epsilon =  0.00001f;
+		float diffX = this->X - point->X;
+		float diffY = this->Y - point->Y;
+
+		if((-epsilon > diffX) || (diffX > epsilon))
+		{
+			return false;
+		}
+
+		if((-epsilon > diffY) || (diffY > epsilon))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	Point GetNormalizedPoint()
+	{
+		float length = GetLength();
+		return Point(X/length, Y/length);
+	}
+
+	float GetLength()
+	{
+		return sqrt(X*X + Y*Y);
+	}
+
+	Point GetNegatedPoint()
+	{
+		return Point(-1*X, -1*Y);
+	}
 
 	float X, Y;
 };

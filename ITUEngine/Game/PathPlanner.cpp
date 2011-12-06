@@ -8,26 +8,31 @@
 
 #define PATH_DEBUG
 
-void PathPlanner::StartUp(SceneGraphManager *graph)
+void PathPlanner::StartUp()//SceneGraphManager *graph)
 {
+	mapDivisions = MAP_SIZE;
+
+	//TODO: initialize probably
+	mapWidth = 20;
+
 	InputManager::RegisterKeyboardEventHandler(this);
-	m_SceneGraph = graph;
-	playerPos.SetX(5);
-	playerPos.SetY(5);
+	//m_SceneGraph = graph;
+	playerPos.X = 5;
+	playerPos.Y = 5;
 
 
-	for(int x = 0; x < MAP_SIZE; x++)
+	for(int x = 0; x < mapDivisions; x++)
 	{
 		vector<int> temp;
 		
-		for(int y = 0; y < MAP_SIZE; y++)
+		for(int y = 0; y < mapDivisions; y++)
 		{
 			
-			if(x == 0 || y == 0 || x == MAP_SIZE-1 || y == MAP_SIZE-1)
+			if(x == 0 || y == 0 || x == mapDivisions-1 || y == mapDivisions-1)
 			{
 				temp.push_back(BLOCKED);
 			}
-			else if(x == playerPos.x() && y == playerPos.y())
+			else if(x == playerPos.X && y == playerPos.Y)
 			{
 				temp.push_back(PLAYER);
 			}
@@ -61,8 +66,8 @@ void PathPlanner::StartUp(SceneGraphManager *graph)
 	map[4][2] = BLOCKED;
 
 	map[7][5] = TARGET;
-	route = aStar(7, 5, playerPos.x(), playerPos.y());
-	std::cout << "route size: " << route.size() << std::endl;
+	debugRoute = aStar(7.0f, 5.0f, playerPos.X, playerPos.Y);
+	std::cout << "route size: " << debugRoute->size() << std::endl;
 	//UpdateMap();
 }
 
@@ -76,9 +81,9 @@ void PathPlanner::Run()
 #ifdef PATH_DEBUG
 	system("CLS");
 
-	for(int y = 0; y < MAP_SIZE; y++)
+	for(int y = 0; y < mapDivisions; y++)
 	{
-		for(int x = 0; x < MAP_SIZE; x++)
+		for(int x = 0; x < mapDivisions; x++)
 		{
 			if(map[x][y] == BLOCKED)
 			{
@@ -116,13 +121,13 @@ void PathPlanner::OnKeyDown(KeyPressedEvent *key)
 
 void PathPlanner::UpdateMap()
 {
-	if(route.size() > 0)
+	if(debugRoute->size() > 0)
 	{
-		map[playerPos.x()][playerPos.y()] = FREE;
-		playerPos.SetX(route[0].x());
-		playerPos.SetY(route[0].y());
-		route.erase(route.begin());
-		map[playerPos.x()][playerPos.y()] = PLAYER;
+		map[playerPos.X][playerPos.Y] = FREE;
+		playerPos.X = debugRoute->at(0).X;
+		playerPos.Y = debugRoute->at(0).Y;
+		debugRoute->erase(debugRoute->begin());
+		map[playerPos.X][playerPos.Y] = PLAYER;
 	}
 }
 
@@ -162,7 +167,7 @@ Node* PathPlanner::backTrack(Node* cNode, Plan *plan, int locationX, int locatio
  	if(cNode->child == NULL)
 		return NULL;
 	
-	plan->route.insert(plan->route.begin(), cNode->pos);
+	plan->route->insert(plan->route->begin(), Point(cNode->pos));
 	
 	if ((cNode->child->pos.x() == locationX) && (cNode->child->pos.y() == locationY)) {
 		//route.push_back(cNode);
@@ -236,21 +241,52 @@ Node* PathPlanner::recursiveAstar(Node* currentNode, Plan* plan)
 	return recursiveAstar(currentNode, plan); 
 }
 
-std::vector<Vector2f> PathPlanner::aStar(int distinationX, int distinationY, int locationX, int locationY)
+std::vector<Point>* PathPlanner::aStar(float distinationX, float distinationY, float locationX, float locationY)
 {
+	//Convert to divided map, for planning
+	auto destX = ConvertToPlanningMapCoordinate(distinationX);
+	auto destY = ConvertToPlanningMapCoordinate(distinationY);
+	auto loctX = ConvertToPlanningMapCoordinate(locationX);
+	auto loctY = ConvertToPlanningMapCoordinate(locationY);
+
+	//Planning
 	Plan plan;
-	plan.targetX = distinationX;
-	plan.targetY = distinationY;
+	plan.targetX = destX;
+	plan.targetY = destY;
 	Node* currentNode = new Node();
-	currentNode->pos.SetX(locationX);
-	currentNode->pos.SetY(locationY);
+	currentNode->pos.SetX(loctX);
+	currentNode->pos.SetY(loctY);
 	currentNode->child = NULL;
 	currentNode->steps = 0;
-	currentNode->distance = abs(distinationX - currentNode->pos.x()) + abs(distinationY - currentNode->pos.y());
-	backTrack(recursiveAstar(currentNode, &plan), &plan, locationX, locationY);
+	currentNode->distance = abs(destX - currentNode->pos.x()) + abs(destY - currentNode->pos.y());
+	backTrack(recursiveAstar(currentNode, &plan), &plan, loctX, loctY);
 	plan.clear();
+	
+	std::vector<Point>::iterator planRouteIterator;
+
+	for(planRouteIterator = plan.route->begin(); 
+		planRouteIterator != plan.route->end();
+		planRouteIterator++)
+	{
+		planRouteIterator->X = ConvertToPhysicsMapCoordinates(planRouteIterator->X);
+		planRouteIterator->Y = ConvertToPhysicsMapCoordinates(planRouteIterator->Y);
+	}
+	
 	return plan.route;
 }
+
+
+
+int PathPlanner::ConvertToPlanningMapCoordinate( float x )
+{
+	return (int) ((x / mapWidth) * mapDivisions);
+}
+
+float PathPlanner::ConvertToPhysicsMapCoordinates( float x )
+{
+	return (mapWidth/mapDivisions) * x;
+}
+
 #if 0
 node* recursiveAstar(node* currentNode, plan* ghostPlan, int weightX, int weightY, std::vector<std::vector<int> > &map)
 {
@@ -353,3 +389,13 @@ void aStar(int &steps, int &outX, int &outY, int distinationX, int distinationY,
 	ghostPlan.clear();
 }
 #endif
+
+Plan::Plan()
+{
+	route = new vector<Point>();
+}
+
+Plan::~Plan()
+{
+
+}

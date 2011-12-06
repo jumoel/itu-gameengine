@@ -64,6 +64,18 @@ void PhysicsSystem::PhantomStep(unsigned int deltaT)
 		movingObjectIterator != m_MovingObjects->end();
 		movingObjectIterator++)
 	{
+		auto path = (*movingObjectIterator)->GetPath();
+		if(path != NULL && !path->empty())
+		{
+			//Set Movement Speeds
+			(*movingObjectIterator)->SetMaxMovementSpeed();
+		}
+		else
+		{
+			//Path is exhausted, or not path exists, DO NOT MOVE !
+			(*movingObjectIterator)->SetMovementSpeed(0.0f);
+		}
+
 		if((*movingObjectIterator)->GetShape() == CIRCULARSHAPE)
 		{
 			Circle* phantom = (*movingObjectIterator)->GetCirclePhantom();
@@ -120,17 +132,20 @@ void PhysicsSystem::PhantomStep(unsigned int deltaT)
 			if(	CollisionDetection2D::Intersection(staticCircle, circlePhantom) ) //Rectangle to Rectangle not implemented
 			{
 				//Handle collision
+				(*movingObjectIterator)->HandleCollsion();
 				std::cout << "Collision occurred between circle phantom at: (" << circlePhantom->Center.X << ", " << circlePhantom->Center.Y << ") and static circle at: (" << staticCircle->Center.X << ", " << staticCircle->Center.Y << ")" << std::endl;
 			}
 			if( CollisionDetection2D::Intersection(staticRectangle, circlePhantom) )
 			{
 				//Handle collision
+				(*movingObjectIterator)->HandleCollsion();
 				std::cout << "Collision occurred between circle phantom at: (" << circlePhantom->Center.X << ", " << circlePhantom->Center.Y << ") and static rectangle at (MinX: " << staticRectangle->MinX << ", MinY: " << staticRectangle->MinY << ")" << std::endl;
 			}
 
 			if( CollisionDetection2D::Intersection(staticCircle, rectanglePhantom) )
 			{
 				//Handle collision
+				(*movingObjectIterator)->HandleCollsion();
 				std::cout << "Collision occurred between static circle at: (" << staticCircle->Center.X << ", " << staticCircle->Center.Y << ") and rectangle phantom at (MinX: " << rectanglePhantom->MinX << ", MinY: " << rectanglePhantom->MinY << ")" << std::endl;
 			}
 		}
@@ -161,17 +176,20 @@ void PhysicsSystem::PhantomStep(unsigned int deltaT)
 			if(	CollisionDetection2D::Intersection(movingCircle, circlePhantom) ) //Rectangle to Rectangle not implemented
 			{
 				//Handle collision
+				(*movingObjectIterator)->HandleCollsion();
 				std::cout << "Collision occurred between circle phantom at: (" << movingCircle->Center.X << ", " << movingCircle->Center.Y << ") and circle phantom at: (" << circlePhantom->Center.X << ", " << circlePhantom->Center.Y << ")" << std::endl;
 			}
 			if( CollisionDetection2D::Intersection(movingRectangle, circlePhantom) )
 			{
 				//Handle collision
+				(*movingObjectIterator)->HandleCollsion();
 				std::cout << "Collision occurred between circle phantom at: (" << circlePhantom->Center.X << ", " << circlePhantom->Center.Y << ") and rectangle phantom at (MinX: " << movingRectangle->MinX << ", MinY: " << movingRectangle->MinY << ")" << std::endl;
 			}
 
 			if( CollisionDetection2D::Intersection(movingCircle, rectanglePhantom) )
 			{
 				//Handle collision
+				(*movingObjectIterator)->HandleCollsion();
 				std::cout << "Collision occurred between circle phantom at: (" << movingCircle->Center.X << ", " << movingCircle->Center.Y << ") and rectangle phantom at (MinX: " << rectanglePhantom->MinX << ", MinY: " << rectanglePhantom->MinY << ")" << std::endl;
 			}
 		}
@@ -179,17 +197,14 @@ void PhysicsSystem::PhantomStep(unsigned int deltaT)
 }
 
 void PhysicsSystem::Step(unsigned int deltaT)
-{
+{	
 	//Check Phantom collisions
 	PhantomStep(deltaT);
 
-	//TODO: Do stuff to change the directions before things really happen
-
 	//Check real collisions
 	std::vector<MovingObjectModel*>::iterator movingObjectIterator;
+	
 	//Move real Objects
-
-	//Move phantoms
 	for(movingObjectIterator = m_MovingObjects->begin(); 
 		movingObjectIterator != m_MovingObjects->end();
 		movingObjectIterator++)
@@ -305,6 +320,9 @@ void PhysicsSystem::Step(unsigned int deltaT)
 				std::cout << "Collision occurred between circle at: (" << movingCircle->Center.X << ", " << movingCircle->Center.Y << ") and rectangle at (MinX: " << rectangle->MinX << ", MinY: " << rectangle->MinY << ")" << std::endl;
 			}
 		}
+
+		//If we reach the next point in our path, Set new direction.
+		(*movingObjectIterator)->RecalculatePath();
 	}
 }
 

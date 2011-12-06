@@ -1,18 +1,18 @@
 #ifndef ITUENGINE_MEDIA_PATHPLANNER_H
 #define ITUENGINE_MEDIA_PATHPLANNER_H
 
-#include "math.h"
 #include <vector>
 #include <iostream>
 #include <Vector2f.hpp>
 #include <Templates/TSingleton.hpp>
-#include <Managers/SceneGraphManager.hpp>
+#include <Math/GeometricFigures2D.hpp>
+#include <Events/Input/KeyPressedEvent.hpp>
 
 class Node 
 { 
 public: 
    Vector2f pos; 
-   std::vector<Vector2f> parents;
+   std::vector<Point> parents;
    Node* child;
    int distance;
    int steps;
@@ -25,9 +25,12 @@ class Plan
 public:
 	std::vector<Node*> openList;
 	std::vector<Node*> closedList;
-	std::vector<Vector2f> route;
+	std::vector<Point>* route;
 	int targetX;
 	int targetY;
+
+	Plan();
+	~Plan();
 
 	void clear()
 	{
@@ -64,11 +67,11 @@ class PathPlanner : public IKeyboardEvent
 public:
 	
 	std::vector<std::vector<int> > map;
-	SceneGraphManager *m_SceneGraph;
-	vector<Vector2f> route;
-	Vector2f playerPos;
+	//SceneGraphManager *m_SceneGraph;
+	vector<Point>* debugRoute;
+	Point playerPos;
 
-	void StartUp(SceneGraphManager *graph);
+	void StartUp();//SceneGraphManager *graph);
 	void ShutDown();
 	void Run();
 
@@ -81,10 +84,22 @@ public:
 	Node* recursiveAstar(Node* currentNode, Plan* plan);
 	//node* recursiveAstar(node* currentNode, plan* ghostPlan, int weightX, int weightY, std::vector<std::vector<int> > &map);
 
-	std::vector<Vector2f> aStar(int distinationX, int distinationY, int locationX, int locationY);
+	std::vector<Point>* aStar(float distinationX, float distinationY, float locationX, float locationY);
+
+	float ConvertToPhysicsMapCoordinates( float x );
+
 	//void aStar(int &steps, int &outX, int &outY, int distinationX, int distinationY, int locationX, int locationY, int weightX, int weightY, std::vector<std::vector<int> > &map);
 protected:
 	void OnKeyDown(KeyPressedEvent *key);
+private:
+	
+	int ConvertToPlanningMapCoordinate( float x );
+
+	//Number of divisions of the map, for usage in the path planning
+	int mapDivisions;
+
+	//Level Width or Height divided by MapDivisions (NOTE: only works for Square levels)
+	float mapWidth;
 };
 
 
