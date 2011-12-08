@@ -2,20 +2,34 @@
 #include <Game/PathPlanner.hpp>
 #include <iostream>
 #include <Windows.h>
-#include <Managers\InputManager.hpp>
+#include <Managers/InputManager.hpp>
 
-#define MAP_SIZE 20
 
 //#define PATH_DEBUG
+//#define PATH_DEBUG_OLD
 
-void PathPlanner::StartUp()//SceneGraphManager *graph)
+void PathPlanner::StartUp(int width)
 {
 	mapDivisions = MAP_SIZE;
-
-	//TODO: initialize probably
-	mapWidth = 20;
+	mapWidth = width;
 
 	InputManager::RegisterKeyboardEventHandler(this);
+	
+	for(int x = 0; x < mapDivisions; x++)
+	{
+		vector<int> temp;
+
+		for(int y = 0; y < mapDivisions; y++)
+		{
+			temp.push_back(FREE);
+		}
+		map.push_back(temp);
+	}
+
+	#ifdef PATH_DEBUG_OLD
+
+	mapWidth = 20;
+
 	//m_SceneGraph = graph;
 	playerPos.X = 5;
 	playerPos.Y = 5;
@@ -69,6 +83,7 @@ void PathPlanner::StartUp()//SceneGraphManager *graph)
 	debugRoute = aStar(7.0f, 5.0f, playerPos.X, playerPos.Y);
 	std::cout << "route size: " << debugRoute->size() << std::endl;
 	//UpdateMap();
+	#endif
 }
 
 void PathPlanner::ShutDown()
@@ -76,7 +91,7 @@ void PathPlanner::ShutDown()
 	
 }
 
-void PathPlanner::Run()
+void PathPlanner::DrawDebug()
 {
 #ifdef PATH_DEBUG
 	system("CLS");
@@ -105,7 +120,7 @@ void PathPlanner::Run()
 		std::cout << std::endl;
 	}
 #endif
-}
+ }
 
 void PathPlanner::OnKeyDown(KeyPressedEvent *key)
 {
@@ -114,13 +129,45 @@ void PathPlanner::OnKeyDown(KeyPressedEvent *key)
 	switch(keyInput->keysym.sym)
 	{
 		case SDLK_b:
-			UpdateMap();
+			UpdateDynamicMap(NULL);
 			break;
 	}
 }
 
-void PathPlanner::UpdateMap()
+void PathPlanner::SetupStaticMap(std::vector<std::vector<int>> *staticMap)
 {
+	for(int x = 0; x < mapDivisions; x++)
+	{
+		for(int y = 0; y < mapDivisions; y++)
+		{
+			if(staticMap->at(x).at(y) != FREE)
+			{
+				map[x][y] = staticMap->at(x).at(y);
+			}
+		}
+	}
+}
+
+void PathPlanner::UpdateDynamicMap(std::vector<std::vector<int>> *dynamicMap)
+{
+	for(int x = 0; x < mapDivisions; x++)
+	{
+		for(int y = 0; y < mapDivisions; y++)
+		{
+			if(map[x][y] == PLAYER || map[x][y] == TARGET)
+			{
+				map[x][y] = FREE;
+			}
+
+			if(dynamicMap->at(x).at(y) != FREE)
+			{
+				map[x][y] = dynamicMap->at(x).at(y);
+			}
+		}
+	}
+
+
+	#ifdef PATH_DEBUG_OLD
 	if(debugRoute->size() > 0)
 	{
 		map[playerPos.X][playerPos.Y] = FREE;
@@ -129,6 +176,7 @@ void PathPlanner::UpdateMap()
 		debugRoute->erase(debugRoute->begin());
 		map[playerPos.X][playerPos.Y] = PLAYER;
 	}
+	#endif
 }
 
 bool PathPlanner::isValidNeighbour(Node* neighbour, Plan* plan)
@@ -275,8 +323,6 @@ std::vector<Point>* PathPlanner::aStar(float distinationX, float distinationY, f
 	return plan.route;
 }
 
-
-
 int PathPlanner::ConvertToPlanningMapCoordinate( float x )
 {
 	return (int) ((x / mapWidth) * mapDivisions);
@@ -284,7 +330,7 @@ int PathPlanner::ConvertToPlanningMapCoordinate( float x )
 
 float PathPlanner::ConvertToPhysicsMapCoordinates( float x )
 {
-	return (mapWidth/mapDivisions) * x;
+	return (mapWidth / mapDivisions) * x;
 }
 
 #if 0

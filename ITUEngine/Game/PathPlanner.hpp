@@ -60,40 +60,45 @@ enum gridElements
 //#define MULTIPLIER 100.0f
 //#define DANGER_DIST 3.0f
 
+#define MAP_SIZE 40
+
 class PathPlanner : public IKeyboardEvent
 {
 	SINGLETON( PathPlanner )
 
 public:
 	
-	std::vector<std::vector<int> > map;
-	//SceneGraphManager *m_SceneGraph;
-	vector<Point>* debugRoute;
+	std::vector<std::vector<int>> map;
+	
+	vector<Point> *debugRoute;
 	Point playerPos;
 
-	void StartUp();//SceneGraphManager *graph);
+	void StartUp(int width);
 	void ShutDown();
-	void Run();
+	void DrawDebug();
 
-	void UpdateMap();
+	void SetupStaticMap(std::vector<std::vector<int>> *staticMap);
 
-	bool isValidNeighbour(Node* neighbour, Plan* plan);
+	void UpdateDynamicMap(std::vector<std::vector<int>> *dynamicMap);
 
-	Node* backTrack(Node* cNode, Plan *plan, int locationX, int locationY);
+	bool isValidNeighbour(Node *neighbour, Plan *plan);
 
-	Node* recursiveAstar(Node* currentNode, Plan* plan);
+	Node* backTrack(Node *cNode, Plan *plan, int locationX, int locationY);
+
+	Node* recursiveAstar(Node *currentNode, Plan *plan);
 	//node* recursiveAstar(node* currentNode, plan* ghostPlan, int weightX, int weightY, std::vector<std::vector<int> > &map);
 
 	std::vector<Point>* aStar(float distinationX, float distinationY, float locationX, float locationY);
 
 	float ConvertToPhysicsMapCoordinates( float x );
+	int ConvertToPlanningMapCoordinate( float x );
 
 	//void aStar(int &steps, int &outX, int &outY, int distinationX, int distinationY, int locationX, int locationY, int weightX, int weightY, std::vector<std::vector<int> > &map);
 protected:
 	void OnKeyDown(KeyPressedEvent *key);
 private:
+
 	
-	int ConvertToPlanningMapCoordinate( float x );
 
 	//Number of divisions of the map, for usage in the path planning
 	int mapDivisions;

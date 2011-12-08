@@ -140,7 +140,7 @@ SceneGraphManager *createGraph()
 	//camera->Up = *(new Vector3f(1, 1, 0));
 
 	SceneGraphManager *sceneGraph = new SceneGraphManager(camera, root);
-	SINGLETONINSTANCE(PathPlanner)->StartUp();//sceneGraph);
+
 	return sceneGraph;
 }
 /*
