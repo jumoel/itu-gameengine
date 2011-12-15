@@ -54,6 +54,7 @@ Object::~Object()
 void Object::SetPos2D(float x, float y)
 {
 	pos->SetX(x), pos->SetY(y);
+	if(physicsModel != NULL) physicsModel->SetPosition(x,y);
 	transformation->Reset();
 	transformation->Translate(pos->x(), pos->y(), pos->z());
 	transformation->MultiplyWith(*rotation);
@@ -72,6 +73,7 @@ void Object::Rotate(float degrees, float x, float y, float z)
 void Object::SetScale(float x, float y, float z)
 {
 	scale = transformation->createScale(x,y,z);
+	if(physicsModel != NULL) physicsModel->scale(x,y);
 	transformation->Reset();
 	transformation->Translate(pos->x(), pos->y(), pos->z());
 	transformation->MultiplyWith(*rotation);
@@ -90,6 +92,7 @@ void Object::setLookAt2D(float x, float y)
 	float length = sqrt(x*x + y*y);
 	if(length > 0)
 	{	
+		physicsModel->SetDirection(x,y);
 		rotation = transformation->createRotate(90.0f, 1.0f, 0.0f, 0.0f);
 		x = x/length;
 		y = y/length;

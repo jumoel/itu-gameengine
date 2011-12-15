@@ -207,6 +207,9 @@
     <ClCompile Include="GetOGLPos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Subsystems\Physics\PhysicsModels\PhysicsModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Managers\Engine.hpp">
