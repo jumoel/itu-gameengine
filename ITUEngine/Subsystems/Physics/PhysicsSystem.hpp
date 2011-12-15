@@ -4,6 +4,7 @@
 #include <Subsystems/Physics/PhysicsModels/PhysicsModel.hpp>
 #include <vector>
 
+
 class PhysicsSystem
 {
 public:
@@ -18,6 +19,10 @@ public:
 	void MoveCircleObject( Circle *circle, std::vector<MovingObjectModel*>::iterator movingObjectIterator, unsigned int deltaT );
 
 	void Step(unsigned int deltaT);
+
+	void SetDynamicPathMap();
+	void SetStaticPathMap();
+
 
 	void AddMovingObject(MovingObjectModel *movingObject);
 	void AddStaticObject(StaticObjectModel *staticObject);

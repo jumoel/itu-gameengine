@@ -3,11 +3,18 @@
 #include <Math/CollisionDetection2D.hpp>
 #include <iostream>
 
+//#define PHYSICS_DEBUG
+
 void PhysicsSystem::StartUp()
 {
 	m_StaticObjects = new std::vector<StaticObjectModel*>();
 	m_MovingObjects = new std::vector<MovingObjectModel*>();
 
+	//TODO: Initialize Properly
+	int mapWidth = 40;
+	SINGLETONINSTANCE(PathPlanner)->StartUp(mapWidth);
+
+#ifdef PHYSICS_DEBUG
 	// Insert test data
 
 	//Rectangles:
@@ -31,22 +38,29 @@ void PhysicsSystem::StartUp()
 	staticTestItem4->InitializeAsRectangle(Rectangle(Point(19.0f, 0.0f), 1.0f, 10.0f));
 	m_StaticObjects->push_back(staticTestItem4);
 
-	//Circles: Assumed to be moving
+	//Circles: moving
 	//Center = (5,6) - Radius: 1 - Direction: (1,1)
-	auto movingTestItem1 = new MovingObjectModel(CIRCULARSHAPE, 1.0f, Point(1.0f, 1.0f));
+	auto movingTestItem1 = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, Point(1.0f, 1.0f));
 	movingTestItem1->InitializeAsCircle(Circle(Point(5.0f, 6.0f), 1.0f));
 	m_MovingObjects->push_back(movingTestItem1);
 
 	//Center = (7,3) - Radius: 1 - Direction: (1,1)
 
-	auto movingTestItem2 = new MovingObjectModel(CIRCULARSHAPE, 1.0f, Point(1.0f, 1.0f));
+	auto movingTestItem2 = new MovingObjectModel(CIRCULARSHAPE, CRITTERTYPE, Point(1.0f, 1.0f));
 	movingTestItem2->InitializeAsCircle( Circle(Point(7.0f, 3.0f), 1.0f) );
 	m_MovingObjects->push_back(movingTestItem2);
 
 	//Center = (10,5) - Radius: 1 - Direction: (-1,-1)
-	auto movingTestItem3 = new MovingObjectModel(CIRCULARSHAPE, 1.0f, Point(-1.0f, -1.0f) );
+	auto movingTestItem3 = new MovingObjectModel(CIRCULARSHAPE, CRITTERTYPE, Point(-1.0f, -1.0f) );
 	movingTestItem3->InitializeAsCircle( Circle(Point(10.0f, 5.0f), 1.0f) );
 	m_MovingObjects->push_back(movingTestItem3);
+
+	SetStaticPathMap();
+
+	movingTestItem1->SetTargetPosition(new Point(15.0f, 6.0f));
+
+	movingTestItem2->SetTargetPosition(new Point(12.0f, 7.0f));
+#endif
 }
 
 void PhysicsSystem::ShutDown()
@@ -223,6 +237,10 @@ void PhysicsSystem::Step(unsigned int deltaT)
 		}
 	}
 
+	//Update path finding map
+	SetDynamicPathMap();
+	SINGLETONINSTANCE(PathPlanner)->DrawDebug();
+
 	//Check for collisions with stuff
 	for(movingObjectIterator = m_MovingObjects->begin(); 
 		movingObjectIterator != m_MovingObjects->end();
@@ -342,4 +360,85 @@ void PhysicsSystem::MoveCircleObject( Circle *circle, std::vector<MovingObjectMo
 		+ (*movingObjectIterator)->GetDirection()->X * (*movingObjectIterator)->GetMovementSpeed() * deltaT;
 	circle->Center.Y = (*movingObjectIterator)->GetCircularRepresentation()->Center.Y 
 		+ (*movingObjectIterator)->GetDirection()->Y * (*movingObjectIterator)->GetMovementSpeed() * deltaT;
+}
+
+void PhysicsSystem::SetDynamicPathMap()
+{
+	std::vector<std::vector<int>> *map = new std::vector<std::vector<int>>(MAP_SIZE, std::vector<int>(MAP_SIZE, 0));
+
+	std::vector<MovingObjectModel*>::iterator dynamicObjectIterator;
+	for(dynamicObjectIterator = m_MovingObjects->begin(); 
+		dynamicObjectIterator != m_MovingObjects->end();
+		dynamicObjectIterator++)
+	{
+		float posx = (*dynamicObjectIterator)->GetPosition()->X;
+		float posy = (*dynamicObjectIterator)->GetPosition()->Y;
+
+		float targetPosX = (*dynamicObjectIterator)->GetTargetPosition()->X;
+		float targetPosY = (*dynamicObjectIterator)->GetTargetPosition()->Y;
+
+		int x = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(posx);
+		int y = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(posy);
+
+		int targetX = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(targetPosX);
+		int targetY = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(targetPosY);
+
+		if((*dynamicObjectIterator)->GetShape() == CIRCULARSHAPE)
+		{
+			//NOTE: Right now a player is always 1 node large in the Path Finding algorithm.
+			map->at(targetX)[targetY] = TARGET;
+			map->at(x)[y] = PLAYER;
+		}
+		else if((*dynamicObjectIterator)->GetShape() == RECTANGULARSHAPE)
+		{
+			//NOT IMPLEMENTED
+		}
+	}
+
+	SINGLETONINSTANCE(PathPlanner)->UpdateDynamicMap(map);
+}
+
+void PhysicsSystem::SetStaticPathMap()
+{
+	std::vector<std::vector<int>> *map = new std::vector<std::vector<int>>(MAP_SIZE, std::vector<int>(MAP_SIZE, 0));
+
+	std::vector<StaticObjectModel*>::iterator staticObjectIterator;
+	for(staticObjectIterator = m_StaticObjects->begin(); 
+		staticObjectIterator != m_StaticObjects->end();
+		staticObjectIterator++)
+	{
+		float posx = (*staticObjectIterator)->GetPosition()->X;
+		float posy = (*staticObjectIterator)->GetPosition()->Y;
+
+		int x = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(posx);
+		int y = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(posy);
+
+		if((*staticObjectIterator)->GetShape() == CIRCULARSHAPE)
+		{
+			auto circle = (*staticObjectIterator)->GetCircularRepresentation();
+			int radius = circle->Radius;
+
+			for (unsigned int i = -radius; i <= radius; i++ )
+			{
+				for (unsigned int j = -radius; j <= radius; j++)
+				{
+					map->at(x + i)[y + j] = BLOCKED;
+				}
+			}
+		}
+		else if((*staticObjectIterator)->GetShape() == RECTANGULARSHAPE)
+		{
+			auto rectangle = (*staticObjectIterator)->GetRectangularRepresentation();
+			int width = rectangle->Width;
+			int height = rectangle->Height;
+
+			for (unsigned int i = 0; i < width; i++ )
+			{
+				for (unsigned int j = 0; j < height; j++)
+				{
+					map->at(x + i)[y + j] = BLOCKED;
+				}
+			}
+		}
+	}
 }

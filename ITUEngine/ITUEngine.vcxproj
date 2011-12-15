@@ -93,7 +93,6 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClCompile Include="Managers\EventManager.cpp" />
     <ClCompile Include="Events\Interfaces\IEventManager.cpp" />
     <ClCompile Include="Game\Camera.cpp" />
-    <ClCompile Include="Events\CollisionEvent.cpp" />
     <ClCompile Include="Events\EventObject.cpp" />
     <ClCompile Include="Game\FPSCalculator.cpp" />
     <ClCompile Include="Game\GfxModel.cpp" />
@@ -148,7 +147,6 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClInclude Include="Game\Texture.hpp" />
     <ClInclude Include="Events\Interfaces\InterfaceTemplateEventManager.hpp" />
     <ClInclude Include="Game\Camera.hpp" />
-    <ClInclude Include="Events\CollisionEvent.hpp" />
     <ClInclude Include="Events\EventObject.hpp" />
     <ClInclude Include="Events\Input\KeyPressedEvent.hpp" />
     <ClInclude Include="Game\FPSCalculator.hpp" />

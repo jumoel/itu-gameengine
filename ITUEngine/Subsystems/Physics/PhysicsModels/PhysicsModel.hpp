@@ -128,6 +128,7 @@ public:
 		//Copy the geometric representation.
 		m_CircularRepresentation = Circle(geoRep);		
 		m_CirclePhantom = Circle(geoRep);
+		m_TargetPosition = new Point(m_CircularRepresentation.Center);
 	}
 
 	void InitializeAsRectangle(Rectangle &geoRep)
@@ -135,6 +136,7 @@ public:
 		//Copy the geometric representation.
 		m_RectangularRepresentation = Rectangle(geoRep);
 		m_RectanglePhantom = Rectangle(geoRep);
+		m_TargetPosition = new Point(m_RectangularRepresentation.MinXY);
 	}
 
 	Circle* GetCirclePhantom()
@@ -178,7 +180,9 @@ public:
 		{
 			auto next = m_Path->at(0);
 
-			Point tempDirection = &next - GetPosition();
+			auto pos = GetPosition();
+
+			Point tempDirection = next - pos;
 
 			m_Direction = tempDirection.GetNormalizedPoint();
 		}
@@ -209,7 +213,9 @@ public:
 				else
 				{
 					next = m_Path->at(0);
-					Point newDirection = &next - GetPosition();
+					auto pos = GetPosition();
+
+					Point newDirection = next - pos;
 					m_Direction = newDirection.GetNormalizedPoint();
 				}
 
