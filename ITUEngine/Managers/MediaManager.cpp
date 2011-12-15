@@ -98,16 +98,18 @@ void MediaManager::StartUp()
 	carTexture2 = LoadTexture("Resources/truck_1915.tga", "Resources/truck_1915.jpg");
 	playerTex = LoadTexture("Resources/kalahk.tga", "Resources/kalahk.jpg");
 	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
-	LoadTexture("Resources/CRATE.tga", "Resources/CRATE.bmp");
-	LoadTexture("Resources/CRATE_128.tga", "Resources/CRATE_128.bm");
+	LoadTexture("Resources/1b9a24c3118674f59ef3cb7ac19eab3d.tga", "Resources/1B9A24C3.PNG");
+	LoadTexture("Resources/box_diffuse.tga", "Resources/BOX_DIFF.PNG");
+	LoadTexture("Resources/cardboard2_5.tga", "Resources/cardboard2_5.jpg");
+	LoadTexture("Resources/cardboard2_5.tga", "Resources/CARDBOAR.JPG");
 	
 
-
+	boxModel = ImportAssimpModel("Resources/box.3ds");
 	ground = ImportAssimpModel("Resources/plane.3ds");
-	carModel = ImportAssimpModel("Resources/truck_1915.ms3d");
+	//carModel = ImportAssimpModel("Resources/truck_1915.ms3d");
 	//playerModel = LoadModel("Resources/Model.ms3d");
 	crazyModel = ImportAssimpModel("Resources/Kalahk.ms3d");
-	boxModel = ImportAssimpModel("Resources/crate1.3ds");
+	
 }
 
 void MediaManager::ShutDown()

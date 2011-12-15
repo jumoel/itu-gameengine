@@ -2,6 +2,8 @@
 #define ITUENGINE_MATRIX4X4F_H
 #include <Math/Vector3f.hpp>
 
+#define PI 3.1415926f
+
 class Matrix4x4f
 {
 public:
