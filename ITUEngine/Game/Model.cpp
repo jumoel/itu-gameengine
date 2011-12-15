@@ -222,6 +222,10 @@ void Model::Render()
 			{
 				m_Materials[MaterialIndex]->texture->Bind(GL_TEXTURE0);
 			}
+			else
+			{
+				SINGLETONINSTANCE(MediaManager)->defaultTex->Bind(GL_TEXTURE0);
+			}
 			glMaterialfv(GL_FRONT, GL_DIFFUSE, m_Materials[MaterialIndex]->diffuse);
 			glMaterialfv(GL_FRONT, GL_SPECULAR, m_Materials[MaterialIndex]->specular);
 			glMaterialfv(GL_FRONT, GL_AMBIENT, m_Materials[MaterialIndex]->ambient);
@@ -230,6 +234,7 @@ void Model::Render()
         }
 		else
 		{
+			SINGLETONINSTANCE(MediaManager)->defaultTex->Bind(GL_TEXTURE0);
 			float *temp = new float[4];
 			temp[0] = 1.0f, temp[1] = 1.0f, temp[2] = 1.0f, temp[3] = 1.0f; 
 			glMaterialfv(GL_FRONT, GL_DIFFUSE, temp);

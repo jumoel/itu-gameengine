@@ -20,9 +20,20 @@ public:
 	int VboId;
 	int VboOffset;
 
+	void SetPos2D(float x, float y);
+	Vector3f* getPos();
+	void Rotate(float degrees, float x, float y, float z);
+	void setLookAt2D(float x, float y);
+	void SetScale(float x, float y, float z);
+
 	Object();
 	Object(PhysicsModel *physics);
 	~Object();
+private:
+	Vector3f *pos;
+	Vector2f *forward2D;
+	Matrix4x4f *rotation;
+	Matrix4x4f *scale;
 
 };
 

@@ -187,6 +187,7 @@ Matrix4x4f* Matrix4x4f::Rotate(float degrees, float x, float y, float z)
 		y = y/length;
 		z = z/length;
 		// Rotate by <degrees> around (x, y, z)
+		degrees = (degrees * 180)/PI;
 		float c = cosf(degrees);
 		float s = sinf(degrees);
 		float t = 1 - c;
@@ -253,6 +254,7 @@ Matrix4x4f* Matrix4x4f::createRotate(float degrees, float x, float y, float z)
 		y = y/length;
 		z = z/length;
 		// Rotate by <degrees> around (x, y, z)
+		degrees = (degrees/180.0f)*PI;
 		float c = cosf(degrees);
 		float s = sinf(degrees);
 		float t = 1 - c;
