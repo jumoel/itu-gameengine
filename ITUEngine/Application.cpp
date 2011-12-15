@@ -1,6 +1,6 @@
 #include <Managers/Engine.hpp>
-//#include <Globals.hpp>
-Engine *g_Engine;
+#include <Globals.hpp>
+//Engine *g_Engine;
 
 int main(int argc, char **argv)
 {

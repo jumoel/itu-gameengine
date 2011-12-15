@@ -4,6 +4,9 @@
 #include <Managers/MediaManager.hpp>
 #include <Managers/LightingManager.hpp>
 #include <Subsystems/Physics/PhysicsModels/PhysicsModel.hpp>
+//#include <Application.cpp>
+//#include <Globals.hpp>
+//#include <Subsystems/Physics/PhysicsSystem.hpp>
 
 SceneGraphManager *createGraph()
 {
@@ -37,13 +40,13 @@ SceneGraphManager *createGraph()
 	auto player = new Object();
 	player->Name = "Player";
 	player->model =  SINGLETONINSTANCE( MediaManager )->crazyModel;
-	player->physicsModel = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward);
+	player->physicsModel = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward, player);
 	Circle circle(Point(0.0f,0.0f),0.5f);
 	player->physicsModel->InitializeAsCircle(circle);
 	player->SetPos2D(20,20);
 	player->setLookAt2D(forward.X,forward.Y);
-	player->physicsModel = new MovingObjectModel(2,10, point);
-	
+	//player->
+	//player->physicsModel->debug();
 
 	Rectangle physicsBox(Point(-0.5f, -0.5f), 1.0f, 1.0f);
 
@@ -54,7 +57,7 @@ SceneGraphManager *createGraph()
 	box->physicsModel->InitializeAsRectangle(physicsBox);
 	box->SetPos2D(20.0f, 0.0f);
 	box->SetScale(40.0f, 1.0f, 3.0f);
-	
+	//box->physicsModel->debug();
 	
 	auto box1 = new Object();
 	box1->Name = "Box1";

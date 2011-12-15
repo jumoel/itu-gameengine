@@ -1,6 +1,7 @@
 #include <Subsystems/Physics/PhysicsSystem.hpp>
 #include "PhysicsModels/PhysicsModel.hpp"
 #include <Math/CollisionDetection2D.hpp>
+#include <Game/Object.hpp>
 #include <iostream>
 
 //#define PHYSICS_DEBUG
@@ -356,10 +357,24 @@ void PhysicsSystem::AddStaticObject( StaticObjectModel *staticObject )
 
 void PhysicsSystem::MoveCircleObject( Circle *circle, std::vector<MovingObjectModel*>::iterator movingObjectIterator, unsigned int deltaT )
 {
-	circle->Center.X = (*movingObjectIterator)->GetCircularRepresentation()->Center.X 
+	//(*movingObjectIterator)->Move(circle, deltaT);
+
+	if((*movingObjectIterator)->GetOwner() == NULL)
+	{
+		circle->Center.X = (*movingObjectIterator)->GetCircularRepresentation()->Center.X 
 		+ (*movingObjectIterator)->GetDirection()->X * (*movingObjectIterator)->GetMovementSpeed() * deltaT;
-	circle->Center.Y = (*movingObjectIterator)->GetCircularRepresentation()->Center.Y 
+		circle->Center.Y = (*movingObjectIterator)->GetCircularRepresentation()->Center.Y 
+		+ (*movingObjectIterator)->GetDirection()->Y * (*movingObjectIterator)->GetMovementSpeed() * deltaT;	
+	}
+	else
+	{
+		float tempX = (*movingObjectIterator)->GetCircularRepresentation()->Center.X 
+		+ (*movingObjectIterator)->GetDirection()->X * (*movingObjectIterator)->GetMovementSpeed() * deltaT;
+		float tempY = (*movingObjectIterator)->GetCircularRepresentation()->Center.Y 
 		+ (*movingObjectIterator)->GetDirection()->Y * (*movingObjectIterator)->GetMovementSpeed() * deltaT;
+		
+		(*movingObjectIterator)->GetOwner()->SetPos2D(tempX,tempY);
+	}
 }
 
 void PhysicsSystem::SetDynamicPathMap()

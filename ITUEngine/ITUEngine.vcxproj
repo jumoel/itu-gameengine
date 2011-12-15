@@ -105,6 +105,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClCompile Include="Managers\InputManager.cpp" />
     <ClCompile Include="Managers\LightingManager.cpp" />
     <ClCompile Include="Managers\MediaManager.cpp" />
+    <ClCompile Include="Subsystems\Physics\PhysicsModels\PhysicsModel.cpp" />
     <ClCompile Include="Utils\StackAllocator.cpp" />
     <ClCompile Include="Managers\SettingsManager.cpp" />
     <ClCompile Include="Math\CollisionDetection2D.cpp" />
