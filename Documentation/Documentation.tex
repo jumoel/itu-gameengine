@@ -1,0 +1,62 @@
+\documentclass[a4paper,11pt,english,openany,oneside]{memoir}
+%\documentclass[a4paper,11pt,danish,openany,oneside]{memoir}
+\usepackage{universityreport}
+\usepackage{pdfpages}
+
+\date{December 2011}
+
+\newcommand{\mytitle}{Documentation}
+\newcommand{\mysubject}{Game Engines}
+
+\newcommand{\emil}  {Emil Erik Hansen\xspace}
+\newcommand{\julian}{Julian Møller\xspace}
+\newcommand{\mads}	{Mads Johansen\xspace}
+\newcommand{\rene}  {René Korsgaard\xspace}
+\newcommand{\steen} {Steen Nordsmark Pedersen\xspace}
+
+\preauthor{
+  \begin{center}\footnotesize
+  Udarbejdet af: \\
+  \vspace{1em}
+  \begin{tabular}{lll}
+}
+\postauthor{
+  \end{tabular}\\
+  \vspace{4em}
+  \footnotesize
+  IT University of Copenhagen \\
+  December 2011
+  \end{center}
+}
+\author{
+    \emil & 14-06-85 & \email{emha@itu.dk} \\
+    \julian & 18-03-87 & \email{jumo@itu.dk} \\
+    \mads & 22-05-85 & \email{madj@itu.dk} \\
+    \rene & 28-05-84 & \email{reko@itu.dk} \\
+    \steen & 15-02-87 & \email{snop@itu.dk}
+}
+\title{\mytitle}
+
+\let\oldpartnumberline\partnumberline
+
+\begin{document}
+\frontmatter
+\preamble
+
+\mainmatter
+
+\renewcommand{\partname}{}
+\renewcommand{\printpartnum}{}
+\renewcommand{\thepart}{}
+
+% In case we need an actual introduction.
+\chapter{Introduction}
+
+% The essence of it all.
+\chapter{Engine Description}
+
+\section{Managers}
+
+\section{}
+
+\end{document}
