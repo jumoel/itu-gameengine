@@ -15,6 +15,11 @@ StackAllocator::~StackAllocator()
 	free((void*)Root);
 }
 
+Uint32 StackAllocator::GetMemoryUsage()
+{
+	return ((Uint32) Current - (Uint32) Root);
+}
+
 void* StackAllocator::Allocate(Uint32 size_bytes)
 {
 	// Allocates a new block of the given size from stack top.
@@ -39,6 +44,7 @@ void StackAllocator::FreeToMarker(Marker marker)
 
 void StackAllocator::Clear()
 {
+	
 	// Clears the entire stack (rolls the stack back to zero).
 	Current = Root;
 }
