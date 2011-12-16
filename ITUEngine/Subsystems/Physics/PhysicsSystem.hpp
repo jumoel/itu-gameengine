@@ -2,14 +2,14 @@
 #define ITUENGINE_PHYSICSSYSTEM_H
 
 #include <Subsystems/Physics/PhysicsModels/PhysicsModel.hpp>
+#include <Templates/TSingleton.hpp>
 #include <vector>
 
 
 class PhysicsSystem
 {
+	SINGLETON( PhysicsSystem )
 public:
-	PhysicsSystem() {}
-	~PhysicsSystem() {}
 
 	void StartUp();
 	void ShutDown();

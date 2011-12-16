@@ -96,11 +96,12 @@ void Engine::StartUp()
 	m_Window = new Window();
 	m_Window->StartUp();
 
+	//IMPORTANT: Call this before m_Graphics->StartUp()
+	m_Physics = SINGLETONINSTANCE(PhysicsSystem);
+	m_Physics->StartUp();
+
 	m_Graphics = new GraphicsSystem();
 	m_Graphics->StartUp();
-
-	m_Physics = new PhysicsSystem();
-	m_Physics->StartUp();
 
 	m_FPSCalculator = new FPSCalculator();
 	m_FPSCalculator->StartUp();

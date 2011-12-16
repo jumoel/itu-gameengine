@@ -49,7 +49,7 @@ public:
 		m_RectangularRepresentation = Rectangle(rectangularRepresentation);
 	}
 
-	void InitializeAsCircle(Circle &circularRepresentation)
+	void virtual InitializeAsCircle(Circle &circularRepresentation)
 	{
 		//Copy the geometric representation.
 		m_CircularRepresentation = Circle(circularRepresentation);		
@@ -129,7 +129,8 @@ public:
 		}
 	}
 
-	void SetDirection(float x, float y);
+	void virtual SetDirection(float x, float y);
+	void virtual SetTargetPosition(Point *target){}
 
 	void debug()
 	{
@@ -240,6 +241,7 @@ public:
 
 	void SetTargetPosition(Point *target)
 	{
+		std::cout << "hey" << std::endl;
 		if(m_Path != NULL)
 		{
 			delete m_Path;

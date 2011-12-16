@@ -4,9 +4,7 @@
 #include <Managers/MediaManager.hpp>
 #include <Managers/LightingManager.hpp>
 #include <Subsystems/Physics/PhysicsModels/PhysicsModel.hpp>
-//#include <Application.cpp>
-//#include <Globals.hpp>
-//#include <Subsystems/Physics/PhysicsSystem.hpp>
+#include <Subsystems/Physics/PhysicsSystem.hpp>
 
 SceneGraphManager *createGraph()
 {
@@ -40,65 +38,81 @@ SceneGraphManager *createGraph()
 	auto player = new Object();
 	player->Name = "Player";
 	player->model =  SINGLETONINSTANCE( MediaManager )->crazyModel;
-	player->physicsModel = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward, player);
+	MovingObjectModel* tempMovingObject = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward, player);
+	player->physicsModel = tempMovingObject;
+	//player->physicsModel = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward, player);
 	Circle circle(Point(0.0f,0.0f),0.5f);
 	player->physicsModel->InitializeAsCircle(circle);
+	SINGLETONINSTANCE(PhysicsSystem)->AddMovingObject(tempMovingObject);
 	player->SetPos2D(20,20);
 	player->setLookAt2D(forward.X,forward.Y);
+	player->physicsModel->SetTargetPosition(new Point(1,1));
 	//player->
 	//player->physicsModel->debug();
 
-	Rectangle physicsBox(Point(-0.5f, -0.5f), 1.0f, 1.0f);
+	/*Rectangle physicsBox(Point(-0.5f, -0.5f), 1.0f, 1.0f);
 
 	auto box = new Object();
 	box->Name = "Box";
 	box->model =  SINGLETONINSTANCE( MediaManager )->boxModel;
-	box->physicsModel = new StaticObjectModel(RECTANGULARSHAPE);
+	StaticObjectModel* tempStaticObject = new StaticObjectModel(RECTANGULARSHAPE);
+	box->physicsModel = tempStaticObject;
 	box->physicsModel->InitializeAsRectangle(physicsBox);
+	SINGLETONINSTANCE(PhysicsSystem)->AddStaticObject(tempStaticObject);
 	box->SetPos2D(20.0f, 0.0f);
 	box->SetScale(40.0f, 1.0f, 3.0f);
 	//box->physicsModel->debug();
 	
 	auto box1 = new Object();
 	box1->Name = "Box1";
+	tempStaticObject = new StaticObjectModel(RECTANGULARSHAPE);
 	box1->model =  SINGLETONINSTANCE( MediaManager )->boxModel;
-	box1->physicsModel = new StaticObjectModel(RECTANGULARSHAPE);
+	box1->physicsModel = tempStaticObject;
 	box1->physicsModel->InitializeAsRectangle(physicsBox);
+	SINGLETONINSTANCE(PhysicsSystem)->AddStaticObject(tempStaticObject);
 	box1->SetPos2D(20.0f, 40.0f);
 	box1->SetScale(40.0f, 1.0f, 3.0f);
 
 	auto box2 = new Object();
 	box2->Name = "Box2";
 	box2->model =  SINGLETONINSTANCE( MediaManager )->boxModel;
-	box2->physicsModel = new StaticObjectModel(RECTANGULARSHAPE);
+	tempStaticObject = new StaticObjectModel(RECTANGULARSHAPE);
+	box2->physicsModel = tempStaticObject;
 	box2->physicsModel->InitializeAsRectangle(physicsBox);
+	SINGLETONINSTANCE(PhysicsSystem)->AddStaticObject(tempStaticObject);
 	box2->SetPos2D(0.0f, 20.0f);
 	box2->SetScale(1.0f, 40.0f, 3.0f);
 
 	auto box3 = new Object();
 	box3->Name = "Box3";
 	box3->model =  SINGLETONINSTANCE( MediaManager )->boxModel;
-	box3->physicsModel = new StaticObjectModel(RECTANGULARSHAPE);
+	tempStaticObject = new StaticObjectModel(RECTANGULARSHAPE);
+	box3->physicsModel = tempStaticObject;
 	box3->physicsModel->InitializeAsRectangle(physicsBox);
+	SINGLETONINSTANCE(PhysicsSystem)->AddStaticObject(tempStaticObject);
 	box3->SetPos2D(40.0f, 20.0f);
 	box3->SetScale(1.0f, 40.0f, 3.0f);
 
 	auto box4 = new Object();
 	box4->Name = "Box4";
 	box4->model =  SINGLETONINSTANCE( MediaManager )->boxModel;
-	box4->physicsModel = new StaticObjectModel(RECTANGULARSHAPE);
+	tempStaticObject = new StaticObjectModel(RECTANGULARSHAPE);
+	box4->physicsModel = tempStaticObject;
 	box4->physicsModel->InitializeAsRectangle(physicsBox);
+	SINGLETONINSTANCE(PhysicsSystem)->AddStaticObject(tempStaticObject);
 	box4->SetPos2D(27.0f, 15.0f);
 	box4->SetScale(1.0f, 30.0f, 3.0f);
 
 	auto box5 = new Object();
 	box5->Name = "Box5";
 	box5->model =  SINGLETONINSTANCE( MediaManager )->boxModel;
-	box5->physicsModel = new StaticObjectModel(RECTANGULARSHAPE);
+	tempStaticObject = new StaticObjectModel(RECTANGULARSHAPE);
+	box5->physicsModel = tempStaticObject;
 	box5->physicsModel->InitializeAsRectangle(physicsBox);
+	SINGLETONINSTANCE(PhysicsSystem)->AddStaticObject(tempStaticObject);
 	box5->SetPos2D(13.0f, 25.0f);
 	box5->SetScale(1.0f, 30.0f, 3.0f);
-	
+	*/
 
 	/*
 	Matrix4x4f *temp = new Matrix4x4f();
@@ -134,13 +148,13 @@ SceneGraphManager *createGraph()
 	
 	root->children->push_back(*ground);
 	
-	root->children->push_back(*box);
+	/*root->children->push_back(*box);
 	root->children->push_back(*box1);
 	root->children->push_back(*box2);
 	root->children->push_back(*box3);
 	root->children->push_back(*box4);
 	root->children->push_back(*box5);
-	
+	*/
 	root->children->push_back(*player);
 	
 	//root->children->push_back(*car);
