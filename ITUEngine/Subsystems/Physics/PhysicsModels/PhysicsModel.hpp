@@ -22,7 +22,7 @@ class Object;
 #define CRITTERTYPE 11
 
 //Maximum movementSpeeds
-#define MAXIMUMPLAYERSPEED 1.0f
+#define MAXIMUMPLAYERSPEED 0.2f
 #define MAXIMUMCRITTERSPEED 0.1f
 
 
@@ -241,7 +241,7 @@ public:
 
 	void SetTargetPosition(Point *target)
 	{
-		std::cout << "hey" << std::endl;
+		//std::cout << "hey" << std::endl;
 		if(m_Path != NULL)
 		{
 			delete m_Path;
@@ -261,40 +261,7 @@ public:
 
 
 
-	void RecalculatePath()
-	{
-		//Only do stuff if the path contains elements.
-		if(m_Path != NULL && !m_Path->empty())
-		{
-			auto next = m_Path->at(0);
-
-			Point tempDirection = &next - GetPosition();
-
-			tempDirection = tempDirection.GetNormalizedPoint();
-
-			Point oppositDirection = m_Direction.GetNegatedPoint();
-
-			//If direction got negated, we overshot our target or if we have reached our next goal
-			if(tempDirection == &oppositDirection || next == GetPosition())
-			{
-				m_Path->erase(m_Path->begin());
-
-				if(m_Path->empty())
-				{
-					m_MovementSpeed = 0;
-				}
-				else
-				{
-					next = m_Path->at(0);
-					auto pos = GetPosition();
-
-					Point newDirection = next - pos;
-					m_Direction = newDirection.GetNormalizedPoint();
-				}
-
-			}
-		}
-	}
+	void RecalculatePath();
 
 	void SetMovementSpeed(float movement)
 	{

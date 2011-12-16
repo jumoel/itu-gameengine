@@ -86,6 +86,12 @@ Vector3f* Object::getPos()
 	return pos;
 }
 
+void Object::SetForward(float x, float y)
+{
+	forward2D->SetX(x);
+	forward2D->SetY(y);
+}
+
 void Object::setLookAt2D(float x, float y)
 {
 	
@@ -97,8 +103,8 @@ void Object::setLookAt2D(float x, float y)
 		x = x/length;
 		y = y/length;
 
-		//float degrees = atan2(y,x) - atan2(forward2D->y(),forward2D->x());
-		float degrees = atan2(forward2D->y(),forward2D->x()) - atan2(y,x);
+		float degrees = atan2(y,x) - atan2(forward2D->y(),forward2D->x());
+		//float degrees = atan2(forward2D->y(),forward2D->x()) - atan2(y,x);
 		degrees = (degrees * 180)/PI;
 		std::cout << "Degrees: " << degrees << std::endl;
 		rotation->MultiplyWith(*(transformation->createRotate(degrees, 0.0f, 1.0f, 0.0f)));

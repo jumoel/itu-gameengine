@@ -330,7 +330,7 @@ int PathPlanner::ConvertToPlanningMapCoordinate( float x )
 
 float PathPlanner::ConvertToPhysicsMapCoordinates( float x )
 {
-	return (mapWidth / mapDivisions) * x;
+	return (mapWidth / mapDivisions) * x + (mapWidth / mapDivisions)*0.5f;
 }
 
 #if 0

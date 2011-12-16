@@ -147,9 +147,6 @@
     <ClCompile Include="Managers\MediaManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Subsystems\Graphics\GraphicsSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -208,6 +205,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Subsystems\Physics\PhysicsModels\PhysicsModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

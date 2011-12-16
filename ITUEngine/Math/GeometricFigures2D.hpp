@@ -20,7 +20,7 @@ public:
 
 	bool operator ==(Point *point)
 	{
-		float epsilon =  0.00001f;
+		float epsilon =  0.0001f;
 		float diffX = this->X - point->X;
 		float diffY = this->Y - point->Y;
 

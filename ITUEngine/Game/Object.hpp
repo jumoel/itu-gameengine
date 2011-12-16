@@ -25,6 +25,7 @@ public:
 	void Rotate(float degrees, float x, float y, float z);
 	void setLookAt2D(float x, float y);
 	void SetScale(float x, float y, float z);
+	void SetForward(float x, float y);
 
 	Object();
 	Object(PhysicsModel *physics);

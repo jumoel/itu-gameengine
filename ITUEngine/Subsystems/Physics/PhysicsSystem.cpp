@@ -10,10 +10,7 @@ void PhysicsSystem::StartUp()
 {
 	m_StaticObjects = new std::vector<StaticObjectModel*>();
 	m_MovingObjects = new std::vector<MovingObjectModel*>();
-
-	//TODO: Initialize Properly
-	int mapWidth = 40;
-	SINGLETONINSTANCE(PathPlanner)->StartUp(mapWidth);
+	
 
 #ifdef PHYSICS_DEBUG
 	// Insert test data
@@ -434,6 +431,7 @@ void PhysicsSystem::SetStaticPathMap()
 		{
 			auto circle = (*staticObjectIterator)->GetCircularRepresentation();
 			int radius = circle->Radius;
+			radius = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(radius);
 
 			for (unsigned int i = -radius; i <= radius; i++ )
 			{
@@ -446,8 +444,8 @@ void PhysicsSystem::SetStaticPathMap()
 		else if((*staticObjectIterator)->GetShape() == RECTANGULARSHAPE)
 		{
 			auto rectangle = (*staticObjectIterator)->GetRectangularRepresentation();
-			int width = rectangle->Width;
-			int height = rectangle->Height;
+			int width = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(rectangle->Width);
+			int height = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(rectangle->Height);
 
 			for (unsigned int i = 0; i < width; i++ )
 			{
@@ -458,4 +456,6 @@ void PhysicsSystem::SetStaticPathMap()
 			}
 		}
 	}
+	SINGLETONINSTANCE(PathPlanner)->UpdateDynamicMap(map);
+	delete map;
 }

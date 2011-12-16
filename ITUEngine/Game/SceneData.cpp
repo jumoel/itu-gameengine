@@ -19,12 +19,14 @@ SceneGraphManager *createGraph()
 	root->Name = "Root";
 	root->transformation->Reset();
 
+	float mapWidth = 40.0f;
 	auto ground = new Object();
 	ground->Name = "Ground";
 	ground->model =  SINGLETONINSTANCE( MediaManager )->ground;
 	ground->transformation->Reset();
 	ground->SetPos2D(20.0f,20.0f);
-	ground->SetScale(40.0f,40.0f,1.0f);
+	ground->SetScale(mapWidth,mapWidth,1.0f);
+	SINGLETONINSTANCE(PathPlanner)->StartUp(mapWidth);
 
 
 	Point point;
@@ -32,8 +34,9 @@ SceneGraphManager *createGraph()
 	point.Y = 0.0f;
 
 	Point forward;
-	forward.X = -1;
-	forward.Y = 0;
+	forward.X = 0;
+	forward.Y = -1;
+	forward = forward.GetNormalizedPoint();
 
 	auto player = new Object();
 	player->Name = "Player";
@@ -44,13 +47,15 @@ SceneGraphManager *createGraph()
 	Circle circle(Point(0.0f,0.0f),0.5f);
 	player->physicsModel->InitializeAsCircle(circle);
 	SINGLETONINSTANCE(PhysicsSystem)->AddMovingObject(tempMovingObject);
-	player->SetPos2D(20,20);
+	player->SetPos2D(5,35);
+	player->Rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	player->SetForward(0.0f, 1.0f);
 	player->setLookAt2D(forward.X,forward.Y);
-	player->physicsModel->SetTargetPosition(new Point(1,1));
+	
 	//player->
 	//player->physicsModel->debug();
 
-	/*Rectangle physicsBox(Point(-0.5f, -0.5f), 1.0f, 1.0f);
+	Rectangle physicsBox(Point(-0.5f, -0.5f), 1.0f, 1.0f);
 
 	auto box = new Object();
 	box->Name = "Box";
@@ -112,7 +117,7 @@ SceneGraphManager *createGraph()
 	SINGLETONINSTANCE(PhysicsSystem)->AddStaticObject(tempStaticObject);
 	box5->SetPos2D(13.0f, 25.0f);
 	box5->SetScale(1.0f, 30.0f, 3.0f);
-	*/
+	
 
 	/*
 	Matrix4x4f *temp = new Matrix4x4f();
@@ -148,18 +153,20 @@ SceneGraphManager *createGraph()
 	
 	root->children->push_back(*ground);
 	
-	/*root->children->push_back(*box);
+	root->children->push_back(*box);
 	root->children->push_back(*box1);
 	root->children->push_back(*box2);
 	root->children->push_back(*box3);
 	root->children->push_back(*box4);
 	root->children->push_back(*box5);
-	*/
+	
 	root->children->push_back(*player);
 	
 	//root->children->push_back(*car);
 
 	//std::cout << "Cosine of 90 = " << cosf(90.0f) << endl;
+	SINGLETONINSTANCE(PhysicsSystem)->SetStaticPathMap();
+	player->physicsModel->SetTargetPosition(new Point(35,5));
 
 	auto camera = new Camera();
 	camera->Position.SetX(20);
