@@ -1,0 +1,104 @@
+\documentclass[a4paper,11pt,english,openany,oneside]{memoir}
+\usepackage{universityreport}
+\usepackage{pdfpages}
+
+\date{December 2011}
+
+\newcommand{\mytitle}{Documentation of Engine}
+\newcommand{\mysubject}{Game Engines}
+
+\newcommand{\emil}  {Emil Erik Hansen\xspace}
+\newcommand{\julian}{Julian Møller\xspace}
+\newcommand{\mads}	{Mads Johansen\xspace}
+\newcommand{\rene}  {René Korsgaard\xspace}
+\newcommand{\steen} {Steen Nordsmark Pedersen\xspace}
+
+\preauthor{
+  \begin{center}
+  \footnotesize
+  Written by: \\
+  \vspace{1em}
+  \begin{tabular}{lll}
+}
+
+\author{
+    \emil & 14-06-85 & \email{emha@itu.dk} \\
+    \julian & 18-03-87 & \email{jumo@itu.dk} \\
+    \mads & 22-05-85 & \email{madj@itu.dk} \\
+    \rene & 28-05-84 & \email{reko@itu.dk} \\
+    \steen & 15-02-87 & \email{snop@itu.dk}
+}
+
+\postauthor{
+  \end{tabular}\\
+  \vspace{2em}
+  \footnotesize
+  Group: ``GROUPNAME'' \\
+  \vspace{8em}
+  IT University of Copenhagen \\
+  December 2011
+  \end{center}
+}
+\title{\mytitle}
+
+\let\oldpartnumberline\partnumberline
+
+\begin{document}
+\frontmatter
+\preamble
+
+\mainmatter
+
+\renewcommand{\partname}{}
+\renewcommand{\printpartnum}{}
+\renewcommand{\thepart}{}
+
+% In case we need an actual introduction.
+\chapter{Formalities}
+
+Add in all the formalities here.
+\begin{itemize}
+	\item Documentation Requirements
+	\item Engine Requirements
+	\item The chosen extra feature
+\end{itemize}
+
+Consider finding a more suiting section-name might be better (``Requirements''?).
+
+% The essence of it all.
+\chapter{Engine Description}
+More of an actual light introduction. Description of the engine and what it can be used for. Covers the ideas and design. See the sections below.
+
+\section{Scope}
+% Does it target a specific genre? What range of games do you have in mind that the engine would be suitable for?
+Describe that the engine is meant to be for Real-Time Strategy (RTS) games.
+
+\section{Design Rationale}
+% Were some of the design decisions made after considering alternatives, and do you have rationales for why you made the decisions you did? If so, tell us!
+Describe various design descriptions in detail.
+
+\section{Major Features}
+% What are the main features your engine supports?
+The things that makes the engine special, the primary forces and so on.
+
+\chapter{Engine Structure}
+% Give a high-level explanation of how the engine is structured (perhaps with an architecture diagram). Then, give at least brief explanations of how the major subsystems work, delving into more details for components that are particularly interesting, advanced, or unusual.
+
+More detailed about the structure of the various parts of the engine. The sections below are potential examples.
+
+\section{Manager System}
+
+\section{Events System}
+
+\section{Camera}
+
+\section{Physics}
+
+\section{Graphics}
+
+\chapter{Example Usage}
+% Give some examples illustrating interesting features of your engine and how they’d be used. Depending on the features, these can take the form of screenshots, code snippets, flow charts, and/or prose explanation.
+
+Giving examples is one of the requirements of the documentation. It could either be done throughout the document, or simply be here in a chapter for itself. Most likely a better idea, to keep it from the more in-depth technical facts.
+
+\end{document}

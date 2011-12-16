@@ -411,6 +411,8 @@ void PhysicsSystem::SetDynamicPathMap()
 	}
 
 	SINGLETONINSTANCE(PathPlanner)->UpdateDynamicMap(map);
+
+	delete map;
 }
 
 void PhysicsSystem::SetStaticPathMap()
