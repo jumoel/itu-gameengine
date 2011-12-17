@@ -394,6 +394,7 @@ void PhysicsSystem::SetDynamicPathMap()
 
 		int targetX = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(targetPosX);
 		int targetY = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(targetPosY);
+		SINGLETONINSTANCE(PathPlanner)->evaluateCoordinate(&targetX, &targetY);
 
 		if((*dynamicObjectIterator)->GetShape() == CIRCULARSHAPE)
 		{
