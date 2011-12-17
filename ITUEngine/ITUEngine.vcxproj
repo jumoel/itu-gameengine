@@ -138,6 +138,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClInclude Include="Game\dataTypes.hpp" />
     <ClInclude Include="Game\Model.hpp" />
     <ClInclude Include="GetOGLPos.hpp" />
+    <ClInclude Include="Utils\MemorySizes.hpp" />
     <ClInclude Include="Utils\ReferenceCounter.hpp" />
     <ClInclude Include="Utils\SmartPointer.hpp" />
     <ClInclude Include="Utils\StackAllocator.hpp" />
