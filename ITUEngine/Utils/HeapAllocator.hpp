@@ -1,6 +1,8 @@
 #ifndef ITUENGINE_HEAPALLOCATOR_HPP
 #define ITUENGINE_HEAPALLOCATOR_HPP
 
+#include <SDL_stdinc.h>
+
 class HeapAllocator
 {
 private:

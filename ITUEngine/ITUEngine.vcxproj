@@ -107,6 +107,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClCompile Include="PlayerInteraction.cpp" />
     <ClCompile Include="Subsystems\Physics\PhysicsModels\PhysicsModel.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Utils\HeapAllocator.cpp" />
     <ClCompile Include="Utils\ReferenceCounter.cpp" />
     <ClCompile Include="Utils\SmartPointer.cpp" />
     <ClCompile Include="Utils\StackAllocator.cpp" />
