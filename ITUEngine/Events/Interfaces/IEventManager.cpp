@@ -64,7 +64,7 @@ bool safeAbortEvent( EventType const & inType, bool allOfType /* = false */ )
 	return IEventManager::Instance()->AbortEvent( inType, allOfType );
 }
 
-bool safeTickEventManager( unsigned long maxMillis /* = -1 */ )
+bool safeProcessEventManager( unsigned long maxMillis /* = -1 */ )
 {
 	assert(IEventManager::Instance() && _T("No event manager!"));
 	return IEventManager::Instance()->ProcessEventQueue( maxMillis );
