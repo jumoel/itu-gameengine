@@ -131,9 +131,9 @@ More of an actual light introduction. Description of the engine and what it can 
 \section{Engine Scope}
 \label{sec:EngineScope}
 % Does it target a specific genre? What range of games do you have in mind that the engine would be suitable for?
-The engine targets the ``Hero \texttt{RTS}\footnote{Real-Time Strategy}''-genre. This includes games like \textit{Heroes of Newerth} and \textit{League of Legends}, based on the \textit{WarCraft III} modification \textit{Defense of the Ancients}.
+The engine targets the ``Hero \texttt{RTS}\footnote{Real-Time Strategy}''-genre. This includes games like \textit{Heroes of Newerth} and \textit{League of Legends}, based on the \textit{WarCraft III} modification \textit{Defense of the Ancients}. % Include reference to ``MOBA''? The style of game which DOTA is.
 
-A more broad and loose description would be multi-player games, in which each player only has one unit, that requires precision and quick reflexes.
+A more broad and loose description would be multi-player games, in which each player only has one unit, that requires precision and quick reflexes. 
 
 \section{Design Rationales}
 \label{sec:DesignRationales}
@@ -164,6 +164,13 @@ More detailed about the structure of the various parts of the engine. The sectio
 % Memory-management system. Design on paper first. Implement at least one kind of custom allocator, e.g. a stack allocator used for per-frame allocations.
 % Design a resource/dependency-management system, both runtime and offline portion (offline includes things like asset conditioning, and level format).
 % Quickest way to get some resources loading: wrap a library like assimp.sourceforge.net
+
+\subsection{Settings Manager}
+\label{sec:SettingsManager}
+% I think this is a good spot to describe the Settings Manager, as it doesn't really seem to fit in anywhere else.
+As every game needs variable settings and options, which should be easy to customize. We decided to keep the data in an external \texttt{XML}-file, so that it is easily changable outside the game. This opens up for the posibility of having a light-weight external tool.
+
+Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a DOM\footnote{The ``Document Object Model''-standard.} Tree, which is easily traversable and logically structured. In the same way, the tree can be exported back to the \texttt{XML}-file at any given time, and will also do so upon shutting down the engine.
 
 \section{Rendering}
 \label{sec:Rendering}
