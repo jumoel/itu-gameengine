@@ -2,10 +2,9 @@
 #define ITUENGINE_GETOGLPOS_H
 #include <Math/Vector3f.hpp>
 
-class GetOGLPos
+namespace GetOGLPos
 {
-public:
-		Vector3f GetPos(float mousex, float mousey);
+	Vector3f GetPos(float mousex, float mousey);
 };
 
 

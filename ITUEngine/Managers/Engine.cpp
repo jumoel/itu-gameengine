@@ -11,6 +11,7 @@
 #include <Managers/InputManager.hpp>
 
 #include <GetOGLPos.hpp>
+#include <Events/Interfaces/IEventManager.hpp>
 
 void Engine::Run()
 {
@@ -18,6 +19,7 @@ void Engine::Run()
 
 	SDL_Event event;
 	const EventType keydown("keydownEvent");
+
 
 	while (m_Running)
 	{
@@ -55,8 +57,8 @@ void Engine::Run()
 			case SDL_MOUSEMOTION:
 				mousex = event.motion.x;
 			    mousey = event.motion.y;
-				GetOGLPos testing;
-				test = testing.GetPos(mousex, mousey);
+				//GetOGLPos testing;
+				//test = testing.GetPos(mousex, mousey);
 				
 				
 				handleMouseMove(&event.motion, event.type);
@@ -67,12 +69,16 @@ void Engine::Run()
 			}
 		}
 
+
+		//Process eventQueue
+	//	safeProcessEventManager(IEventManager::eConstants::INFINITE);
+
+
 		//Step the physics system
 		m_Physics->Step(1);
 
 		// Display the graphics
 		m_Graphics->Render();
-
 
 		// Calculate and show FPS in title bar
 		m_FPSCalculator->SetCurrentTime(Time::GetCurrentMS());
@@ -145,11 +151,15 @@ void Engine::handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_key
 
 void Engine::handleMouseButtonPress( SDL_MouseButtonEvent *key, Uint8 eventtype)
 {
+	const EventType mouseClickPosition("mouseClickPositionEvent");
 	auto mouseButtonEvent = new MouseClickEvent(key, eventtype);
 
 	if(eventtype == SDL_MOUSEBUTTONDOWN)
 	{
 		InputManager::NotifyButtonDown(mouseButtonEvent);
+		auto mouseWorldPos = GetOGLPos::GetPos(key->x, key->y);
+		safeTriggerEvent( EventData<Vector3f>(mouseWorldPos, mouseClickPosition) );
+
 	}
 	else if(eventtype == SDL_MOUSEBUTTONUP)
 	{
