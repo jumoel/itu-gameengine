@@ -11,6 +11,7 @@
 #include <Managers/InputManager.hpp>
 
 #include <GetOGLPos.hpp>
+#include <Events/Interfaces/IEventManager.hpp>
 
 void Engine::Run()
 {
@@ -67,12 +68,14 @@ void Engine::Run()
 			}
 		}
 
+		//Process eventQueue
+		safeProcessEventManager(IEventManager.eConstants.INFINITE);
+
 		//Step the physics system
 		m_Physics->Step(1);
 
 		// Display the graphics
 		m_Graphics->Render();
-
 
 		// Calculate and show FPS in title bar
 		m_FPSCalculator->SetCurrentTime(Time::GetCurrentMS());
