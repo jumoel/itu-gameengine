@@ -83,9 +83,9 @@ void Engine::Run()
 		// Calculate and show FPS in title bar
 		m_FPSCalculator->SetCurrentTime(Time::GetCurrentMS());
 
-		char *title = new char[sizeof(char) * 50];
-		//char *title = (char *)m_SingleFrameAllocator->Allocate(sizeof(char) * 50);
-		sprintf_s(title, 50,"FPS: %d, Memory: %d bytes", m_FPSCalculator->GetFPS(), m_SingleFrameAllocator->GetMemoryUsage());
+		//char *title = new char[sizeof(char) * 50];
+		char *title = (char *)m_SingleFrameAllocator->Allocate(sizeof(char) * 50);
+		sprintf(title, "FPS: %d, Memory: %d bytes", m_FPSCalculator->GetFPS(), m_SingleFrameAllocator->GetMemoryUsage());
 		m_Window->SetWindowTitle(title);
 
 	} // while(m_Running)
@@ -112,7 +112,7 @@ void Engine::StartUp()
 	m_FPSCalculator = new FPSCalculator();
 	m_FPSCalculator->StartUp();
 
-	m_SingleFrameAllocator = new StackAllocator(GB(1));
+	m_SingleFrameAllocator = new StackAllocator(MB(100));
 
 	m_Running = false;
 }
@@ -120,6 +120,8 @@ void Engine::StartUp()
 void Engine::ShutDown()
 {
 	m_Running = false;
+
+	delete m_SingleFrameAllocator;
 
 	m_FPSCalculator->ShutDown();
 
