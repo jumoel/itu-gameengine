@@ -13,6 +13,8 @@
 #include <GetOGLPos.hpp>
 #include <Events/Interfaces/IEventManager.hpp>
 
+#include <Utils/MemorySizes.hpp>
+
 void Engine::Run()
 {
 	m_Running = true;
