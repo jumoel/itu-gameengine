@@ -104,6 +104,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClCompile Include="Managers\InputManager.cpp" />
     <ClCompile Include="Managers\LightingManager.cpp" />
     <ClCompile Include="Managers\MediaManager.cpp" />
+    <ClCompile Include="PlayerInteraction.cpp" />
     <ClCompile Include="Subsystems\Physics\PhysicsModels\PhysicsModel.cpp" />
     <ClCompile Include="Utils\Application.cpp" />
     <ClCompile Include="Utils\StackAllocator.cpp" />
@@ -136,6 +137,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClInclude Include="Game\dataTypes.hpp" />
     <ClInclude Include="Game\Model.hpp" />
     <ClInclude Include="GetOGLPos.hpp" />
+    <ClInclude Include="PlayerInteraction.hpp" />
     <ClInclude Include="Utils\StackAllocator.hpp" />
     <ClInclude Include="Globals.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsModels\PhysicsModel.hpp" />
