@@ -37,7 +37,7 @@ private:
 	GraphicsSystem *m_Graphics;
 	PhysicsSystem *m_Physics;
 	EventManager *m_EventManager;
-	StackAllocator *m_StackAllocator;
+	StackAllocator *m_SingleFrameAllocator;
 
 	bool m_Running;
 };
