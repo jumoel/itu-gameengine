@@ -383,6 +383,9 @@
     <ClInclude Include="Utils\ReferenceCounter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\HeapAllocator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Utils\MemorySizes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -1,5 +1,4 @@
 #include <Utils/StackAllocator.hpp>
-#include <Utils/MemorySizes.hpp>
 
 StackAllocator::StackAllocator(Uint32 stackSize_bytes)
 {

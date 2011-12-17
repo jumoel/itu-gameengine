@@ -8,7 +8,7 @@
  * =============
  *
  * Will keep a count of the number of references to an object.
- * When the pointer goes out of scope, the referencecount will
+ * When the pointer goes out of scope, the reference count will
  * be decremented.
  * When the count reaches zero, the data is deleted.
  */
