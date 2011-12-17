@@ -63,7 +63,9 @@ void Object::SetPos2D(float x, float y)
 
 void Object::Rotate(float degrees, float x, float y, float z)
 {
-	rotation->MultiplyWith(*(transformation->createRotate(degrees, x, y, z)));
+	auto temp = (transformation->createRotate(degrees, x, y, z));
+	rotation->MultiplyWith(*temp);
+	delete temp;
 	transformation->Reset();
 	transformation->Translate(pos->x(), pos->y(), pos->z());
 	transformation->MultiplyWith(*rotation);
@@ -99,6 +101,11 @@ void Object::setLookAt2D(float x, float y)
 	if(length > 0)
 	{	
 		physicsModel->SetDirection(x,y);
+
+		if (rotation != nullptr)
+		{
+			delete rotation;
+		}
 		rotation = transformation->createRotate(90.0f, 1.0f, 0.0f, 0.0f);
 		x = x/length;
 		y = y/length;
@@ -107,7 +114,9 @@ void Object::setLookAt2D(float x, float y)
 		//float degrees = atan2(forward2D->y(),forward2D->x()) - atan2(y,x);
 		degrees = (degrees * 180)/PI;
 		std::cout << "Degrees: " << degrees << std::endl;
-		rotation->MultiplyWith(*(transformation->createRotate(degrees, 0.0f, 1.0f, 0.0f)));
+		auto temp = (transformation->createRotate(degrees, 0.0f, 1.0f, 0.0f));
+		rotation->MultiplyWith(*temp);
+		delete temp;
 		transformation->Reset();
 		transformation->Translate(pos->x(), pos->y(), pos->z());
 		transformation->MultiplyWith(*rotation);
