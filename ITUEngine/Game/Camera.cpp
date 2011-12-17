@@ -16,16 +16,17 @@ Camera::Camera()
 	isLeftButtonDown = false;
 	isRightButtonDown = false;
 
-	InputManager::RegisterKeyboardEventHandler(this);
+	/*InputManager::RegisterKeyboardEventHandler(this);
 	InputManager::RegisterMouseClickEventHandler(this);
 	InputManager::RegisterMouseMoveEventHandler(this);
+	*/
 
 	// TODO Enforce these Rules:
 	/* |Position - LookAt| = 1 */
 	/* |Up| = 1 */
 	/* Look vector dotProduct Up = 0  */
 	
-	safeAddListener(EventListenerPointer(this), EventType("keydownEvent"));
+	//safeAddListener(EventListenerPointer(this), EventType("keydownEvent"));
 }
 
 Camera::~Camera()
