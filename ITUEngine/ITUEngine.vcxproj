@@ -106,7 +106,9 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClCompile Include="Managers\MediaManager.cpp" />
     <ClCompile Include="PlayerInteraction.cpp" />
     <ClCompile Include="Subsystems\Physics\PhysicsModels\PhysicsModel.cpp" />
-    <ClCompile Include="Utils\Application.cpp" />
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Utils\ReferenceCounter.cpp" />
+    <ClCompile Include="Utils\SmartPointer.cpp" />
     <ClCompile Include="Utils\StackAllocator.cpp" />
     <ClCompile Include="Managers\SettingsManager.cpp" />
     <ClCompile Include="Math\CollisionDetection2D.cpp" />
@@ -138,6 +140,8 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClInclude Include="Game\Model.hpp" />
     <ClInclude Include="GetOGLPos.hpp" />
     <ClInclude Include="PlayerInteraction.hpp" />
+    <ClInclude Include="Utils\ReferenceCounter.hpp" />
+    <ClInclude Include="Utils\SmartPointer.hpp" />
     <ClInclude Include="Utils\StackAllocator.hpp" />
     <ClInclude Include="Globals.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsModels\PhysicsModel.hpp" />

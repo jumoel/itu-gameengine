@@ -207,7 +207,13 @@
     <ClCompile Include="Subsystems\Physics\PhysicsModels\PhysicsModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\Application.cpp">
+    <ClCompile Include="Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\SmartPointer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\ReferenceCounter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PlayerInteraction.cpp">
@@ -375,6 +381,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayerInteraction.hpp">
+    <ClInclude Include="Utils\SmartPointer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\ReferenceCounter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
