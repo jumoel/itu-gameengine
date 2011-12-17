@@ -1,9 +1,8 @@
 #include <Utils/SmartPointer.hpp>
 
 template <typename T>
-SmartPointer<T>::SmartPointer(T* pointer)
+SmartPointer<T>::SmartPointer(T* pointer) : _data(pointer)
 {
-	_data = pointer;
 }
 
 template <typename T>
