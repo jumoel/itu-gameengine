@@ -13,6 +13,6 @@ public:
 	T& operator *();
 	T* operator ->();
 
-}
+};
 
 #endif ITUENGINE_SMARTPOINTER_HPP

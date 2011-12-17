@@ -1,5 +1,6 @@
 #include <Utils/SmartPointer.hpp>
 
+/*
 template <typename T>
 SmartPointer::SmartPointer(T* pointer)
 {
@@ -23,3 +24,4 @@ T* SmartPointer::operator ->()
 {
 	return _data;
 }
+*/

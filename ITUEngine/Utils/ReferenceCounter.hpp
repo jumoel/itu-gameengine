@@ -9,6 +9,6 @@ private:
 public:
 	int AddReference();
 	int Release();
-}
+};
 
 #endif ITUENGINE_REFERENCECOUNTER_HPP
