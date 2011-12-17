@@ -289,7 +289,7 @@ Node* PathPlanner::recursiveAstar(Node* currentNode, Plan* plan)
 	return recursiveAstar(currentNode, plan); 
 }
 
-bool PathPlanner::evaluateCoordinate(int *x, int *y)
+bool PathPlanner::evaluateCoordinate(float *x, float *y)
 {
 	if(*x >= mapDivisions)
 	{
@@ -316,7 +316,7 @@ bool PathPlanner::evaluateCoordinate(int *x, int *y)
 	return result;
 }
 
-bool PathPlanner::checkForFreeSpaces(int *x, int *y, int i)
+bool PathPlanner::checkForFreeSpaces(float *x, float *y, int i)
 {
 	if(0 > *x+i && *x+i > mapDivisions-1 && 0 > *y-i && *y+i > mapDivisions-1)
 	{
@@ -376,11 +376,7 @@ std::vector<Point>* PathPlanner::aStar(float distinationX, float distinationY, f
 
 	//Planning
 	Plan plan;
-	if(!evaluateCoordinate(&destX, &destY))
-	{
-		plan.route->push_back(Point(locationX,locationY));
-		return plan.route;
-	}
+	
 	plan.targetX = destX;
 	plan.targetY = destY;
 	Node* currentNode = new Node();

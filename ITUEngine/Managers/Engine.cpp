@@ -83,7 +83,8 @@ void Engine::Run()
 		// Calculate and show FPS in title bar
 		m_FPSCalculator->SetCurrentTime(Time::GetCurrentMS());
 
-		char *title = (char *)m_SingleFrameAllocator->Allocate(sizeof(char) * 50);
+		char *title = new char[sizeof(char) * 50];
+		//char *title = (char *)m_SingleFrameAllocator->Allocate(sizeof(char) * 50);
 		sprintf_s(title, 50,"FPS: %d, Memory: %d bytes", m_FPSCalculator->GetFPS(), m_SingleFrameAllocator->GetMemoryUsage());
 		m_Window->SetWindowTitle(title);
 
@@ -92,14 +93,14 @@ void Engine::Run()
 
 void Engine::StartUp()
 {
+	m_Window = new Window();
+	m_Window->StartUp();
+
 	m_SettingsManager = new SettingsManager();
 	m_SettingsManager->StartUp();
 
 	m_EventManager = new EventManager();
 	m_EventManager->StartUp("Global event manager", true);
-
-	m_Window = new Window();
-	m_Window->StartUp();
 
 	//IMPORTANT: Call this before m_Graphics->StartUp()
 	m_Physics = SINGLETONINSTANCE(PhysicsSystem);
@@ -126,11 +127,11 @@ void Engine::ShutDown()
 
 	m_Graphics->ShutDown();
 
-	m_Window->ShutDown();
-
 	m_EventManager->ShutDown();
 
 	m_SettingsManager->ShutDown();
+
+	m_Window->ShutDown();
 }
 
 void Engine::handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_keysym *keysym, Uint8 eventtype )
@@ -139,6 +140,12 @@ void Engine::handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_key
 
 	if(eventtype == SDL_KEYDOWN)
 	{
+		if(key->keysym.sym == SDLK_ESCAPE)
+		{
+			m_Running = false;
+			return;
+		}
+
 		InputManager::NotifyKeyDown(keyEvent);	
 	}
 	else if(eventtype == SDL_KEYUP)

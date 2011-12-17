@@ -435,10 +435,6 @@ bool Camera::HandleEvent( IEventData const & eventData )
 	case SDLK_SPACE:
 		ResetCamera();
 		break;
-
-	case SDLK_ESCAPE:
-		SDL_Quit();
-		exit(0);
 	}
 
 	return true;

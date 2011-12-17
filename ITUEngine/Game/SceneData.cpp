@@ -29,6 +29,12 @@ SceneGraphManager *createGraph()
 	ground->SetScale(mapWidth,mapWidth,1.0f);
 	SINGLETONINSTANCE(PathPlanner)->StartUp(mapWidth);
 
+	auto underground = new Object();
+	underground->Name = "Underground";
+	underground->model =  SINGLETONINSTANCE( MediaManager )->ground;
+	underground->transformation->Reset();
+	underground->SetPos2D(20.0f,20.0f);
+	underground->SetScale(mapWidth*10,mapWidth*10,1.0f);
 
 	Point point;
 	point.X = 0.0f;
@@ -154,6 +160,7 @@ SceneGraphManager *createGraph()
 	m->Translate(0.0f, 0.0f, -4.0f);
 	
 	
+	root->children->push_back(*underground);
 	root->children->push_back(*ground);
 	
 	root->children->push_back(*box);
@@ -173,7 +180,7 @@ SceneGraphManager *createGraph()
 
 	auto camera = new Camera();
 	camera->Position.SetX(20);
-	camera->Position.SetY(20);
+	camera->Position.SetY(5);
 	camera->Position.SetZ(50);
 	camera->LookAt.SetX(20);
 	camera->LookAt.SetY(20);

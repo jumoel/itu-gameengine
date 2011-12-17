@@ -81,9 +81,9 @@ public:
 
 	void UpdateDynamicMap(std::vector<std::vector<int>> *dynamicMap);
 
-	bool evaluateCoordinate(int *x, int *y);
+	bool evaluateCoordinate(float *x, float *y);
 
-	bool checkForFreeSpaces(int *x, int *y, int i);
+	bool checkForFreeSpaces(float *x, float *y, int i);
 
 	bool isValidNeighbour(Node *neighbour, Plan *plan);
 

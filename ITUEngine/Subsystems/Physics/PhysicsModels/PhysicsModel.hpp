@@ -247,7 +247,17 @@ public:
 			delete m_Path;
 		}
 
-		m_Path = SINGLETONINSTANCE(PathPlanner)->aStar(target->X, target->Y, GetPosition()->X, GetPosition()->Y);
+		if(!SINGLETONINSTANCE(PathPlanner)->evaluateCoordinate(&(target->X), &(target->Y)))
+		{
+			m_Path = new std::vector<Point>();
+			target->X = GetPosition()->X;
+			target->Y = GetPosition()->Y;
+			m_Path->push_back(Point(*target));
+		}
+		else
+		{
+			m_Path = SINGLETONINSTANCE(PathPlanner)->aStar(target->X, target->Y, GetPosition()->X, GetPosition()->Y);
+		}
 
 		delete m_TargetPosition;
 		m_TargetPosition = target;

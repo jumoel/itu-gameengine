@@ -21,7 +21,7 @@ bool PlayerInteraction::HandleEvent(IEventData const & eventData)
 
 	Vector3f val = data->GetValue();
 	
-	player->physicsModel->SetTargetPosition(&Point(val.x(), val.y()));
+	player->physicsModel->SetTargetPosition(new Point(val.x(), val.y()));
 
 	return true;
 }
