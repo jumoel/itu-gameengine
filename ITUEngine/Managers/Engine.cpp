@@ -21,7 +21,7 @@ void Engine::Run()
 
 	while (m_Running)
 	{
-		m_StackAllocator->Clear();
+		m_SingleFrameAllocator->Clear();
 
 		while (SDL_PollEvent(&event))
 		{
@@ -77,8 +77,8 @@ void Engine::Run()
 		// Calculate and show FPS in title bar
 		m_FPSCalculator->SetCurrentTime(Time::GetCurrentMS());
 
-		char *title = (char *)m_StackAllocator->Allocate(sizeof(char) * 50);
-		sprintf_s(title, 50,"FPS: %d, Memory: %d bytes", m_FPSCalculator->GetFPS(), m_StackAllocator->GetMemoryUsage());
+		char *title = (char *)m_SingleFrameAllocator->Allocate(sizeof(char) * 50);
+		sprintf_s(title, 50,"FPS: %d, Memory: %d bytes", m_FPSCalculator->GetFPS(), m_SingleFrameAllocator->GetMemoryUsage());
 		m_Window->SetWindowTitle(title);
 
 	} // while(m_Running)
@@ -105,7 +105,7 @@ void Engine::StartUp()
 	m_FPSCalculator = new FPSCalculator();
 	m_FPSCalculator->StartUp();
 
-	m_StackAllocator = new StackAllocator(GB(1));
+	m_SingleFrameAllocator = new StackAllocator(GB(1));
 
 	m_Running = false;
 }
