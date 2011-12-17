@@ -71,7 +71,7 @@ void Engine::Run()
 
 
 		//Process eventQueue
-		safeProcessEventManager(IEventManager.eConstants.INFINITE);
+		safeProcessEventManager(IEventManager::eConstants::INFINITE);
 
 
 		//Step the physics system
