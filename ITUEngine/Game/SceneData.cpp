@@ -41,6 +41,7 @@ SceneGraphManager *createGraph()
 
 	auto player = new Object();
 	SINGLETONINSTANCE(PlayerInteraction)->StartUp(player);
+
 	player->Name = "Player";
 	player->model =  SINGLETONINSTANCE( MediaManager )->crazyModel;
 	MovingObjectModel* tempMovingObject = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward, player);

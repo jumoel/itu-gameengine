@@ -71,7 +71,7 @@ void Engine::Run()
 
 
 		//Process eventQueue
-		safeProcessEventManager(IEventManager::eConstants::INFINITE);
+	//	safeProcessEventManager(IEventManager::eConstants::INFINITE);
 
 
 		//Step the physics system
@@ -158,7 +158,7 @@ void Engine::handleMouseButtonPress( SDL_MouseButtonEvent *key, Uint8 eventtype)
 	{
 		InputManager::NotifyButtonDown(mouseButtonEvent);
 		auto mouseWorldPos = GetOGLPos::GetPos(key->x, key->y);
-		safeQueueEvent( IEventDataPointer(new EventData<Vector3f>(mouseWorldPos, mouseClickPosition)) );
+		safeTriggerEvent( EventData<Vector3f>(mouseWorldPos, mouseClickPosition) );
 
 	}
 	else if(eventtype == SDL_MOUSEBUTTONUP)

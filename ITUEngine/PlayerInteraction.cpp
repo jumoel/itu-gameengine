@@ -25,3 +25,8 @@ bool PlayerInteraction::HandleEvent(IEventData const & eventData)
 
 	return true;
 }
+
+char const * PlayerInteraction::GetName( void )
+{
+	return "PlayerInteraction";
+}

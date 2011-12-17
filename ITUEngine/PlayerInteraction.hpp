@@ -7,7 +7,8 @@
 
 class PlayerInteraction : public IEventListener
 {
-	SINGLETON( PlayerInteraction )
+
+SINGLETON(PlayerInteraction)
 
 public:
 
@@ -16,6 +17,7 @@ public:
 
 	//void handleMouseClick();
 	virtual bool HandleEvent( IEventData const & event );
+	virtual char const * GetName(void);
 
 private:
 	Object* player;
