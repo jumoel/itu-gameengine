@@ -53,52 +53,153 @@
 \renewcommand{\printpartnum}{}
 \renewcommand{\thepart}{}
 
-% In case we need an actual introduction.
+% Consider finding a more suiting section-name might be better (``Requirements''?).
 \chapter{Formalities}
+The engine was the product of the course \textit{Game Engines}, at the \textit{IT University of Copenhagen}, Fall of 2011. % More bla bla?
 
-Add in all the formalities here.
+In this documentation, the engine is described according to the requirements specified in the two following sections.
+
+\section{Documentation Requirements}
+The following were required to be included in the documentation. The various chapters and sections are structured in such a way that it should be fairly easy to quickly find the needed information, based on the requirements.
 \begin{itemize}
-	\item Documentation Requirements
-	\item Engine Requirements
-	\item The chosen extra feature
+	\item \textbf{Engine Scope}: Does it target a specific genre? What range of games do you have in mind that the engine would be suitable for? \\ \textit{(\impRef{sec:EngineScope})}
+	\item \textbf{Major Features}: What are the main features your engine supports? \\ \textit{(\impRef{sec:MajorFeatures})}
+	\item \textbf{Implementation Overview}: Give a high-level explanation of how the engine is structured (perhaps with an architecture diagram). Then, give at least brief explanations of how the major subsystems work, delving into more details for components that are particularly interesting, advanced, or unusual. \textit{(\impRef{sec:ImplementationOverview})}
+	\item \textbf{Design Rationales}: Were some of the design decisions made after considering alternatives, and do you have rationales for why you made the decisions you did? If so, tell us! \textit{(\impRef{sec:DesignRationales})}
+	\item \textbf{Examples}: Give some examples illustrating interesting features of your engine and how they'd be used. Depending on the features, these can take the form of screenshots, code snippets, flow charts, and/or prose explanation. \textit{(\impRef{sec:Examples})}
 \end{itemize}
 
-Consider finding a more suiting section-name might be better (``Requirements''?).
+\section{Engine Requirements}
+The following describes the actual requirements of the engine. For each, a reference to the section and page in which it is described is given.
+
+\subsection{A Unique/Advanced Element}
+The feature ``Performance Logging'' is described in \impRef{sec:PerformanceLogging}.
+\begin{itemize}
+	\item Pick either one area of the engine to add advanced functionality to, or at least one optional feature to add. For example: a user-programmable shader interface, procedural terrain, advanced physics, an audio subsystem, etc.
+\end{itemize}
+
+\subsection{Dynamic Elements}
+Described in \impRef{sec:DynamicElements}.
+\begin{itemize}
+	\item \textit{Physics and animation}: What makes sense for your engine and why? Decide on a physics/animation split for your engine, considering its target. Do you want forces, manual animations, parametric curves, something else?
+	\item \textit{Collision detection}: have collider surfaces for your objects, with at least basic collision detection. If you need performance (lots of objects), GJK may be best.
+	\item \textit{Collision response}, if it makes sense for your genre of game: things like objects bouncing off other objects when they collide.
+	\item Be able to \textit{add/remove objects from the game world dynamically}, and update associate data structures.
+\end{itemize}
+
+\subsection{Resource Management}
+Described in \impRef{sec:ResourceManagement}.
+\begin{itemize}
+	\item \textit{Singleton class} (or several) managing global engine state.
+	\item \textit{Memory-management system}. Design on paper first. Implement at least one kind of custom allocator, e.g. a stack allocator used for per-frame allocations.
+	\item Design a \textit{resource/dependency-management system}, both runtime and offline portion (offline includes things like asset conditioning, and level format).
+	\item Quickest way to get some resources loading: wrap a library like \\ \url{http://assimp.sourceforge.net}.
+\end{itemize}
+
+\subsection{Rendering}
+Described in \impRef{sec:Rendering}.
+\begin{itemize}
+	\item \textit{Object-oriented, scenegraph-based rendering}, that recursively renders objects in the scene.
+	\item A \textit{camera component} should be present.
+	\item Use a method of \textit{speeding up rendering} by retaining data on the GPU. For now display lists are okay, but vertex buffers are better (and will be useful later).
+	\item \textit{Lighting manager} (or data structures) storing information on lights in the scene.
+	\item \textit{Material properties} on objects.
+	\item \textit{Textures} on objects.
+	\item \textit{Shaders}: Optional. A user-programmable shader API for your engine could be a nice enhancement. But, everyone should understand how shaders work, even if your engine doesn't use them.
+\end{itemize}
+
+\subsection{Game Loop}
+Described in \impRef{sec:GameLoop}.
+\begin{itemize}
+	\item Support \textit{framerate-independent game-world updates} (e.g. using deltaT timings).
+	\item Implement an \textit{event system} (may be useful to split into several event systems, e.g. an InputManager handling all input events).
+\end{itemize}
+
+\subsection{Input}
+Described in \impRef{sec:Input}.
+\begin{itemize}
+	\item Handle \textit{keyboard} input, with at least a few options. For example: event-based input that queues multiple keypresses, and polling-based input that does something while the key is held down.
+	\item Handle \textit{mouse} (or joystick/controller) input, with the option for nonlinear mapping.
+	\item Connect input to scene in a basic way, e.g. wasd moves an object, mouse moves camera.
+\end{itemize}
 
 % The essence of it all.
 \chapter{Engine Description}
+\label{sec:EngineDescription}
 More of an actual light introduction. Description of the engine and what it can be used for. Covers the ideas and design. See the sections below.
 
-\section{Scope}
+\section{Engine Scope}
+\label{sec:EngineScope}
 % Does it target a specific genre? What range of games do you have in mind that the engine would be suitable for?
-Describe that the engine is meant to be for Real-Time Strategy (RTS) games.
+The engine targets the ``Hero \texttt{RTS}\footnote{Real-Time Strategy}''-genre. This includes games like \textit{Heroes of Newerth} and \textit{League of Legends}, based on the \textit{WarCraft III} modification \textit{Defense of the Ancients}.
 
-\section{Design Rationale}
+A more broad and loose description would be multi-player games, in which each player only has one unit, that requires precision and quick reflexes.
+
+\section{Design Rationales}
+\label{sec:DesignRationales}
 % Were some of the design decisions made after considering alternatives, and do you have rationales for why you made the decisions you did? If so, tell us!
-Describe various design descriptions in detail.
+Describe various design choices in detail.
 
 \section{Major Features}
+\label{sec:MajorFeatures}
 % What are the main features your engine supports?
-The things that makes the engine special, the primary forces and so on.
+The things that makes the engine special, the primary forces and so on. There is no further explanations of what this part should contain.
 
-\chapter{Engine Structure}
+\chapter{Implementation Overview}
+\label{sec:ImplementationOverview}
 % Give a high-level explanation of how the engine is structured (perhaps with an architecture diagram). Then, give at least brief explanations of how the major subsystems work, delving into more details for components that are particularly interesting, advanced, or unusual.
 
-More detailed about the structure of the various parts of the engine. The sections below are potential examples.
+More detailed about the structure of the various parts of the engine. The sections below are taken from the requirements of each of the major parts, but might need to be re-structured after that.
 
-\section{Manager System}
+\section{Dynamic Elements}
+\label{sec:DynamicElements}
+% Physics and animation: What makes sense for your engine and why? Decide on a physics/animation split for your engine, considering its target. Do you want forces, manual animations, parametric curves, something else?
+% Collision detection: have collider surfaces for your objects, with at least basic collision detection. If you need performance (lots of objects), GJK may be best.
+% Collision response, if it makes sense for your genre of game: things like objects bouncing off other objects when they collide.
+% Be able to add/remove objects from the game world dynamically, and update associate data structures.
 
-\section{Events System}
+\section{Resource Management}
+\label{sec:ResourceManagement}
+% Singleton class (or several) managing global engine state
+% Memory-management system. Design on paper first. Implement at least one kind of custom allocator, e.g. a stack allocator used for per-frame allocations.
+% Design a resource/dependency-management system, both runtime and offline portion (offline includes things like asset conditioning, and level format).
+% Quickest way to get some resources loading: wrap a library like assimp.sourceforge.net
 
-\section{Camera}
+\section{Rendering}
+\label{sec:Rendering}
+% Object-oriented, scenegraph-based rendering, that recursively renders objects in the scene.
+% A camera component should be present.
+% Use a method of speeding up rendering by retaining data on the GPU. For now display lists are okay, but vertex buffers are better (and will be useful later).
+% Lighting manager (or data structures) storing information on lights in the scene
+% Material properties on objects
+% Textures on objects
+% Shaders: Optional. A user-programmable shader API for your engine could be a nice enhancement. But, everyone should understand how shaders work, even if your engine doesn’t use them.
 
-\section{Physics}
+\section{Game Loop}
+\label{sec:GameLoop}
+% Support framerate-independent game-world updates (e.g. using deltaT timings).
+% Implement an event system (may be useful to split into several event systems, e.g. an InputManager handling all input events).
 
-\section{Graphics}
+\section{Input}
+\label{sec:Input}
+% Handle keyboard input, with at least a few options. For example: event-based input that queues multiple keypresses, and polling-based input that does something while the key is held down.
+% Handle mouse (or joystick/controller) input, with the option for nonlinear mapping
+% Connect input to scene in a basic way, e.g. wasd moves an object, mouse moves camera.
 
-\chapter{Example Usage}
+\section{Performance Logging}
+\label{sec:PerformanceLogging}
+%Pick either one area of the engine to add advanced functionality to, or at least one optional feature to add. For example: a user-programmable shader interface, procedural terrain, advanced physics, an audio subsystem, etc.
+
+\chapter{Examples}
+\label{sec:Examples}
 % Give some examples illustrating interesting features of your engine and how they’d be used. Depending on the features, these can take the form of screenshots, code snippets, flow charts, and/or prose explanation.
 
 Giving examples is one of the requirements of the documentation. It could either be done throughout the document, or simply be here in a chapter for itself. Most likely a better idea, to keep it from the more in-depth technical facts.
+
+\chapter{Concluding Comments}
+\label{sec:ConcludingComments}
+Might be a good idea with a minor wrap-up at the end.
+
+Also, a better name could be used for this section - but a fitting alternative is eluding me at this point.
 
 \end{document}

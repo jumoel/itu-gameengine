@@ -5,6 +5,7 @@
 #include <Managers/LightingManager.hpp>
 #include <Subsystems/Physics/PhysicsModels/PhysicsModel.hpp>
 #include <Subsystems/Physics/PhysicsSystem.hpp>
+#include <PlayerInteraction.hpp>
 
 SceneGraphManager *createGraph()
 {
@@ -39,6 +40,8 @@ SceneGraphManager *createGraph()
 	forward = forward.GetNormalizedPoint();
 
 	auto player = new Object();
+	SINGLETONINSTANCE(PlayerInteraction)->StartUp(player);
+
 	player->Name = "Player";
 	player->model =  SINGLETONINSTANCE( MediaManager )->crazyModel;
 	MovingObjectModel* tempMovingObject = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward, player);
@@ -166,7 +169,7 @@ SceneGraphManager *createGraph()
 
 	//std::cout << "Cosine of 90 = " << cosf(90.0f) << endl;
 	SINGLETONINSTANCE(PhysicsSystem)->SetStaticPathMap();
-	player->physicsModel->SetTargetPosition(new Point(35,5));
+	player->physicsModel->SetTargetPosition(new Point(50,5));
 
 	auto camera = new Camera();
 	camera->Position.SetX(20);

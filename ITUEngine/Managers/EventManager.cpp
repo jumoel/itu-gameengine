@@ -9,6 +9,8 @@ void EventManager::StartUp(char const * const pName, bool setAsGlobal)
 
 	AddRegisteredEventType( wildcardEventType );
 	AddRegisteredEventType( EventType("keydownEvent") );
+	AddRegisteredEventType( EventType("mouseClickPositionEvent") );
+
 }
 
 void EventManager::ShutDown()

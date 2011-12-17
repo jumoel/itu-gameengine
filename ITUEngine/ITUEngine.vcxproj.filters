@@ -216,6 +216,9 @@
     <ClCompile Include="Utils\ReferenceCounter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerInteraction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Managers\Engine.hpp">
@@ -377,6 +380,7 @@
     <ClInclude Include="GetOGLPos.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerInteraction.hpp">
     <ClInclude Include="Utils\SmartPointer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
