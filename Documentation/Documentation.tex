@@ -151,13 +151,13 @@ Our shutdown sequence is the opposite of the startup sequence, to make sure that
 \label{sec:PhysicsSystem}
 % Physics and animation: What makes sense for your engine and why? Decide on a physics/animation split for your engine, considering its target. Do you want forces, manual animations, parametric curves, something else?
 % Be able to add/remove objects from the game world dynamically, and update associate data structures.
-
-% TODO
-
-\subsection{Collision Detection}
-\label{sec:CollisionDetection}
 % Collision detection: have collider surfaces for your objects, with at least basic collision detection. If you need performance (lots of objects), GJK may be best.
 % Collision response, if it makes sense for your genre of game: things like objects bouncing off other objects when they collide.
+The Physics System controls both movement and collisions in the game world. As the gameplay of most \textit{RTS}-games are in a plane, the physics system is completely \textit{2D}. In order to use it the \texttt{physicsModel} components on \texttt{Objects} in the scene must be initialized. There are to types of physics models: \texttt{Moving} and Static. Thus, the objects must be initialized as such. The following is an example of initializing a \texttt{physicsModel} component.
+
+\fig[377px]{includes/PhysicsSystem.jpg}{Physics System: Initializing a component.}{fig:PhysicsSystem}
+
+As can be seen the \texttt{physicsModel} is also added to the \texttt{PhysicsSystem}, which steps every frame checking for collisions between objects in the scene and moving them, if they are moving objects and have assigned a direction. If collisions occurs, a collision event is triggered, which can be subscribed to and handled.
 
 \subsection{Path Planner}
 \label{sec:PathPlanner}
@@ -178,6 +178,7 @@ Then the path planning map is set in the end of the \texttt{createGraph()} funct
 \section{Resource Management}
 \label{sec:ResourceManagement}
 % Quick introduction, perhaps?
+TODO
 
 \subsection{Media Manager}
 \label{sec:MediaManager}
@@ -214,37 +215,35 @@ We have also implemented a basic smart pointer structure, that can be used, if a
 % I think this is a good spot to describe the Settings Manager, as it doesn't really seem to fit in anywhere else.
 As every game needs variable settings and options, which should be easy to customize. We decided to keep the data in an external \texttt{XML}-file, so that it is easily changeable outside the game. This opens up for the possibility of having a light-weight external tool.
 
-Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a
-% DOM\footnote{The ``Document Object Model''-standard.}
-tree, which is easily traversable and logically structured. In the same way, the tree can be exported back to the \texttt{XML}-file at any given time, and will also do so upon shutting down the engine.
+Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a tree\footnote{In the ``Document Object Model''-standard.}, which is easily traversable and logically structured. In the same way, the tree can be exported back to the \texttt{XML}-file at any given time, and will also do so upon shutting down the engine.
 
-\section{Rendering}
-\label{sec:Rendering}
+\section{Graphics System}
+\label{sec:GraphicsSystem}
 % Object-oriented, scenegraph-based rendering, that recursively renders objects in the scene.
 % Use a method of speeding up rendering by retaining data on the GPU. For now display lists are okay, but vertex buffers are better (and will be useful later).
 % Material properties on objects
 % Textures on objects
-% Shaders: Optional. A user-programmable shader API for your engine could be a nice enhancement. But, everyone should understand how shaders work, even if your engine doesn�t use them.
+% Shaders: Optional. A user-programmable shader API for your engine could be a nice enhancement. But, everyone should understand how shaders work, even if your engine doesn't use them.
+The Graphics System is in charge of rendering any graphics and light in the scene. It does so using the \texttt{Render()} function, which basically sets the camera position and direction every frame, so that movements of the camera actually moves the viewport. Furthermore, it runs recursively through the scenegraph, which is created in the \texttt{SceneGraphManager}, and runs the \texttt{Render()} function on the models assigned to all objects in the graph. It goes through the root node down through all its children pushing and popping the \texttt{glMatrix}, which basically means that objects are placed in the scene relatively to their parent objects.
 
 \subsection{Camera}
 \label{sec:Camera}
 % A camera component should be present.
-
 Our camera has a location, a position it is pointed at and an up vector.
 
-TODO.
+TODO. % Elaborate, or simply leave as it is?
 
 \subsection{Lighting Manager}
 \label{sec:LightingManager}
 % Lighting manager (or data structures) storing information on lights in the scene
+This manager contains a list of eight lights, since that is the amount of lights that \textit{OpenGL} lets you have in the scene at any given time. The light class contains the different color properties of the light, a position, and whether it is in use or not. When setting up a light in the scene, you can simply call the \texttt{getAvailableLightIndex()} function in the singleton instance of the \texttt{LightingManager} class. It is then given an index of a free light, if one is available. This can then be used to to access the given light in the \texttt{LightingManager} instance, set its color properties, position, and enable it. This way it is easy to set lights in the scene without destroying others. An example of this usage can be seen in \figRef{fig:LightingManager}. 
 
-TODO
+\fig[400px]{includes/LightingManager.jpg}{Lighting Manager: Setting up a light.}{fig:LightingManager}
 
 \section{Game Loop}
 \label{sec:GameLoop}
 % Support framerate-independent game-world updates (e.g. using deltaT timings).
 % Implement an event system (may be useful to split into several event systems, e.g. an InputManager handling all input events).
-
 The game loop catches and handles all input and game events first. Then, the physics system is run with the elapsed time since the last update. When the 'model' of the world is updated, everything is drawn. In the end, we measure our performance and frame memory usage. A visual representation can be seen in \figRef{fig:GameLoop}.
 
 \fig[128px]{flowcharts/loop.png}{Game Loop: Flowchart showing the main game loop.}{fig:GameLoop}
@@ -295,32 +294,25 @@ We decided against doing the graphing of logged entries ourselves, as an offline
 
 TODO
 
-\textbf{What went wrong?}
+\section{What went wrong?}
+The process of creating this game engine hit a few bumps in the road. The first problem was to just start implementing different features, instead of starting out by thoroughly thinking the basic design structure of the engine through. As a result we fairly early had an engine with alot of working features, but with a basic structure that did not make a lot of sense. Thus, we tried to go back and redesign the basic structure and then refacture the features already implemented, in order to fit them into the new improved structure. This task, however, was more cumbersome than expected and left us with a broken engine for quite a long while. Nevertheless, the task succeeded in the end.
 
-A lot of time trying to do fancy shit (VBO's, shaders, etc).
+% OLD NOTES BELOW:
+% A lot of time trying to do fancy shit (VBO's, shaders, etc).
+% Bad guidance from lecturers?
+% Should have maybe gone with the tried and true FPS engine instead of RTS.
+% Could have avoided a lot of time spent on inverse projections et.al.
+% should have spent less time with course project file and done some more stuff from scratch at an earlier state to get a better organisation of the subsystems in the engine.
+% too coupled design?
 
-Bad guidance from lecturers?
+% should have used more finished libraries from the start instead of doing it ourselves like:
+% devil (OpenIL) \url{http://openil.sourceforge.net/} -- image loading
+% assimp (open asset import library) \url{http://assimp.sourceforge.net/} -- asset loading
+% cegui (crazy eddies gui) \url{http://www.cegui.org.uk/wiki/index.php/Main_Page} -- gui lib
 
-Should have maybe gone with the tried and true FPS engine instead of RTS.
-Could have avoided a lot of time spent on inverse projections et.al.
+\section{What went right?}
+In the end an engine was made, that included all the required features and have the beginnings of a full fletched \textit{RTS} engine. Furthermore, the process was rather educational as to what not to do when creating an engine. That time spent designing the architecture of the engine will be time saved in the long run. Trying to make most of everything from scratch, and not use more libraries than needed, was good knowledge, as it gave a unique insight into the workings of such features as well as to fully visualize the time that could be saved using third party libraries.
 
-should have spent less time with course project file and done some more stuff
-from scratch at an earlier state to get a better organisation of the subsystems
-in the engine.
-
-too coupled design?
-
-should have used more finished libraries from the start instead of doing it ourselves:
-like:
-
-devil (OpenIL) \url{http://openil.sourceforge.net/} -- image loading
-assimp (open asset import library) \url{http://assimp.sourceforge.net/} -- asset loading
-cegui (crazy eddies gui) \url{http://www.cegui.org.uk/wiki/index.php/Main_Page} -- gui lib
-
-\textbf{What was successful?}
-
-We made a thing that moves on the screen.
-
-
-
+% OLD NOTES BELOW:
+% We made a thing that moves on the screen.
 \end{document}
