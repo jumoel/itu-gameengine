@@ -13,13 +13,21 @@
 
 struct Vert
 {
-    Vector3f m_pos;
-	Vector2f m_tex;
-    Vector3f m_normal;
+    Vector3f *m_pos;
+	Vector2f *m_tex;
+    Vector3f *m_normal;
 
-    Vert() {}
+    Vert()
+	{
+	}
+	~Vert()
+	{
+		delete m_pos;
+		delete m_tex;
+		delete m_normal;
+	}
 
-    Vert(const Vector3f& pos, Vector2f& tex, const Vector3f& normal)
+    Vert(Vector3f * pos, Vector2f *tex, Vector3f *normal)
     {
         m_pos    = pos;
         m_tex	 = tex;
@@ -50,18 +58,18 @@ private:
 
         ~ModelEntry();
 
-        void Init(const std::vector<Vert>& Vertices,
-                  const std::vector<unsigned int>& Indices);
+        void Init(const std::vector<Vert*> *Vertices,
+                  const std::vector<unsigned int> *Indices);
 
         GLuint VB;
         GLuint IB;
-		std::vector<Vert> Verts;
+		const std::vector<Vert*> *Verts;
 		unsigned int NumVertices;
         unsigned int NumIndices;
         unsigned int MaterialIndex;
     };
 
-    std::vector<ModelEntry> m_Entries;
+    std::vector<ModelEntry*> *m_Entries;
     std::vector<Material*> *m_Materials;
 
 };
