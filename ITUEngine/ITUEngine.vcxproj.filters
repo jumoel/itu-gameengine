@@ -207,6 +207,9 @@
     <ClCompile Include="GetOGLPos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\HUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Managers\Engine.hpp">
@@ -366,6 +369,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GetOGLPos.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\HUD.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
