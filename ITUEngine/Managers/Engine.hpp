@@ -39,6 +39,8 @@ private:
 	EventManager *m_EventManager;
 	StackAllocator *m_SingleFrameAllocator;
 
+	int lastTime;
+
 	bool m_Running;
 };
 
