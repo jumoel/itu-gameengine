@@ -34,6 +34,7 @@ public:
 	Texture* warrior;
 	Texture* playerTex;
 	Texture* defaultTex;
+	Texture* Hud;
 	GfxModel *playerModel;
 	std::vector<Texture*> textures;
 

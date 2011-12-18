@@ -11,7 +11,7 @@
 #include "GL/wglew.h"
 #include <Game/Camera.hpp>
 #include <Game/PathPlanner.hpp>
-
+#include <Game/HUD.hpp>
 
 
 
@@ -380,6 +380,7 @@ void GraphicsSystem::Render()
 	//glPopMatrix();
 	//glMatrixMode(GL_MODELVIEW);
 
+	HUD::draw();
 
 	SDL_GL_SwapBuffers();
 }
