@@ -289,16 +289,94 @@ Node* PathPlanner::recursiveAstar(Node* currentNode, Plan* plan)
 	return recursiveAstar(currentNode, plan); 
 }
 
+bool PathPlanner::evaluateCoordinate(float *x, float *y)
+{
+	if(*x >= mapDivisions)
+	{
+		*x = mapDivisions-1;
+	}
+	else if(*x < 0)
+	{
+		*x = 0;
+	}
+	if(*y >= mapDivisions)
+	{
+		*y = mapDivisions-1;
+	}
+	else if(*y < 0)
+	{
+		*y = 0;
+	}
+	bool result = true;
+	if(map[*x][*y] == BLOCKED)
+	{
+		result = checkForFreeSpaces(x, y, 1);
+	}
+
+	return result;
+}
+
+bool PathPlanner::checkForFreeSpaces(float *x, float *y, int i)
+{
+	if(0 > *x+i && *x+i > mapDivisions-1 && 0 > *y-i && *y+i > mapDivisions-1)
+	{
+		return false;
+	}
+	std::vector<Vector2f> tempList;
+	for(int j = -i; j < i; j++)
+	{
+		for(int k = -i; k < i; k++)
+		{
+			if(j == -i || j == i || k == -i || k == i)
+			{
+				if(0 < *x+j  && *x+j < mapDivisions-1 && 0 < *y+k && *y+k < mapDivisions-1)
+				{
+					if(map[*x+j][*y+k] != BLOCKED)
+					{
+						tempList.push_back(Vector2f(j,k));
+					}
+				}
+			}
+		}
+	}
+	bool result = true;
+	if(tempList.size() > 0)
+	{
+		float shortestDist = 9999.9f;
+		int shortestIndex = 0;
+		for(int index = 0; index < tempList.size(); index++)
+		{
+			float dist = tempList.at(index).x()*tempList.at(index).x() + tempList.at(index).y()*tempList.at(index).y();
+			if(dist < shortestDist)
+			{
+				shortestDist = dist;
+				shortestIndex = index;
+			}
+		}
+		*x += tempList.at(shortestIndex).x();
+		*y += tempList.at(shortestIndex).y();
+		result = true;
+	}
+	else
+	{
+		result = checkForFreeSpaces(x, y, i+1);
+	}
+	return result;
+}
+
 std::vector<Point>* PathPlanner::aStar(float distinationX, float distinationY, float locationX, float locationY)
 {
 	//Convert to divided map, for planning
-	auto destX = ConvertToPlanningMapCoordinate(distinationX);
-	auto destY = ConvertToPlanningMapCoordinate(distinationY);
-	auto loctX = ConvertToPlanningMapCoordinate(locationX);
-	auto loctY = ConvertToPlanningMapCoordinate(locationY);
+	int destX = ConvertToPlanningMapCoordinate(distinationX);
+	int destY = ConvertToPlanningMapCoordinate(distinationY);
+	int loctX = ConvertToPlanningMapCoordinate(locationX);
+	int loctY = ConvertToPlanningMapCoordinate(locationY);
+
+	
 
 	//Planning
 	Plan plan;
+	
 	plan.targetX = destX;
 	plan.targetY = destY;
 	Node* currentNode = new Node();
@@ -330,7 +408,7 @@ int PathPlanner::ConvertToPlanningMapCoordinate( float x )
 
 float PathPlanner::ConvertToPhysicsMapCoordinates( float x )
 {
-	return (mapWidth / mapDivisions) * x;
+	return (mapWidth / mapDivisions) * x + (mapWidth / mapDivisions)*0.5f;
 }
 
 #if 0

@@ -20,7 +20,7 @@ public:
 
 	bool operator ==(Point *point)
 	{
-		float epsilon =  0.00001f;
+		float epsilon =  0.0001f;
 		float diffX = this->X - point->X;
 		float diffY = this->Y - point->Y;
 
@@ -78,15 +78,32 @@ public:
 	//Do not use this, to initialize use other constructors 
 	Circle() {}
 
-	Circle(Point center, float radius) : Center(center), Radius(radius) {}
-	Circle(Circle &circle) : Center(circle.Center), Radius(circle.Radius) {}
+	Circle(Point center, float radius) : Center(center), Radius(radius), initialRadius(radius) {}
+	Circle(Circle &circle) : Center(circle.Center), Radius(circle.Radius), initialRadius(circle.Radius) {}
 	~Circle() 
 	{ 
 		//delete &Center; 
 	}
 
+	void setPos(float x, float y)
+	{
+		Center.X = x;
+		Center.Y = y;
+	}
+
+	void scale(float x, float y)
+	{
+		float temp = x;
+		if(temp < y)
+		{
+			temp = y;
+		}
+		Radius = initialRadius * temp;
+	}
+
 	Point Center;
 	float Radius;
+	float initialRadius;
 };
 
 struct Rectangle
@@ -95,12 +112,12 @@ public:
 	//Do not use this, to initialize use other constructors 
 	Rectangle() {}
 
-	Rectangle(Point minXY, float width, float height) : MinXY(minXY), Width(width), Height(height)
+	Rectangle(Point minXY, float width, float height) : MinXY(minXY), Width(width), Height(height), initialWidth(width), initialHeight(height)
 	{
 		Init();
 	}
 
-	Rectangle(Rectangle &rectangle) : MinXY(rectangle.MinXY), Width(rectangle.Width), Height(rectangle.Height) 
+	Rectangle(Rectangle &rectangle) : MinXY(rectangle.MinXY), Width(rectangle.Width), Height(rectangle.Height), initialWidth(rectangle.Width), initialHeight(rectangle.Height) 
 	{
 		Init();
 	}
@@ -110,8 +127,36 @@ public:
 		//delete &MinXY; 
 	}
 
+	void setPos(float x, float y)
+	{
+		MinXY.X = x - Width/2.0f;
+		MinXY.Y = y - Height/2.0f;
+		MinX = MinXY.X;
+		MaxX = MinXY.X + Width;
+
+		MinY = MinXY.Y;
+		MaxY = MinXY.Y + Height;
+	}
+
+	void scale(float x, float y)
+	{
+		Point temp;
+		temp.X = MinXY.X + Width/2.0f;
+		temp.Y = MinXY.Y + Height/2.0f;
+		Height = initialHeight * y;
+		Width = initialWidth * x;
+
+		MinXY.X = temp.X - Width/2.0f;
+		MinXY.Y = temp.Y - Height/2.0f;
+		MinX = MinXY.X;
+		MaxX = MinXY.X + Width;
+
+		MinY = MinXY.Y;
+		MaxY = MinXY.Y + Height;
+	}
+
 	Point MinXY;
-	float Width, Height, MinY, MaxY, MinX, MaxX;
+	float Width, Height, MinY, MaxY, MinX, MaxX, initialWidth, initialHeight;
 
 private:
 	void Init() 

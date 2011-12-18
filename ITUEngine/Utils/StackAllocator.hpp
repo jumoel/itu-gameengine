@@ -15,6 +15,11 @@ public:
 	Marker GetMarker();
 	void FreeToMarker(Marker marker);
 	void Clear();
+	Uint32 GetMemoryUsage();
+
+	template <class T> T *make_new() { return new (Allocate(sizeof(T))) T(); }
+	template <class T, class P1> T *make_new(P1 p1) { return new (Allocate(sizeof(T))) T(p1); }
+
 
 private:
 	Marker Root;

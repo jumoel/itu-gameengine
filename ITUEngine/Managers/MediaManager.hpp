@@ -36,6 +36,7 @@ public:
 	Texture* defaultTex;
 	GfxModel *playerModel;
 	std::vector<Texture*> textures;
+
 	Texture* LoadTexture(char *filename, char* name);
 	GfxModel* LoadModel(const char *filename);
 	Texture* FindTexture(const char *name);

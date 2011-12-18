@@ -7,7 +7,9 @@
 #include <Subsystems/Graphics/GraphicsSystem.hpp>
 #include <Managers/EventManager.hpp>
 #include <Subsystems/Physics/PhysicsSystem.hpp>
-#include <Math\Vector3f.hpp>
+#include <Math/Vector3f.hpp>
+#include <Utils/StackAllocator.hpp>
+
 class Engine
 {
 public:
@@ -35,6 +37,7 @@ private:
 	GraphicsSystem *m_Graphics;
 	PhysicsSystem *m_Physics;
 	EventManager *m_EventManager;
+	StackAllocator *m_SingleFrameAllocator;
 
 	bool m_Running;
 };

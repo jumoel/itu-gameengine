@@ -1,0 +1,188 @@
+\ProvidesPackage{universityreport}
+
+\usepackage{cmbright}
+\usepackage{textcomp}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english,danish]{babel}
+\usepackage{url}
+\usepackage{lastpage}
+\usepackage{graphicx}
+\usepackage[all]{xy}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{calc}
+\usepackage[marginpar]{todo}
+\usepackage{charter}
+\usepackage{xspace}
+\usepackage{todo}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage{xspace}
+\usepackage{multirow}
+\usepackage[farskip=0pt, captionskip=0pt]{subfig}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[all]{hypcap}
+\usepackage{memhfixc}
+
+%%% BIBLIOGRAPHY
+ \usepackage[numbers]{natbib}
+ \usepackage[url]{dk-bib}
+
+ \setcitestyle{numbers,square,aysep={;},yysep={,},notesep={, }}
+
+%%% ENDBIBLIOGRAPHY
+
+% Modified version of: http://github.com/jmoeller/LaTeX-University-Report-Template
+%%% FIGURE COMMANDS
+\newlength{\fboxsepbackup}
+\newlength{\fboxrulebackup}
+\newcommand{\sidebyside}[5][0.5pt]{
+  \setlength{\fboxsepbackup}{\fboxsep}
+
+  \setlength{\fboxrulebackup}{\fboxrule}
+
+  \setlength{\fboxsep}{0pt}
+  \setlength{\fboxrule}{#1}
+
+  \begin{figure}[h]
+    \centering
+    \subfloat[Med KI]{\label{#5ai}\fbox{\includegraphics[width=0.4\textwidth]{#2}}}
+    \qquad
+    \subfloat[Uden KI]{\label{#5noai}\fbox{\includegraphics[width=0.4\textwidth]{#3}}}
+    \caption{#4}
+    \label{#5}
+  \end{figure}
+
+  \setlength{\fboxsep}{\fboxsepbackup}
+  \setlength{\fboxrule}{\fboxrulebackup}
+}
+
+\newcommand{\fig}[4][8cm]{
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=#1]{#2}
+    \caption{#3}
+    \label{#4}
+  \end{figure}
+}
+%%% END FIGURE COMMANDS
+
+\newcommand{\myabstract}{}
+
+\renewcommand{\familydefault}{\rmdefault}
+
+\newcommand{\email}[1]{\href{mailto:#1}{\texttt{#1}}}
+
+\newcommand{\secRef}[1]{section \ref{#1}, page \pageref{#1}}
+\newcommand{\figRef}[1]{figure \ref{#1}, page \pageref{#1}}
+
+\newcommand{\degree}{\ensuremath{^{\circ}}\xspace}
+
+% more width for figure numbers
+\setlength{\cftfigurenumwidth}{3.0em}
+\setlength{\cfttablenumwidth}{3.0em}
+
+\definecolor{Dark}{gray}{.2}
+\definecolor{Medium}{gray}{.6}
+\definecolor{Light}{gray}{.8}
+
+\makechapterstyle{combined}{
+  \setlength{\midchapskip}{-60pt}
+  \setlength{\afterchapskip}{2.5cm}
+  \renewcommand*{\printchaptername}{}
+  \renewcommand*{\chapnumfont}{\normalfont\sffamily\bfseries\fontsize{80}{0}\selectfont}
+  \renewcommand*{\printchapternum}{\flushright\chapnumfont\textcolor[rgb]{.64,.79,.87}{\thechapter}}
+  \renewcommand*{\chaptitlefont}{\normalfont\sffamily\Huge\bfseries}
+  \renewcommand*{\printchaptertitle}[1]{%
+    \raggedright\chaptitlefont\parbox[t]{\textwidth-3cm}{\raggedright##1}}
+}
+
+\newlength{\mydrop}
+\renewcommand{\@maketitle}{%
+  \let\footnote\@mem@titlefootkill
+  \mydrop=0.1\textheight
+  \fboxsep 0.5\baselineskip
+  \sffamily
+  \vspace*{\mydrop}
+  \centering
+  {\textcolor{Light}{\HUGE \mysubject}}\par
+  \vspace{0.5\mydrop}
+  \colorbox{Dark}{\textcolor{white}{\normalfont\itshape\Large \@title}}\par
+  \vspace{\mydrop}
+  {\Large {\@bspreauthor \@author \@bspostauthor}}\par
+  \vfill
+  \vspace*{\mydrop}
+%\begin{center}
+%\includegraphics[width=8cm]{forside.png}
+%\end{center}
+}
+
+\renewcommand{\maketitle}{\par
+  \begingroup
+    \@bsmarkseries
+    \def\@makefnmark{\@textsuperscript{%
+       \normalfont\@bsthanksheadpre \tamark \@bsthanksheadpost}}%
+    \long\def\@makefntext##1{\makethanksmark ##1}
+      \global\@topnum\z@
+      \@maketitle
+    \thispagestyle{empty}\@thanks
+  \endgroup
+  \@bscontmark  %  \setcounter{footnote}{0}%
+  \clearpage
+}
+
+\makepagestyle{introduction}
+  \makeevenfoot{introduction}{}{\thepage}{}
+  \makeoddfoot {introduction}{}{\thepage}{}
+
+
+\makepagestyle{body}
+  \makeoddhead {body}{\leftmark}{}{\rightmark}
+  \makeevenhead{body}{\rightmark}{}{\leftmark}
+  \makeheadrule{body}{\textwidth}{\normalrulethickness}
+
+  \makeevenfoot{body}{}{\thepage}{}
+  \makeoddfoot {body}{}{\thepage}{}
+
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}{}}
+
+\chapterstyle{combined}
+
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
+
+%\fixpdflayout
+
+\newcommand{\preamble}{
+\selectlanguage{english}
+\maketitle
+
+\pagestyle{introduction}
+  \pagenumbering{roman}
+
+  %\hypersetup{linkbordercolor={1 1 1}}
+  \hypersetup{pdfborder={0 0 0}}
+
+  %\myabstract
+
+  \tableofcontents
+  \clearpage
+
+  %\listoffigures
+  %\clearpage
+
+  %\listoftables
+  %\clearpage
+
+  \aliaspagestyle{chapter}{body}
+
+  \pagenumbering{arabic}
+  \pagestyle{body}
+
+  \hypersetup{pdfborder={0 0 1}}
+
+}

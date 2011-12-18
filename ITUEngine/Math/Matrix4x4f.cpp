@@ -168,7 +168,12 @@ Matrix4x4f* Matrix4x4f::Translate(float x, float y, float z)
     temp->data[12] = x;
     temp->data[13] = y;
     temp->data[14] = z;
-	return this->MultiplyWith(*temp);
+
+	this->MultiplyWith(*temp);
+
+	delete temp;
+
+	return this; 
 }
 
 Matrix4x4f* Matrix4x4f::Rotate(float degrees, float x, float y, float z)

@@ -11,3 +11,10 @@ ipch
 .DS_Store
 *.cd
 ITUEngine/Settings2.xml
+*.aux
+*.bbl
+*.blg
+*.lof
+*.log
+*.lot
+*.toc

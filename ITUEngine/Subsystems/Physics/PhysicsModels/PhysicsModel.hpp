@@ -9,6 +9,10 @@
 #include <Vector2f.hpp>
 #include <Events/Interfaces/IEventListener.hpp>
 #include <Managers/EventManager.hpp>
+//#include <Game/Object.hpp>
+
+
+class Object;
 
 #define RECTANGULARSHAPE 1
 #define CIRCULARSHAPE 2
@@ -18,7 +22,7 @@
 #define CRITTERTYPE 11
 
 //Maximum movementSpeeds
-#define MAXIMUMPLAYERSPEED 1.0f
+#define MAXIMUMPLAYERSPEED 0.2f
 #define MAXIMUMCRITTERSPEED 0.1f
 
 
@@ -45,7 +49,7 @@ public:
 		m_RectangularRepresentation = Rectangle(rectangularRepresentation);
 	}
 
-	void InitializeAsCircle(Circle &circularRepresentation)
+	void virtual InitializeAsCircle(Circle &circularRepresentation)
 	{
 		//Copy the geometric representation.
 		m_CircularRepresentation = Circle(circularRepresentation);		
@@ -76,6 +80,82 @@ public:
 		return 0;
 	}
 
+	void SetPosition(Point pos)
+	{
+		if(m_Shape == RECTANGULARSHAPE)
+		{
+			m_RectangularRepresentation.setPos(pos.X, pos.Y);
+		}
+		else if(m_Shape == CIRCULARSHAPE)
+		{
+			m_CircularRepresentation.setPos(pos.X, pos.Y);
+		}
+		else
+		{
+			assert(false && "Failed to get the position because the shape is defined wrong.");
+		}
+	}
+
+	void SetPosition(float x, float y)
+	{
+		if(m_Shape == RECTANGULARSHAPE)
+		{
+			m_RectangularRepresentation.setPos(x, y);
+		}
+		else if(m_Shape == CIRCULARSHAPE)
+		{
+			m_CircularRepresentation.setPos(x, y);
+		}
+		else
+		{
+			assert(false && "Failed to get the position because the shape is defined wrong.");
+		}
+	}
+
+	void scale(float x, float y)
+	{
+		if(m_Shape == RECTANGULARSHAPE)
+		{
+			m_RectangularRepresentation.scale(x,y);
+
+		}
+		else if(m_Shape == CIRCULARSHAPE)
+		{
+			m_CircularRepresentation.scale(x,y);
+		}
+		else
+		{
+			assert(false && "Failed to get the position because the shape is defined wrong.");
+		}
+	}
+
+	void virtual SetDirection(float x, float y);
+	void virtual SetTargetPosition(Point *target){}
+
+	void debug()
+	{
+		if(m_Shape == RECTANGULARSHAPE)
+		{
+			std::cout << "Rectangle min: " << m_RectangularRepresentation.MinXY.X << ", " << m_RectangularRepresentation.MinXY.Y << std::endl;
+			Point center;
+			center.X = m_RectangularRepresentation.MinXY.X + m_RectangularRepresentation.Width/2.0f;
+			center.Y = m_RectangularRepresentation.MinXY.Y + m_RectangularRepresentation.Height/2.0f;
+			std::cout << "Rectangle center: " << center.X << ", " << center.Y << std::endl;
+			std::cout << "Rectangle width: " << m_RectangularRepresentation.Width << std::endl;
+			std::cout << "Rectangle height: " << m_RectangularRepresentation.Height << std::endl;
+			std::cout << "Rectangle Max: " << m_RectangularRepresentation.MaxX << ", " << m_RectangularRepresentation.MaxY << std::endl;
+		}
+		else if(m_Shape == CIRCULARSHAPE)
+		{
+			std::cout << "Circle center: " << m_CircularRepresentation.Center.X << ", " << m_CircularRepresentation.Center.Y << std::endl;
+			std::cout << "Circle radius: " << m_CircularRepresentation.Radius << std::endl;
+		}
+		else
+		{
+			assert(false && "Failed to get the position because the shape is defined wrong.");
+		}
+	}
+
 protected:
 	Circle m_CircularRepresentation;
 	Rectangle m_RectangularRepresentation;
@@ -104,8 +184,8 @@ protected:
 class MovingObjectModel : public PhysicsModel
 {
 public:
-	MovingObjectModel(int shape, int type, Point &dir) 
-		: PhysicsModel(shape, false), m_Direction(dir), m_Type(type)
+	MovingObjectModel(int shape, int type, Point &dir, Object* owner) 
+		: PhysicsModel(shape, false), m_Direction(dir), m_Type(type), m_Owner(owner)
 	{
 		//No movement on construction
 		m_MovementSpeed = 0.0f;
@@ -161,67 +241,37 @@ public:
 
 	void SetTargetPosition(Point *target)
 	{
+		//std::cout << "hey" << std::endl;
 		if(m_Path != NULL)
 		{
 			delete m_Path;
 		}
 
-		m_Path = SINGLETONINSTANCE(PathPlanner)->aStar(target->X, target->Y, GetPosition()->X, GetPosition()->Y);
+		if(!SINGLETONINSTANCE(PathPlanner)->evaluateCoordinate(&(target->X), &(target->Y)))
+		{
+			m_Path = new std::vector<Point>();
+			target->X = GetPosition()->X;
+			target->Y = GetPosition()->Y;
+			m_Path->push_back(Point(*target));
+		}
+		else
+		{
+			m_Path = SINGLETONINSTANCE(PathPlanner)->aStar(target->X, target->Y, GetPosition()->X, GetPosition()->Y);
+		}
 
 		delete m_TargetPosition;
 		m_TargetPosition = target;
 
-		SetDirection();
+		calcDirection();
 	}
 
-	void SetDirection()
-	{
-		if(m_Path != NULL && !m_Path->empty())
-		{
-			auto next = m_Path->at(0);
+	void calcDirection();
 
-			auto pos = GetPosition();
+	void SetDirection(float x, float y);
 
-			Point tempDirection = next - pos;
 
-			m_Direction = tempDirection.GetNormalizedPoint();
-		}
-	}
 
-	void RecalculatePath()
-	{
-		//Only do stuff if the path contains elements.
-		if(m_Path != NULL && !m_Path->empty())
-		{
-			auto next = m_Path->at(0);
-
-			Point tempDirection = &next - GetPosition();
-
-			tempDirection = tempDirection.GetNormalizedPoint();
-
-			Point oppositDirection = m_Direction.GetNegatedPoint();
-
-			//If direction got negated, we overshot our target or if we have reached our next goal
-			if(tempDirection == &oppositDirection || next == GetPosition())
-			{
-				m_Path->erase(m_Path->begin());
-
-				if(m_Path->empty())
-				{
-					m_MovementSpeed = 0;
-				}
-				else
-				{
-					next = m_Path->at(0);
-					auto pos = GetPosition();
-
-					Point newDirection = next - pos;
-					m_Direction = newDirection.GetNormalizedPoint();
-				}
-
-			}
-		}
-	}
+	void RecalculatePath();
 
 	void SetMovementSpeed(float movement)
 	{
@@ -254,17 +304,35 @@ public:
 	{
 		return m_MovementSpeed;
 	}
+
+	Object* GetOwner()
+	{
+		return m_Owner;
+	}
 	
 	void HandleCollsion()
 	{
 		m_MovementSpeed = 0;
 	}
-
+	/*
+	void Move(Circle *circle, unsigned int deltaT)
+	{
+		if(m_Owner == NULL)
+		{
+			circle->Center.X = m_CircularRepresentation.Center.X + m_Direction.X * m_MovementSpeed * deltaT;
+			circle->Center.Y = m_CircularRepresentation.Center.Y + m_Direction.Y * m_MovementSpeed * deltaT;
+		}
+		else
+		{
+			//m_Owner->
+		}
+	}*/
 protected:
 	Point m_Direction;
 	float m_MovementSpeed;
 	int m_Type;
 
+	Object* m_Owner;
 	Point *m_TargetPosition;
 	std::vector<Point> *m_Path;
 

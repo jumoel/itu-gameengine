@@ -54,6 +54,7 @@ Object::~Object()
 void Object::SetPos2D(float x, float y)
 {
 	pos->SetX(x), pos->SetY(y);
+	if(physicsModel != NULL) physicsModel->SetPosition(x,y);
 	transformation->Reset();
 	transformation->Translate(pos->x(), pos->y(), pos->z());
 	transformation->MultiplyWith(*rotation);
@@ -62,7 +63,9 @@ void Object::SetPos2D(float x, float y)
 
 void Object::Rotate(float degrees, float x, float y, float z)
 {
-	rotation->MultiplyWith(*(transformation->createRotate(degrees, x, y, z)));
+	auto temp = (transformation->createRotate(degrees, x, y, z));
+	rotation->MultiplyWith(*temp);
+	delete temp;
 	transformation->Reset();
 	transformation->Translate(pos->x(), pos->y(), pos->z());
 	transformation->MultiplyWith(*rotation);
@@ -72,6 +75,7 @@ void Object::Rotate(float degrees, float x, float y, float z)
 void Object::SetScale(float x, float y, float z)
 {
 	scale = transformation->createScale(x,y,z);
+	if(physicsModel != NULL) physicsModel->scale(x,y);
 	transformation->Reset();
 	transformation->Translate(pos->x(), pos->y(), pos->z());
 	transformation->MultiplyWith(*rotation);
@@ -84,21 +88,35 @@ Vector3f* Object::getPos()
 	return pos;
 }
 
+void Object::SetForward(float x, float y)
+{
+	forward2D->SetX(x);
+	forward2D->SetY(y);
+}
+
 void Object::setLookAt2D(float x, float y)
 {
 	
 	float length = sqrt(x*x + y*y);
 	if(length > 0)
 	{	
+		physicsModel->SetDirection(x,y);
+
+		if (rotation != nullptr)
+		{
+			delete rotation;
+		}
 		rotation = transformation->createRotate(90.0f, 1.0f, 0.0f, 0.0f);
 		x = x/length;
 		y = y/length;
 
-		//float degrees = atan2(y,x) - atan2(forward2D->y(),forward2D->x());
-		float degrees = atan2(forward2D->y(),forward2D->x()) - atan2(y,x);
+		float degrees = atan2(y,x) - atan2(forward2D->y(),forward2D->x());
+		//float degrees = atan2(forward2D->y(),forward2D->x()) - atan2(y,x);
 		degrees = (degrees * 180)/PI;
 		std::cout << "Degrees: " << degrees << std::endl;
-		rotation->MultiplyWith(*(transformation->createRotate(degrees, 0.0f, 1.0f, 0.0f)));
+		auto temp = (transformation->createRotate(degrees, 0.0f, 1.0f, 0.0f));
+		rotation->MultiplyWith(*temp);
+		delete temp;
 		transformation->Reset();
 		transformation->Translate(pos->x(), pos->y(), pos->z());
 		transformation->MultiplyWith(*rotation);
