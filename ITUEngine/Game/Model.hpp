@@ -42,7 +42,6 @@ public:
 private:
     void InitModel(unsigned int Index, const aiMesh* paiMesh);
     bool InitMaterials(const aiScene* pScene, const std::string& Filename);
-    void Clear();
 
 #define INVALID_MATERIAL 0xFFFFFFFF
 
@@ -63,7 +62,7 @@ private:
     };
 
     std::vector<ModelEntry> m_Entries;
-    std::vector<Material*> m_Materials;
+    std::vector<Material*> *m_Materials;
 
 };
 

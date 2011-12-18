@@ -2,6 +2,7 @@
 #define ITUENGINE_LOG_H
 
 #include <fstream>
+#include <iostream>
 #include <stdarg.h>
 
 //Simple logger class, for writing strings into a file.
@@ -12,7 +13,6 @@ public:
 	Log(char* filename);
 	~Log();
 
-	void Write(const char* logline);
 	void Write(const char* logline, ...);
 
 private:

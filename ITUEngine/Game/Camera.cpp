@@ -28,7 +28,7 @@ Camera::Camera()
 	moveRight = false;
 
 	grab_on = true;
-	SDL_WM_GrabInput(SDL_GRAB_ON)
+	SDL_WM_GrabInput(SDL_GRAB_ON);
 	
 
 	// TODO Enforce these Rules:

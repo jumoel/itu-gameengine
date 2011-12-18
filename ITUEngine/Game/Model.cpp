@@ -46,20 +46,16 @@ void Model::ModelEntry::Init(const std::vector<Vert>& Vertices,
 
 Model::Model()
 {
+	m_Materials = new std::vector<Material*>();
 }
 
 
 Model::~Model()
 {
-    Clear();
-}
-
-
-void Model::Clear()
-{
-    for (unsigned int i = 0 ; i < m_Materials.size() ; i++) {
-        SAFE_DELETE(m_Materials[i]);
-    }
+	if(m_Materials != NULL)
+	{
+		delete m_Materials;
+	}
 }
 
 bool Model::InitFromScene(const aiScene* pScene, const std::string& Filename)
@@ -69,7 +65,7 @@ bool Model::InitFromScene(const aiScene* pScene, const std::string& Filename)
 
     m_Entries.resize(pScene->mNumMeshes);
 
-    m_Materials.resize(pScene->mNumMaterials);
+    m_Materials->resize(pScene->mNumMaterials);
 
     // Initialize the meshes in the scene one by one
     for (unsigned int i = 0 ; i < m_Entries.size() ; i++) {
@@ -137,27 +133,28 @@ bool Model::InitMaterials(const aiScene* pScene, const std::string& Filename)
     // Initialize the materials
     for (unsigned int i = 0 ; i < pScene->mNumMaterials ; i++) {
         const aiMaterial* pMaterial = pScene->mMaterials[i];
-
-        m_Materials[i] = new Material();
+		
+		auto mat = new Material();
+        
 		aiColor3D color(0.0f,0.0f,0.0f);
 		pMaterial->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-		m_Materials[i]->diffuse[0] = color.r;
-		m_Materials[i]->diffuse[1] = color.g;
-		m_Materials[i]->diffuse[2] = color.b;
-		m_Materials[i]->diffuse[3] = 1.0f;
+		mat->diffuse[0] = color.r;
+		mat->diffuse[1] = color.g;
+		mat->diffuse[2] = color.b;
+		mat->diffuse[3] = 1.0f;
 
 		pMaterial->Get(AI_MATKEY_COLOR_SPECULAR, color);
-		m_Materials[i]->specular[0] = color.r, m_Materials[i]->specular[1] = color.g, m_Materials[i]->specular[2] = color.b, m_Materials[i]->specular[3] = 1.0f;
+		mat->specular[0] = color.r, mat->specular[1] = color.g, mat->specular[2] = color.b, mat->specular[3] = 1.0f;
 
 		pMaterial->Get(AI_MATKEY_COLOR_AMBIENT, color);
-		m_Materials[i]->ambient[0] = color.r, m_Materials[i]->ambient[1] = color.g, m_Materials[i]->ambient[2] = color.b, m_Materials[i]->ambient[3] = 1.0f;
+		mat->ambient[0] = color.r, mat->ambient[1] = color.g, mat->ambient[2] = color.b, mat->ambient[3] = 1.0f;
 
 		pMaterial->Get(AI_MATKEY_COLOR_EMISSIVE, color);
-		m_Materials[i]->emissive[0] = color.r, m_Materials[i]->emissive[1] = color.g, m_Materials[i]->emissive[2] = color.b, m_Materials[i]->emissive[3] = 1.0f;
+		mat->emissive[0] = color.r, mat->emissive[1] = color.g, mat->emissive[2] = color.b, mat->emissive[3] = 1.0f;
 
-		pMaterial->Get(AI_MATKEY_SHININESS, m_Materials[i]->shininess);
+		pMaterial->Get(AI_MATKEY_SHININESS, mat->shininess);
 
-		//pMaterial->Get(AI_MATKEY_SHADING_MODEL, m_Materials[i]->shader);
+		//pMaterial->Get(AI_MATKEY_SHADING_MODEL, mat->shader);
 
 
         if (pMaterial->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
@@ -168,22 +165,24 @@ bool Model::InitMaterials(const aiScene* pScene, const std::string& Filename)
 				char* temp = new char();
 				strcpy(temp, FullPath.c_str());
 
-				m_Materials[i]->texture = SINGLETONINSTANCE( MediaManager )->FindTexture(temp);
-				if(m_Materials[i]->texture == NULL)
+				mat->texture = SINGLETONINSTANCE( MediaManager )->FindTexture(temp);
+				if(mat->texture == NULL)
 				{
-					m_Materials[i]->texture = SINGLETONINSTANCE( MediaManager )->LoadTexture(temp, temp);
+					mat->texture = SINGLETONINSTANCE( MediaManager )->LoadTexture(temp, temp);
 				}
 				
-				if(!m_Materials[i]->texture) {
-					m_Materials[i]->texture =  SINGLETONINSTANCE( MediaManager )->defaultTex;
+				if(!mat->texture) {
+					mat->texture =  SINGLETONINSTANCE( MediaManager )->defaultTex;
 				}
 					
 
 
-				m_Materials[i]->texture->textureTarget = GL_TEXTURE_2D;
+				mat->texture->textureTarget = GL_TEXTURE_2D;
 
             }
         }
+
+		m_Materials->at(i) = mat;
     }
 
     return Ret;
@@ -220,20 +219,20 @@ void Model::Render()
 
         const unsigned int MaterialIndex = m_Entries[i].MaterialIndex;
 
-        if (MaterialIndex < m_Materials.size()) {
-			if(m_Materials[MaterialIndex]->texture)
+        if (MaterialIndex < m_Materials->size()) {
+			if(m_Materials->at(MaterialIndex)->texture)
 			{
-				m_Materials[MaterialIndex]->texture->Bind(GL_TEXTURE0);
+				m_Materials->at(MaterialIndex)->texture->Bind(GL_TEXTURE0);
 			}
 			else
 			{
 				SINGLETONINSTANCE(MediaManager)->defaultTex->Bind(GL_TEXTURE0);
 			}
-			glMaterialfv(GL_FRONT, GL_DIFFUSE, m_Materials[MaterialIndex]->diffuse);
-			glMaterialfv(GL_FRONT, GL_SPECULAR, m_Materials[MaterialIndex]->specular);
-			glMaterialfv(GL_FRONT, GL_AMBIENT, m_Materials[MaterialIndex]->ambient);
-			glMaterialfv(GL_FRONT, GL_EMISSION, m_Materials[MaterialIndex]->emissive);
-			glMaterialf(GL_FRONT, GL_SHININESS, m_Materials[MaterialIndex]->shininess);
+			glMaterialfv(GL_FRONT, GL_DIFFUSE, m_Materials->at(MaterialIndex)->diffuse);
+			glMaterialfv(GL_FRONT, GL_SPECULAR, m_Materials->at(MaterialIndex)->specular);
+			glMaterialfv(GL_FRONT, GL_AMBIENT, m_Materials->at(MaterialIndex)->ambient);
+			glMaterialfv(GL_FRONT, GL_EMISSION, m_Materials->at(MaterialIndex)->emissive);
+			glMaterialf(GL_FRONT, GL_SHININESS, m_Materials->at(MaterialIndex)->shininess);
         }
 		else
 		{
@@ -273,15 +272,15 @@ void Model::Render()
         const unsigned int MaterialIndex = m_Entries[i].MaterialIndex;
 
         if (MaterialIndex < m_Materials.size()) {
-			if(m_Materials[MaterialIndex]->texture)
+			if(m_Materials->at(MaterialIndex)->texture)
 			{
-				m_Materials[MaterialIndex]->texture->Bind(GL_TEXTURE0);
+				m_Materials->at(MaterialIndex)->texture->Bind(GL_TEXTURE0);
 			}
-			glMaterialfv(GL_FRONT, GL_DIFFUSE, m_Materials[MaterialIndex]->diffuse);
-			glMaterialfv(GL_FRONT, GL_SPECULAR, m_Materials[MaterialIndex]->specular);
-			glMaterialfv(GL_FRONT, GL_AMBIENT, m_Materials[MaterialIndex]->ambient);
-			glMaterialfv(GL_FRONT, GL_EMISSION, m_Materials[MaterialIndex]->emissive);
-			glMaterialf(GL_FRONT, GL_SHININESS, m_Materials[MaterialIndex]->shininess);
+			glMaterialfv(GL_FRONT, GL_DIFFUSE, m_Materials->at(MaterialIndex)->diffuse);
+			glMaterialfv(GL_FRONT, GL_SPECULAR, m_Materials->at(MaterialIndex)->specular);
+			glMaterialfv(GL_FRONT, GL_AMBIENT, m_Materials->at(MaterialIndex)->ambient);
+			glMaterialfv(GL_FRONT, GL_EMISSION, m_Materials->at(MaterialIndex)->emissive);
+			glMaterialf(GL_FRONT, GL_SHININESS, m_Materials->at(MaterialIndex)->shininess);
         }
 
 		

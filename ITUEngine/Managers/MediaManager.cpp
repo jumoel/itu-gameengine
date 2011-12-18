@@ -114,7 +114,26 @@ void MediaManager::StartUp()
 
 void MediaManager::ShutDown()
 {
+	delete helper;
 
+	delete playerScene;
+
+	delete crazyModel;
+	delete carModel;
+	delete boxModel;
+	delete ground;
+	delete boxTex1;
+	delete boxTex2;
+	delete boxTex3;
+	delete carTexture1;
+	delete carTexture2;
+	delete warrior;
+	delete playerTex;
+	delete defaultTex;
+	delete Hud;
+	delete playerModel;
+
+	textures.clear();
 }
 
 Texture* MediaManager::LoadTexture(char *filename, char* name)                 // Loads A TGA File Into Memory
