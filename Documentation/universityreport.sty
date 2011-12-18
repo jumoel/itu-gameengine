@@ -26,6 +26,7 @@
 \usepackage{bookmark}
 \usepackage[all]{hypcap}
 \usepackage{memhfixc}
+\usepackage{pdfpages}
 
 %%% BIBLIOGRAPHY
  \usepackage[numbers]{natbib}
@@ -127,6 +128,7 @@
        \normalfont\@bsthanksheadpre \tamark \@bsthanksheadpost}}%
     \long\def\@makefntext##1{\makethanksmark ##1}
       \global\@topnum\z@
+      \includepdf{includes/frontpage.pdf}
       \@maketitle
     \thispagestyle{empty}\@thanks
   \endgroup
@@ -159,16 +161,18 @@
 
 \newcommand{\preamble}{
 \selectlanguage{english}
+
 \maketitle
 
 \pagestyle{introduction}
   \pagenumbering{roman}
-
+	\setcounter{page}{3} 		% Super ugly-hack is super ugly \o/
+	
   %\hypersetup{linkbordercolor={1 1 1}}
   \hypersetup{pdfborder={0 0 0}}
 
   %\myabstract
-
+	
   \tableofcontents
   \clearpage
 
