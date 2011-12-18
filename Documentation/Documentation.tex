@@ -195,16 +195,14 @@ One might note that the texture is not assigned here. The reason being that it i
 
 Our engine implements a stack based single frame allocator. This is useful for variables, that are created in every frame.
 
-At the beginning of each frame the allocator deletes all allocated memory and therefore each
-frame starts with a blank slate.
-It is not possible to deallocate specific elements from the frame allocator. Due to it being stack based, it is only possible to roll back the stack to a specified marked point. This deallocates all memory that was allocated after the marker was retrieved.
+At the beginning of each frame the allocator deletes all allocated memory and therefore each frame starts with a blank slate. It is not possible to deallocate specific elements from the frame allocator. Due to it being stack based, it is only possible to roll back the stack to a specified marked point. This deallocates all memory that was allocated after the marker was retrieved.
 
-We have also implemented a basic smart pointer structure, that can be used, if a general heap allocator wants to be implemented at a later point. The allocator should return a smart pointer (containing the real address to the allocated memory) instead of a normal pointer. This will allow the heap allocator to move the allocated memory blocks around, without breaking the users memory access, if the smart pointers internal pointer is updated with the new memory location. This is necessary because a general memory allocator like a heap allocator can become fragmented. It is then necessary to clean up once in a while, so the allocator doesn't waste too much space on uninitialized memory blocks that are too small to actually contain anything. If the defragmentation method splits up the defragmentation over several frames, the memory can stay more or less defragmented while preventing excessive CPU usage.
+We have also implemented a basic smart pointer structure, that can be used, if a general heap allocator wants to be implemented at a later point. The allocator should return a smart pointer (containing the real address to the allocated memory) instead of a normal pointer. This will allow the heap allocator to move the allocated memory blocks around, without breaking the users memory access, if the smart pointers internal pointer is updated with the new memory location. This is necessary because a general memory allocator like a heap allocator can become fragmented. It is then necessary to clean up once in a while, so the allocator does not waste too much space on uninitialized memory blocks that are too small to actually contain anything. If the defragmentation method splits up the defragmentation over several frames, the memory can stay more or less defragmented while preventing excessive CPU usage.
 
 \subsection{Settings Manager}
 \label{sec:SettingsManager}
 % I think this is a good spot to describe the Settings Manager, as it doesn't really seem to fit in anywhere else.
-As every game needs variable settings and options, which should be easy to customize. We decided to keep the data in an external \texttt{XML}-file, so that it is easily changable outside the game. This opens up for the posibility of having a light-weight external tool.
+As every game needs variable settings and options, which should be easy to customize. We decided to keep the data in an external \texttt{XML}-file, so that it is easily changeable outside the game. This opens up for the possibility of having a light-weight external tool.
 
 Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a DOM\footnote{The ``Document Object Model''-standard.} Tree, which is easily traversable and logically structured. In the same way, the tree can be exported back to the \texttt{XML}-file at any given time, and will also do so upon shutting down the engine.
 
@@ -247,7 +245,7 @@ The engine uses the SDL API to register keyboard and mouse input using their bui
 \subsection{Mouse}
 \label{sec:Mouse}
 %Fairly extensive section, as there is surely lots to be written in regards to how it works (ie, from mouse-coordinates on the screen to coordinates on the HUD/Worldspace, Events, and... whatever more there is.
-When a mousepress is registered window coordinates are translated into \textit{OpenGL} world space coordinates and an event for pathfinding and movement of the player is triggered.
+When a mouse-press is registered window coordinates are translated into \textit{OpenGL} world space coordinates and an event for pathfinding and movement of the player is triggered.
 
 The mapping from screen coordinates to world coordinates happen via an inverse projection matrix.
 
