@@ -40,6 +40,9 @@ public:
 
 	virtual bool ValidateType( EventType const & inType ) const = 0;
 
+	//Verifies that such an event does not already exist, then registers it.
+	virtual void AddRegisteredEventType( const EventType & eventType ) = 0;
+
 	//Gets the current global instance of IEventManager
 	static IEventManager * Instance();
 

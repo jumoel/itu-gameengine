@@ -25,8 +25,6 @@ private:
 	std::vector<Vector3f> *m_VectorList;
 	GLuint m_VertexBuffer;
 	GLuint m_VertexArrayObject;
-
-	GLuint theProgram;
 };
 
 #endif // ITUENGINE_GRAPHICSSYSTEM_H

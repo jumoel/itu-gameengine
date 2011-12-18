@@ -318,7 +318,7 @@ bool PathPlanner::evaluateCoordinate(float *x, float *y)
 
 bool PathPlanner::checkForFreeSpaces(float *x, float *y, int i)
 {
-	if(0 > *x+i && *x+i > mapDivisions-1 && 0 > *y-i && *y+i > mapDivisions-1)
+	if(0 > *x-i && *x+i > mapDivisions-1 && 0 > *y-i && *y+i > mapDivisions-1)
 	{
 		return false;
 	}
@@ -331,6 +331,7 @@ bool PathPlanner::checkForFreeSpaces(float *x, float *y, int i)
 			{
 				if(0 < *x+j  && *x+j < mapDivisions-1 && 0 < *y+k && *y+k < mapDivisions-1)
 				{
+
 					if(map[*x+j][*y+k] != BLOCKED)
 					{
 						tempList.push_back(Vector2f(j,k));

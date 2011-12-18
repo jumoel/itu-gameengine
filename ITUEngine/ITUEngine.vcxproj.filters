@@ -3,6 +3,7 @@
   <ItemGroup>
     <ClCompile Include="Abstractions\Window.cpp" />
     <ClCompile Include="Events\EventData\EmptyEventData.cpp" />
+    <ClCompile Include="Game\HUD.cpp" />
     <ClCompile Include="Game\PathPlanner.cpp" />
     <ClCompile Include="Game\Model.cpp" />
     <ClCompile Include="GetOGLPos.cpp" />
@@ -24,6 +25,7 @@
     <ClCompile Include="PlayerInteraction.cpp" />
     <ClCompile Include="Subsystems\Physics\PhysicsModels\PhysicsModel.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Utils\HeapAllocator.cpp" />
     <ClCompile Include="Utils\ReferenceCounter.cpp" />
     <ClCompile Include="Utils\SmartPointer.cpp" />
     <ClCompile Include="Utils\StackAllocator.cpp" />
@@ -43,8 +45,8 @@
     <ClCompile Include="Utils\StringUtils.cpp" />
     <ClCompile Include="Utils\ThreadSafeEventQueue.cpp" />
     <ClCompile Include="Vector2f.cpp" />
-    <ClCompile Include="Utils\HeapAllocator.cpp" />
-    <ClCompile Include="Game\HUD.cpp" />
+    <ClCompile Include="Utils\Log.cpp" />
+    <ClCompile Include="Utils\Profiler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Abstractions\DataTypes.hpp" />
@@ -54,6 +56,7 @@
     <ClInclude Include="Events\EventData\BaseEventData.hpp" />
     <ClInclude Include="Events\EventData\EmptyEventData.hpp" />
     <ClInclude Include="Events\EventData\EventData.hpp" />
+    <ClInclude Include="Game\HUD.hpp" />
     <ClInclude Include="Game\PathPlanner.hpp" />
     <ClInclude Include="Game\dataTypes.hpp" />
     <ClInclude Include="Game\Model.hpp" />
@@ -105,7 +108,9 @@
     <ClInclude Include="Utils\StringUtils.hpp" />
     <ClInclude Include="Utils\ThreadSafeEventQueue.hpp" />
     <ClInclude Include="Vector2f.hpp" />
-    <ClInclude Include="Game\HUD.hpp" />
+    <ClInclude Include="Utils\Log.hpp" />
+    <ClInclude Include="Utils\Profiler.hpp" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Settings.xml" />
   </ItemGroup>

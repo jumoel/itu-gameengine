@@ -32,7 +32,7 @@ public:
 	virtual bool ValidateType( EventType const & inType ) const;
 
 	//Verifies that such an event does not already exist, then registers it.
-	void AddRegisteredEventType( const EventType & eventType );
+	virtual void AddRegisteredEventType( const EventType & eventType );
 
 private:
 	class IRegisteredEvent

@@ -8,9 +8,10 @@
 #include "SDL.h"
 
 #include <vector>
+#include <Events/Interfaces/IEventListener.hpp>
 
 
-class SceneGraphManager
+class SceneGraphManager : public IEventListener
 {
 public:
 	SceneGraphManager(Camera *Camera, Object *RootNode);
@@ -18,8 +19,12 @@ public:
 
 	//void Render(Uint32 CurrentTime, bool vboOn);
 
-	Camera* CameraObject;
-	Object* RootNode;
+	virtual char const * GetName();
+
+	virtual bool HandleEvent( IEventData const & event );
+
+	Camera* m_CameraObject;
+	Object* m_RootNode;
 
 private:
 	//void RenderObject(Object *obj);

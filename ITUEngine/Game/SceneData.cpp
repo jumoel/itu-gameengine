@@ -36,34 +36,6 @@ SceneGraphManager *createGraph()
 	underground->SetPos2D(20.0f,20.0f);
 	underground->SetScale(mapWidth*10,mapWidth*10,1.0f);
 
-	Point point;
-	point.X = 0.0f;
-	point.Y = 0.0f;
-
-	Point forward;
-	forward.X = 0;
-	forward.Y = -1;
-	forward = forward.GetNormalizedPoint();
-
-	auto player = new Object();
-	SINGLETONINSTANCE(PlayerInteraction)->StartUp(player);
-
-	player->Name = "Player";
-	player->model =  SINGLETONINSTANCE( MediaManager )->crazyModel;
-	MovingObjectModel* tempMovingObject = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward, player);
-	player->physicsModel = tempMovingObject;
-	//player->physicsModel = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward, player);
-	Circle circle(Point(0.0f,0.0f),0.5f);
-	player->physicsModel->InitializeAsCircle(circle);
-	SINGLETONINSTANCE(PhysicsSystem)->AddMovingObject(tempMovingObject);
-	player->SetPos2D(5,35);
-	player->Rotate(90.0f, 1.0f, 0.0f, 0.0f);
-	player->SetForward(0.0f, 1.0f);
-	player->setLookAt2D(forward.X,forward.Y);
-	
-	//player->
-	//player->physicsModel->debug();
-
 	Rectangle physicsBox(Point(-0.5f, -0.5f), 1.0f, 1.0f);
 
 	auto box = new Object();
@@ -128,38 +100,6 @@ SceneGraphManager *createGraph()
 	box5->SetScale(1.0f, 30.0f, 3.0f);
 	
 
-	/*
-	Matrix4x4f *temp = new Matrix4x4f();
-	temp = temp->createRotate(90, 0.0f,0.0f,1.0f);
-	temp->MultiplyWith(*temp->createTranslate(0,1,0));
-	temp->MultiplyWith(*temp->createTranslate(1,0,0));
-	
-	player->transformation->MultiplyWith(*temp);
-	*/
-	
-	//player->transformation->Rotate(90,0.0f,0.0f,1.0f);
-	
-	//player->transformation->Translate(0,1,0);
-	//player->transformation->Translate(1,0,0);
-	
-	/*auto car = new Object();
-	car->Name = "Car";
-	car->model =  SINGLETONINSTANCE( MediaManager )->carModel;
-	car->transformation->Reset();
-	
-	car->transformation->Rotate(90,1.0f,0.0f,0.0f);
-	//car->transformation->Translate(-3,0,0);
-	*/
-	//std::cout << "num of vertices: " << player->gfx->numVertices << std::endl;
-	/*for(int i = 0; i < player->gfx->numMaterials; i++)
-	{
-		player->gfx->SetTexture(SINGLETONINSTANCE( MediaManager )->playerTex, &player->gfx->mMaterials[i]);
-	}*/
-	
-	auto m = new Matrix4x4f();
-	m->Translate(0.0f, 0.0f, -4.0f);
-	
-	
 	root->children->push_back(*underground);
 	root->children->push_back(*ground);
 	
@@ -169,13 +109,32 @@ SceneGraphManager *createGraph()
 	root->children->push_back(*box3);
 	root->children->push_back(*box4);
 	root->children->push_back(*box5);
+
+	SINGLETONINSTANCE(PhysicsSystem)->SetStaticPathMap();
+
+	Point forward;
+	forward.X = 0;
+	forward.Y = -1;
+	forward = forward.GetNormalizedPoint();
+
+	auto player = new Object();
+	SINGLETONINSTANCE(PlayerInteraction)->StartUp(player);
+
+	player->Name = "Player";
+	player->model =  SINGLETONINSTANCE( MediaManager )->crazyModel;
+	MovingObjectModel* tempMovingObject = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward, player);
+	player->physicsModel = tempMovingObject;
+	//player->physicsModel = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward, player);
+	Circle circle(Point(0.0f,0.0f),0.5f);
+	player->physicsModel->InitializeAsCircle(circle);
+	SINGLETONINSTANCE(PhysicsSystem)->AddMovingObject(tempMovingObject);
+	player->SetPos2D(15,20);
+	player->Rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	player->SetForward(0.0f, 1.0f);
+	player->setLookAt2D(forward.X,forward.Y);
 	
 	root->children->push_back(*player);
-	
-	//root->children->push_back(*car);
 
-	//std::cout << "Cosine of 90 = " << cosf(90.0f) << endl;
-	SINGLETONINSTANCE(PhysicsSystem)->SetStaticPathMap();
 	player->physicsModel->SetTargetPosition(new Point(50,5));
 
 	auto camera = new Camera();
