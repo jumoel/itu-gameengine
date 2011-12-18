@@ -125,7 +125,6 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClCompile Include="Managers\SceneGraphManager.cpp" />
     <ClCompile Include="Subsystems\Graphics\GraphicsSystem.cpp" />
     <ClCompile Include="Subsystems\Physics\PhysicsSystem.cpp" />
-    <ClCompile Include="TestEventSubscribtion.cpp" />
     <ClCompile Include="ThirdParty\pugixml\pugixml.cpp" />
     <ClCompile Include="Utils\StringUtils.cpp" />
     <ClCompile Include="Utils\ThreadSafeEventQueue.cpp" />

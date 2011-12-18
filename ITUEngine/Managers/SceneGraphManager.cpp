@@ -37,7 +37,7 @@ void SceneGraphManager::DeleteGraph(Object* node)
 			DeleteGraph(&(*it));
 		}
 	}
-	delete node;
+//	delete node;
 }
 
 char const * SceneGraphManager::GetName()

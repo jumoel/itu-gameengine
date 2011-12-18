@@ -54,7 +54,7 @@ Model::~Model()
 {
 	if(m_Materials != NULL)
 	{
-	//	delete m_Materials;
+		delete m_Materials;
 	}
 }
 
