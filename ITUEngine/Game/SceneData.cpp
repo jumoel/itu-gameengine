@@ -33,8 +33,7 @@ SceneGraphManager *createGraph()
 	underground->Name = "Underground";
 	underground->model =  SINGLETONINSTANCE( MediaManager )->ground;
 	underground->transformation->Reset();
-	underground->SetPos2D(20.0f,20.0f);
-	underground->transformation->Translate(0,0,-10.0f);
+	underground->getPos()->SetZ(-10.0f);
 	underground->SetScale(mapWidth*10,mapWidth*10,1.0f);
 
 	Rectangle physicsBox(Point(-0.5f, -0.5f), 1.0f, 1.0f);
