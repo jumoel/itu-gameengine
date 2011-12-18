@@ -134,7 +134,7 @@ The engine targets the ``Hero \texttt{RTS}\footnote{Real-Time Strategy.}''-genre
 
 To make our engine achieve the requirements of the genre, it was important to have a clear idea of what expected result should look like. As a good reference, see the example screenshot in \figRef{fig:DRdota2screen}.
 
-\fig[\textwidth]{includes/dota2screen.jpg}{Screenshot from \textit{DOTA2}, showcasing the idea we wanted to achieve.}{fig:DRdota2screen}
+\fig[\textwidth]{includes/dota2screen.jpg}{Engine Scope: Screenshot from \textit{DOTA2}.}{fig:DRdota2screen}
 
 As can be seen, the basic graphics are fairly simple. There has to be a flat ground-level upon which the player can be controlled around, along with objects he cannot pass. On top of that, there has to be an interactable \texttt{HUD}\footnote{Heads Up Display.}. The camera will do limited movement, which again will limit the amount of required graphics that needs to be rendered. Furthermore, the avatar of the player has to be able to get from \texttt{A} to \texttt{B}, and be able to pathfind around various obstacles. 
 
@@ -190,7 +190,13 @@ More detailed about the structure of the various parts of the engine. The sectio
 % Design a resource/dependency-management system, both runtime and offline portion (offline includes things like asset conditioning, and level format).
 % Quickest way to get some resources loading: wrap a library like assimp.sourceforge.net
 
-Interesting stuff regarding how Resources in general are being handled.
+Interesting stuff regarding how Resources in general are being handled - quick introduction, perhaps?
+
+\subsection{Media Manager}
+\label{sec:MediaManager}
+The \textit{Media Manager} is the tool that is to be used in order to import and access media files for use in the game. Currently, it supports importing of \texttt{.TGA}-files as textures and all the common model formats as 3D models, by using \textit{Assimp}\footnote{See \textit{Assimp} documentation for a full list of supported file formats.}. In the future, audio files will be accessed and imported using the media manager as well. As this manager is a singleton, any media imported using it will readily be available anywhere in the code as long you include \texttt{<Managers/MediaManager>}.
+
+In order to import a resource, one must first create either a model or a texture image and place it in the \texttt{Resource} folder. A container must then be created for it in the \texttt{MediaManager} class (\texttt{Texture*} for textures, and \texttt{Model*} for models). Then in the \texttt{MediaManager.StartUp()} function the resource must be loaded and stored in the aforementioned container using the \texttt{LoadTexture()} or \texttt{ImportAssimpModel()} respectively. Hereafter the imported asset can be accessed from the \texttt{MediaManger} singleton from anywhere within the engine. However, as the scene is actually built in \texttt{SceneData.cpp} and the \texttt{createGraph()} function, one would usually access in here in order to assign it to an object in the scene. Example of the usage can be seen in \secRef{sec:MediaManagerUsage}.
 
 \subsection{Memory Management}
 \label{sec:MemoryManagement}
@@ -255,6 +261,22 @@ Gogo Gadget Mads!
 % Give some examples illustrating interesting features of your engine and how they’d be used. Depending on the features, these can take the form of screenshots, code snippets, flow charts, and/or prose explanation.
 
 Giving examples is one of the requirements of the documentation. It could either be done throughout the document, or simply be here in a chapter for itself. Most likely a better idea, to keep it from the more in-depth technical facts.
+
+\section{Media Manager Usage}
+\label{sec:MediaManagerUsage}
+The Memory Manager (described in \secRef{sec:MediaManager} is used in the following way:
+
+\begin{enumerate}
+	\item Firstly two containers, to hold the player's model and its texture, are created. See \figRef{fig:MMUsage1}.
+	\item Then the resources are imported in the \texttt{StartUp()} function. See \figRef{fig:MMUsage2}.
+	\item And lastly an object is instantiated in the \texttt{createGraph()} function and are assigned the player model that we imported earlier. See \figRef{fig:MMUsage3}.
+\end{enumerate}
+
+One might note that the texture is not assigned here. The reason being that it is done automatically when importing the player model as long as the texture is assigned in the model file is called the same as the texture we imported. In this example the name would have to be \texttt{player.tga} or \texttt{PlayerTexture}.
+
+\fig[175px]{includes/MMUsage1.png}{MediaManager Usage, Step 1: Initializing containers.}{fig:MMUsage1}
+\fig[430px]{includes/MMUsage2.png}{MediaManager Usage, Step 2: Resources are imported.}{fig:MMUsage2}
+\fig[371px]{includes/MMUsage3.png}{MediaManager Usage, Step 3: Object instantiated.}{fig:MMUsage3}
 
 \chapter{Concluding Comments}
 \label{sec:ConcludingComments}
