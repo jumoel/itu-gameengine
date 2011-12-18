@@ -16,7 +16,7 @@ public:
 	void Write(const char* logline, ...);
 
 private:
-	ofstream m_stream;
+	std::ofstream m_stream;
 };
 
 #endif //ITUENGINE_LOG_H

@@ -156,8 +156,8 @@ SceneGraphManager *createGraph()
 		player->gfx->SetTexture(SINGLETONINSTANCE( MediaManager )->playerTex, &player->gfx->mMaterials[i]);
 	}*/
 	
-	auto m = new Matrix4x4f();
-	m->Translate(0.0f, 0.0f, -4.0f);
+	/*auto m = new Matrix4x4f();
+	m->Translate(0.0f, 0.0f, -4.0f);*/
 	
 	
 	root->children->push_back(*underground);

@@ -21,6 +21,8 @@ void Engine::Run()
 
 	SDL_Event event;
 	const EventType keydown("keydownEvent");
+	
+	m_EventManager->AddRegisteredEventType( keydown );	
 
 
 	while (m_Running)
@@ -147,6 +149,8 @@ void Engine::handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_key
 		if(key->keysym.sym == SDLK_ESCAPE)
 		{
 			m_Running = false;
+
+			delete keyEvent;
 			return;
 		}
 
@@ -162,18 +166,24 @@ void Engine::handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_key
 
 void Engine::handleMouseButtonPress( SDL_MouseButtonEvent *key, Uint8 eventtype)
 {
-	const EventType mouseClickPosition("mouseClickPositionEvent");
+	const EventType mouseWorldClickPosition("mouseClickPositionEvent");
+	const EventType mouseHUDClickPosition("mouseClickHUDEvent");
+	m_EventManager->AddRegisteredEventType( mouseWorldClickPosition );
+	m_EventManager->AddRegisteredEventType( mouseHUDClickPosition );
+
 	auto mouseButtonEvent = new MouseClickEvent(key, eventtype);
 
 	if(eventtype == SDL_MOUSEBUTTONDOWN)
 	{
 		InputManager::NotifyButtonDown(mouseButtonEvent);
 		auto mouseWorldPos = GetOGLPos::GetPos(key->x, key->y);
-		if (mouseWorldPos.z() < 35.0f){
-			safeTriggerEvent( EventData<Vector3f>(mouseWorldPos, mouseClickPosition) );
-		} else {
-
-			std::cout<<"HUD clicked"<<std::endl;
+		if (mouseWorldPos.z() < 35.0f)
+		{
+			safeTriggerEvent( EventData<Vector3f>(mouseWorldPos, mouseWorldClickPosition) );
+		} 
+		else 
+		{
+			safeTriggerEvent( EventData<Vector3f>(mouseWorldPos, mouseHUDClickPosition) );
 		}
 
 	}

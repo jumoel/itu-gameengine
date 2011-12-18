@@ -17,8 +17,6 @@
 
 void GraphicsSystem::StartUp()
 {
-	// Some lines below need to be commented out to work for Emil, QQ. Need to research!
-
 	this->InitOpenGL();
 	SINGLETONINSTANCE(MediaManager)->StartUp();
 
@@ -30,7 +28,7 @@ void GraphicsSystem::StartUp()
 	m_VectorList->push_back(Vector3f(-0.75f, -0.75f, 0.0f)); 
 	
 
-	AddToVBORecursive(m_SceneGraph->RootNode, m_VectorList);
+	AddToVBORecursive(m_SceneGraph->m_RootNode, m_VectorList);
 
 	//std::cout << "Size: " << m_VectorList->size() << std::endl;
 
@@ -292,7 +290,7 @@ void GraphicsSystem::Render()
 	
 	
 
-	Camera *CameraObject = m_SceneGraph->CameraObject;
+	Camera *CameraObject = m_SceneGraph->m_CameraObject;
 
 	/*std::cout << "Camera Position: (" << CameraObject->Position.x() << ", " << CameraObject->Position.y() << ", " << CameraObject->Position.z() << ")" << std::endl;
 	std::cout << "Camera LookAt: (" << CameraObject->LookAt.x() << ", " << CameraObject->LookAt.y() << ", " << CameraObject->LookAt.z() << ")" << std::endl;
@@ -324,7 +322,7 @@ void GraphicsSystem::Render()
 	//glUseProgram(0);
 
 
-	RenderRecursive(m_SceneGraph->RootNode);
+	RenderRecursive(m_SceneGraph->m_RootNode);
 
 	SDL_WM_GrabInput(SDL_GrabMode::SDL_GRAB_ON);
 	SDL_ShowCursor(1);
@@ -386,5 +384,6 @@ void GraphicsSystem::Render()
 
 void GraphicsSystem::ShutDown()
 {
-
+	delete m_SceneGraph;
+	delete m_VectorList;
 }
