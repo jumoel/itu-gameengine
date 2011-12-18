@@ -139,6 +139,18 @@ This section gives a more detailed description of the various subparts of the en
 \label{sec:DynamicElements}
 % A quick few words on what the Dynamic Element section contains.
 
+Some of the elements in our game engine have dependencies of other elements of our game engine.
+Because of that, we have a specific initialization order. We also use \texttt{StartUp} and \texttt{ShutDown} methods instead of constructors and deconstructors, to be able to finely control when and where dependencies are initiated.
+
+% FIGUR LOL
+
+This design pattern can also be used to instantiate systems that have circular references,
+by creating the objects before initializing them. That way both objects can be created, the 
+required parts initialized and then the circular dependent parts can be created.
+
+Our shutdown sequence is the opposite of the startup sequence, to make sure that subsystems
+are not destroyed before the systems that depend on them.
+
 \subsection{Physics System}
 \label{sec:PhysicsSystem}
 % Physics and animation: What makes sense for your engine and why? Decide on a physics/animation split for your engine, considering its target. Do you want forces, manual animations, parametric curves, something else?
@@ -236,6 +248,7 @@ TODO
 \label{sec:GameLoop}
 % Support framerate-independent game-world updates (e.g. using deltaT timings).
 % Implement an event system (may be useful to split into several event systems, e.g. an InputManager handling all input events).
+
 The game loop catches and handles all input and game events first. Then, the physics system is run with the elapsed time since the last update. When the 'model' of the world is updated, everything is drawn. In the end, we measure our performance and frame memory usage. A visual representation can be seen in \figRef{fig:GameLoop}.
 
 \fig[128px]{flowcharts/loop.png}{Game Loop: Flowchart showing the main game loop.}{fig:GameLoop}
