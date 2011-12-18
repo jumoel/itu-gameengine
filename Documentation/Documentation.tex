@@ -81,6 +81,19 @@ This puts the main focus of the engine on effective handling of mouse events, co
 % Here a screen of our own engine should be, for comparing!   
 %\fig[\textwidth]{Pictures/enginescreen.jpg}{Screenshot from our Engine, showcading the User Interface.}{fig:DREngineScreen}
 
+\subsection{Engine Structure}
+\label{sec:EngineStructure}
+
+We ended ud structuring our engine like figure
+
+% INDSAET ENGINE STRUKTUR BILLEDE HER MED REFERENCE OVENOVER.
+
+The engine contains each of the blue subsystems (window, settings, events, performance monitor, memory, graphics, physics).
+
+The graphics subsystem contains handling of the HUD, 3D models, materials and a media manager, that handles loading of images and model files.
+
+Some components (the path planner, scene description graph and game objects) are heavily reliant on both the physics and graphics subsystems, and are therefore placed on the intersection between the two systems in the diagram.
+
 \section{Design Rationales}
 \label{sec:DesignRationales}
 % Were some of the design decisions made after considering alternatives, and do you have rationales for why you made the decisions you did? If so, tell us!
@@ -234,7 +247,7 @@ themselves and the event manager.
 \label{sec:Input}
 The engine uses the SDL API to register keyboard
 and mouse input using their built in event types. When the engine is started a loop runs using the
-SDL\_PollEvent. A switch-case calls the appropriate handlers when SDL
+SDL\_PollEvent method. A switch-case calls the appropriate handlers when SDL
 events is registered.
 % Handle keyboard input, with at least a few options. For example: event-based input that queues multiple keypresses, and polling-based input that does something while the key is held down.
 % Handle mouse (or joystick/controller) input, with the option for nonlinear mapping
@@ -246,6 +259,9 @@ events is registered.
 When a mousepress is registered window coordinates are translated into
 OpenGL world space coordinates and an event for pathfinding and
 movement of the player is triggered.
+
+The mapping from screen coordinates to world coordinates happen via an inverse projection
+matrix.
 
 %Fairly extensive section, as there is surely lots to be written in regards to how it works (ie, from mouse-coordinates on the screen to coordinates on the HUD/Worldspace, Events, and... whatever more there is. 
 
