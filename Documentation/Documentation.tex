@@ -209,6 +209,10 @@ Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a 
 
 \section{Game Loop}
 \label{sec:GameLoop}
+
+The game loop catches and handles all input and game events first. Then, the physics system
+is run with the elapsed time since the last update. When the 'model' of the world is updated,
+everything is drawn. In the end, we measure our performance and frame memory usage.
 % Support framerate-independent game-world updates (e.g. using deltaT timings).
 % Implement an event system (may be useful to split into several event systems, e.g. an InputManager handling all input events).
 
