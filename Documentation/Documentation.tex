@@ -180,13 +180,13 @@ To make our game function optimally for the specific game genre, the main - and 
 	\item Effective pathfinding.
 \end{itemize}
 
-% The things that makes the engine special, the primary forces and so on. There is no further explanations of what this part should contain.
+% The things that makes the engine special, the primary forces and so on. There is no further explanations of what this part should contain. Fairly certain this section could be revised in a much better way, with many more details.
 
 \chapter{Implementation Overview}
 \label{sec:ImplementationOverview}
 % Give a high-level explanation of how the engine is structured (perhaps with an architecture diagram). Then, give at least brief explanations of how the major subsystems work, delving into more details for components that are particularly interesting, advanced, or unusual.
 
-More detailed about the structure of the various parts of the engine. The sections below are taken from the requirements of each of the major parts, but might need to be re-structured after that.
+%More detailed about the structure of the various parts of the engine. The sections below are taken from the requirements of each of the major parts, but might need to be re-structured after that.
 
 \section{Dynamic Elements}
 \label{sec:DynamicElements}
@@ -221,9 +221,9 @@ Then the path planning map is set in the end of the \texttt{createGraph()} funct
 \label{sec:ResourceManagement}
 % Singleton class (or several) managing global engine state
 % Design a resource/dependency-management system, both runtime and offline portion (offline includes things like asset conditioning, and level format).
-% Quickest way to get some resources loading: wrap a library like assimp.sourceforge.net
+% Quickest way to get some resources loading: wrap a library like assimp.sourceforge.net (Emil: This is mentioned in Design Rationales, btw)
 
-Interesting stuff regarding how Resources in general are being handled - quick introduction, perhaps?
+% Quick introduction, perhaps?
 
 \subsection{Media Manager}
 \label{sec:MediaManager}
@@ -246,7 +246,8 @@ One might note that the texture is not assigned here. The reason being that it i
 \subsection{Memory Management}
 \label{sec:MemoryManagement}
 % Memory-management system. Design on paper first. Implement at least one kind of custom allocator, e.g. a stack allocator used for per-frame allocations.
-Describe the Stack Allocator and Heap Allocators here. It will be interesting and awesome.
+
+%Describe the Stack Allocator and Heap Allocators here. It will be interesting and awesome.
 
 \subsection{Settings Manager}
 \label{sec:SettingsManager}
@@ -267,10 +268,9 @@ Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a 
 \label{sec:Camera}
 % A camera component should be present.
 
-\subsection{LIGHTNING Manager}
+\subsection{Lighting Manager}
 \label{sec:LightingManager}
 % Lighting manager (or data structures) storing information on lights in the scene
-:D
 
 \section{Game Loop}
 \label{sec:GameLoop}
@@ -299,20 +299,18 @@ Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a 
 \label{sec:PerformanceLogging}
 %Pick either one area of the engine to add advanced functionality to, or at least one optional feature to add. For example: a user-programmable shader interface, procedural terrain, advanced physics, an audio subsystem, etc.
 
-Gogo Gadget Mads!
+% Gogo Gadget Mads!
 
 \chapter{Examples}
 \label{sec:Examples}
 % Give some examples illustrating interesting features of your engine and how they’d be used. Depending on the features, these can take the form of screenshots, code snippets, flow charts, and/or prose explanation.
 
-Giving examples is one of the requirements of the documentation. It could either be done throughout the document, or simply be here in a chapter for itself. Most likely a better idea, to keep it from the more in-depth technical facts.
+% Giving examples is one of the requirements of the documentation. It could either be done throughout the document, or simply be here in a chapter for itself. Most likely a better idea, to keep it from the more in-depth technical facts.
 
-It is probably easier simply omitting this section, and describing it when going over the various parts instead. Look at that later.
+% It is probably easier simply omitting this section, and describing it when going over the various parts instead. Look at that later.
 
 \chapter{Concluding Comments}
 \label{sec:ConcludingComments}
-Might be a good idea with a minor wrap-up at the end.
-
-Also, a better name could be used for this section - but a fitting alternative is eluding me at this point.
+% Might be a good idea with a minor wrap-up at the end. A better name could be used for this section - but a fitting alternative is eluding me at this point.
 
 \end{document}
