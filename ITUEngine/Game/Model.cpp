@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <Managers/MediaManager.hpp>
 #include <cmath>
+#include <Assertion.hpp>
 
 #define INVALID_OGL_VALUE 0xFFFFFFFF
 #define SAFE_DELETE(p) if (p) { delete p; p = NULL; }
@@ -103,7 +104,9 @@ void Model::InitModel(unsigned int Index, const aiMesh* paiMesh)
 	
     for (unsigned int i = 0 ; i < paiMesh->mNumFaces ; i++) {
         const aiFace& Face = paiMesh->mFaces[i];
-        assert(Face.mNumIndices == 3);
+
+		ASSERT(Face.mNumIndices == 3);
+
         Indices.push_back(Face.mIndices[0]);
         Indices.push_back(Face.mIndices[1]);
         Indices.push_back(Face.mIndices[2]);
