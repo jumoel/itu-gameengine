@@ -24,7 +24,20 @@ SceneGraphManager::SceneGraphManager(Camera *CameraObject, Object *RootNode) :
 SceneGraphManager::~SceneGraphManager()
 {
 	delete m_CameraObject;
-	delete m_RootNode;
+	DeleteGraph(m_RootNode);
+	//delete m_RootNode;
+}
+
+void SceneGraphManager::DeleteGraph(Object* node)
+{
+	if(node->children->size() > 0)
+	{
+		for (auto it = node->children->begin(); it != node->children->end(); ++it)
+		{
+			DeleteGraph(&(*it));
+		}
+	}
+	delete node;
 }
 
 char const * SceneGraphManager::GetName()

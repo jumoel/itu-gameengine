@@ -114,7 +114,7 @@ void MediaManager::StartUp()
 
 void MediaManager::ShutDown()
 {
-	delete helper;
+	//delete helper;
 
 	delete playerScene;
 
