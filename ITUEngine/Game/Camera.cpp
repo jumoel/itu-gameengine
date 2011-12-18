@@ -315,12 +315,12 @@ void Camera::OnMotion(MouseMoveEvent *motion)
 
 	// std::cout << "Screenwidth: " << screenWidth << ", X: " << motionInput->x << std::endl; 
 
-	if (motionInput->x > (screenWidth - gutter_px))
+	if (motionInput->x > (screenWidth - gutter_px) && motionInput->x < (screenWidth + gutter_px))
 	{
 		moveRight = true;
 		moveLeft = false;
 	}
-	else if (motionInput->x < gutter_px)
+	else if (motionInput->x < gutter_px && motionInput->x > -gutter_px)
 	{
 		moveRight = false;
 		moveLeft = true;
@@ -331,12 +331,12 @@ void Camera::OnMotion(MouseMoveEvent *motion)
 		moveLeft = false;
 	}
 
-	if (motionInput->y > (screenHeight - gutter_px))
+	if (motionInput->y > (screenHeight - gutter_px) && motionInput->y < (screenHeight + gutter_px))
 	{
 		moveUp = true;
 		moveDown = false;
 	}
-	else if (motionInput->y < gutter_px)
+	else if (motionInput->y < gutter_px && motionInput->y > -gutter_px)
 	{
 		moveUp = false;
 		moveDown = true;
