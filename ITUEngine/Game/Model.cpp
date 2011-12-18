@@ -28,25 +28,26 @@ Model::ModelEntry::~ModelEntry()
     }
 }
 
-void Model::ModelEntry::Init(const std::vector<Vert>& Vertices,
-                          const std::vector<unsigned int>& Indices)
+void Model::ModelEntry::Init(const std::vector<Vert*> *Vertices,
+                          const std::vector<unsigned int> *Indices)
 {
-    NumIndices = Indices.size();
-	NumVertices = Vertices.size();
+    NumIndices = Indices->size();
+	NumVertices = Vertices->size();
 	Verts = Vertices;
 
     glGenBuffers(1, &VB);
   	glBindBuffer(GL_ARRAY_BUFFER, VB);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vert) * Vertices.size(), &Vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vert) * Vertices->size(), Vertices, GL_STATIC_DRAW);
 
     glGenBuffers(1, &IB);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * NumIndices, &Indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * NumIndices, Indices, GL_STATIC_DRAW);
 }
 
 Model::Model()
 {
 	m_Materials = new std::vector<Material*>();
+	m_Entries = new std::vector<ModelEntry*>();
 }
 
 
@@ -54,7 +55,7 @@ Model::~Model()
 {
 	if(m_Materials != NULL)
 	{
-		delete m_Materials;
+		//delete m_Materials;
 	}
 }
 
@@ -63,12 +64,12 @@ bool Model::InitFromScene(const aiScene* pScene, const std::string& Filename)
 	//std::cout << "Number of meshes: " << + pScene->mNumMeshes << std::endl;
 	//std::cout << "Number of materials: " << + pScene->mNumMaterials << std::endl;
 
-    m_Entries.resize(pScene->mNumMeshes);
+    m_Entries->resize(pScene->mNumMeshes);
 
     m_Materials->resize(pScene->mNumMaterials);
 
     // Initialize the meshes in the scene one by one
-    for (unsigned int i = 0 ; i < m_Entries.size() ; i++) {
+    for (unsigned int i = 0 ; i < m_Entries->size() ; i++) {
         const aiMesh* paiMesh = pScene->mMeshes[i];
         InitModel(i, paiMesh);
     }
@@ -78,10 +79,15 @@ bool Model::InitFromScene(const aiScene* pScene, const std::string& Filename)
 
 void Model::InitModel(unsigned int Index, const aiMesh* paiMesh)
 {
-    m_Entries[Index].MaterialIndex = paiMesh->mMaterialIndex;
+	if (m_Entries->at(Index) != nullptr)
+	{
+		delete m_Entries->at(Index);
+	}
+	m_Entries->at(Index) = new ModelEntry();
+    m_Entries->at(Index)->MaterialIndex = paiMesh->mMaterialIndex;
     
-    std::vector<Vert> Vertices;
-    std::vector<unsigned int> Indices;
+    std::vector<Vert*> *Vertices = new std::vector<Vert*>();
+    std::vector<unsigned int> *Indices = new std::vector<unsigned int>();
 
     const aiVector3D Zero3D(0.0f, 0.0f, 0.0f);
 
@@ -90,12 +96,12 @@ void Model::InitModel(unsigned int Index, const aiMesh* paiMesh)
         const aiVector3D* pNormal   = &(paiMesh->mNormals[i]);
         const aiVector3D* pTexCoord = paiMesh->HasTextureCoords(0) ? &(paiMesh->mTextureCoords[0][i]) : &Zero3D;
 		
-        Vert v(Vector3f(pPos->x, pPos->y, pPos->z),
-                 Vector2f(pTexCoord->x, pTexCoord->y),
-                 Vector3f(pNormal->x, pNormal->y, pNormal->z));
+        Vert *v = new Vert(new Vector3f(pPos->x, pPos->y, pPos->z),
+               new Vector2f(pTexCoord->x, pTexCoord->y),
+               new Vector3f(pNormal->x, pNormal->y, pNormal->z));
 		//std::cout << "x: " << v.m_normal.x() << ", y: " << v.m_normal.y() <<  ", z: " << v.m_normal.z() << std::endl;
 		//std::cout << "Length of normal: " << sqrt( v.m_normal.x() * v.m_normal.x() + v.m_normal.y() * v.m_normal.y() + v.m_normal.z() * v.m_normal.z()) << std::endl;
-        Vertices.push_back(v);
+        Vertices->push_back(v);
     }
 	
     for (unsigned int i = 0 ; i < paiMesh->mNumFaces ; i++) {
@@ -103,18 +109,18 @@ void Model::InitModel(unsigned int Index, const aiMesh* paiMesh)
 
 		ASSERT(Face.mNumIndices == 3);
 
-        Indices.push_back(Face.mIndices[0]);
-        Indices.push_back(Face.mIndices[1]);
-        Indices.push_back(Face.mIndices[2]);
+        Indices->push_back(Face.mIndices[0]);
+        Indices->push_back(Face.mIndices[1]);
+        Indices->push_back(Face.mIndices[2]);
     }
 
-    m_Entries[Index].Init(Vertices, Indices);
+    m_Entries->at(Index)->Init(Vertices, Indices);
 }
 
 bool Model::InitMaterials(const aiScene* pScene, const std::string& Filename)
 {
     // Extract the directory part from the file name
-    int SlashIndex = Filename.find_last_of("/");
+    // int SlashIndex = Filename.find_last_of("/");
     std::string Dir = "Resources";
 
 	/*
@@ -162,8 +168,8 @@ bool Model::InitMaterials(const aiScene* pScene, const std::string& Filename)
 
             if (pMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS) {
                 std::string FullPath = Dir + "/" + Path.data;
-				char* temp = new char();
-				strcpy(temp, FullPath.c_str());
+				char* temp = (char *)malloc(FullPath.length() + 1);
+				strcpy_s(temp, FullPath.length() + 1, FullPath.c_str());
 
 				mat->texture = SINGLETONINSTANCE( MediaManager )->FindTexture(temp);
 				if(mat->texture == NULL)
@@ -195,8 +201,8 @@ void Model::Render()
 	glEnableClientState(GL_NORMAL_ARRAY);
 	
 
-    for (unsigned int i = 0 ; i < m_Entries.size() ; i++) {
-        glBindBuffer(GL_ARRAY_BUFFER, m_Entries[i].VB);
+    for (unsigned int i = 0 ; i < m_Entries->size() ; i++) {
+        glBindBuffer(GL_ARRAY_BUFFER, m_Entries->at(i)->VB);
 
 		glVertexPointer(3, GL_FLOAT, sizeof(Vert), 0);
 		glTexCoordPointer( 2, GL_FLOAT, sizeof(Vert), (const GLvoid*)12 );	
@@ -215,9 +221,9 @@ void Model::Render()
 		glColor3f(1,1,1);
 		*/
 
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Entries[i].IB);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Entries->at(i)->IB);
 
-        const unsigned int MaterialIndex = m_Entries[i].MaterialIndex;
+        const unsigned int MaterialIndex = m_Entries->at(i)->MaterialIndex;
 
         if (MaterialIndex < m_Materials->size()) {
 			if(m_Materials->at(MaterialIndex)->texture)
@@ -248,7 +254,7 @@ void Model::Render()
 
 		//glDrawArrays( GL_TRIANGLES, 0, m_Entries[i].NumVertices );
 
-        glDrawElements(GL_TRIANGLES, m_Entries[i].NumIndices, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, m_Entries->at(i)->NumIndices, GL_UNSIGNED_INT, 0);
     }
 
     glDisableClientState( GL_VERTEX_ARRAY );

@@ -17,7 +17,7 @@ void Log::Write(const char* logline, ...)
 	va_list argList;
 	char cbuffer[1024];
 	va_start(argList, logline);
-	vsnprintf(cbuffer, 1024, logline, argList);
+	vsnprintf_s(cbuffer, 1024, logline, argList);
 	va_end(argList);
 	m_stream << cbuffer << std::endl;
 	//m_stream << logline << std::endl;

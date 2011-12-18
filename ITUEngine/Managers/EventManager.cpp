@@ -90,7 +90,6 @@ bool EventManager::DelListener ( EventListenerPointer const & inHandler, EventTy
 	for ( EventListenerMap::iterator it = m_registry.begin(),
 		itEnd = m_registry.end(); it != itEnd; it++ )
 	{
-		unsigned int const    kEventId = it->first;
 		EventListenerTable & table    = it->second;
 
 		for ( EventListenerTable::iterator it2 = table.begin(),
@@ -125,8 +124,6 @@ bool EventManager::TriggerEvent ( IEventData const & inEvent ) const
 	if ( itWC != m_registry.end() )
 	{
 		EventListenerTable const & table = itWC->second;
-
-		bool processed = false;
 
 		for ( EventListenerTable::const_iterator it2 = table.begin(),
 			it2End = table.end(); it2 != it2End; it2++ )
@@ -282,8 +279,6 @@ bool EventManager::ProcessEventQueue ( unsigned long maxMillis )
 		{
 			EventListenerTable const & table = itWC->second;
 
-			bool processed = false;
-
 			for ( EventListenerTable::const_iterator it2 = table.begin(), it2End = table.end(); it2 != it2End; it2++ )
 			{
 				(*it2)->HandleEvent( *event );
@@ -294,7 +289,6 @@ bool EventManager::ProcessEventQueue ( unsigned long maxMillis )
 		if ( itListeners == m_registry.end() )
 			continue;
 
-		unsigned int const kEventId = itListeners->first;
 		EventListenerTable const & table = itListeners->second;
 
 		for ( EventListenerTable::const_iterator it = table.begin(), end = table.end(); it != end ; it++ )

@@ -336,16 +336,16 @@ void PhysicsSystem::MoveCircleObject( Circle *circle, std::vector<MovingObjectMo
 
 	if((*movingObjectIterator)->GetOwner() == NULL)
 	{
-		circle->Center.X = (*movingObjectIterator)->GetCircularRepresentation()->Center.X 
+		circle->Center->X = (*movingObjectIterator)->GetCircularRepresentation()->Center->X 
 		+ (*movingObjectIterator)->GetDirection()->X * (*movingObjectIterator)->GetMovementSpeed() * (deltaT * secondDivisionFactor);
-		circle->Center.Y = (*movingObjectIterator)->GetCircularRepresentation()->Center.Y 
+		circle->Center->Y = (*movingObjectIterator)->GetCircularRepresentation()->Center->Y 
 		+ (*movingObjectIterator)->GetDirection()->Y * (*movingObjectIterator)->GetMovementSpeed() * (deltaT * secondDivisionFactor);	
 	}
 	else
 	{
-		float tempX = (*movingObjectIterator)->GetCircularRepresentation()->Center.X 
+		float tempX = (*movingObjectIterator)->GetCircularRepresentation()->Center->X 
 		+ (*movingObjectIterator)->GetDirection()->X * (*movingObjectIterator)->GetMovementSpeed() * (deltaT * secondDivisionFactor);
-		float tempY = (*movingObjectIterator)->GetCircularRepresentation()->Center.Y 
+		float tempY = (*movingObjectIterator)->GetCircularRepresentation()->Center->Y 
 		+ (*movingObjectIterator)->GetDirection()->Y * (*movingObjectIterator)->GetMovementSpeed() * (deltaT * secondDivisionFactor);
 		
 		(*movingObjectIterator)->GetOwner()->SetPos2D(tempX,tempY);
@@ -414,11 +414,14 @@ void PhysicsSystem::SetStaticPathMap()
 			int radius = circle->Radius;
 			radius = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(radius);
 
-			for (unsigned int i = -radius; i <= radius; i++ )
+			for (int i = -radius; i <= radius; i++ )
 			{
-				for (unsigned int j = -radius; j <= radius; j++)
+				for (int j = -radius; j <= radius; j++)
 				{
-					map->at(x + i)[y + j] = BLOCKED;
+					if (x + i < MAP_SIZE && y + j < MAP_SIZE)
+					{
+						map->at(x + i)[y + j] = BLOCKED;
+					}
 				}
 			}
 		}
@@ -428,11 +431,14 @@ void PhysicsSystem::SetStaticPathMap()
 			int width = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(rectangle->Width);
 			int height = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(rectangle->Height);
 
-			for (unsigned int i = 0; i < width; i++ )
+			for (int i = 0; i < width; i++ )
 			{
-				for (unsigned int j = 0; j < height; j++)
+				for (int j = 0; j < height; j++)
 				{
-					map->at(x + i)[y + j] = BLOCKED;
+					if (x + i < MAP_SIZE && y + j < MAP_SIZE)
+					{
+						map->at(x + i)[y + j] = BLOCKED;
+					}
 				}
 			}
 		}

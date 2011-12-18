@@ -52,7 +52,7 @@ bool SceneGraphManager::HandleEvent( IEventData const & event )
 
 	//If inside defined box... DO:
 
-	Rectangle physicsBox(Point(-0.5f, -0.5f), 1.0f, 1.0f);
+	Rectangle physicsBox(new Point(-0.5f, -0.5f), 1.0f, 1.0f);
 
 	auto box = new Object();
 	box->Name = "HUDBox";
