@@ -76,7 +76,7 @@ void Engine::Run()
 	//	safeProcessEventManager(IEventManager::eConstants::INFINITE);
 
 		int currentTime = Time::GetCurrentMS();
-		int deltaT = currentTime - lastTime;
+		int deltaT = (currentTime - lastTime);
 
 		//Step the physics system
 		m_Physics->Step(deltaT);
@@ -109,6 +109,11 @@ void Engine::StartUp()
 
 	m_EventManager = new EventManager();
 	m_EventManager->StartUp("Global event manager", true);
+
+	//Register useful event types.
+	m_EventManager->AddRegisteredEventType( EventType ("keydownEvent") );	
+	m_EventManager->AddRegisteredEventType( EventType ("mouseClickPositionEvent") );
+	m_EventManager->AddRegisteredEventType( EventType ("mouseClickHUDEvent") );
 
 	//IMPORTANT: Call this before m_Graphics->StartUp()
 	m_Physics = SINGLETONINSTANCE(PhysicsSystem);
@@ -153,6 +158,8 @@ void Engine::handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_key
 		if(key->keysym.sym == SDLK_ESCAPE)
 		{
 			m_Running = false;
+
+			delete keyEvent;
 			return;
 		}
 
@@ -168,18 +175,22 @@ void Engine::handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_key
 
 void Engine::handleMouseButtonPress( SDL_MouseButtonEvent *key, Uint8 eventtype)
 {
-	const EventType mouseClickPosition("mouseClickPositionEvent");
+	const EventType mouseWorldClickPosition("mouseClickPositionEvent");
+	const EventType mouseHUDClickPosition("mouseClickHUDEvent");
+
 	auto mouseButtonEvent = new MouseClickEvent(key, eventtype);
 
 	if(eventtype == SDL_MOUSEBUTTONDOWN)
 	{
 		InputManager::NotifyButtonDown(mouseButtonEvent);
 		auto mouseWorldPos = GetOGLPos::GetPos(key->x, key->y);
-		if (mouseWorldPos.z() < 35.0f){
-			safeTriggerEvent( EventData<Vector3f>(mouseWorldPos, mouseClickPosition) );
-		} else {
-
-			std::cout<<"HUD clicked"<<std::endl;
+		if (mouseWorldPos.z() < 35.0f)
+		{
+			safeTriggerEvent( EventData<Vector3f>(mouseWorldPos, mouseWorldClickPosition) );
+		} 
+		else 
+		{
+			safeTriggerEvent( EventData<Vector3f>(mouseWorldPos, mouseHUDClickPosition) );
 		}
 
 	}
