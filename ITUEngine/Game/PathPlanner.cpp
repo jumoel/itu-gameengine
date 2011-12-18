@@ -212,7 +212,7 @@ bool PathPlanner::isValidNeighbour(Node* neighbour, Plan* plan)
 Node* PathPlanner::backTrack(Node* cNode, Plan *plan, int locationX, int locationY)
 {
 	
- 	if(cNode->child == NULL)
+ 	if(cNode == NULL || cNode->child == NULL)
 		return NULL;
 	
 	plan->route->insert(plan->route->begin(), Point(cNode->pos));
