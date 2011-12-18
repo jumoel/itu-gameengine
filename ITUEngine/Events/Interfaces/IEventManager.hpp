@@ -59,7 +59,7 @@ private:
 
 	friend bool safeAbortEvent( EventType const & inType, bool allOfType /* = false */ );
 
-	friend bool safeProcessEventManager( unsigned long maxMillis /* = -1 */ );
+	friend bool safeProcessEventQueue( unsigned long maxMillis /* = -1 */ );
 
 	friend bool safeValidateEventType( EventType const & inType );
 };
@@ -71,12 +71,12 @@ bool safeDelListener( EventListenerPointer const & inHandler, EventType const & 
 
 bool safeTriggerEvent( IEventData const & inEvent );
 
-bool safeQueueEvent( IEventDataPointer const & inEvent );
-bool threadSafeQueueEvent( IEventDataPointer const & inEvent );
+bool safeQueEvent( IEventDataPointer const & inEvent );
+bool threadSafeQueEvent( IEventDataPointer const & inEvent );
 
 bool safeAbortEvent( EventType const & inType, bool allOfType /* = false */ );
 
-bool safeProcessEventManager( unsigned long maxMillis /* = -1 */ );
+bool safeProcessEventQueue( unsigned long maxMillis /* = -1 */ );
 
 bool safeValidateEventType( EventType const & inType );
 

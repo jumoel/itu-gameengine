@@ -23,11 +23,13 @@ void Engine::Run()
 	SDL_Event event;
 	const EventType keydown("keydownEvent");
 
-
 	while (m_Running)
 	{
+		SINGLETONINSTANCE(Profiler)->Begin("ClearSingleFrameAllocator");
 		m_SingleFrameAllocator->Clear();
+		SINGLETONINSTANCE(Profiler)->End("ClearSingleFrameAllocator");
 
+		SINGLETONINSTANCE(Profiler)->Begin("EventHandling");
 		while (SDL_PollEvent(&event))
 		{
 			switch(event.type)
@@ -42,13 +44,9 @@ void Engine::Run()
 				break;
 			
 			case SDL_KEYDOWN:
-				safeTriggerEvent( EventData<SDL_KeyboardEvent>(event.key, keydown) );
+				threadSafeQueEvent( IEventDataPointer( new EventData<SDL_KeyboardEvent>(event.key, keydown)) );
 				handleKeyPress(&event.key, event.type);
 				break;
-
-				
-				
-			
 			//case SDL_KEYUP:
 
 
@@ -71,21 +69,27 @@ void Engine::Run()
 				break;
 			}
 		}
-
-
+		
 		//Process eventQueue
-	//	safeProcessEventManager(IEventManager::eConstants::INFINITE);
+		safeProcessEventQueue(-1);
+		SINGLETONINSTANCE(Profiler)->End("EventHandling");
 
 		int currentTime = Time::GetCurrentMS();
 		int deltaT = (currentTime - lastTime);
 
+		SINGLETONINSTANCE(Profiler)->Begin("StepPhysics");
 		//Step the physics system
 		m_Physics->Step(deltaT);
+		SINGLETONINSTANCE(Profiler)->End("StepPhysics");
 
+		SINGLETONINSTANCE(Profiler)->Begin("CameraUpdate");
 		m_Graphics->m_SceneGraph->m_CameraObject->Update(deltaT);
+		SINGLETONINSTANCE(Profiler)->End("CameraUpdate");
 
 		// Display the graphics
+		SINGLETONINSTANCE(Profiler)->Begin("Rendering");
 		m_Graphics->Render();
+		SINGLETONINSTANCE(Profiler)->End("Rendering");
 
 		// Calculate and show FPS in title bar
 		m_FPSCalculator->SetCurrentTime(currentTime);
@@ -140,6 +144,7 @@ void Engine::StartUp()
 void Engine::ShutDown()
 {
 	m_Running = false;
+	SINGLETONINSTANCE(Profiler)->Begin("ShutDown");
 
 	delete m_SingleFrameAllocator;
 
@@ -155,6 +160,7 @@ void Engine::ShutDown()
 
 	m_Window->ShutDown();
 
+	SINGLETONINSTANCE(Profiler)->End("ShutDown");
 	SINGLETONINSTANCE(Profiler)->ShutDown();
 }
 
@@ -195,11 +201,11 @@ void Engine::handleMouseButtonPress( SDL_MouseButtonEvent *key, Uint8 eventtype)
 		auto mouseWorldPos = GetOGLPos::GetPos(key->x, key->y);
 		if (mouseWorldPos.z() < 35.0f)
 		{
-			safeTriggerEvent( EventData<Vector3f>(mouseWorldPos, mouseWorldClickPosition) );
+			threadSafeQueEvent( IEventDataPointer(new EventData<Vector3f>(mouseWorldPos, mouseWorldClickPosition)) );
 		} 
 		else 
 		{
-			safeTriggerEvent( EventData<Vector3f>(mouseWorldPos, mouseHUDClickPosition) );
+			threadSafeQueEvent( IEventDataPointer(new EventData<Vector3f>(mouseWorldPos, mouseHUDClickPosition)) );
 		}
 
 	}
