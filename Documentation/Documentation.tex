@@ -125,7 +125,7 @@ Described in \secRef{sec:Input}.
 % The essence of it all.
 \chapter{Engine Description}
 \label{sec:EngineDescription}
-More of an actual light introduction. Description of the engine and what it can be used for. Covers the ideas and design. See the sections below.
+This section will describe the main scope behind the engine, as well as the design rationales behind the choices that were made.
 
 \section{Engine Scope}
 \label{sec:EngineScope}
@@ -148,7 +148,7 @@ This puts the main focus of the engine on effective handling of mouse events, co
 \section{Design Rationales}
 \label{sec:DesignRationales}
 % Were some of the design decisions made after considering alternatives, and do you have rationales for why you made the decisions you did? If so, tell us!
-Go into more depth here in regards to what actual design decisions were actually made. Was it \textit{this} or \textit{that}? Why was it better than the other?
+This section covers what decisions was put behind the major parts of the engine, namely \textit{Graphics}, \textit{Physics System} and the \textit{Path Planner}.
 
 \subsection{Graphics}
 \label{sec:DesignGraphics}
@@ -171,25 +171,25 @@ As regards to the actual algorithm \texttt{A*} was chosen, since it allows for i
 \section{Major Features}
 \label{sec:MajorFeatures}
 % What are the main features your engine supports?
+% The things that makes the engine special, the primary forces and so on. There is no further explanations of what this part should contain. Fairly certain this section could be revised in a much better way, with many more details.
 
 To make our game function optimally for the specific game genre, the main - and most powerful - features are the following:
 
 \begin{itemize}
 	\item An effective Mouse Event system.
-	\item A \texttt{HUD} that the mouse can interact with.
+	\item A \texttt{HUD} that the mouse can interact with. % Ok, perhaps not.
 	\item Effective pathfinding.
 \end{itemize}
-
-% The things that makes the engine special, the primary forces and so on. There is no further explanations of what this part should contain. Fairly certain this section could be revised in a much better way, with many more details.
 
 \chapter{Implementation Overview}
 \label{sec:ImplementationOverview}
 % Give a high-level explanation of how the engine is structured (perhaps with an architecture diagram). Then, give at least brief explanations of how the major subsystems work, delving into more details for components that are particularly interesting, advanced, or unusual.
 
-%More detailed about the structure of the various parts of the engine. The sections below are taken from the requirements of each of the major parts, but might need to be re-structured after that.
+This section gives a more detailed description of the various subparts of the engine, based on the list given in Engine Requirements.
 
 \section{Dynamic Elements}
 \label{sec:DynamicElements}
+% A quick few words on what the Dynamic Element section contains.
 
 \subsection{Physics System}
 \label{sec:PhysicsSystem}
@@ -207,7 +207,7 @@ The \texttt{PathPlanner} class can be used in conjunction with the Physics Syste
 
 \fig[339px]{includes/PathPlanner1.png}{Path Planner, 1: Initializing the map.}{fig:PathPlanner1}
 
-Firstly, the new object is created in the scene, which will be used as the ground and is assigned the ground model, which essentially is a plane width a height and width of one. This is the scaled to a width and height of $40$, or whatever one might want, and positioned so that the lower left corner is in $(0,0)$. Then the width of the map is parsed to to the singleton instance of the PathPlanner.
+Firstly, the new object is created in the scene, which will be used as the ground and is assigned the ground model, which essentially is a plane width a height and width of one. This is the scaled to a width and height of $40$, or whatever one might want, and positioned so that the lower left corner is in $(0,0)$. Then the width of the map is parsed to to the singleton instance of the \texttt{PathPlanner}.
 
 \fig[420px]{includes/PathPlanner2.jpg}{Path Planner, 2: Creating the two objects.}{fig:PathPlanner2}
 
@@ -219,14 +219,13 @@ Then the path planning map is set in the end of the \texttt{createGraph()} funct
 
 \section{Resource Management}
 \label{sec:ResourceManagement}
-% Singleton class (or several) managing global engine state
-% Design a resource/dependency-management system, both runtime and offline portion (offline includes things like asset conditioning, and level format).
-% Quickest way to get some resources loading: wrap a library like assimp.sourceforge.net (Emil: This is mentioned in Design Rationales, btw)
-
 % Quick introduction, perhaps?
 
 \subsection{Media Manager}
 \label{sec:MediaManager}
+% Singleton class (or several) managing global engine state
+% Design a resource/dependency-management system, both runtime and offline portion (offline includes things like asset conditioning, and level format).
+% Quickest way to get some resources loading: wrap a library like assimp.sourceforge.net
 The \textit{Media Manager} is the tool that is to be used in order to import and access media files for use in the game. Currently, it supports importing of \texttt{.TGA}-files as textures and all the common model formats as 3D models, by using \textit{Assimp}\footnote{See \textit{Assimp} documentation for a full list of supported file formats.}. In the future, audio files will be accessed and imported using the media manager as well. As this manager is a singleton, any media imported using it will readily be available anywhere in the code as long you include \texttt{<Managers/MediaManager>}.
 
 In order to import a resource, one must first create either a model or a texture image and place it in the \texttt{Resource} folder. A container must then be created for it in the \texttt{MediaManager} class (\texttt{Texture*} for textures, and \texttt{Model*} for models). Then in the \texttt{MediaManager.StartUp()} function the resource must be loaded and stored in the aforementioned container using the \texttt{LoadTexture()} or \texttt{ImportAssimpModel()} respectively. Hereafter the imported asset can be accessed from the \texttt{MediaManger} singleton from anywhere within the engine. However, as the scene is actually built in \texttt{SceneData.cpp} and the \texttt{createGraph()} function, one would usually access in here in order to assign it to an object in the scene. The Memory Manager (described in \secRef{sec:MediaManager} is used in the following way:
@@ -276,6 +275,8 @@ Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a 
 \label{sec:GameLoop}
 % Support framerate-independent game-world updates (e.g. using deltaT timings).
 % Implement an event system (may be useful to split into several event systems, e.g. an InputManager handling all input events).
+
+% Insert the Game Loop chart here.
 
 \subsection{Event System}
 \label{sec:EventSystem}
