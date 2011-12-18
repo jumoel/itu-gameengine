@@ -75,26 +75,32 @@ void Engine::Run()
 		//Process eventQueue
 	//	safeProcessEventManager(IEventManager::eConstants::INFINITE);
 
+		int currentTime = Time::GetCurrentMS();
+		int deltaT = currentTime - lastTime;
 
 		//Step the physics system
-		m_Physics->Step(1);
+		m_Physics->Step(deltaT);
 
 		// Display the graphics
 		m_Graphics->Render();
 
 		// Calculate and show FPS in title bar
-		m_FPSCalculator->SetCurrentTime(Time::GetCurrentMS());
+		m_FPSCalculator->SetCurrentTime(currentTime);
 
 		//char *title = new char[sizeof(char) * 50];
 		char *title = (char *)m_SingleFrameAllocator->Allocate(sizeof(char) * 50);
 		sprintf(title, "FPS: %d, Memory: %d bytes", m_FPSCalculator->GetFPS(), m_SingleFrameAllocator->GetMemoryUsage());
 		m_Window->SetWindowTitle(title);
 
+		lastTime = currentTime;
+
 	} // while(m_Running)
 }
 
 void Engine::StartUp()
 {
+	lastTime = Time::GetCurrentMS();
+
 	m_Window = new Window();
 	m_Window->StartUp();
 

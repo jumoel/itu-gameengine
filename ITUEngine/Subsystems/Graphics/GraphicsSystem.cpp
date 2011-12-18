@@ -47,7 +47,7 @@ void GraphicsSystem::StartUp()
 		verts->push_back(1.0f);
 	}
 	
-	
+	/*
 
 	// Setup passthrough shaders
 	const std::string strVertexShader(
@@ -76,6 +76,7 @@ void GraphicsSystem::StartUp()
     theProgram = ShaderUtils::CreateProgram(shaderList);
 
     std::for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
+	*/
 	// End shader setup
 
 	//glEnableClientState(GL_VERTEX_ARRAY);
