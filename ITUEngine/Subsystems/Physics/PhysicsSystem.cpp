@@ -414,9 +414,9 @@ void PhysicsSystem::SetStaticPathMap()
 			int radius = circle->Radius;
 			radius = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(radius);
 
-			for (unsigned int i = -radius; i <= radius; i++ )
+			for (int i = -radius; i <= radius; i++ )
 			{
-				for (unsigned int j = -radius; j <= radius; j++)
+				for (int j = -radius; j <= radius; j++)
 				{
 					if(x + i < MAP_SIZE && y + j < MAP_SIZE)
 					{
@@ -431,9 +431,9 @@ void PhysicsSystem::SetStaticPathMap()
 			int width = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(rectangle->Width);
 			int height = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(rectangle->Height);
 
-			for (unsigned int i = 0; i < width; i++ )
+			for (int i = 0; i < width; i++ )
 			{
-				for (unsigned int j = 0; j < height; j++)
+				for (int j = 0; j < height; j++)
 				{
 					if(x + i < MAP_SIZE && y + j < MAP_SIZE)
 					{
