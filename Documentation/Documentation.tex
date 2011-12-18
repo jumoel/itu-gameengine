@@ -54,7 +54,7 @@
 
 % Consider finding a more suiting section-name might be better (``Requirements''?).
 \chapter{Formalities}
-The engine was the product of the course \textit{Game Engines}, at the \textit{IT University of Copenhagen}, during the fall semester of 2011. % More bla bla?
+The engine was the product of the course \textit{Game Engines}, at the \textit{IT University of Copenhagen}, during the fall semester of 2011.
 
 The engine and documentation is developed and written according the the requirements specified on the course website\footnote{\url{https://blog.itu.dk/MGAE-E2011/project-requirements/}.}.
 
@@ -66,13 +66,13 @@ This section will describe the main scope behind the engine, as well as the desi
 \section{Engine Scope}
 \label{sec:EngineScope}
 % Does it target a specific genre? What range of games do you have in mind that the engine would be suitable for?
-The engine targets the ``Hero \texttt{RTS}\footnote{Real-Time Strategy.}''-genre, more commonly known as ``\texttt{MOBA}\footnote{Multiplayer Online Battle Arena.}''\footnote{\url{http://en.wikipedia.org/wiki/Dota_(genre)}}. This includes games like \textit{Heroes of Newerth} and \textit{League of Legends}, both heavy inspired by the \textit{WarCraft III} modification \textit{Defense of the Ancients}\footnote{\url{http://en.wikipedia.org/wiki/Defense_of_the_Ancients}}.
+The engine targets the ``Action \texttt{RTS}\footnote{Real-Time Strategy.}''-genre, more commonly known as ``\texttt{MOBA}''\footnote{Multiplayer Online Battle Arena. \url{http://en.wikipedia.org/wiki/Dota_(genre)}}. This includes games like \textit{Heroes of Newerth} and \textit{League of Legends}, both heavy inspired by the \textit{WarCraft III} modification \textit{Defense of the Ancients}\footnote{\url{http://en.wikipedia.org/wiki/Defense_of_the_Ancients}}.
 
-To make our engine achieve the requirements of the genre, it was important to have a clear idea of what expected result should look like. As a good reference, see the example screenshot in \figRef{fig:DRdota2screen}.
+To make our engine achieve the requirements of the genre, it was important to have a clear idea of what expected result should look like. As a good reference, see the example screenshot in \figRef{fig:DRdota1screen}.
 
-\fig[\textwidth]{includes/dota1screen.jpg}{Engine inspiration: Screenshot from \textit{Defense of the Ancients}.}{fig:DRdota2screen}
+\fig[\textwidth]{includes/dota1screen.jpg}{Engine inspiration: Screenshot from \textit{Defense of the Ancients}.}{fig:DRdota1screen}
 
-As can be seen, the basic graphics are fairly simple. There has to be a flat ground-level upon which the player can be controlled around, along with objects he cannot pass. The avatar of the player has to be able to get from \texttt{A} to \texttt{B}, and be able to pathfind around various obstacles. On top of that, there has to be an interactable heads-up display. The camera will do limited movement.
+As can be seen, the basic graphics are fairly simple. There has to be a flat ground-level upon which the player can be controlled around, along with objects he cannot pass. The avatar of the player has to be able to get from \texttt{A} to \texttt{B}, and be able to pathfind around various obstacles. On top of that, there has to be an interactable heads-up display. The camera will do limited movement, staying with a fixed angle.
 
 This puts the main focus of the engine on effective handling of mouse events, collision-detection and pathfinding.
 
@@ -266,11 +266,9 @@ When the keyboard are pressed, an event with the appropriate key is created whic
 \label{sec:PerformanceLogging}
 %Pick either one area of the engine to add advanced functionality to, or at least one optional feature to add. For example: a user-programmable shader interface, procedural terrain, advanced physics, an audio subsystem, etc.
 
-The performance logger enables the user of the engine to find out which parts of the code
-are taking the most time. The performance logger allows the user to measure time and save the
-measurements in distinct, named, lists. I.e., the physics step could be measured and saved in a list named physics. The lists are saved to a CSV file when they are full. We specified that the lists should contain at most 1000 elements, which will correspond to 1000 frames, about 1-2 seconds on our development machines, if a certain section is logged every frame.
+The performance logger enables the user of the engine to find out which parts of the code are taking the most time. The performance logger allows the user to measure time and save the measurements in distinct, named, lists. I.e., the physics step could be measured and saved in a list named physics. The lists are saved to a CSV file when they are full. We specified that the lists should contain at most 1000 elements, which will correspond to 1000 frames, about 1-2 seconds on our development machines, if a certain section is logged every frame.
 
-We decided against doing the graphing of logged entries ourselves, as an offline component like Microsoft Excel excels at this.
+We decided against doing the graphing of logged entries ourselves, as an offline component like \textit{Microsoft Excel} excels at this.
 
 %\chapter{Examples}
 %\label{sec:Examples}
