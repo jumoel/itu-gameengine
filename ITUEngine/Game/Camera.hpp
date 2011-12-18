@@ -14,7 +14,7 @@ public:
 	~Camera();
 
 	static const int gutter_px = 20;
-	static const int speed = 1;
+	static const int speed = 5;
 
 	//Position and LookAt are points
 	Vector3f Position;

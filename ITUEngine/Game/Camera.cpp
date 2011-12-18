@@ -189,7 +189,8 @@ void Camera::MoveCameraLeftRight2D(float distance)
 	
 	if(dotProduct != 0.0f)
 	{
-		return;
+		// :D
+		//return;
 	}
 
 	//Create the Cross Product vector, Perpendicular to the Up/LookAt plane
@@ -232,12 +233,12 @@ void Camera::Update(unsigned int deltaT)
 
 	if (moveUp)
 	{
-		MoveCameraUpDown2D(real_speed);
+		MoveCameraUpDown2D(-real_speed * 10.0f);
 	}
 
 	if (moveDown)
 	{
-		MoveCameraUpDown2D(-real_speed);
+		MoveCameraUpDown2D(real_speed * 10.0f);
 	}
 
 	if (moveLeft)
@@ -307,6 +308,8 @@ void Camera::OnMotion(MouseMoveEvent *motion)
 	auto screenInfo = SDL_GetVideoInfo();
 	auto screenWidth = screenInfo->current_w;
 	auto screenHeight = screenInfo->current_h;
+
+	// std::cout << "Screenwidth: " << screenWidth << ", X: " << motionInput->x << std::endl; 
 
 	if (motionInput->x > (screenWidth - gutter_px))
 	{
