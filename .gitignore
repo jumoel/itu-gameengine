@@ -18,4 +18,5 @@ ITUEngine/Settings2.xml
 *.log
 *.lot
 *.toc
+*.el
 ITUEngine/Release

@@ -279,20 +279,41 @@ Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a 
 
 \subsection{Event System}
 \label{sec:EventSystem}
+The event system is structured with event listeners and event managers
+as described in Game Coding Complete \footnote{Game Coding Complete,
+Mike McShaffry et al. 3rd ed. Chapter 10.}. When a system like
+the physics system want to update a moving object it can send an event
+to the event handler, and all subsystems who want information about
+objects listens on that event. That keeps the relationship between the
+subsystems to a minimum, since they only have to keep track of
+themselves and the event manager.
 % General thoughts about the Event System.
 
 \section{Input}
 \label{sec:Input}
+The engine uses the Simple DirectMedia Layer API to register keyboard
+and mouse input. When the engine is startet a loop runs using the
+SDL\_PollEvent. A switch-case calls the appropriate handlers when SDL
+events is registered.
 % Handle keyboard input, with at least a few options. For example: event-based input that queues multiple keypresses, and polling-based input that does something while the key is held down.
 % Handle mouse (or joystick/controller) input, with the option for nonlinear mapping
 % Connect input to scene in a basic way, e.g. wasd moves an object, mouse moves camera.
 
 \subsection{Mouse}
 \label{sec:Mouse}
+
+When a mousepress is registered window coordinates are translated into
+OpenGL world space coordinates and an event for pathfinding and
+movement of the player is triggered.
+
 %Fairly extensive section, as there is surely lots to be written in regards to how it works (ie, from mouse-coordinates on the screen to coordinates on the HUD/Worldspace, Events, and... whatever more there is. 
 
 \subsection{Keyboard}
 \label{sec:Keyboard}
+
+When the keyboard are pressed, an event with the appropriate key is
+created which other subsystems can listen for. The engine currently
+only listens for escape key and exits when pressed.
 % Again, event system, what the uses are... erh, yeah. Probably not that much to write here, really.
 
 \section{Performance Logging}
