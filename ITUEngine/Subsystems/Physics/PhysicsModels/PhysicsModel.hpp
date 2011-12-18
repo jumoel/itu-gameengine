@@ -34,8 +34,6 @@ public:
 
 	~PhysicsModel() 
 	{
-		delete &m_CircularRepresentation;
-		delete &m_RectangularRepresentation;
 	}
 	
 	const int GetShape()
@@ -197,8 +195,6 @@ public:
 
 	~MovingObjectModel()
 	{
-		delete &m_CirclePhantom;
-		delete &m_RectanglePhantom;
 		delete m_TargetPosition;
 		delete m_Path;
 	}

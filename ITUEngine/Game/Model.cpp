@@ -54,7 +54,7 @@ Model::~Model()
 {
 	if(m_Materials != NULL)
 	{
-		delete m_Materials;
+	//	delete m_Materials;
 	}
 }
 
@@ -162,8 +162,9 @@ bool Model::InitMaterials(const aiScene* pScene, const std::string& Filename)
 
             if (pMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS) {
                 std::string FullPath = Dir + "/" + Path.data;
-				char* temp = new char();
-				strcpy(temp, FullPath.c_str());
+				int pathLen = FullPath.length() + 1;
+				char* temp = (char *)malloc(pathLen);
+				strcpy_s(temp, pathLen, FullPath.c_str());
 
 				mat->texture = SINGLETONINSTANCE( MediaManager )->FindTexture(temp);
 				if(mat->texture == NULL)

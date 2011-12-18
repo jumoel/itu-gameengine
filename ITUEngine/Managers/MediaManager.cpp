@@ -362,8 +362,10 @@ GfxModel* MediaManager::LoadModel(const char *filename)
 		memcpy( model->mMaterials[i].specular, pMaterial->m_specular, sizeof( float )*4 );
 		memcpy( model->mMaterials[i].emissive, pMaterial->m_emissive, sizeof( float )*4 );
 		model->mMaterials[i].shininess = pMaterial->m_shininess;
-		model->mMaterials[i].textureFileName = new char[strlen( pMaterial->m_texture )+1];
-		strcpy( model->mMaterials[i].textureFileName, pMaterial->m_texture );
+		int strLenght = strlen( pMaterial->m_texture )+1;
+		model->mMaterials[i].textureFileName = (char*)malloc(strLenght);
+
+		strcpy_s( model->mMaterials[i].textureFileName, strLenght, pMaterial->m_texture );
 		ptr += sizeof( MS3DMaterial );
 	}
 	
