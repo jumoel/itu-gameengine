@@ -44,6 +44,7 @@
     <ClCompile Include="Utils\ThreadSafeEventQueue.cpp" />
     <ClCompile Include="Vector2f.cpp" />
     <ClCompile Include="Utils\HeapAllocator.cpp" />
+    <ClCompile Include="Game\HUD.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Abstractions\DataTypes.hpp" />
@@ -104,7 +105,7 @@
     <ClInclude Include="Utils\StringUtils.hpp" />
     <ClInclude Include="Utils\ThreadSafeEventQueue.hpp" />
     <ClInclude Include="Vector2f.hpp" />
-  </ItemGroup>
+    <ClInclude Include="Game\HUD.hpp" />
   <ItemGroup>
     <None Include="Resources\Settings.xml" />
   </ItemGroup>
