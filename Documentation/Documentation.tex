@@ -206,7 +206,9 @@ We have also implemented a basic smart pointer structure, that can be used, if a
 % I think this is a good spot to describe the Settings Manager, as it doesn't really seem to fit in anywhere else.
 As every game needs variable settings and options, which should be easy to customize. We decided to keep the data in an external \texttt{XML}-file, so that it is easily changeable outside the game. This opens up for the possibility of having a light-weight external tool.
 
-Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a DOM\footnote{The ``Document Object Model''-standard.} tree, which is easily traversable and logically structured. In the same way, the tree can be exported back to the \texttt{XML}-file at any given time, and will also do so upon shutting down the engine.
+Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a
+% DOM\footnote{The ``Document Object Model''-standard.}
+tree, which is easily traversable and logically structured. In the same way, the tree can be exported back to the \texttt{XML}-file at any given time, and will also do so upon shutting down the engine.
 
 \section{Rendering}
 \label{sec:Rendering}
