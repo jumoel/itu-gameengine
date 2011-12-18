@@ -1,4 +1,5 @@
 #include <Utils/Log.hpp>
+#include <stdio.h>
 
 
 Log::Log(char* filename) 
@@ -11,11 +12,6 @@ Log::~Log()
 	m_stream.close();
 }
 
-void Log::Write(const char* logline)
-{
-	m_stream << logline << std::endl;
-}
-
 void Log::Write(const char* logline, ...)
 {
 	va_list argList;
@@ -24,4 +20,5 @@ void Log::Write(const char* logline, ...)
 	vsnprintf(cbuffer, 1024, logline, argList);
 	va_end(argList);
 	m_stream << cbuffer << std::endl;
+	//m_stream << logline << std::endl;
 }
