@@ -54,7 +54,7 @@
 
 % Consider finding a more suiting section-name might be better (``Requirements''?).
 \chapter{Formalities}
-The engine was the product of the course \textit{Game Engines}, at the \textit{IT University of Copenhagen}, during the fall semester of 2011. % More bla bla?
+The engine was the product of the course \textit{Game Engines}, at the \textit{IT University of Copenhagen}, during the fall semester of 2011.
 
 The engine and documentation is developed and written according the the requirements specified on the course website\footnote{\url{https://blog.itu.dk/MGAE-E2011/project-requirements/}.}.
 
@@ -66,13 +66,13 @@ This section will describe the main scope behind the engine, as well as the desi
 \section{Engine Scope}
 \label{sec:EngineScope}
 % Does it target a specific genre? What range of games do you have in mind that the engine would be suitable for?
-The engine targets the ``Hero \texttt{RTS}\footnote{Real-Time Strategy.}''-genre, more commonly known as ``\texttt{MOBA}\footnote{Multiplayer Online Battle Arena.}''\footnote{\url{http://en.wikipedia.org/wiki/Dota_(genre)}}. This includes games like \textit{Heroes of Newerth} and \textit{League of Legends}, both heavy inspired by the \textit{WarCraft III} modification \textit{Defense of the Ancients}\footnote{\url{http://en.wikipedia.org/wiki/Defense_of_the_Ancients}}.
+The engine targets the ``Action \texttt{RTS}\footnote{Real-Time Strategy.}''-genre, more commonly known as ``\texttt{MOBA}''\footnote{Multiplayer Online Battle Arena. \url{http://en.wikipedia.org/wiki/Dota_(genre)}}. This includes games like \textit{Heroes of Newerth} and \textit{League of Legends}, both heavy inspired by the \textit{WarCraft III} modification \textit{Defense of the Ancients}\footnote{\url{http://en.wikipedia.org/wiki/Defense_of_the_Ancients}}.
 
-To make our engine achieve the requirements of the genre, it was important to have a clear idea of what expected result should look like. As a good reference, see the example screenshot in \figRef{fig:DRdota2screen}.
+To make our engine achieve the requirements of the genre, it was important to have a clear idea of what expected result should look like. As a good reference, see the example screenshot in \figRef{fig:DRdota1screen}.
 
-\fig[\textwidth]{includes/dota1screen.jpg}{Engine inspiration: Screenshot from \textit{Defense of the Ancients}.}{fig:DRdota2screen}
+\fig[\textwidth]{includes/dota1screen.jpg}{Engine inspiration: Screenshot from \textit{Defense of the Ancients}.}{fig:DRdota1screen}
 
-As can be seen, the basic graphics are fairly simple. There has to be a flat ground-level upon which the player can be controlled around, along with objects he cannot pass. The avatar of the player has to be able to get from \texttt{A} to \texttt{B}, and be able to pathfind around various obstacles. On top of that, there has to be an interactable heads-up display. The camera will do limited movement.
+As can be seen, the basic graphics are fairly simple. There has to be a flat ground-level upon which the player can be controlled around, along with objects he cannot pass. The avatar of the player has to be able to get from \texttt{A} to \texttt{B}, and be able to pathfind around various obstacles. On top of that, there has to be an interactable heads-up display. The camera will do limited movement, staying with a fixed angle.
 
 This puts the main focus of the engine on effective handling of mouse events, collision-detection and pathfinding.
 
