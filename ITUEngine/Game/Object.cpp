@@ -39,11 +39,6 @@ Object::~Object()
 	delete this->gfx;
 	delete this->model;
 	delete this->physicsModel;
-	auto child_iter = children->begin();
-	while(child_iter != children->end())
-	{
-		delete &(*child_iter);
-	}
 	delete this->children;
 
 	delete pos;
@@ -113,7 +108,11 @@ void Object::setLookAt2D(float x, float y)
 		float degrees = atan2(y,x) - atan2(forward2D->y(),forward2D->x());
 		//float degrees = atan2(forward2D->y(),forward2D->x()) - atan2(y,x);
 		degrees = (degrees * 180)/PI;
-		std::cout << "Degrees: " << degrees << std::endl;
+		
+		
+		//std::cout << "Degrees: " << degrees << std::endl;
+		
+		
 		auto temp = (transformation->createRotate(degrees, 0.0f, 1.0f, 0.0f));
 		rotation->MultiplyWith(*temp);
 		delete temp;

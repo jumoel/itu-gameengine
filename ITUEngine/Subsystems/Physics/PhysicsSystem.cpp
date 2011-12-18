@@ -332,19 +332,21 @@ void PhysicsSystem::MoveCircleObject( Circle *circle, std::vector<MovingObjectMo
 {
 	//(*movingObjectIterator)->Move(circle, deltaT);
 
+	float secondDivisionFactor = 0.001f;
+
 	if((*movingObjectIterator)->GetOwner() == NULL)
 	{
 		circle->Center.X = (*movingObjectIterator)->GetCircularRepresentation()->Center.X 
-		+ (*movingObjectIterator)->GetDirection()->X * (*movingObjectIterator)->GetMovementSpeed() * deltaT;
+		+ (*movingObjectIterator)->GetDirection()->X * (*movingObjectIterator)->GetMovementSpeed() * (deltaT * secondDivisionFactor);
 		circle->Center.Y = (*movingObjectIterator)->GetCircularRepresentation()->Center.Y 
-		+ (*movingObjectIterator)->GetDirection()->Y * (*movingObjectIterator)->GetMovementSpeed() * deltaT;	
+		+ (*movingObjectIterator)->GetDirection()->Y * (*movingObjectIterator)->GetMovementSpeed() * (deltaT * secondDivisionFactor);	
 	}
 	else
 	{
 		float tempX = (*movingObjectIterator)->GetCircularRepresentation()->Center.X 
-		+ (*movingObjectIterator)->GetDirection()->X * (*movingObjectIterator)->GetMovementSpeed() * deltaT;
+		+ (*movingObjectIterator)->GetDirection()->X * (*movingObjectIterator)->GetMovementSpeed() * (deltaT * secondDivisionFactor);
 		float tempY = (*movingObjectIterator)->GetCircularRepresentation()->Center.Y 
-		+ (*movingObjectIterator)->GetDirection()->Y * (*movingObjectIterator)->GetMovementSpeed() * deltaT;
+		+ (*movingObjectIterator)->GetDirection()->Y * (*movingObjectIterator)->GetMovementSpeed() * (deltaT * secondDivisionFactor);
 		
 		(*movingObjectIterator)->GetOwner()->SetPos2D(tempX,tempY);
 	}

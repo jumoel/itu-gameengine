@@ -21,8 +21,6 @@ void Engine::Run()
 
 	SDL_Event event;
 	const EventType keydown("keydownEvent");
-	
-	m_EventManager->AddRegisteredEventType( keydown );	
 
 
 	while (m_Running)
@@ -78,7 +76,7 @@ void Engine::Run()
 	//	safeProcessEventManager(IEventManager::eConstants::INFINITE);
 
 		int currentTime = Time::GetCurrentMS();
-		int deltaT = currentTime - lastTime;
+		int deltaT = (currentTime - lastTime);
 
 		//Step the physics system
 		m_Physics->Step(deltaT);
@@ -111,6 +109,11 @@ void Engine::StartUp()
 
 	m_EventManager = new EventManager();
 	m_EventManager->StartUp("Global event manager", true);
+
+	//Register useful event types.
+	m_EventManager->AddRegisteredEventType( EventType ("keydownEvent") );	
+	m_EventManager->AddRegisteredEventType( EventType ("mouseClickPositionEvent") );
+	m_EventManager->AddRegisteredEventType( EventType ("mouseClickHUDEvent") );
 
 	//IMPORTANT: Call this before m_Graphics->StartUp()
 	m_Physics = SINGLETONINSTANCE(PhysicsSystem);
@@ -174,8 +177,6 @@ void Engine::handleMouseButtonPress( SDL_MouseButtonEvent *key, Uint8 eventtype)
 {
 	const EventType mouseWorldClickPosition("mouseClickPositionEvent");
 	const EventType mouseHUDClickPosition("mouseClickHUDEvent");
-	m_EventManager->AddRegisteredEventType( mouseWorldClickPosition );
-	m_EventManager->AddRegisteredEventType( mouseHUDClickPosition );
 
 	auto mouseButtonEvent = new MouseClickEvent(key, eventtype);
 

@@ -22,8 +22,8 @@ class Object;
 #define CRITTERTYPE 11
 
 //Maximum movementSpeeds
-#define MAXIMUMPLAYERSPEED 0.2f
-#define MAXIMUMCRITTERSPEED 0.1f
+#define MAXIMUMPLAYERSPEED 5.0f
+#define MAXIMUMCRITTERSPEED 1.5f
 
 
 class PhysicsModel
