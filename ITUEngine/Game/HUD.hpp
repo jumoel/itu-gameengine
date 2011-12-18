@@ -5,7 +5,7 @@
 class HUD
 {
 public:
-		void draw();
+		static void draw();
 };
 
 
