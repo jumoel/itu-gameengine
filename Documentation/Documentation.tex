@@ -54,89 +54,25 @@
 
 % Consider finding a more suiting section-name might be better (``Requirements''?).
 \chapter{Formalities}
-The engine was the product of the course \textit{Game Engines}, at the \textit{IT University of Copenhagen}, Fall of 2011. % More bla bla?
+The engine was the product of the course \textit{Game Engines}, at the \textit{IT University of Copenhagen}, during the fall semester of 2011. % More bla bla?
 
-In this documentation, the engine is described according to the requirements specified in the two following sections.
-
-\section{Documentation Requirements}
-The following were required to be included in the documentation. The various chapters and sections are structured in such a way that it should be fairly easy to quickly find the needed information, based on the requirements.
-\begin{itemize}
-	\item \textbf{Engine Scope}: Does it target a specific genre? What range of games do you have in mind that the engine would be suitable for? \\ \textit{(\secRef{sec:EngineScope})}
-	\item \textbf{Major Features}: What are the main features your engine supports? \\ \textit{(\secRef{sec:MajorFeatures})}
-	\item \textbf{Implementation Overview}: Give a high-level explanation of how the engine is structured (perhaps with an architecture diagram). Then, give at least brief explanations of how the major subsystems work, delving into more details for components that are particularly interesting, advanced, or unusual. \textit{(\secRef{sec:ImplementationOverview})}
-	\item \textbf{Design Rationales}: Were some of the design decisions made after considering alternatives, and do you have rationales for why you made the decisions you did? If so, tell us! \textit{(\secRef{sec:DesignRationales})}
-	\item \textbf{Examples}: Give some examples illustrating interesting features of your engine and how they'd be used. Depending on the features, these can take the form of screenshots, code snippets, flow charts, and/or prose explanation. \textit{(\secRef{sec:Examples})}
-\end{itemize}
-
-\section{Engine Requirements}
-The following describes the actual requirements of the engine. For each, a reference to the section and page in which it is described is given.
-
-\subsection{A Unique/Advanced Element}
-The feature ``Performance Logging'' is described in \secRef{sec:PerformanceLogging}.
-\begin{itemize}
-	\item Pick either one area of the engine to add advanced functionality to, or at least one optional feature to add. For example: a user-programmable shader interface, procedural terrain, advanced physics, an audio subsystem, etc.
-\end{itemize}
-
-\subsection{Dynamic Elements}
-Described in \secRef{sec:DynamicElements}.
-\begin{itemize}
-	\item \textit{Physics and animation}: What makes sense for your engine and why? Decide on a physics/animation split for your engine, considering its target. Do you want forces, manual animations, parametric curves, something else?
-	\item \textit{Collision detection}: have collider surfaces for your objects, with at least basic collision detection. If you need performance (lots of objects), GJK may be best.
-	\item \textit{Collision response}, if it makes sense for your genre of game: things like objects bouncing off other objects when they collide.
-	\item Be able to \textit{add/remove objects from the game world dynamically}, and update associate data structures.
-\end{itemize}
-
-\subsection{Resource Management}
-Described in \secRef{sec:ResourceManagement}.
-\begin{itemize}
-	\item \textit{Singleton class} (or several) managing global engine state.
-	\item \textit{Memory-management system}. Design on paper first. Implement at least one kind of custom allocator, e.g. a stack allocator used for per-frame allocations.
-	\item Design a \textit{resource/dependency-management system}, both runtime and offline portion (offline includes things like asset conditioning, and level format).
-	\item Quickest way to get some resources loading: wrap a library like \\ \url{http://assimp.sourceforge.net}.
-\end{itemize}
-
-\subsection{Rendering}
-Described in \secRef{sec:Rendering}.
-\begin{itemize}
-	\item \textit{Object-oriented, scenegraph-based rendering}, that recursively renders objects in the scene.
-	\item A \textit{camera component} should be present.
-	\item Use a method of \textit{speeding up rendering} by retaining data on the GPU. For now display lists are okay, but vertex buffers are better (and will be useful later).
-	\item \textit{Lighting manager} (or data structures) storing information on lights in the scene.
-	\item \textit{Material properties} on objects.
-	\item \textit{Textures} on objects.
-	\item \textit{Shaders}: Optional. A user-programmable shader API for your engine could be a nice enhancement. But, everyone should understand how shaders work, even if your engine doesn't use them.
-\end{itemize}
-
-\subsection{Game Loop}
-Described in \secRef{sec:GameLoop}.
-\begin{itemize}
-	\item Support \textit{framerate-independent game-world updates} (e.g. using deltaT timings).
-	\item Implement an \textit{event system} (may be useful to split into several event systems, e.g. an InputManager handling all input events).
-\end{itemize}
-
-\subsection{Input}
-Described in \secRef{sec:Input}.
-\begin{itemize}
-	\item Handle \textit{keyboard} input, with at least a few options. For example: event-based input that queues multiple keypresses, and polling-based input that does something while the key is held down.
-	\item Handle \textit{mouse} (or joystick/controller) input, with the option for nonlinear mapping.
-	\item Connect input to scene in a basic way, e.g. wasd moves an object, mouse moves camera.
-\end{itemize}
+The engine and documentation is developed and written according the the requirements specified on the course website\footnote{\url{https://blog.itu.dk/MGAE-E2011/project-requirements/}.}.
 
 % The essence of it all.
 \chapter{Engine Description}
 \label{sec:EngineDescription}
-More of an actual light introduction. Description of the engine and what it can be used for. Covers the ideas and design. See the sections below.
+This section will describe the main scope behind the engine, as well as the design rationales behind the choices that were made.
 
 \section{Engine Scope}
 \label{sec:EngineScope}
 % Does it target a specific genre? What range of games do you have in mind that the engine would be suitable for?
-The engine targets the ``Hero \texttt{RTS}\footnote{Real-Time Strategy.}''-genre, more commonly known as ``\texttt{MOBA}\footnote{Multiplayer Online Battle Arena.}''. This includes games like \textit{Heroes of Newerth} and \textit{League of Legends}, both heavy inspired by the \textit{WarCraft III} modification \textit{Defense of the Ancients}.
+The engine targets the ``Hero \texttt{RTS}\footnote{Real-Time Strategy.}''-genre, more commonly known as ``\texttt{MOBA}\footnote{Multiplayer Online Battle Arena.}''\footnote{\url{http://en.wikipedia.org/wiki/Dota_(genre)}}. This includes games like \textit{Heroes of Newerth} and \textit{League of Legends}, both heavy inspired by the \textit{WarCraft III} modification \textit{Defense of the Ancients}\footnote{\url{http://en.wikipedia.org/wiki/Defense_of_the_Ancients}}.
 
 To make our engine achieve the requirements of the genre, it was important to have a clear idea of what expected result should look like. As a good reference, see the example screenshot in \figRef{fig:DRdota2screen}.
 
-\fig[\textwidth]{includes/dota2screen.jpg}{Engine Scope: Screenshot from \textit{DOTA2}.}{fig:DRdota2screen}
+\fig[\textwidth]{includes/dota1screen.jpg}{Engine inspiration: Screenshot from \textit{Defense of the Ancients}.}{fig:DRdota2screen}
 
-As can be seen, the basic graphics are fairly simple. There has to be a flat ground-level upon which the player can be controlled around, along with objects he cannot pass. On top of that, there has to be an interactable \texttt{HUD}\footnote{Heads Up Display.}. The camera will do limited movement, which again will limit the amount of required graphics that needs to be rendered. Furthermore, the avatar of the player has to be able to get from \texttt{A} to \texttt{B}, and be able to pathfind around various obstacles. 
+As can be seen, the basic graphics are fairly simple. There has to be a flat ground-level upon which the player can be controlled around, along with objects he cannot pass. The avatar of the player has to be able to get from \texttt{A} to \texttt{B}, and be able to pathfind around various obstacles. On top of that, there has to be an interactable heads-up display. The camera will do limited movement.
 
 This puts the main focus of the engine on effective handling of mouse events, collision-detection and pathfinding.
 
@@ -148,15 +84,15 @@ This puts the main focus of the engine on effective handling of mouse events, co
 \section{Design Rationales}
 \label{sec:DesignRationales}
 % Were some of the design decisions made after considering alternatives, and do you have rationales for why you made the decisions you did? If so, tell us!
-Go into more depth here in regards to what actual design decisions were actually made. Was it \textit{this} or \textit{that}? Why was it better than the other?
+This section covers what decisions was put behind the major parts of the engine: The \textit{graphics-} and \textit{physics systems} and the \textit{path planner}.
 
 \subsection{Graphics}
 \label{sec:DesignGraphics}
-It was clear early on that graphics would be an important part of the game engine, and as such some design decisions would have to be made as to how to both import assets as well as how to render them.
+Displaying graphics on the screen is the most important part of every game engine, and as such some design decisions would have to be made as to how to both import assets as well as how to render them.
 
-As far as importing assets both models and textures would have to be imported, and two options were considered: using a library and wrap it into the engine or write custom importers. They both have their distinct advantages. Using a library will save precious time on having to implement an importer as well as allowing importation of a wide range of file formats. On the other hand creating a custom loader will let the authors control exactly how the loading occurs and optimize it for performance. Since it was deemed interesting and educational to create a custom loader and since it would allow for better performance, this approach was chosen, and a custom \texttt{.TGA}-texture loader was created and is part of the engine today. A custom \texttt{MS3D}-loader was created as well, but for some reason it just would not function, and the authors were forced to utilize a library for model loading. The library of choice was \textit{Assimp}, since it was fairly simple to use and allowed for importation of a lot of file formats.
+As far as importing assets both models and textures would have to be imported, and two options were considered: using a library and wrap it into the engine or write custom importers. They both have their distinct advantages. Using a library will save precious time on having to implement an importer as well as allowing us to import a wide range of file formats. On the other hand creating a custom loader would let us control exactly how the loading occurs and optimize it for performance. Since it was deemed interesting and educational to create a custom loader and since it would allow for better performance, this approach was chosen, and a custom \texttt{.TGA}-texture loader was created and is part of the engine. We started on a custom \texttt{MS3D}-loader, but ended up utilizing a library for all of the model loading. The library of choice was \textit{Assimp}, since it was fairly simple to use and supported a lot of different file formats.
 
-When it comes to method of rendering both dynamic lists and vertex buffers were considered. As the only advantage of using dynamic list were deemed to be ease of use, vertex buffers were chosen for their supposedly better performance. It was quite a struggle to get them working a well integrated into the project. It was first intended to create one vertex buffer per shader, but since we initially had problems implementing the shaders, we decided to drop them for lack of time. Thus, we ended up with one big vertex buffer, since it would theoretically yield the best performance. However, it was soon realized that it was much simpler to work with one vertex buffer per object, and as such this solution was implemented instead.
+When it comes to method of rendering both dynamic lists and vertex buffers were considered. As the only advantage of using dynamic list were deemed to be ease of use, vertex buffers were chosen for their supposedly better performance. It was quite a struggle to get them working a well integrated into the project. It was first intended to create one vertex buffer per shader, but since we initially had problems implementing the shaders, we decided to drop them for lack of time. Thus, we ended up with one big vertex buffer, since it would theoretically yield the best performance. However, it was soon realized that it was much simpler to work with one vertex buffer per object, and as such this solution was implemented instead, even though the performance might be a bit worse.
 
 \subsection{Physics System}
 \label{sec:DesignPhysicsSystem}
@@ -164,32 +100,32 @@ The physics system in an \textit{RTS} in ideal place to cut corners. Since the g
 
 \subsection{Path Planner}
 \label{sec:DesignPathPlanner}
-Pathfinding is an essential component of any \textit{RTS} game, and as such it had to be implemented into our engine. This could  be done in a number of different ways such as a navigation mesh, grid based path finding, using an \texttt{A*} algorithm or breadth first etc.. Since the world of \textit{RTS} games are typically fairly open and for simplicity it was chosen to make the path finding grid based. The precision of the pathing could then be altered via the number of grid divisions. However, the precision is reverse proportional with the performance of the path finding. One might argue that for performance it would be better to implement a navigation mesh. However, the simplicity of setting up a grid based path finding is much simpler for the user of the engine than setting up an entire navigation mesh. The user just has set object into the scene and parse the size of the map to the path planner class. Then they would have a functional path finding. With a navigation mesh the user would have to define each node by defining a convex polygon. This is arguable a lot more cumbersome. 
+Pathfinding is an essential component of any \textit{RTS} game, and we also needed it in our engine. This could  be done in a number of different ways (navigation mesh, grid based path finding, using an \texttt{A*} algorithm, breadth first search, etc.). Since the world of \textit{RTS} games are typically fairly open we decided to make the path finding grid based, because of the simplicity. The precision of the pathing can then be altered via the number of grid divisions. However, the precision is reversely proportional with the performance of the path finding. One might argue that for performance it would be better to implement a navigation mesh. However, the simplicity of setting up a grid based path finding is much simpler for the user of the engine than setting up an entire navigation mesh. The user just has set object into the scene and send it to the path planner, that divides it into squares. After these simple steps, the pathfinding is functional. With a navigation mesh the user would have to define each node by defining a convex polygon. This is arguable a lot more cumbersome.
 
-As regards to the actual algorithm \texttt{A*} was chosen, since it allows for implementing different terrain that is harder traversable, and still finding the shortest path in terms of time spent getting there.
+\texttt{A*} was chosen as the actual path finding algorithm, since it allows for implementing different terrain that is harder traversable, and still finding the shortest path in terms of time spent getting there.
 
 \section{Major Features}
 \label{sec:MajorFeatures}
 % What are the main features your engine supports?
-
-To make our game function optimally for the specific game genre, the main - and most powerful - features are the following:
-
-\begin{itemize}
-	\item An effective Mouse Event system.
-	\item A \texttt{HUD} that the mouse can interact with.
-	\item Effective pathfinding.
-\end{itemize}
-
 % The things that makes the engine special, the primary forces and so on. There is no further explanations of what this part should contain. Fairly certain this section could be revised in a much better way, with many more details.
 
-\chapter{Implementation Overview}
+To make our game function optimally for the specific game genre, the main features are:
+
+\begin{itemize}
+	\item An effective event system, both sendable by input devices and game objects.
+	\item A \texttt{HUD} that the mouse can interact with. % Ok, perhaps not.
+	\item Pathfinding.
+\end{itemize}
+
+\chapter{Implementation}
 \label{sec:ImplementationOverview}
 % Give a high-level explanation of how the engine is structured (perhaps with an architecture diagram). Then, give at least brief explanations of how the major subsystems work, delving into more details for components that are particularly interesting, advanced, or unusual.
 
-%More detailed about the structure of the various parts of the engine. The sections below are taken from the requirements of each of the major parts, but might need to be re-structured after that.
+This section gives a more detailed description of the various subparts of the engine, based on the list given in Engine Requirements.
 
 \section{Dynamic Elements}
 \label{sec:DynamicElements}
+% A quick few words on what the Dynamic Element section contains.
 
 \subsection{Physics System}
 \label{sec:PhysicsSystem}
@@ -207,7 +143,7 @@ The \texttt{PathPlanner} class can be used in conjunction with the Physics Syste
 
 \fig[339px]{includes/PathPlanner1.png}{Path Planner, 1: Initializing the map.}{fig:PathPlanner1}
 
-Firstly, the new object is created in the scene, which will be used as the ground and is assigned the ground model, which essentially is a plane width a height and width of one. This is the scaled to a width and height of $40$, or whatever one might want, and positioned so that the lower left corner is in $(0,0)$. Then the width of the map is parsed to to the singleton instance of the PathPlanner.
+Firstly, the new object is created in the scene, which will be used as the ground and is assigned the ground model, which essentially is a plane width a height and width of one. This is the scaled to a width and height of $40$, or whatever one might want, and positioned so that the lower left corner is in $(0,0)$. Then the width of the map is parsed to to the singleton instance of the \texttt{PathPlanner}.
 
 \fig[420px]{includes/PathPlanner2.jpg}{Path Planner, 2: Creating the two objects.}{fig:PathPlanner2}
 
@@ -219,14 +155,13 @@ Then the path planning map is set in the end of the \texttt{createGraph()} funct
 
 \section{Resource Management}
 \label{sec:ResourceManagement}
-% Singleton class (or several) managing global engine state
-% Design a resource/dependency-management system, both runtime and offline portion (offline includes things like asset conditioning, and level format).
-% Quickest way to get some resources loading: wrap a library like assimp.sourceforge.net (Emil: This is mentioned in Design Rationales, btw)
-
 % Quick introduction, perhaps?
 
 \subsection{Media Manager}
 \label{sec:MediaManager}
+% Singleton class (or several) managing global engine state
+% Design a resource/dependency-management system, both runtime and offline portion (offline includes things like asset conditioning, and level format).
+% Quickest way to get some resources loading: wrap a library like assimp.sourceforge.net
 The \textit{Media Manager} is the tool that is to be used in order to import and access media files for use in the game. Currently, it supports importing of \texttt{.TGA}-files as textures and all the common model formats as 3D models, by using \textit{Assimp}\footnote{See \textit{Assimp} documentation for a full list of supported file formats.}. In the future, audio files will be accessed and imported using the media manager as well. As this manager is a singleton, any media imported using it will readily be available anywhere in the code as long you include \texttt{<Managers/MediaManager>}.
 
 In order to import a resource, one must first create either a model or a texture image and place it in the \texttt{Resource} folder. A container must then be created for it in the \texttt{MediaManager} class (\texttt{Texture*} for textures, and \texttt{Model*} for models). Then in the \texttt{MediaManager.StartUp()} function the resource must be loaded and stored in the aforementioned container using the \texttt{LoadTexture()} or \texttt{ImportAssimpModel()} respectively. Hereafter the imported asset can be accessed from the \texttt{MediaManger} singleton from anywhere within the engine. However, as the scene is actually built in \texttt{SceneData.cpp} and the \texttt{createGraph()} function, one would usually access in here in order to assign it to an object in the scene. The Memory Manager (described in \secRef{sec:MediaManager} is used in the following way:
@@ -262,7 +197,7 @@ Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a 
 % Use a method of speeding up rendering by retaining data on the GPU. For now display lists are okay, but vertex buffers are better (and will be useful later).
 % Material properties on objects
 % Textures on objects
-% Shaders: Optional. A user-programmable shader API for your engine could be a nice enhancement. But, everyone should understand how shaders work, even if your engine doesn’t use them.
+% Shaders: Optional. A user-programmable shader API for your engine could be a nice enhancement. But, everyone should understand how shaders work, even if your engine doesnï¿½t use them.
 
 \subsection{Camera}
 \label{sec:Camera}
@@ -276,6 +211,8 @@ Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a 
 \label{sec:GameLoop}
 % Support framerate-independent game-world updates (e.g. using deltaT timings).
 % Implement an event system (may be useful to split into several event systems, e.g. an InputManager handling all input events).
+
+% Insert the Game Loop chart here.
 
 \subsection{Event System}
 \label{sec:EventSystem}
@@ -324,7 +261,7 @@ only listens for escape key and exits when pressed.
 
 \chapter{Examples}
 \label{sec:Examples}
-% Give some examples illustrating interesting features of your engine and how they’d be used. Depending on the features, these can take the form of screenshots, code snippets, flow charts, and/or prose explanation.
+% Give some examples illustrating interesting features of your engine and how theyï¿½d be used. Depending on the features, these can take the form of screenshots, code snippets, flow charts, and/or prose explanation.
 
 % Giving examples is one of the requirements of the documentation. It could either be done throughout the document, or simply be here in a chapter for itself. Most likely a better idea, to keep it from the more in-depth technical facts.
 
