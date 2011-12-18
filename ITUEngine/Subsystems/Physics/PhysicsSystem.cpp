@@ -435,5 +435,18 @@ void PhysicsSystem::SetStaticPathMap()
 		}
 	}
 	SINGLETONINSTANCE(PathPlanner)->UpdateDynamicMap(map);
+
 	delete map;
+
+	//Refresh moving objects path...
+	std::vector<MovingObjectModel*>::iterator dynamicObjectIterator;
+	for(dynamicObjectIterator = m_MovingObjects->begin(); 
+		dynamicObjectIterator != m_MovingObjects->end();
+		dynamicObjectIterator++)
+	{
+		float targetPosX = (*dynamicObjectIterator)->GetTargetPosition()->X;
+		float targetPosY = (*dynamicObjectIterator)->GetTargetPosition()->Y;
+
+		(*dynamicObjectIterator)->SetTargetPosition(new Point(targetPosX, targetPosY));
+	}
 }

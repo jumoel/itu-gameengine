@@ -54,7 +54,12 @@ bool SceneGraphManager::HandleEvent( IEventData const & event )
 	float y = (float)(rand() % 400) / 10.0f;
 
 	box->SetPos2D(x, y);
-	box->SetScale(5.0f, 5.0f, 5.0f);
+	box->SetScale(2.0f, 2.0f, 5.0f);
+
+	m_RootNode->children->push_back(*box);
+
+	SINGLETONINSTANCE(PhysicsSystem)->SetStaticPathMap();
+
 
 	return true;
 }
