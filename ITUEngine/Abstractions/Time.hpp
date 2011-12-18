@@ -2,11 +2,12 @@
 #define ITUENGINE_TIME_H
 
 #include <SDL.h>
+#include <stdint.h>
 
 class Time
 {
 public:
-	static int GetCurrentMS()
+	static uint32_t GetCurrentMS()
 	{
 		return SDL_GetTicks();
 	}

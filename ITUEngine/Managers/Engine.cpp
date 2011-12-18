@@ -9,6 +9,7 @@
 #include <Events/Interfaces/IEventData.hpp>
 #include <Managers/MediaManager.hpp>
 #include <Managers/InputManager.hpp>
+#include <Utils/Profiler.hpp>
 
 #include <GetOGLPos.hpp>
 #include <Events/Interfaces/IEventManager.hpp>
@@ -101,8 +102,10 @@ void Engine::Run()
 
 void Engine::StartUp()
 {
-	lastTime = Time::GetCurrentMS();
+	SINGLETONINSTANCE(Profiler)->StartUp();
+	SINGLETONINSTANCE(Profiler)->Begin("StartUp");
 
+	lastTime = Time::GetCurrentMS();
 	m_Window = new Window();
 	m_Window->StartUp();
 
@@ -130,6 +133,8 @@ void Engine::StartUp()
 	m_SingleFrameAllocator = new StackAllocator(MB(100));
 
 	m_Running = false;
+
+	SINGLETONINSTANCE(Profiler)->End("StartUp");
 }
 
 void Engine::ShutDown()
@@ -149,6 +154,8 @@ void Engine::ShutDown()
 	m_SettingsManager->ShutDown();
 
 	m_Window->ShutDown();
+
+	SINGLETONINSTANCE(Profiler)->ShutDown();
 }
 
 void Engine::handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_keysym *keysym, Uint8 eventtype )
