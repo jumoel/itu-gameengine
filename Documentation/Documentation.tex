@@ -254,11 +254,15 @@ The mapping from screen coordinates to world coordinates happen via an inverse p
 % Again, event system, what the uses are... erh, yeah. Probably not that much to write here, really.
 When the keyboard are pressed, an event with the appropriate key is created which other subsystems can listen for. The engine currently only listens for escape key and exits when pressed.
 
-\section{Performance Logging}
+\section{Advanced feature: Performance Logging}
 \label{sec:PerformanceLogging}
 %Pick either one area of the engine to add advanced functionality to, or at least one optional feature to add. For example: a user-programmable shader interface, procedural terrain, advanced physics, an audio subsystem, etc.
 
-% Gogo Gadget Mads!
+The performance logger enables the user of the engine to find out which parts of the code
+are taking the most time. The performance logger allows the user to measure time and save the
+measurements in distinct, named, lists. I.e., the physics step could be measured and saved in a list named physics. The lists are saved to a CSV file when they are full. We specified that the lists should contain at most 1000 elements, which will correspond to 1000 frames, about 1-2 seconds on our development machines, if a certain section is logged every frame.
+
+We decided against doing the graphing of logged entries ourselves, as an offline component like Microsoft Excel excels at this.
 
 \chapter{Examples}
 \label{sec:Examples}
