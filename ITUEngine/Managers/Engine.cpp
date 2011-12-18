@@ -169,7 +169,12 @@ void Engine::handleMouseButtonPress( SDL_MouseButtonEvent *key, Uint8 eventtype)
 	{
 		InputManager::NotifyButtonDown(mouseButtonEvent);
 		auto mouseWorldPos = GetOGLPos::GetPos(key->x, key->y);
-		safeTriggerEvent( EventData<Vector3f>(mouseWorldPos, mouseClickPosition) );
+		if (mouseWorldPos.z() < 35.0f){
+			safeTriggerEvent( EventData<Vector3f>(mouseWorldPos, mouseClickPosition) );
+		} else {
+
+			std::cout<<"HUD clicked"<<std::endl;
+		}
 
 	}
 	else if(eventtype == SDL_MOUSEBUTTONUP)

@@ -100,6 +100,7 @@ void MediaManager::StartUp()
 	warrior = LoadTexture("Resources/Space_Warrior.tga", "Warrior");
 	LoadTexture("Resources/1b9a24c3118674f59ef3cb7ac19eab3d.tga", "Resources/1B9A24C3.PNG");
 	LoadTexture("Resources/box_diffuse.tga", "Resources/BOX_DIFF.PNG");
+	Hud = LoadTexture("Resoures/HUD.tga", "HUD");
 
 	
 
