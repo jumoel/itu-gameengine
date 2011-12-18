@@ -192,14 +192,14 @@ bool PathPlanner::isValidNeighbour(Node* neighbour, Plan* plan)
 	{
 		return false;
 	}
-	for(unsigned int j = 0; j < plan->closedList.size(); j++)
+	for(int j = 0; j < plan->closedList.size(); j++)
 	{
 		if((plan->closedList[j]->pos.x() == neighbour->pos.x()) && (plan->closedList[j]->pos.y() == neighbour->pos.y()))
 		{
 			return false;
 		}
 	}
-	for(unsigned int j = 0; j < plan->openList.size(); j++)
+	for(int j = 0; j < plan->openList.size(); j++)
 	{
 		if((plan->openList[j]->pos.x() == neighbour->pos.x()) && (plan->openList[j]->pos.y() == neighbour->pos.y()))
 		{
@@ -212,7 +212,7 @@ bool PathPlanner::isValidNeighbour(Node* neighbour, Plan* plan)
 Node* PathPlanner::backTrack(Node* cNode, Plan *plan, int locationX, int locationY)
 {
 	
- 	if(cNode == NULL || cNode->child == NULL)
+ 	if(cNode->child == NULL)
 		return NULL;
 	
 	plan->route->insert(plan->route->begin(), Point(cNode->pos));
@@ -237,7 +237,7 @@ Node* PathPlanner::recursiveAstar(Node* currentNode, Plan* plan)
 		return currentNode;
 	}
 	plan->closedList.push_back(currentNode);
-	for(unsigned int i = 0; i < plan->openList.size(); i++)
+	for(int i = 0; i < plan->openList.size(); i++)
 	{
 		if(currentNode == plan->openList[i])
 			plan->openList.erase(plan->openList.begin() + i);
@@ -280,7 +280,7 @@ Node* PathPlanner::recursiveAstar(Node* currentNode, Plan* plan)
 		
 	currentNode = plan->openList[0];
 
-	for(unsigned int i = 1; i < plan->openList.size(); i++)
+	for(int i = 1; i < plan->openList.size(); i++)
 	{
 		if(plan->openList[i]->distance < currentNode->distance)
 			currentNode = plan->openList[i];

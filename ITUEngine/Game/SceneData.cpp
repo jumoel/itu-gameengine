@@ -36,7 +36,7 @@ SceneGraphManager *createGraph()
 	underground->SetPos2D(20.0f,20.0f);
 	underground->SetScale(mapWidth*10,mapWidth*10,1.0f);
 
-	Rectangle physicsBox( new Point(-0.5f, -0.5f), 1.0f, 1.0f);
+	Rectangle physicsBox(Point(-0.5f, -0.5f), 1.0f, 1.0f);
 
 	auto box = new Object();
 	box->Name = "Box";
@@ -112,13 +112,10 @@ SceneGraphManager *createGraph()
 
 	SINGLETONINSTANCE(PhysicsSystem)->SetStaticPathMap();
 
-	Point *forward = new Point();
-	forward->X = 0;
-	forward->Y = -1;
-	Point *tt = forward->GetNormalizedPoint();
-	delete forward;
-	forward = tt;
-	tt = nullptr;
+	Point forward;
+	forward.X = 0;
+	forward.Y = -1;
+	forward = forward.GetNormalizedPoint();
 
 	auto player = new Object();
 	SINGLETONINSTANCE(PlayerInteraction)->StartUp(player);
@@ -128,13 +125,13 @@ SceneGraphManager *createGraph()
 	MovingObjectModel* tempMovingObject = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward, player);
 	player->physicsModel = tempMovingObject;
 	//player->physicsModel = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward, player);
-	Circle circle(new Point(0.0f,0.0f),0.5f);
+	Circle circle(Point(0.0f,0.0f),0.5f);
 	player->physicsModel->InitializeAsCircle(circle);
 	SINGLETONINSTANCE(PhysicsSystem)->AddMovingObject(tempMovingObject);
 	player->SetPos2D(15,20);
 	player->Rotate(90.0f, 1.0f, 0.0f, 0.0f);
 	player->SetForward(0.0f, 1.0f);
-	player->setLookAt2D(forward->X,forward->Y);
+	player->setLookAt2D(forward.X,forward.Y);
 	
 	root->children->push_back(*player);
 

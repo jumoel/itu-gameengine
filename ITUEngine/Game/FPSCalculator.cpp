@@ -22,7 +22,7 @@ int FPSCalculator::GetFPS()
 void FPSCalculator::SetFPSTitle()
 {
 	char str[128];
-	sprintf_s(str, "FPS: %d", GetFPS());
+	sprintf(str, "FPS: %d", GetFPS());
 
 	SDL_WM_SetCaption(str, "");
 }

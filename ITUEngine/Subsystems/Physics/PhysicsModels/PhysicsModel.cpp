@@ -8,8 +8,8 @@ void PhysicsModel::SetDirection(float x, float y)
 
 void MovingObjectModel::SetDirection(float x, float y)
 {
-	m_Direction->X = x;
-	m_Direction->Y = y;
+	m_Direction.X = x;
+	m_Direction.Y = y;
 }
 
 void MovingObjectModel::calcDirection()
@@ -20,20 +20,18 @@ void MovingObjectModel::calcDirection()
 
 		auto pos = GetPosition();
 
-		Point *tempDirection = new Point(next.X - pos->X, next.Y - pos->Y); // = next - pos;
+		Point tempDirection = next - pos;
 
 		//m_Direction = tempDirection.GetNormalizedPoint();
-		tempDirection = tempDirection->GetNormalizedPoint(); 
+		tempDirection = tempDirection.GetNormalizedPoint(); 
 		if(m_Owner != NULL)
 		{
-			m_Owner->setLookAt2D(tempDirection->X, tempDirection->Y);
+			m_Owner->setLookAt2D(tempDirection.X, tempDirection.Y);
 		}
 		else
 		{
-			SetDirection(tempDirection->X, tempDirection->Y);
+			SetDirection(tempDirection.X, tempDirection.Y);
 		}
-
-		delete tempDirection;
 	}
 }
 
@@ -44,23 +42,17 @@ void MovingObjectModel::RecalculatePath()
 	{
 		auto next = m_Path->at(0);
 
-		Point *tempDirection = new Point(next.X - GetPosition()->X, next.Y - GetPosition()->Y);
+		Point tempDirection = next - GetPosition();
 		//tempDirection.X = next.X - GetPosition()->X;
 		//tempDirection.Y = next.Y - GetPosition()->Y;
-		float distance = tempDirection->GetLength();
-		Point *tt = tempDirection->GetNormalizedPoint();
-		delete tempDirection;
-		tempDirection = tt;
-		tt = nullptr;
+		float distance = tempDirection.GetLength();
+		tempDirection = tempDirection.GetNormalizedPoint();
 
-		Point *oppositDirection = m_Direction->GetNegatedPoint();
-		tt = oppositDirection->GetNormalizedPoint();
-		delete oppositDirection;
-		oppositDirection = tt;
-		tt = nullptr;
+		Point oppositDirection = m_Direction.GetNegatedPoint();
+		oppositDirection = oppositDirection.GetNormalizedPoint();
 
 		//If direction got negated, we overshot our target or if we have reached our next goal
-		if((tempDirection->X == oppositDirection->X && tempDirection->Y == oppositDirection->Y) || distance < 0.01f)
+		if(tempDirection == &oppositDirection || distance < 0.01f)
 		{
 			m_Path->erase(m_Path->begin());
 
@@ -73,19 +65,16 @@ void MovingObjectModel::RecalculatePath()
 				next = m_Path->at(0);
 				auto pos = GetPosition();
 
-				Point *newDirection = new Point(next.X - pos->X, next.Y - pos->Y);
-				tt = newDirection->GetNormalizedPoint();
-				delete newDirection;
-				newDirection = tt;
-				tt = nullptr;
+				Point newDirection = next - pos;
+				newDirection = newDirection.GetNormalizedPoint();
 
 				if(m_Owner != NULL)
 				{
-					m_Owner->setLookAt2D(newDirection->X, newDirection->Y);
+					m_Owner->setLookAt2D(newDirection.X, newDirection.Y);
 				}
 				else
 				{
-					SetDirection(newDirection->X, newDirection->Y);
+					SetDirection(newDirection.X, newDirection.Y);
 				}
 			}
 

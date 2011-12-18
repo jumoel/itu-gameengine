@@ -40,6 +40,7 @@
     <ClCompile Include="Managers\SceneGraphManager.cpp" />
     <ClCompile Include="Subsystems\Graphics\GraphicsSystem.cpp" />
     <ClCompile Include="Subsystems\Physics\PhysicsSystem.cpp" />
+    <ClCompile Include="TestEventSubscribtion.cpp" />
     <ClCompile Include="ThirdParty\pugixml\pugixml.cpp" />
     <ClCompile Include="Utils\StringUtils.cpp" />
     <ClCompile Include="Utils\ThreadSafeEventQueue.cpp" />

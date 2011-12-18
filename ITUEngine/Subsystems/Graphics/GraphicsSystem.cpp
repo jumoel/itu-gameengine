@@ -143,7 +143,7 @@ void GraphicsSystem::InitOpenGL()
 
 void GraphicsSystem::AddAssimpModelToVBORecursive(const aiScene* scene, const aiNode* node, std::vector<Vector3f> *vectors)
 {
-	unsigned int i;
+	int i;
 	unsigned int n = 0, t;
 
 	// get all vectors assigned to this node
@@ -172,6 +172,7 @@ void GraphicsSystem::AddAssimpModelToVBORecursive(const aiScene* scene, const ai
 
 void GraphicsSystem::AddToVBORecursive(Object *obj, std::vector<Vector3f> *vectors)
 {
+	int k = 0;
 	std::vector<Vector3f> *v_list = new vector<Vector3f>();
 	
 	/*

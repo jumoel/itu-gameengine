@@ -362,9 +362,8 @@ GfxModel* MediaManager::LoadModel(const char *filename)
 		memcpy( model->mMaterials[i].specular, pMaterial->m_specular, sizeof( float )*4 );
 		memcpy( model->mMaterials[i].emissive, pMaterial->m_emissive, sizeof( float )*4 );
 		model->mMaterials[i].shininess = pMaterial->m_shininess;
-		int bytes = strlen( pMaterial->m_texture )+1;
-		model->mMaterials[i].textureFileName = (char *)malloc(bytes);
-		strcpy_s( model->mMaterials[i].textureFileName, bytes, pMaterial->m_texture );
+		model->mMaterials[i].textureFileName = new char[strlen( pMaterial->m_texture )+1];
+		strcpy( model->mMaterials[i].textureFileName, pMaterial->m_texture );
 		ptr += sizeof( MS3DMaterial );
 	}
 	
@@ -387,6 +386,7 @@ void MediaManager::reloadTextures(GfxModel* model)
 	{
 		if ( strlen( model->mMaterials[i].textureFileName ) > 0 )
 		{
+			bool exists = false;
 			Texture* tex = FindTexture(model->mMaterials[i].textureFileName);
 			
 			if(tex != NULL)
@@ -408,7 +408,7 @@ void MediaManager::reloadTextures(GfxModel* model)
 
 Texture* MediaManager::FindTexture(const char* name)
 {
-	for(unsigned int j = 0; j < textures.size(); j++)
+	for(int j = 0; j < textures.size(); j++)
 	{
 		if(strcmp(textures[j]->filename, name) == 0 || strcmp(textures[j]->name, name) == 0)
 		{

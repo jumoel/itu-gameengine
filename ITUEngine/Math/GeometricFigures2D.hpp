@@ -9,16 +9,14 @@ public:
 	//Do not use this, to initialize use other constructors 
 	Point() {}
 
-	Point(Point *point) : X(point->X), Y(point->Y) {}
+	Point(Point &point) : X(point.X), Y(point.Y) {}
 	Point(Vector2f vect) : X(vect.x()), Y(vect.y()) {}
 	Point(float x, float y) : X(x), Y(y) {}
 
-	/*
-	Point *operator -(Point *point)
+	Point operator -(Point *point)
 	{
-		return new Point((this->X-point->X), (this->Y-point->Y));
+		return Point((this->X-point->X), (this->Y-point->Y));
 	}
-	*/
 
 	bool operator ==(Point *point)
 	{
@@ -39,10 +37,10 @@ public:
 		return true;
 	}
 
-	Point *GetNormalizedPoint()
+	Point GetNormalizedPoint()
 	{
 		float length = GetLength();
-		return new Point(X/length, Y/length);
+		return Point(X/length, Y/length);
 	}
 
 	float GetLength()
@@ -50,9 +48,9 @@ public:
 		return sqrt(X*X + Y*Y);
 	}
 
-	Point *GetNegatedPoint()
+	Point GetNegatedPoint()
 	{
-		return new Point(-1*X, -1*Y);
+		return Point(-1*X, -1*Y);
 	}
 
 	float X, Y;
@@ -80,7 +78,7 @@ public:
 	//Do not use this, to initialize use other constructors 
 	Circle() {}
 
-	Circle(Point *center, float radius) : Center(center), Radius(radius), initialRadius(radius) {}
+	Circle(Point center, float radius) : Center(center), Radius(radius), initialRadius(radius) {}
 	Circle(Circle &circle) : Center(circle.Center), Radius(circle.Radius), initialRadius(circle.Radius) {}
 	~Circle() 
 	{ 
@@ -89,8 +87,8 @@ public:
 
 	void setPos(float x, float y)
 	{
-		Center->X = x;
-		Center->Y = y;
+		Center.X = x;
+		Center.Y = y;
 	}
 
 	void scale(float x, float y)
@@ -103,7 +101,7 @@ public:
 		Radius = initialRadius * temp;
 	}
 
-	Point *Center;
+	Point Center;
 	float Radius;
 	float initialRadius;
 };
@@ -114,7 +112,7 @@ public:
 	//Do not use this, to initialize use other constructors 
 	Rectangle() {}
 
-	Rectangle(Point *minXY, float width, float height) : MinXY(minXY), Width(width), Height(height), initialWidth(width), initialHeight(height)
+	Rectangle(Point minXY, float width, float height) : MinXY(minXY), Width(width), Height(height), initialWidth(width), initialHeight(height)
 	{
 		Init();
 	}
@@ -131,43 +129,43 @@ public:
 
 	void setPos(float x, float y)
 	{
-		MinXY->X = x - Width/2.0f;
-		MinXY->Y = y - Height/2.0f;
-		MinX = MinXY->X;
-		MaxX = MinXY->X + Width;
+		MinXY.X = x - Width/2.0f;
+		MinXY.Y = y - Height/2.0f;
+		MinX = MinXY.X;
+		MaxX = MinXY.X + Width;
 
-		MinY = MinXY->Y;
-		MaxY = MinXY->Y + Height;
+		MinY = MinXY.Y;
+		MaxY = MinXY.Y + Height;
 	}
 
 	void scale(float x, float y)
 	{
 		Point temp;
-		temp.X = MinXY->X + Width/2.0f;
-		temp.Y = MinXY->Y + Height/2.0f;
+		temp.X = MinXY.X + Width/2.0f;
+		temp.Y = MinXY.Y + Height/2.0f;
 		Height = initialHeight * y;
 		Width = initialWidth * x;
 
-		MinXY->X = temp.X - Width/2.0f;
-		MinXY->Y = temp.Y - Height/2.0f;
-		MinX = MinXY->X;
-		MaxX = MinXY->X + Width;
+		MinXY.X = temp.X - Width/2.0f;
+		MinXY.Y = temp.Y - Height/2.0f;
+		MinX = MinXY.X;
+		MaxX = MinXY.X + Width;
 
-		MinY = MinXY->Y;
-		MaxY = MinXY->Y + Height;
+		MinY = MinXY.Y;
+		MaxY = MinXY.Y + Height;
 	}
 
-	Point *MinXY;
+	Point MinXY;
 	float Width, Height, MinY, MaxY, MinX, MaxX, initialWidth, initialHeight;
 
 private:
 	void Init() 
 	{
-		MinX = MinXY->X;
-		MaxX = MinXY->X + Width;
+		MinX = MinXY.X;
+		MaxX = MinXY.X + Width;
 
-		MinY = MinXY->Y;
-		MaxY = MinXY->Y + Height;
+		MinY = MinXY.Y;
+		MaxY = MinXY.Y + Height;
 	}
 };
 

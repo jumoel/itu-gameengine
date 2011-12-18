@@ -59,7 +59,7 @@ bool CollisionDetection2D::Intersection( Point *point, Circle *circle )
 	}
 
 	//Get the Squared distance between centers
-	float centerDistanceSquared = DistanceSquared(point, (circle->Center));
+	float centerDistanceSquared = DistanceSquared(point, &(circle->Center));
 
 	// If the distance is less than the radius, an intersection occurs.
 	return (circle->Radius * circle->Radius) > centerDistanceSquared;
@@ -79,7 +79,7 @@ bool CollisionDetection2D::Intersection( Rectangle *rectangle, Circle *circle )
 	}
 
 	//Get the Squared distance
-	float distanceSquared = DistanceSquared((circle->Center), rectangle);
+	float distanceSquared = DistanceSquared(&(circle->Center), rectangle);
 
 	// If the distance is less than the circle's radius, an intersection occurs
 	return distanceSquared < (circle->Radius * circle->Radius);
@@ -94,7 +94,7 @@ bool CollisionDetection2D::Intersection( Circle *c1, Circle *c2 )
 	}
 
 	//Get the Squared distance between centers
-	float centerDistanceSquared = DistanceSquared((c1->Center), (c2->Center));
+	float centerDistanceSquared = DistanceSquared(&(c1->Center), &(c2->Center));
 
 	// Add the 2 radii together
 	float radii = c1->Radius + c2->Radius;

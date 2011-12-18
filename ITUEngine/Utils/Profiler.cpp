@@ -33,7 +33,10 @@ void Profiler::Begin(const char* name)
 		m_ProfileMap.insert(  std::make_pair(name, now) );
 		profileMapIterator = m_ProfileMap.find(name);
 
-		ASSERT_MSG(profileMapIterator != m_ProfileMap.end(), "This should not happen");
+		if(profileMapIterator == m_ProfileMap.end())
+		{
+			ASSERT_MSG(false, "This should not happen");
+		}
 	}
 	else
 	{
@@ -109,7 +112,7 @@ void Profiler::WriteToLogFiles()
 		if(logMapIterator == m_ProfileLogMap.end())
 		{
 			char filestring[255];
-			sprintf_s(filestring,"%s%d%s", key, now, ".log");
+			std::sprintf(filestring,"%s%d%s", key, now, ".log");
 
 			//insert
 			m_ProfileLogMap.insert( std::make_pair( key, filestring));

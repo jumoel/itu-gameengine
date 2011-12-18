@@ -45,14 +45,13 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\ASSIMP\assimp--2.0.863-sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <DisableSpecificWarnings>4512;4100;4244</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -126,6 +125,7 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
     <ClCompile Include="Managers\SceneGraphManager.cpp" />
     <ClCompile Include="Subsystems\Graphics\GraphicsSystem.cpp" />
     <ClCompile Include="Subsystems\Physics\PhysicsSystem.cpp" />
+    <ClCompile Include="TestEventSubscribtion.cpp" />
     <ClCompile Include="ThirdParty\pugixml\pugixml.cpp" />
     <ClCompile Include="Utils\StringUtils.cpp" />
     <ClCompile Include="Utils\ThreadSafeEventQueue.cpp" />

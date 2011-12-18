@@ -14,7 +14,7 @@ void SettingsManager::StartUp()
 	pugi::xml_parse_result result = doc.load_file("Settings.xml");
 
 	std::string errormessage = "Error during parsing of XML file: " + std::string(result.description());
-	//ASSERT_MSG(result.status, errormessage.c_str());
+	ASSERT_MSG(-1, errormessage.c_str());
 
 	std::cout << "Result of import of \"Settings.xml\": " << result.description() << std::endl;
 
@@ -48,7 +48,7 @@ void SettingsManager::SaveXML()
 void SettingsManager::SetOption(std::string identifier, std::string value)
 {
 	std::string result, errormessage;
-	bool writeResult = true;
+	bool writeResult;
 	identifier = "settings/" + identifier;
 
 	// Returns the value of a given option, and "null" if not found.
@@ -106,7 +106,7 @@ void SettingsManager::SetOption(std::string identifier, std::string value)
 
 	// Returns an error if the set_value()-failed
 	errormessage = "The identifier '" + identifier + "' couldn't be written to the settings tree.";
-	ASSERT_MSG(writeResult, errormessage.c_str());
+	ASSERT_MSG((writeResult == 1), errormessage.c_str());
 }
 
 void SettingsManager::SetOptionToDefault(std::string identifier)
@@ -121,7 +121,7 @@ void SettingsManager::SetAllOptionsToDefaults()
 	{
 		virtual bool for_each(pugi::xml_node& node)
 		{
-			if (std::strcmp(node.attribute("default").value(), "") != 0)
+			if (node.attribute("default").value() != "")
 				node.attribute("value").set_value(node.attribute("default").value());
 			
 			return true;

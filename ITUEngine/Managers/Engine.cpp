@@ -96,7 +96,7 @@ void Engine::Run()
 
 		//char *title = new char[sizeof(char) * 50];
 		char *title = (char *)m_SingleFrameAllocator->Allocate(sizeof(char) * 50);
-		sprintf_s(title, 50, "FPS: %d, Memory: %d bytes", m_FPSCalculator->GetFPS(), m_SingleFrameAllocator->GetMemoryUsage());
+		sprintf(title, "FPS: %d, Memory: %d bytes", m_FPSCalculator->GetFPS(), m_SingleFrameAllocator->GetMemoryUsage());
 		m_Window->SetWindowTitle(title);
 
 		lastTime = currentTime;

@@ -34,8 +34,8 @@ public:
 
 	~PhysicsModel() 
 	{
-	//	delete m_CircularRepresentation;
-	//	delete m_RectangularRepresentation;
+		delete &m_CircularRepresentation;
+		delete &m_RectangularRepresentation;
 	}
 	
 	const int GetShape()
@@ -69,11 +69,11 @@ public:
 	{
 		if(m_Shape == RECTANGULARSHAPE)
 		{
-			return (m_RectangularRepresentation.MinXY);
+			return &(m_RectangularRepresentation.MinXY);
 		}
 		else if(m_Shape == CIRCULARSHAPE)
 		{
-			return (m_CircularRepresentation.Center);
+			return &(m_CircularRepresentation.Center);
 		}
 
 		assert(false && "Failed to get the position because the shape is defined wrong.");
@@ -136,19 +136,18 @@ public:
 	{
 		if(m_Shape == RECTANGULARSHAPE)
 		{
-			std::cout << "Rectangle min: " << m_RectangularRepresentation.MinXY->X << ", " << m_RectangularRepresentation.MinXY->Y << std::endl;
-			Point *center = new Point();
-			center->X = m_RectangularRepresentation.MinXY->X + m_RectangularRepresentation.Width/2.0f;
-			center->Y = m_RectangularRepresentation.MinXY->Y + m_RectangularRepresentation.Height/2.0f;
-			std::cout << "Rectangle center: " << center->X << ", " << center->Y << std::endl;
+			std::cout << "Rectangle min: " << m_RectangularRepresentation.MinXY.X << ", " << m_RectangularRepresentation.MinXY.Y << std::endl;
+			Point center;
+			center.X = m_RectangularRepresentation.MinXY.X + m_RectangularRepresentation.Width/2.0f;
+			center.Y = m_RectangularRepresentation.MinXY.Y + m_RectangularRepresentation.Height/2.0f;
+			std::cout << "Rectangle center: " << center.X << ", " << center.Y << std::endl;
 			std::cout << "Rectangle width: " << m_RectangularRepresentation.Width << std::endl;
 			std::cout << "Rectangle height: " << m_RectangularRepresentation.Height << std::endl;
 			std::cout << "Rectangle Max: " << m_RectangularRepresentation.MaxX << ", " << m_RectangularRepresentation.MaxY << std::endl;
-			delete center;
 		}
 		else if(m_Shape == CIRCULARSHAPE)
 		{
-			std::cout << "Circle center: " << m_CircularRepresentation.Center->X << ", " << m_CircularRepresentation.Center->Y << std::endl;
+			std::cout << "Circle center: " << m_CircularRepresentation.Center.X << ", " << m_CircularRepresentation.Center.Y << std::endl;
 			std::cout << "Circle radius: " << m_CircularRepresentation.Radius << std::endl;
 		}
 		else
@@ -185,7 +184,7 @@ protected:
 class MovingObjectModel : public PhysicsModel
 {
 public:
-	MovingObjectModel(int shape, int type, Point *dir, Object* owner) 
+	MovingObjectModel(int shape, int type, Point &dir, Object* owner) 
 		: PhysicsModel(shape, false), m_Direction(dir), m_Type(type), m_Owner(owner)
 	{
 		//No movement on construction
@@ -232,7 +231,7 @@ public:
 
 	Point* GetDirection()
 	{
-		return m_Direction;
+		return &m_Direction;
 	}
 
 	Point* GetTargetPosition()
@@ -329,7 +328,7 @@ public:
 		}
 	}*/
 protected:
-	Point *m_Direction;
+	Point m_Direction;
 	float m_MovementSpeed;
 	int m_Type;
 

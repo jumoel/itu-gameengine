@@ -39,7 +39,7 @@ Object::~Object()
 
 	if(this->model != NULL)
 	{
-//		delete this->model;
+		delete this->model;
 	}
 	if(this->gfx)
 	{
