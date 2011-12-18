@@ -100,24 +100,24 @@ The physics system in an \textit{RTS} in ideal place to cut corners. Since the g
 
 \subsection{Path Planner}
 \label{sec:DesignPathPlanner}
-Pathfinding is an essential component of any \textit{RTS} game, and we also needed it in our engine. This could  be done in a number of different ways (navigation mesh, grid based path finding, using an \texttt{A*} algorithm, breadth first search, etc.). Since the world of \textit{RTS} games are typically fairly open we decided to make the path finding grid based, because of the simplicity. The precision of the pathing can then be altered via the number of grid divisions. However, the precision is reversely proportional with the performance of the path finding. One might argue that for performance it would be better to implement a navigation mesh. However, the simplicity of setting up a grid based path finding is much simpler for the user of the engine than setting up an entire navigation mesh. The user just has set object into the scene and parse the size of the map to the path planner class. Then they would have a functional path finding. With a navigation mesh the user would have to define each node by defining a convex polygon. This is arguable a lot more cumbersome. 
+Pathfinding is an essential component of any \textit{RTS} game, and we also needed it in our engine. This could  be done in a number of different ways (navigation mesh, grid based path finding, using an \texttt{A*} algorithm, breadth first search, etc.). Since the world of \textit{RTS} games are typically fairly open we decided to make the path finding grid based, because of the simplicity. The precision of the pathing can then be altered via the number of grid divisions. However, the precision is reversely proportional with the performance of the path finding. One might argue that for performance it would be better to implement a navigation mesh. However, the simplicity of setting up a grid based path finding is much simpler for the user of the engine than setting up an entire navigation mesh. The user just has set object into the scene and send it to the path planner, that divides it into squares. After these simple steps, the pathfinding is functional. With a navigation mesh the user would have to define each node by defining a convex polygon. This is arguable a lot more cumbersome.
 
-As regards to the actual algorithm \texttt{A*} was chosen, since it allows for implementing different terrain that is harder traversable, and still finding the shortest path in terms of time spent getting there.
+\texttt{A*} was chosen as the actual path finding algorithm, since it allows for implementing different terrain that is harder traversable, and still finding the shortest path in terms of time spent getting there.
 
 \section{Major Features}
 \label{sec:MajorFeatures}
 % What are the main features your engine supports?
 % The things that makes the engine special, the primary forces and so on. There is no further explanations of what this part should contain. Fairly certain this section could be revised in a much better way, with many more details.
 
-To make our game function optimally for the specific game genre, the main - and most powerful - features are the following:
+To make our game function optimally for the specific game genre, the main features are:
 
 \begin{itemize}
-	\item An effective Mouse Event system.
+	\item An effective event system, both sendable by input devices and game objects.
 	\item A \texttt{HUD} that the mouse can interact with. % Ok, perhaps not.
-	\item Effective pathfinding.
+	\item Pathfinding.
 \end{itemize}
 
-\chapter{Implementation Overview}
+\chapter{Implementation}
 \label{sec:ImplementationOverview}
 % Give a high-level explanation of how the engine is structured (perhaps with an architecture diagram). Then, give at least brief explanations of how the major subsystems work, delving into more details for components that are particularly interesting, advanced, or unusual.
 
