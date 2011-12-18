@@ -36,8 +36,16 @@ Object::Object(PhysicsModel *physics)
 Object::~Object()
 {
 	delete this->transformation;
-	delete this->gfx;
-	delete this->model;
+
+	if(this->model != NULL)
+	{
+		delete this->model;
+	}
+	if(this->gfx)
+	{
+		delete this->gfx;
+	}
+
 	delete this->physicsModel;
 	delete this->children;
 

@@ -4,12 +4,12 @@
 #include <string>
 #include <utility>
 
-Profiler::Profiler()
+void Profiler::StartUp()
 {
 	m_WriteToLogCounter = 0;
 }
 
-Profiler::~Profiler()
+void Profiler::ShutDown()
 {
 	WriteToLogFiles();
 	m_ProfileMap.clear();

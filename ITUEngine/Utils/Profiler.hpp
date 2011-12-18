@@ -6,15 +6,20 @@
 #include <vector>
 #include <stdint.h>
 #include <Utils/Log.hpp>
+#include <Templates/TSingleton.hpp>
 
 class Profiler
 {
+SINGLETON (Profiler)
+
 public:
-	Profiler();
-	~Profiler();
+	void StartUp();
+	void ShutDown();
 
 	void Begin(const char* name);
 	void End(const char* name);
+
+	void WriteToLogFiles();
 
 private:
 	typedef const char* ProfileKey;
@@ -31,8 +36,6 @@ private:
 
 	typedef std::map<ProfileKey, Log> ProfileLogMap;
 	//typedef std::pair<ProfileKey, *Log> ProfileLogSet;
-
-	void WriteToLogFiles();
 
 	int m_WriteToLogCounter;
 	
