@@ -108,7 +108,7 @@ When it comes to method of rendering both dynamic lists and vertex buffers were 
 
 \subsection{Physics System}
 \label{sec:DesignPhysicsSystem}
-The physics system in an \textit{RTS} in ideal place to cut corners. Since the genre originally emerged as a \textit{2D} game, all game play in \textit{RTS} traditionally are in \textit{2D} even though the graphics are \textit{3D}. Flying units can even be implemented using a \textit{2D} physics system by just adding levels to the physics objects and then checking if objects are on the same level before triggering a collision. Thus, for simplicity it was chosen to implement a \textit{2D} physics system. Furthermore it was chosen to let the physics system control all movement.
+The physics system in an \textit{RTS} is an ideal place to cut corners. Since the genre originally emerged as a \textit{2D} game, all game play in \textit{RTS} traditionally are in \textit{2D} even though the graphics are \textit{3D}. Flying units can even be implemented using a \textit{2D} physics system by just adding levels to the physics objects and then checking if objects are on the same level before triggering a collision. Thus, for simplicity it was chosen to implement a \textit{2D} physics system. Furthermore it was chosen to let the physics system control all movement.
 
 \subsection{Path Planner}
 \label{sec:DesignPathPlanner}
@@ -258,11 +258,9 @@ When the keyboard are pressed, an event with the appropriate key is created whic
 \label{sec:PerformanceLogging}
 %Pick either one area of the engine to add advanced functionality to, or at least one optional feature to add. For example: a user-programmable shader interface, procedural terrain, advanced physics, an audio subsystem, etc.
 
-The performance logger enables the user of the engine to find out which parts of the code
-are taking the most time. The performance logger allows the user to measure time and save the
-measurements in distinct, named, lists. I.e., the physics step could be measured and saved in a list named physics. The lists are saved to a CSV file when they are full. We specified that the lists should contain at most 1000 elements, which will correspond to 1000 frames, about 1-2 seconds on our development machines, if a certain section is logged every frame.
+The performance logger enables the user of the engine to find out which parts of the code are taking the most time. The performance logger allows the user to measure time and save the measurements in distinct, named, lists. I.e., the physics step could be measured and saved in a list named physics. The lists are saved to a CSV file when they are full. We specified that the lists should contain at most 1000 elements, which will correspond to 1000 frames, about 1-2 seconds on our development machines, if a certain section is logged every frame.
 
-We decided against doing the graphing of logged entries ourselves, as an offline component like Microsoft Excel excels at this.
+We decided against doing the graphing of logged entries ourselves, as an offline component like \textit{Microsoft Excel} excels at this.
 
 \chapter{Examples}
 \label{sec:Examples}
