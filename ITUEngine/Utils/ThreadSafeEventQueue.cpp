@@ -3,34 +3,36 @@
 
 bool ThreadSafeEventQueue::locked = false;
 
+//NOTE: This queue is not ThreadSafe...
+
 void ThreadSafeEventQueue::push(IEventDataPointer const& data)
 {
 	//NOTE: Sleep is a WINAPI cmd.
-	while(Locked()) { Sleep( 5 ); }
-	Lock();
+	//while(Locked()) { Sleep( 5 ); }
+	//Lock();
 	
 	the_queue.push(data);
 	
-	Unlock();
+	//Unlock();
 }
 
 bool ThreadSafeEventQueue::empty() const
 {
 	//NOTE: Sleep is a WINAPI cmd.
-	while(Locked()) { Sleep( 5 ); }
-	Lock();
+	//while(Locked()) { Sleep( 5 ); }
+	//Lock();
 	
 	auto result = the_queue.empty();
 
-	Unlock();
+	//Unlock();
 	return result;
 }
 
 bool ThreadSafeEventQueue::try_pop(IEventDataPointer& popped_value)
 {
 	//NOTE: Sleep is a WINAPI cmd.
-	while(Locked()) { Sleep( 5 ); }
-	Lock();
+	//while(Locked()) { Sleep( 5 ); }
+	//Lock();
 
 	if(the_queue.empty())
 	{
@@ -40,7 +42,7 @@ bool ThreadSafeEventQueue::try_pop(IEventDataPointer& popped_value)
 	popped_value=the_queue.front();
 	the_queue.pop();
 
-	Unlock();
+	//Unlock();
 	return true;
 }
 

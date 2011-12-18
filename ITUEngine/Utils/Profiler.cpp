@@ -11,14 +11,18 @@ void Profiler::StartUp()
 
 void Profiler::ShutDown()
 {
+#ifdef PROFILER_ACTIVE
 	WriteToLogFiles();
+
 	m_ProfileMap.clear();
 	m_ProfileHistoricMap.clear();
 	m_ProfileLogMap.clear();
+#endif
 }
 
 void Profiler::Begin(const char* name)
 {
+#ifdef PROFILER_ACTIVE
 	ProfileTimestamp now = Time::GetCurrentMS();
 
 	//Try to find name in our profile map.
@@ -36,10 +40,12 @@ void Profiler::Begin(const char* name)
 		//If it's found replace the timestamp.
 		profileMapIterator->second = now;
 	}
+#endif
 }
 
 void Profiler::End(const char* name)
 {
+#ifdef PROFILER_ACTIVE
 	ProfileTimestamp now = Time::GetCurrentMS();
 
 	//Try to find name in our profile map.
@@ -85,10 +91,12 @@ void Profiler::End(const char* name)
 
 		m_WriteToLogCounter = 0;
 	}
+#endif
 }
 
 void Profiler::WriteToLogFiles()
 {
+#ifdef PROFILER_ACTIVE
 	ProfileTimestamp now = Time::GetCurrentMS();
 
 	auto historicMapIterator = m_ProfileHistoricMap.begin();
@@ -132,4 +140,5 @@ void Profiler::WriteToLogFiles()
 
 		historicMapIterator->second.clear();
 	}
+#endif
 }

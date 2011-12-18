@@ -8,6 +8,8 @@
 #include <Utils/Log.hpp>
 #include <Templates/TSingleton.hpp>
 
+//#define PROFILER_ACTIVE
+
 class Profiler
 {
 SINGLETON (Profiler)
