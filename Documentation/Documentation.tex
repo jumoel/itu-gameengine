@@ -131,19 +131,41 @@ More of an actual light introduction. Description of the engine and what it can 
 \section{Engine Scope}
 \label{sec:EngineScope}
 % Does it target a specific genre? What range of games do you have in mind that the engine would be suitable for?
-The engine targets the ``Hero \texttt{RTS}\footnote{Real-Time Strategy}''-genre. This includes games like \textit{Heroes of Newerth} and \textit{League of Legends}, based on the \textit{WarCraft III} modification \textit{Defense of the Ancients}. % Include reference to ``MOBA''? The style of game which DOTA is.
+The engine targets the ``Hero \texttt{RTS}\footnote{Real-Time Strategy.}''-genre, more commonly known as ``\texttt{MOBA}\footnote{Multiplayer Online Battle Arena.}''. This includes games like \textit{Heroes of Newerth} and \textit{League of Legends}, both heavy inspired by the \textit{WarCraft III} modification \textit{Defense of the Ancients}.
 
-A more broad and loose description would be multi-player games, in which each player only has one unit, that requires precision and quick reflexes. 
+To make our engine achieve the requirements of the genre, it was important to have a clear idea of what expected result should look like. As a good reference, see the example screenshot in \figRef{fig:DRdota2screen}.
+
+\fig[\textwidth]{Pictures/dota2screen.jpg}{Screenshot from DOTA 2, showcasing the User Interface.}{fig:DRdota2screen}
+
+\noindent
+As can be seen, the basic graphics are fairly simple. There has to be a flat ground-level upon which the player can be controlled around, along with objects he cannot pass. On top of that, there has to be an interactable \texttt{HUD}\footnote{Heads Up Display.}. The camera will do limited movement, which again will limit the amount of required graphics that needs to be rendered. Furthermore, the avatar of the player has to be able to get from \texttt{A} to \texttt{B}, and be able to pathfind around various obstacles. 
+
+This puts the main focus of the engine on effective handling of mouse events, collision-detection and pathfinding.
+
+% Describe the comparrison to our screenshot. Pretty difficult without a finished screen... but, yeah. I can't think more at this point.
+
+% Here a screen of our own engine should be, for comparing!   
+%\fig[\textwidth]{Pictures/enginescreen.jpg}{Screenshot from our Engine, showcading the User Interface.}{fig:DREngineScreen}
 
 \section{Design Rationales}
 \label{sec:DesignRationales}
 % Were some of the design decisions made after considering alternatives, and do you have rationales for why you made the decisions you did? If so, tell us!
-Describe various design choices in detail.
+
+Go into more depth here in regards to what actual design decisions were actually made. Was it \textit{this} or \textit{that}? Why was it better than the other?
 
 \section{Major Features}
 \label{sec:MajorFeatures}
 % What are the main features your engine supports?
-The things that makes the engine special, the primary forces and so on. There is no further explanations of what this part should contain.
+
+To make our game function optimally for the specific game genre, the main - and most powerful - features are the following:
+
+\begin{itemize}
+	\item An effective Mouse Event system.
+	\item A \texttt{HUD} that the mouse can interact with.
+	\item Effective pathfinding.
+\end{itemize}
+
+% The things that makes the engine special, the primary forces and so on. There is no further explanations of what this part should contain.
 
 \chapter{Implementation Overview}
 \label{sec:ImplementationOverview}
