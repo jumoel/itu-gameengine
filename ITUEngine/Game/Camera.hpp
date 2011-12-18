@@ -60,7 +60,7 @@ private:
 	bool isLeftButtonDown;
 	bool isRightButtonDown;
 
-	bool wrap_on;
+	bool grab_on;
 	
 	void ResetCamera();
 

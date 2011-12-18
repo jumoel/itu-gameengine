@@ -27,7 +27,8 @@ Camera::Camera()
 	moveLeft = false;
 	moveRight = false;
 
-	wrap_on = false;
+	grab_on = true;
+	SDL_WM_GrabInput(SDL_GRAB_ON)
 	
 
 	// TODO Enforce these Rules:
@@ -439,7 +440,7 @@ void Camera::OnKeyDown(KeyPressedEvent *key)
 	switch(keyInput->keysym.sym)
 	{
 	case SDLK_w:
-		if (wrap_on)
+		if (grab_on)
 		{
 			SDL_WM_GrabInput(SDL_GRAB_ON);
 		}
@@ -448,7 +449,7 @@ void Camera::OnKeyDown(KeyPressedEvent *key)
 			SDL_WM_GrabInput(SDL_GRAB_OFF);
 		}
 
-		wrap_on = !wrap_on;
+		grab_on = !grab_on;
 		break;
 		
 		/*
