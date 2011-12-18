@@ -139,17 +139,13 @@ This section gives a more detailed description of the various subparts of the en
 \label{sec:DynamicElements}
 % A quick few words on what the Dynamic Element section contains.
 
-Some of the elements in our game engine have dependencies of other elements of our game engine.
-Because of that, we have a specific initialization order. We also use \texttt{StartUp} and \texttt{ShutDown} methods instead of constructors and deconstructors, to be able to finely control when and where dependencies are initiated.
+Some of the elements in our game engine have dependencies of other elements of our game engine. Because of that, we have a specific initialization order, as seen in \figRef{fig:StartUpFlowchart} We also use \texttt{StartUp} and \texttt{ShutDown} methods instead of constructors and deconstructors, to be able to finely control when and where dependencies are initiated.
 
-% FIGUR LOL
+\fig[220px]{flowcharts/startup-flowchart.png}{Dynamic Elements: Engine startup flowchart.}{fig:StartUpFlowchart}
 
-This design pattern can also be used to instantiate systems that have circular references,
-by creating the objects before initializing them. That way both objects can be created, the 
-required parts initialized and then the circular dependent parts can be created.
+This design pattern can also be used to instantiate systems that have circular references, by creating the objects before initializing them. That way both objects can be created, the required parts initialized and then the circular dependent parts can be created.
 
-Our shutdown sequence is the opposite of the startup sequence, to make sure that subsystems
-are not destroyed before the systems that depend on them.
+Our shutdown sequence is the opposite of the startup sequence, to make sure that subsystems are not destroyed before the systems that depend on them.
 
 \subsection{Physics System}
 \label{sec:PhysicsSystem}
