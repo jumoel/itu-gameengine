@@ -345,7 +345,7 @@ bool PathPlanner::checkForFreeSpaces(float *x, float *y, int i)
 	{
 		float shortestDist = 9999.9f;
 		int shortestIndex = 0;
-		for(int index = 0; index < tempList.size(); index++)
+		for(unsigned int index = 0; index < tempList.size(); index++)
 		{
 			float dist = tempList.at(index).x()*tempList.at(index).x() + tempList.at(index).y()*tempList.at(index).y();
 			if(dist < shortestDist)

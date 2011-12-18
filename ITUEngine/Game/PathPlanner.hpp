@@ -34,11 +34,11 @@ public:
 
 	void clear()
 	{
-		for(int i = 0; i < openList.size(); i++)
+		for(unsigned int i = 0; i < openList.size(); i++)
 		{
 			delete openList[i];
 		}
-		for(int i = 0; i < closedList.size(); i++)
+		for(unsigned int i = 0; i < closedList.size(); i++)
 		{
 			delete closedList[i];
 		}
