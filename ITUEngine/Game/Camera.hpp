@@ -20,7 +20,7 @@ public:
 	static const int min_x_ws_coord = 0;
 	static const int min_y_ws_coord = 0;
 	static const int max_x_ws_coord = 40;
-	static const int max_x_ws_coord = 40;
+	static const int max_y_ws_coord = 40;
 
 	//Position and LookAt are points
 	Vector3f Position;
