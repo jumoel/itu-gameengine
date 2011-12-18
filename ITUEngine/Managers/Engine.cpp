@@ -71,7 +71,7 @@ void Engine::Run()
 		}
 		
 		//Process eventQueue
-		safeProcessEventQueue(-1);
+		safeProcessEventQueue(10);
 		SINGLETONINSTANCE(Profiler)->End("EventHandling");
 
 		int currentTime = Time::GetCurrentMS();

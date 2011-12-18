@@ -418,7 +418,7 @@ void PhysicsSystem::SetStaticPathMap()
 			{
 				for (int j = -radius; j <= radius; j++)
 				{
-					if(x + i < MAP_SIZE && y + j < MAP_SIZE)
+					if(x >= 0 && y >= 0 && x + i < MAP_SIZE && y + j < MAP_SIZE)
 					{
 						map->at(x + i)[y + j] = BLOCKED;
 					}
@@ -435,7 +435,7 @@ void PhysicsSystem::SetStaticPathMap()
 			{
 				for (int j = 0; j < height; j++)
 				{
-					if(x + i < MAP_SIZE && y + j < MAP_SIZE)
+					if(x >= 0 && y >= 0 && x + i < MAP_SIZE && y + j < MAP_SIZE)
 					{
 						map->at(x + i)[y + j] = BLOCKED;
 					}
