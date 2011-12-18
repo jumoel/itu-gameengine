@@ -385,6 +385,7 @@ void GraphicsSystem::Render()
 
 void GraphicsSystem::ShutDown()
 {
+	SINGLETONINSTANCE(MediaManager)->ShutDown();
 	delete m_SceneGraph;
 	delete m_VectorList;
 }

@@ -16,6 +16,7 @@ class SceneGraphManager : public IEventListener
 public:
 	SceneGraphManager(Camera *Camera, Object *RootNode);
 	~SceneGraphManager();
+	void DeleteGraph(Object* node);
 
 	//void Render(Uint32 CurrentTime, bool vboOn);
 

@@ -377,7 +377,10 @@ void PhysicsSystem::SetDynamicPathMap()
 		{
 			//NOTE: Right now a player is always 1 node large in the Path Finding algorithm.
 			map->at(targetX)[targetY] = TARGET;
-			map->at(x)[y] = PLAYER;
+			if(0 < x && x < MAP_SIZE-1 && 0 < y && y < MAP_SIZE-1)
+			{
+				map->at(x)[y] = PLAYER;
+			}
 		}
 		else if((*dynamicObjectIterator)->GetShape() == RECTANGULARSHAPE)
 		{

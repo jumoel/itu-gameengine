@@ -45,6 +45,7 @@ Object::~Object()
 	{
 		delete this->gfx;
 	}
+	delete model;
 
 	delete this->physicsModel;
 	delete this->children;
