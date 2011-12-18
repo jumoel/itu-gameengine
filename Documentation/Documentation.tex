@@ -148,8 +148,25 @@ This puts the main focus of the engine on effective handling of mouse events, co
 \section{Design Rationales}
 \label{sec:DesignRationales}
 % Were some of the design decisions made after considering alternatives, and do you have rationales for why you made the decisions you did? If so, tell us!
-
 Go into more depth here in regards to what actual design decisions were actually made. Was it \textit{this} or \textit{that}? Why was it better than the other?
+
+\subsection{Graphics}
+\label{sec:DesignGraphics}
+It was clear early on that graphics would be an important part of the game engine, and as such some design decisions would have to be made as to how to both import assets as well as how to render them.
+
+As far as importing assets both models and textures would have to be imported, and two options were considered: using a library and wrap it into the engine or write custom importers. They both have their distinct advantages. Using a library will save precious time on having to implement an importer as well as allowing importation of a wide range of file formats. On the other hand creating a custom loader will let the authors control exactly how the loading occurs and optimize it for performance. Since it was deemed interesting and educational to create a custom loader and since it would allow for better performance, this approach was chosen, and a custom \texttt{.TGA}-texture loader was created and is part of the engine today. A custom \texttt{MS3D}-loader was created as well, but for some reason it just would not function, and the authors were forced to utilize a library for model loading. The library of choice was \textit{Assimp}, since it was fairly simple to use and allowed for importation of a lot of file formats.
+
+When it comes to method of rendering both dynamic lists and vertex buffers were considered. As the only advantage of using dynamic list were deemed to be ease of use, vertex buffers were chosen for their supposedly better performance. It was quite a struggle to get them working a well integrated into the project. It was first intended to create one vertex buffer per shader, but since we initially had problems implementing the shaders, we decided to drop them for lack of time. Thus, we ended up with one big vertex buffer, since it would theoretically yield the best performance. However, it was soon realized that it was much simpler to work with one vertex buffer per object, and as such this solution was implemented instead.
+
+\subsection{Physics System}
+\label{sec:DesignPhysicsSystem}
+The physics system in an \textit{RTS} in ideal place to cut corners. Since the genre originally emerged as a \textit{2D} game, all game play in \textit{RTS} traditionally are in \textit{2D} even though the graphics are \textit{3D}. Flying units can even be implemented using a \textit{2D} physics system by just adding levels to the physics objects and then checking if objects are on the same level before triggering a collision. Thus, for simplicity it was chosen to implement a \textit{2D} physics system. Furthermore it was chosen to let the physics system control all movement.
+
+\subsection{Path Planner}
+\label{sec:DesignPathPlanner}
+Pathfinding is an essential component of any \textit{RTS} game, and as such it had to be implemented into our engine. This could  be done in a number of different ways such as a navigation mesh, grid based path finding, using an \texttt{A*} algorithm or breadth first etc.. Since the world of \textit{RTS} games are typically fairly open and for simplicity it was chosen to make the path finding grid based. The precision of the pathing could then be altered via the number of grid divisions. However, the precision is reverse proportional with the performance of the path finding. One might argue that for performance it would be better to implement a navigation mesh. However, the simplicity of setting up a grid based path finding is much simpler for the user of the engine than setting up an entire navigation mesh. The user just has set object into the scene and parse the size of the map to the path planner class. Then they would have a functional path finding. With a navigation mesh the user would have to define each node by defining a convex polygon. This is arguable a lot more cumbersome. 
+
+As regards to the actual algorithm \texttt{A*} was chosen, since it allows for implementing different terrain that is harder traversable, and still finding the shortest path in terms of time spent getting there.
 
 \section{Major Features}
 \label{sec:MajorFeatures}
