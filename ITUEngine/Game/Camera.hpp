@@ -14,7 +14,8 @@ public:
 	~Camera();
 
 	static const int gutter_px = 20;
-	static const int speed = 5;
+	static const int speed = 1;
+	static const int updownfactor = 50;
 
 	//Position and LookAt are points
 	Vector3f Position;
@@ -58,6 +59,8 @@ protected:
 private:
 	bool isLeftButtonDown;
 	bool isRightButtonDown;
+
+	bool wrap_on;
 	
 	void ResetCamera();
 

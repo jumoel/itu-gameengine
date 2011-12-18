@@ -25,6 +25,8 @@ Camera::Camera()
 	moveDown = false;
 	moveLeft = false;
 	moveRight = false;
+
+	wrap_on = false;
 	
 
 	// TODO Enforce these Rules:
@@ -233,12 +235,12 @@ void Camera::Update(unsigned int deltaT)
 
 	if (moveUp)
 	{
-		MoveCameraUpDown2D(-real_speed * 10.0f);
+		MoveCameraUpDown2D(-real_speed * updownfactor);
 	}
 
 	if (moveDown)
 	{
-		MoveCameraUpDown2D(real_speed * 10.0f);
+		MoveCameraUpDown2D(real_speed * updownfactor);
 	}
 
 	if (moveLeft)
@@ -435,6 +437,20 @@ void Camera::OnKeyDown(KeyPressedEvent *key)
 
 	switch(keyInput->keysym.sym)
 	{
+	case SDLK_w:
+		if (wrap_on)
+		{
+			SDL_WM_GrabInput(SDL_GRAB_ON);
+		}
+		else
+		{
+			SDL_WM_GrabInput(SDL_GRAB_OFF);
+		}
+
+		wrap_on = !wrap_on;
+		break;
+		
+		/*
 		//Control position Up/Down
 		case SDLK_w:
 			MoveCameraUpDown2D(0.5f);
@@ -467,6 +483,7 @@ void Camera::OnKeyDown(KeyPressedEvent *key)
 		case SDLK_ESCAPE:
 			SDL_Quit();
 			exit(0);
+		*/
 	}
 }
 
