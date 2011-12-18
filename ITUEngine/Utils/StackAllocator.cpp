@@ -1,10 +1,20 @@
 #include <Utils/StackAllocator.hpp>
+#include <Assertion.hpp>
 
 StackAllocator::StackAllocator(Uint32 stackSize_bytes)
 {
 	// Constructs a stack allocator with the given total size.
 	// That is, mallocs ALOT, which is then converted into a local stack.
-	Root = (Marker)malloc(stackSize_bytes);
+	void *memory = malloc(stackSize_bytes);
+
+	if (memory == NULL)
+	{
+		char errormsg[100];
+		sprintf_s(errormsg, "Could not allocate %d bytes for stack allocator.", stackSize_bytes);;
+		ASSERT_MSG(memory != nullptr, errormsg);
+	}
+
+	Root = (Marker)memory;
 	Current = Root;
 }
 
