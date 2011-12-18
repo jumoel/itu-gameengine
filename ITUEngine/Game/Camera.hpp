@@ -13,6 +13,9 @@ public:
 	Camera();
 	~Camera();
 
+	static const int gutter_px = 20;
+	static const int speed = 1;
+
 	//Position and LookAt are points
 	Vector3f Position;
 	Vector3f LookAt;
@@ -42,6 +45,8 @@ public:
 	virtual char const * GetName(void);
 	virtual bool HandleEvent( IEventData const & event );
 
+	void Update(unsigned int deltaT);
+
 
 protected:
 	void OnMotion(MouseMoveEvent *motion);
@@ -55,6 +60,11 @@ private:
 	bool isRightButtonDown;
 	
 	void ResetCamera();
+
+	bool moveLeft;
+	bool moveRight;
+	bool moveUp;
+	bool moveDown;
 };
 
 #endif

@@ -18,8 +18,14 @@ Camera::Camera()
 
 	/*InputManager::RegisterKeyboardEventHandler(this);
 	InputManager::RegisterMouseClickEventHandler(this);
-	InputManager::RegisterMouseMoveEventHandler(this);
 	*/
+	InputManager::RegisterMouseMoveEventHandler(this);
+
+	moveUp = false;
+	moveDown = false;
+	moveLeft = false;
+	moveRight = false;
+	
 
 	// TODO Enforce these Rules:
 	/* |Position - LookAt| = 1 */
@@ -219,6 +225,32 @@ void Camera::ResetCamera()
 	Up.SetZ(0);
 }
 
+
+void Camera::Update(unsigned int deltaT)
+{
+	float real_speed = (float)deltaT / 1000.0f * (float)speed;
+
+	if (moveUp)
+	{
+		MoveCameraUpDown2D(real_speed);
+	}
+
+	if (moveDown)
+	{
+		MoveCameraUpDown2D(-real_speed);
+	}
+
+	if (moveLeft)
+	{
+		MoveCameraLeftRight2D(real_speed);
+	}
+
+	if (moveRight)
+	{
+		MoveCameraLeftRight2D(-real_speed);
+	}
+}
+
 /* Endregion Camera Controls */
 
 //------------------------------------------------------------------------------------------------------------//
@@ -271,6 +303,46 @@ void Camera::OnButtonUp(MouseClickEvent *button)
 
 void Camera::OnMotion(MouseMoveEvent *motion)
 {
+	auto motionInput = motion->GetInput();
+	auto screenInfo = SDL_GetVideoInfo();
+	auto screenWidth = screenInfo->current_w;
+	auto screenHeight = screenInfo->current_h;
+
+	if (motionInput->x > (screenWidth - gutter_px))
+	{
+		moveRight = true;
+		moveLeft = false;
+	}
+	else if (motionInput->x < gutter_px)
+	{
+		moveRight = false;
+		moveLeft = true;
+	}
+	else
+	{
+		moveRight = false;
+		moveLeft = false;
+	}
+
+	if (motionInput->y > (screenHeight - gutter_px))
+	{
+		moveUp = true;
+		moveDown = false;
+	}
+	else if (motionInput->y < gutter_px)
+	{
+		moveUp = false;
+		moveDown = true;
+	}
+	else
+	{
+		moveUp = false;
+		moveDown = false;
+	}
+
+
+
+	/*
 	static bool ignoreNextMotionEvent;
 
 	if(ignoreNextMotionEvent)
@@ -345,6 +417,7 @@ void Camera::OnMotion(MouseMoveEvent *motion)
 		}
 		
 	}
+	*/
 }
 
 /* Endregion Mouse Event handling */
