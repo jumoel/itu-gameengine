@@ -216,20 +216,20 @@ Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a 
 
 \subsection{Event System}
 \label{sec:EventSystem}
-The event system is structured with event listeners and event managers
+The general event system is structured with event listeners and event managers
 as described in Game Coding Complete \footnote{Game Coding Complete,
 Mike McShaffry et al. 3rd ed. Chapter 10.}. When a system like
-the physics system want to update a moving object it can send an event
-to the event handler, and all subsystems who want information about
-objects listens on that event. That keeps the relationship between the
+the physics system wants to update a moving object it can send an event
+to the event handler. All subsystems who want information about
+that event then gets notified. That keeps the relationship between the
 subsystems to a minimum, since they only have to keep track of
 themselves and the event manager.
 % General thoughts about the Event System.
 
 \section{Input}
 \label{sec:Input}
-The engine uses the Simple DirectMedia Layer API to register keyboard
-and mouse input. When the engine is startet a loop runs using the
+The engine uses the SDL API to register keyboard
+and mouse input using their built in event types. When the engine is started a loop runs using the
 SDL\_PollEvent. A switch-case calls the appropriate handlers when SDL
 events is registered.
 % Handle keyboard input, with at least a few options. For example: event-based input that queues multiple keypresses, and polling-based input that does something while the key is held down.
