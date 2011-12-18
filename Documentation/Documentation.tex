@@ -144,6 +144,8 @@ This section gives a more detailed description of the various subparts of the en
 % Physics and animation: What makes sense for your engine and why? Decide on a physics/animation split for your engine, considering its target. Do you want forces, manual animations, parametric curves, something else?
 % Be able to add/remove objects from the game world dynamically, and update associate data structures.
 
+% TODO
+
 \subsection{Collision Detection}
 \label{sec:CollisionDetection}
 % Collision detection: have collider surfaces for your objects, with at least basic collision detection. If you need performance (lots of objects), GJK may be best.
@@ -159,7 +161,7 @@ Firstly, the new object is created in the scene, which will be used as the groun
 
 \fig[420px]{includes/PathPlanner2.jpg}{Path Planner, 2: Creating the two objects.}{fig:PathPlanner2}
 
-Secondly, two other objects are added to the scene. These are examples of the two different types of physic objects that are useable. The first object, which is dubbed player is an example of a moving object. It is initialized just like the ground was, but are then added a physics component of a \texttt{MovingObjectModel}, which's collider is initialized as a circle. Lastly, the component is added to the list of known moving objects in the \texttt{PhysicsSystem}. The exact same thing is done with the box object, but it is just initialized as a \texttt{StaticObjectModel} and with a rectangular collider, and is added to the list of known static objects in the \texttt{PhysicsSystem}. Note that the player object also is parsed to the singleton instance of \texttt{PlayerInteraction}. This is done in order to move it using the \texttt{PathPlanner}, when clicking with the mouse on the ground. In \figRef{fig:PathPlanner2}, it is shown how the these two objects are added.
+Secondly, two other objects are added to the scene. These are examples of the two different types of physic objects that are useable. The first object, which is named player is an example of a moving object. It is initialized just like the ground was, but are then added a physics component of a \texttt{MovingObjectModel}, which's collider is initialized as a circle. Lastly, the component is added to the list of known moving objects in the \texttt{PhysicsSystem}. The exact same thing is done with the box object, but it is just initialized as a \texttt{StaticObjectModel} and with a rectangular collider, and is added to the list of known static objects in the \texttt{PhysicsSystem}. Note that the player object also is parsed to the singleton instance of \texttt{PlayerInteraction}. This is done in order to move it using the \texttt{PathPlanner}, when clicking with the mouse on the ground. In \figRef{fig:PathPlanner2}, it is shown how the these two objects are added.
 
 \fig[299px]{includes/PathPlanner3.png}{Path Planner, 3: Static map path.}{fig:PathPlanner3}
 
