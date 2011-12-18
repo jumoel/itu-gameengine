@@ -16,10 +16,20 @@ Camera::Camera()
 	isLeftButtonDown = false;
 	isRightButtonDown = false;
 
-	/*InputManager::RegisterKeyboardEventHandler(this);
+	InputManager::RegisterKeyboardEventHandler(this);
+	/*
 	InputManager::RegisterMouseClickEventHandler(this);
-	InputManager::RegisterMouseMoveEventHandler(this);
 	*/
+	InputManager::RegisterMouseMoveEventHandler(this);
+
+	moveUp = false;
+	moveDown = false;
+	moveLeft = false;
+	moveRight = false;
+
+	grab_on = true;
+	SDL_WM_GrabInput(SDL_GRAB_ON)
+	
 
 	// TODO Enforce these Rules:
 	/* |Position - LookAt| = 1 */
@@ -183,7 +193,8 @@ void Camera::MoveCameraLeftRight2D(float distance)
 	
 	if(dotProduct != 0.0f)
 	{
-		return;
+		// :D
+		//return;
 	}
 
 	//Create the Cross Product vector, Perpendicular to the Up/LookAt plane
@@ -217,6 +228,32 @@ void Camera::ResetCamera()
 	Up.SetX(0);
 	Up.SetY(1);
 	Up.SetZ(0);
+}
+
+
+void Camera::Update(unsigned int deltaT)
+{
+	float real_speed = (float)deltaT / 1000.0f * (float)speed;
+
+	if (moveUp)
+	{
+		MoveCameraUpDown2D(-real_speed * updownfactor);
+	}
+
+	if (moveDown)
+	{
+		MoveCameraUpDown2D(real_speed * updownfactor);
+	}
+
+	if (moveLeft)
+	{
+		MoveCameraLeftRight2D(real_speed);
+	}
+
+	if (moveRight)
+	{
+		MoveCameraLeftRight2D(-real_speed);
+	}
 }
 
 /* Endregion Camera Controls */
@@ -271,6 +308,48 @@ void Camera::OnButtonUp(MouseClickEvent *button)
 
 void Camera::OnMotion(MouseMoveEvent *motion)
 {
+	auto motionInput = motion->GetInput();
+	auto screenInfo = SDL_GetVideoInfo();
+	auto screenWidth = screenInfo->current_w;
+	auto screenHeight = screenInfo->current_h;
+
+	// std::cout << "Screenwidth: " << screenWidth << ", X: " << motionInput->x << std::endl; 
+
+	if (motionInput->x > (screenWidth - gutter_px))
+	{
+		moveRight = true;
+		moveLeft = false;
+	}
+	else if (motionInput->x < gutter_px)
+	{
+		moveRight = false;
+		moveLeft = true;
+	}
+	else
+	{
+		moveRight = false;
+		moveLeft = false;
+	}
+
+	if (motionInput->y > (screenHeight - gutter_px))
+	{
+		moveUp = true;
+		moveDown = false;
+	}
+	else if (motionInput->y < gutter_px)
+	{
+		moveUp = false;
+		moveDown = true;
+	}
+	else
+	{
+		moveUp = false;
+		moveDown = false;
+	}
+
+
+
+	/*
 	static bool ignoreNextMotionEvent;
 
 	if(ignoreNextMotionEvent)
@@ -345,6 +424,7 @@ void Camera::OnMotion(MouseMoveEvent *motion)
 		}
 		
 	}
+	*/
 }
 
 /* Endregion Mouse Event handling */
@@ -359,6 +439,20 @@ void Camera::OnKeyDown(KeyPressedEvent *key)
 
 	switch(keyInput->keysym.sym)
 	{
+	case SDLK_w:
+		if (grab_on)
+		{
+			SDL_WM_GrabInput(SDL_GRAB_ON);
+		}
+		else
+		{
+			SDL_WM_GrabInput(SDL_GRAB_OFF);
+		}
+
+		grab_on = !grab_on;
+		break;
+		
+		/*
 		//Control position Up/Down
 		case SDLK_w:
 			MoveCameraUpDown2D(0.5f);
@@ -391,6 +485,7 @@ void Camera::OnKeyDown(KeyPressedEvent *key)
 		case SDLK_ESCAPE:
 			SDL_Quit();
 			exit(0);
+		*/
 	}
 }
 

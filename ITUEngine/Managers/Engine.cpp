@@ -81,6 +81,8 @@ void Engine::Run()
 		//Step the physics system
 		m_Physics->Step(deltaT);
 
+		m_Graphics->m_SceneGraph->m_CameraObject->Update(deltaT);
+
 		// Display the graphics
 		m_Graphics->Render();
 

@@ -54,7 +54,7 @@
 
 % Consider finding a more suiting section-name might be better (``Requirements''?).
 \chapter{Formalities}
-The engine was the product of the course \textit{Game Engines}, at the \textit{IT University of Copenhagen}, during the fall semester of 2011. % More bla bla?
+The engine was the product of the course \textit{Game Engines}, at the \textit{IT University of Copenhagen}, during the fall semester of 2011.
 
 The engine and documentation is developed and written according the the requirements specified on the course website\footnote{\url{https://blog.itu.dk/MGAE-E2011/project-requirements/}.}.
 
@@ -66,13 +66,13 @@ This section will describe the main scope behind the engine, as well as the desi
 \section{Engine Scope}
 \label{sec:EngineScope}
 % Does it target a specific genre? What range of games do you have in mind that the engine would be suitable for?
-The engine targets the ``Hero \texttt{RTS}\footnote{Real-Time Strategy.}''-genre, more commonly known as ``\texttt{MOBA}\footnote{Multiplayer Online Battle Arena.}''\footnote{\url{http://en.wikipedia.org/wiki/Dota_(genre)}}. This includes games like \textit{Heroes of Newerth} and \textit{League of Legends}, both heavy inspired by the \textit{WarCraft III} modification \textit{Defense of the Ancients}\footnote{\url{http://en.wikipedia.org/wiki/Defense_of_the_Ancients}}.
+The engine targets the ``Action \texttt{RTS}\footnote{Real-Time Strategy.}''-genre, more commonly known as ``\texttt{MOBA}''\footnote{Multiplayer Online Battle Arena. \url{http://en.wikipedia.org/wiki/Dota_(genre)}}. This includes games like \textit{Heroes of Newerth} and \textit{League of Legends}, both heavy inspired by the \textit{WarCraft III} modification \textit{Defense of the Ancients}\footnote{\url{http://en.wikipedia.org/wiki/Defense_of_the_Ancients}}.
 
-To make our engine achieve the requirements of the genre, it was important to have a clear idea of what expected result should look like. As a good reference, see the example screenshot in \figRef{fig:DRdota2screen}.
+To make our engine achieve the requirements of the genre, it was important to have a clear idea of what expected result should look like. As a good reference, see the example screenshot in \figRef{fig:DRdota1screen}.
 
-\fig[\textwidth]{includes/dota1screen.jpg}{Engine inspiration: Screenshot from \textit{Defense of the Ancients}.}{fig:DRdota2screen}
+\fig[\textwidth]{includes/dota1screen.jpg}{Engine inspiration: Screenshot from \textit{Defense of the Ancients}.}{fig:DRdota1screen}
 
-As can be seen, the basic graphics are fairly simple. There has to be a flat ground-level upon which the player can be controlled around, along with objects he cannot pass. The avatar of the player has to be able to get from \texttt{A} to \texttt{B}, and be able to pathfind around various obstacles. On top of that, there has to be an interactable heads-up display. The camera will do limited movement.
+As can be seen, the basic graphics are fairly simple. There has to be a flat ground-level upon which the player can be controlled around, along with objects he cannot pass. The avatar of the player has to be able to get from \texttt{A} to \texttt{B}, and be able to pathfind around various obstacles. On top of that, there has to be an interactable heads-up display. The camera will do limited movement, staying with a fixed angle.
 
 This puts the main focus of the engine on effective handling of mouse events, collision-detection and pathfinding.
 
@@ -83,10 +83,9 @@ This puts the main focus of the engine on effective handling of mouse events, co
 
 \subsection{Engine Structure}
 \label{sec:EngineStructure}
+We ended out structuring our engine like shown in \figRef{fig:EngineStructure}.
 
-We ended ud structuring our engine like figure
-
-% INDSAET ENGINE STRUKTUR BILLEDE HER MED REFERENCE OVENOVER.
+\fig[\textwidth]{flowcharts/diagram.png}{Engine Structure: Diagram showing the structure.}{fig:EngineStructure}
 
 The engine contains each of the blue subsystems (window, settings, events, performance monitor, memory, graphics, physics).
 
@@ -109,7 +108,7 @@ When it comes to method of rendering both dynamic lists and vertex buffers were 
 
 \subsection{Physics System}
 \label{sec:DesignPhysicsSystem}
-The physics system in an \textit{RTS} in ideal place to cut corners. Since the genre originally emerged as a \textit{2D} game, all game play in \textit{RTS} traditionally are in \textit{2D} even though the graphics are \textit{3D}. Flying units can even be implemented using a \textit{2D} physics system by just adding levels to the physics objects and then checking if objects are on the same level before triggering a collision. Thus, for simplicity it was chosen to implement a \textit{2D} physics system. Furthermore it was chosen to let the physics system control all movement.
+The physics system in an \textit{RTS} is an ideal place to cut corners. Since the genre originally emerged as a \textit{2D} game, all game play in \textit{RTS} traditionally are in \textit{2D} even though the graphics are \textit{3D}. Flying units can even be implemented using a \textit{2D} physics system by just adding levels to the physics objects and then checking if objects are on the same level before triggering a collision. Thus, for simplicity it was chosen to implement a \textit{2D} physics system. Furthermore it was chosen to let the physics system control all movement.
 
 \subsection{Path Planner}
 \label{sec:DesignPathPlanner}
@@ -140,10 +139,20 @@ This section gives a more detailed description of the various subparts of the en
 \label{sec:DynamicElements}
 % A quick few words on what the Dynamic Element section contains.
 
+Some of the elements in our game engine have dependencies of other elements of our game engine. Because of that, we have a specific initialization order, as seen in \figRef{fig:StartUpFlowchart} We also use \texttt{StartUp} and \texttt{ShutDown} methods instead of constructors and deconstructors, to be able to finely control when and where dependencies are initiated.
+
+\fig[220px]{flowcharts/startup-flowchart.png}{Dynamic Elements: Engine startup flowchart.}{fig:StartUpFlowchart}
+
+This design pattern can also be used to instantiate systems that have circular references, by creating the objects before initializing them. That way both objects can be created, the required parts initialized and then the circular dependent parts can be created.
+
+Our shutdown sequence is the opposite of the startup sequence, to make sure that subsystems are not destroyed before the systems that depend on them.
+
 \subsection{Physics System}
 \label{sec:PhysicsSystem}
 % Physics and animation: What makes sense for your engine and why? Decide on a physics/animation split for your engine, considering its target. Do you want forces, manual animations, parametric curves, something else?
 % Be able to add/remove objects from the game world dynamically, and update associate data structures.
+
+% TODO
 
 \subsection{Collision Detection}
 \label{sec:CollisionDetection}
@@ -160,7 +169,7 @@ Firstly, the new object is created in the scene, which will be used as the groun
 
 \fig[420px]{includes/PathPlanner2.jpg}{Path Planner, 2: Creating the two objects.}{fig:PathPlanner2}
 
-Secondly, two other objects are added to the scene. These are examples of the two different types of physic objects that are useable. The first object, which is dubbed player is an example of a moving object. It is initialized just like the ground was, but are then added a physics component of a \texttt{MovingObjectModel}, which's collider is initialized as a circle. Lastly, the component is added to the list of known moving objects in the \texttt{PhysicsSystem}. The exact same thing is done with the box object, but it is just initialized as a \texttt{StaticObjectModel} and with a rectangular collider, and is added to the list of known static objects in the \texttt{PhysicsSystem}. Note that the player object also is parsed to the singleton instance of \texttt{PlayerInteraction}. This is done in order to move it using the \texttt{PathPlanner}, when clicking with the mouse on the ground. In \figRef{fig:PathPlanner2}, it is shown how the these two objects are added.
+Secondly, two other objects are added to the scene. These are examples of the two different types of physic objects that are useable. The first object, which is named player is an example of a moving object. It is initialized just like the ground was, but are then added a physics component of a \texttt{MovingObjectModel}, which's collider is initialized as a circle. Lastly, the component is added to the list of known moving objects in the \texttt{PhysicsSystem}. The exact same thing is done with the box object, but it is just initialized as a \texttt{StaticObjectModel} and with a rectangular collider, and is added to the list of known static objects in the \texttt{PhysicsSystem}. Note that the player object also is parsed to the singleton instance of \texttt{PlayerInteraction}. This is done in order to move it using the \texttt{PathPlanner}, when clicking with the mouse on the ground. In \figRef{fig:PathPlanner2}, it is shown how the these two objects are added.
 
 \fig[299px]{includes/PathPlanner3.png}{Path Planner, 3: Static map path.}{fig:PathPlanner3}
 
@@ -177,7 +186,7 @@ Then the path planning map is set in the end of the \texttt{createGraph()} funct
 % Quickest way to get some resources loading: wrap a library like assimp.sourceforge.net
 The \textit{Media Manager} is the tool that is to be used in order to import and access media files for use in the game. Currently, it supports importing of \texttt{.TGA}-files as textures and all the common model formats as 3D models, by using \textit{Assimp}\footnote{See \textit{Assimp} documentation for a full list of supported file formats.}. In the future, audio files will be accessed and imported using the media manager as well. As this manager is a singleton, any media imported using it will readily be available anywhere in the code as long you include \texttt{<Managers/MediaManager>}.
 
-In order to import a resource, one must first create either a model or a texture image and place it in the \texttt{Resource} folder. A container must then be created for it in the \texttt{MediaManager} class (\texttt{Texture*} for textures, and \texttt{Model*} for models). Then in the \texttt{MediaManager.StartUp()} function the resource must be loaded and stored in the aforementioned container using the \texttt{LoadTexture()} or \texttt{ImportAssimpModel()} respectively. Hereafter the imported asset can be accessed from the \texttt{MediaManger} singleton from anywhere within the engine. However, as the scene is actually built in \texttt{SceneData.cpp} and the \texttt{createGraph()} function, one would usually access in here in order to assign it to an object in the scene. The Memory Manager (described in \secRef{sec:MediaManager} is used in the following way:
+In order to import a resource, one must first create either a model or a texture image and place it in the \texttt{Resource} folder. A container must then be created for it in the \texttt{MediaManager} class (\texttt{Texture*} for textures, and \texttt{Model*} for models). Then in the \texttt{MediaManager.StartUp()} function the resource must be loaded and stored in the aforementioned container using the \texttt{LoadTexture()} or \texttt{ImportAssimpModel()} respectively. Hereafter the imported asset can be accessed from the \texttt{MediaManger} singleton from anywhere within the engine. However, as the scene is actually built in \texttt{SceneData.cpp} and the \texttt{createGraph()} function, one would usually access in here in order to assign it to an object in the scene. The memory manager (described in \secRef{sec:MediaManager} is used in the following way:
 
 \begin{enumerate}
 	\item Firstly two containers, to hold the player's model and its texture, are created. See \figRef{fig:MediaManager1}.
@@ -193,16 +202,21 @@ One might note that the texture is not assigned here. The reason being that it i
 
 \subsection{Memory Management}
 \label{sec:MemoryManagement}
-% Memory-management system. Design on paper first. Implement at least one kind of custom allocator, e.g. a stack allocator used for per-frame allocations.
 
-%Describe the Stack Allocator and Heap Allocators here. It will be interesting and awesome.
+Our engine implements a stack based single frame allocator. This is useful for variables, that are created in every frame.
+
+At the beginning of each frame the allocator deletes all allocated memory and therefore each frame starts with a clean slate. It is not possible to deallocate specific elements from the frame allocator. Due to it being stack based, it is only possible to roll back the stack to a specified marked point. This deallocates all memory that was allocated after the marker was retrieved.
+
+We have also implemented a basic smart pointer structure, that can be used, if a general heap allocator wants to be implemented at a later point. The allocator should return a smart pointer (containing the real address to the allocated memory) instead of a normal pointer. This will allow the heap allocator to move the allocated memory blocks around, without breaking the users memory access, if the smart pointers internal pointer is updated with the new memory location. This is necessary because a general memory allocator like a heap allocator can become fragmented. It is then necessary to clean up once in a while, so the allocator does not waste too much space on uninitialized memory blocks that are too small to actually contain anything. If the defragmentation method splits up the defragmentation over several frames, the memory can stay more or less defragmented while preventing excessive CPU usage.
 
 \subsection{Settings Manager}
 \label{sec:SettingsManager}
 % I think this is a good spot to describe the Settings Manager, as it doesn't really seem to fit in anywhere else.
-As every game needs variable settings and options, which should be easy to customize. We decided to keep the data in an external \texttt{XML}-file, so that it is easily changable outside the game. This opens up for the posibility of having a light-weight external tool.
+As every game needs variable settings and options, which should be easy to customize. We decided to keep the data in an external \texttt{XML}-file, so that it is easily changeable outside the game. This opens up for the possibility of having a light-weight external tool.
 
-Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a DOM\footnote{The ``Document Object Model''-standard.} Tree, which is easily traversable and logically structured. In the same way, the tree can be exported back to the \texttt{XML}-file at any given time, and will also do so upon shutting down the engine.
+Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a
+% DOM\footnote{The ``Document Object Model''-standard.}
+tree, which is easily traversable and logically structured. In the same way, the tree can be exported back to the \texttt{XML}-file at any given time, and will also do so upon shutting down the engine.
 
 \section{Rendering}
 \label{sec:Rendering}
@@ -216,79 +230,97 @@ Inside the engine, the \texttt{XML}-file is loaded upon startup and stored as a 
 \label{sec:Camera}
 % A camera component should be present.
 
+Our camera has a location, a position it is pointed at and an up vector.
+
+TODO.
+
 \subsection{Lighting Manager}
 \label{sec:LightingManager}
 % Lighting manager (or data structures) storing information on lights in the scene
 
+TODO
+
 \section{Game Loop}
 \label{sec:GameLoop}
-
-The game loop catches and handles all input and game events first. Then, the physics system
-is run with the elapsed time since the last update. When the 'model' of the world is updated,
-everything is drawn. In the end, we measure our performance and frame memory usage.
 % Support framerate-independent game-world updates (e.g. using deltaT timings).
 % Implement an event system (may be useful to split into several event systems, e.g. an InputManager handling all input events).
 
-% Insert the Game Loop chart here.
+The game loop catches and handles all input and game events first. Then, the physics system is run with the elapsed time since the last update. When the 'model' of the world is updated, everything is drawn. In the end, we measure our performance and frame memory usage. A visual representation can be seen in \figRef{fig:GameLoop}.
+
+\fig[128px]{flowcharts/loop.png}{Game Loop: Flowchart showing the main game loop.}{fig:GameLoop}
 
 \subsection{Event System}
 \label{sec:EventSystem}
-The general event system is structured with event listeners and event managers
-as described in Game Coding Complete \footnote{Game Coding Complete,
-Mike McShaffry et al. 3rd ed. Chapter 10.}. When a system like
-the physics system wants to update a moving object it can send an event
-to the event handler. All subsystems who want information about
-that event then gets notified. That keeps the relationship between the
-subsystems to a minimum, since they only have to keep track of
-themselves and the event manager.
 % General thoughts about the Event System.
+The general event system is structured with event listeners and event managers as described in Game Coding Complete \footnote{Game Coding Complete, Mike McShaffry et al. 3rd ed. Chapter 10.}. When a system like the physics system wants to update a moving object it can send an event to the event handler. All subsystems who want information about that event then gets notified. That keeps the relationship between the subsystems to a minimum, since they only have to keep track of themselves and the event manager.
 
 \section{Input}
 \label{sec:Input}
-The engine uses the SDL API to register keyboard
-and mouse input using their built in event types. When the engine is started a loop runs using the
-SDL\_PollEvent method. A switch-case calls the appropriate handlers when SDL
-events is registered.
 % Handle keyboard input, with at least a few options. For example: event-based input that queues multiple keypresses, and polling-based input that does something while the key is held down.
 % Handle mouse (or joystick/controller) input, with the option for nonlinear mapping
 % Connect input to scene in a basic way, e.g. wasd moves an object, mouse moves camera.
+The engine uses the SDL API to register keyboard and mouse input using their built in event types. When the engine is started a loop runs using the \texttt{SDL\_PollEvent} method. A switch-case calls the appropriate handlers when SDL events is registered.
 
 \subsection{Mouse}
 \label{sec:Mouse}
+%Fairly extensive section, as there is surely lots to be written in regards to how it works (ie, from mouse-coordinates on the screen to coordinates on the HUD/Worldspace, Events, and... whatever more there is.
+When a mouse-press is registered window coordinates are translated into \textit{OpenGL} world space coordinates and an event for pathfinding and movement of the player is triggered.
 
-When a mousepress is registered window coordinates are translated into
-OpenGL world space coordinates and an event for pathfinding and
-movement of the player is triggered.
-
-The mapping from screen coordinates to world coordinates happen via an inverse projection
-matrix.
-
-%Fairly extensive section, as there is surely lots to be written in regards to how it works (ie, from mouse-coordinates on the screen to coordinates on the HUD/Worldspace, Events, and... whatever more there is. 
+The mapping from screen coordinates to world coordinates happen via an inverse projection matrix.
 
 \subsection{Keyboard}
 \label{sec:Keyboard}
-
-When the keyboard are pressed, an event with the appropriate key is
-created which other subsystems can listen for. The engine currently
-only listens for escape key and exits when pressed.
 % Again, event system, what the uses are... erh, yeah. Probably not that much to write here, really.
+When the keyboard are pressed, an event with the appropriate key is created which other subsystems can listen for. The engine currently only listens for escape key and exits when pressed.
 
-\section{Performance Logging}
+\section{Advanced feature: Performance Logging}
 \label{sec:PerformanceLogging}
 %Pick either one area of the engine to add advanced functionality to, or at least one optional feature to add. For example: a user-programmable shader interface, procedural terrain, advanced physics, an audio subsystem, etc.
 
-% Gogo Gadget Mads!
+The performance logger enables the user of the engine to find out which parts of the code are taking the most time. The performance logger allows the user to measure time and save the measurements in distinct, named, lists. I.e., the physics step could be measured and saved in a list named physics. The lists are saved to a CSV file when they are full. We specified that the lists should contain at most 1000 elements, which will correspond to 1000 frames, about 1-2 seconds on our development machines, if a certain section is logged every frame.
 
-\chapter{Examples}
-\label{sec:Examples}
+We decided against doing the graphing of logged entries ourselves, as an offline component like \textit{Microsoft Excel} excels at this.
+
+%\chapter{Examples}
+%\label{sec:Examples}
 % Give some examples illustrating interesting features of your engine and how they�d be used. Depending on the features, these can take the form of screenshots, code snippets, flow charts, and/or prose explanation.
 
 % Giving examples is one of the requirements of the documentation. It could either be done throughout the document, or simply be here in a chapter for itself. Most likely a better idea, to keep it from the more in-depth technical facts.
 
 % It is probably easier simply omitting this section, and describing it when going over the various parts instead. Look at that later.
 
-\chapter{Concluding Comments}
-\label{sec:ConcludingComments}
+\chapter{Post Mortem}
+\label{sec:PostMortem}
 % Might be a good idea with a minor wrap-up at the end. A better name could be used for this section - but a fitting alternative is eluding me at this point.
+
+TODO
+
+\textbf{What went wrong?}
+
+A lot of time trying to do fancy shit (VBO's, shaders, etc).
+
+Bad guidance from lecturers?
+
+Should have maybe gone with the tried and true FPS engine instead of RTS.
+Could have avoided a lot of time spent on inverse projections et.al.
+
+should have spent less time with course project file and done some more stuff
+from scratch at an earlier state to get a better organisation of the subsystems
+in the engine.
+
+too coupled design?
+
+should have used more finished libraries from the start instead of doing it ourselves:
+like:
+
+devil (OpenIL) \url{http://openil.sourceforge.net/} -- image loading
+assimp (open asset import library) \url{http://assimp.sourceforge.net/} -- asset loading
+cegui (crazy eddies gui) \url{http://www.cegui.org.uk/wiki/index.php/Main_Page} -- gui lib
+
+\textbf{What was successful?}
+
+We made a thing that moves on the screen.
+
+
 
 \end{document}
