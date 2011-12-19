@@ -17,9 +17,6 @@ Camera::Camera()
 	isRightButtonDown = false;
 
 	InputManager::RegisterKeyboardEventHandler(this);
-	/*
-	InputManager::RegisterMouseClickEventHandler(this);
-	*/
 	InputManager::RegisterMouseMoveEventHandler(this);
 
 	moveUp = false;
@@ -29,14 +26,6 @@ Camera::Camera()
 
 	grab_on = true;
 	SDL_WM_GrabInput(SDL_GRAB_ON);
-	
-
-	// TODO Enforce these Rules:
-	/* |Position - LookAt| = 1 */
-	/* |Up| = 1 */
-	/* Look vector dotProduct Up = 0  */
-	
-	//safeAddListener(EventListenerPointer(this), EventType("keydownEvent"));
 }
 
 Camera::~Camera()
@@ -183,19 +172,9 @@ void Camera::MoveCameraUpDown2D(float distance)
 
 void Camera::MoveCameraLeftRight2D(float distance)
 {
-	float dotProduct = 0;
-
 	float xLook = LookAt.x() - Position.x();
 	float yLook = LookAt.y() - Position.y();
 	float zLook = LookAt.z() - Position.z();
-
-	dotProduct = Up.x()*xLook + Up.y()*yLook + Up.z()*zLook;
-	
-	if(dotProduct != 0.0f)
-	{
-		// :D
-		//return;
-	}
 
 	//Create the Cross Product vector, Perpendicular to the Up/LookAt plane
 	float xDirection = Up.y() * zLook - Up.z() * yLook;
@@ -266,46 +245,6 @@ void Camera::Update(unsigned int deltaT)
 
 /* Region Mouse Event handling */
 
-void Camera::OnButtonDown(MouseClickEvent *button)
-{
-	auto buttonInput = button->GetInput();
-
-	switch(buttonInput->button)
-	{
-		//Left + Right click
-		case 1:
-			isLeftButtonDown = true;
-			break;
-		case 3:
-			isRightButtonDown = true;
-			break;
-
-		//Zoom control on scroll wheel
-		case 4:
-			ZoomCamera(0.5f);
-			break;
-		case 5:
-			ZoomCamera(-0.5f);
-			break;
-	}
-}
-
-void Camera::OnButtonUp(MouseClickEvent *button)
-{
-	auto buttonInput = button->GetInput();
-
-	switch(buttonInput->button)
-	{
-		//Left + Right click
-		case 1:
-			isLeftButtonDown = false;
-			break;
-		case 3:
-			isRightButtonDown = false;
-			break;
-	}
-}
-
 void Camera::OnMotion(MouseMoveEvent *motion)
 {
 	auto motionInput = motion->GetInput();
@@ -346,85 +285,6 @@ void Camera::OnMotion(MouseMoveEvent *motion)
 		moveUp = false;
 		moveDown = false;
 	}
-
-
-
-	/*
-	static bool ignoreNextMotionEvent;
-
-	if(ignoreNextMotionEvent)
-	{
-		ignoreNextMotionEvent = false;
-		return;
-	}
-
-	auto motionInput = motion->GetInput();
-	auto screenInfo = SDL_GetVideoInfo();
-	auto screenWidth = screenInfo->current_w;
-	auto screenHeight = screenInfo->current_h;
-
-	SDL_WM_GrabInput(SDL_GRAB_ON);
-
-	float lookx = 0;
-	float looky = 0;
-	float lookz = 0;
-
-	float upx = 0;
-	float upy = 0;
-	float upz = 0;
-
-	float sensitivity = 0.01f;
-	float edgeScrollSpeed = 5.0f;
-
-	if(isLeftButtonDown)
-	{
-		PitchCamera(motionInput->yrel * sensitivity);
-		YawCamera(-motionInput->xrel * sensitivity);
-	}
-	else if(isRightButtonDown)
-	{
-		if(0 < motionInput->x && motionInput->x < screenWidth - 1)
-		{
-			MoveCameraLeftRight2D(motionInput->xrel *sensitivity);
-		}
-		else
-		{
-			MoveCameraLeftRight2D(motionInput->xrel * sensitivity * edgeScrollSpeed);
-			if(motionInput->x == 0)
-			{	
-				SDL_WarpMouse(motionInput->x + 1, motionInput->y);
-				ignoreNextMotionEvent = true;
-			}
-			
-			if(motionInput->x == screenWidth - 1)
-			{
-				SDL_WarpMouse(motionInput->x - 1, motionInput->y);
-				ignoreNextMotionEvent = true;
-			}
-		}
-
-		if(0 < motionInput->y && motionInput->y < screenHeight - 1)
-		{
-			MoveCameraUpDown2D(motionInput->yrel * sensitivity);
-		}
-		else
-		{
-			MoveCameraUpDown2D(motionInput->yrel * sensitivity * edgeScrollSpeed);
-			if(motionInput->y == 0)
-			{	
-				SDL_WarpMouse(motionInput->x, motionInput->y + 1);
-				ignoreNextMotionEvent = true;
-			}
-			
-			if(motionInput->y == screenHeight - 1)
-			{
-				SDL_WarpMouse(motionInput->x, motionInput->y - 1);
-				ignoreNextMotionEvent = true;
-			}
-		}
-		
-	}
-	*/
 }
 
 /* Endregion Mouse Event handling */
@@ -451,94 +311,12 @@ void Camera::OnKeyDown(KeyPressedEvent *key)
 
 		grab_on = !grab_on;
 		break;
-		
-		/*
-		//Control position Up/Down
-		case SDLK_w:
-			MoveCameraUpDown2D(0.5f);
-			break;
-		case SDLK_s:
-			MoveCameraUpDown2D(-0.5f);
-			break;
-
-		//Control position Left/Right
-		case SDLK_d:
-			MoveCameraLeftRight2D(0.5f);
-			break;
-		case SDLK_a:
-			MoveCameraLeftRight2D(-0.5f);
-			break;
-
-		//Control rotation
-		case SDLK_q:
-			RollCamera(-0.1f);
-			break;
-		case SDLK_e:
-			RollCamera(0.1f);
-			break;	
-
-		//Reset the camera
-		case SDLK_SPACE:
-			ResetCamera();
-			break;
-
-		case SDLK_ESCAPE:
-			SDL_Quit();
-			exit(0);
-		*/
 	}
 }
 
 void Camera::OnKeyUp(KeyPressedEvent *key)
 {
-
-}
-
-bool Camera::HandleEvent( IEventData const & eventData )
-{
-	shared_ptr<EventData<SDL_KeyboardEvent>> data = dynamic_pointer_cast<EventData<SDL_KeyboardEvent>, IEventData>(eventData.Copy());
-
-	auto val = data->GetValue();
-
-	switch(val.keysym.sym)
-	{
-		//Control position Up/Down
-	case SDLK_w:
-		MoveCameraUpDown2D(0.5f);
-		break;
-	case SDLK_s:
-		MoveCameraUpDown2D(-0.5f);
-		break;
-
-		//Control position Left/Right
-	case SDLK_d:
-		//std::cout << "Move Camera Right!" << std::endl;
-		MoveCameraLeftRight2D(0.5f);
-		break;
-	case SDLK_a:
-		MoveCameraLeftRight2D(-0.5f);
-		break;
-
-		//Control rotation
-	case SDLK_q:
-		RollCamera(-0.1f);
-		break;
-	case SDLK_e:
-		RollCamera(0.1f);
-		break;	
-
-		//Reset the camera
-	case SDLK_SPACE:
-		ResetCamera();
-		break;
-	}
-
-	return true;
-}
-
-char const * Camera::GetName( void )
-{
-	return "Camera";
+	//Ignore key up events
 }
 
 /* Endregion Keyboard Event handling */

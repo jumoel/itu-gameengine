@@ -37,7 +37,6 @@ private:
 	typedef std::pair<ProfileKey, ProfileTimeList> ProfileHistoricSet;
 
 	typedef std::map<ProfileKey, Log> ProfileLogMap;
-	//typedef std::pair<ProfileKey, *Log> ProfileLogSet;
 
 	int m_WriteToLogCounter;
 	

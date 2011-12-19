@@ -14,7 +14,6 @@ public:
 
 	void SetCurrentTime(Uint32 CurrentTime);
 	int GetFPS();
-	void SetFPSTitle();
 
 	void StartUp();
 	void ShutDown();

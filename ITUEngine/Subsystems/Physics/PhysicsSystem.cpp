@@ -352,6 +352,8 @@ void PhysicsSystem::MoveCircleObject( Circle *circle, std::vector<MovingObjectMo
 	}
 }
 
+
+//FOR DEBUGGING PURPOSES
 void PhysicsSystem::SetDynamicPathMap()
 {
 	std::vector<std::vector<int>> *map = new std::vector<std::vector<int>>(MAP_SIZE, std::vector<int>(MAP_SIZE, 0));
@@ -443,7 +445,7 @@ void PhysicsSystem::SetStaticPathMap()
 			}
 		}
 	}
-	SINGLETONINSTANCE(PathPlanner)->UpdateDynamicMap(map);
+	SINGLETONINSTANCE(PathPlanner)->SetupStaticMap(map);
 
 	delete map;
 

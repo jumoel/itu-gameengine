@@ -4,16 +4,12 @@
 #include <Windows.h>
 #include <Managers/InputManager.hpp>
 
-
 //#define PATH_DEBUG
-//#define PATH_DEBUG_OLD
 
 void PathPlanner::StartUp(int width)
 {
 	mapDivisions = MAP_SIZE;
 	mapWidth = width;
-
-	InputManager::RegisterKeyboardEventHandler(this);
 	
 	for(int x = 0; x < mapDivisions; x++)
 	{
@@ -25,65 +21,6 @@ void PathPlanner::StartUp(int width)
 		}
 		map.push_back(temp);
 	}
-
-	#ifdef PATH_DEBUG_OLD
-
-	mapWidth = 20;
-
-	//m_SceneGraph = graph;
-	playerPos.X = 5;
-	playerPos.Y = 5;
-
-
-	for(int x = 0; x < mapDivisions; x++)
-	{
-		vector<int> temp;
-		
-		for(int y = 0; y < mapDivisions; y++)
-		{
-			
-			if(x == 0 || y == 0 || x == mapDivisions-1 || y == mapDivisions-1)
-			{
-				temp.push_back(BLOCKED);
-			}
-			else if(x == playerPos.X && y == playerPos.Y)
-			{
-				temp.push_back(PLAYER);
-			}
-			else
-			{
-				temp.push_back(FREE);
-			}
-		}
-		map.push_back(temp);
-	}
-
-	map[6][1] = BLOCKED;
-	map[6][2] = BLOCKED;
-	map[6][3] = BLOCKED;
-	map[6][4] = BLOCKED;
-	map[6][5] = BLOCKED;
-	map[6][6] = BLOCKED;
-	map[6][7] = BLOCKED;
-	map[6][8] = BLOCKED;
-	map[6][9] = BLOCKED;
-	map[6][10] = BLOCKED;
-	map[5][10] = BLOCKED;
-	map[4][10] = BLOCKED;
-	map[4][9] = BLOCKED;
-	map[4][8] = BLOCKED;
-	map[4][7] = BLOCKED;
-	map[4][6] = BLOCKED;
-	map[4][5] = BLOCKED;
-	map[4][4] = BLOCKED;
-	map[4][3] = BLOCKED;
-	map[4][2] = BLOCKED;
-
-	map[7][5] = TARGET;
-	debugRoute = aStar(7.0f, 5.0f, playerPos.X, playerPos.Y);
-	std::cout << "route size: " << debugRoute->size() << std::endl;
-	//UpdateMap();
-	#endif
 }
 
 void PathPlanner::ShutDown()
@@ -122,18 +59,6 @@ void PathPlanner::DrawDebug()
 #endif
  }
 
-void PathPlanner::OnKeyDown(KeyPressedEvent *key)
-{
-	auto keyInput = key->GetInput();
-
-	switch(keyInput->keysym.sym)
-	{
-		case SDLK_b:
-			UpdateDynamicMap(NULL);
-			break;
-	}
-}
-
 void PathPlanner::SetupStaticMap(std::vector<std::vector<int>> *staticMap)
 {
 	for(int x = 0; x < mapDivisions; x++)
@@ -165,18 +90,6 @@ void PathPlanner::UpdateDynamicMap(std::vector<std::vector<int>> *dynamicMap)
 			}
 		}
 	}
-
-
-	#ifdef PATH_DEBUG_OLD
-	if(debugRoute->size() > 0)
-	{
-		map[playerPos.X][playerPos.Y] = FREE;
-		playerPos.X = debugRoute->at(0).X;
-		playerPos.Y = debugRoute->at(0).Y;
-		debugRoute->erase(debugRoute->begin());
-		map[playerPos.X][playerPos.Y] = PLAYER;
-	}
-	#endif
 }
 
 bool PathPlanner::isValidNeighbour(Node* neighbour, Plan* plan)
@@ -217,15 +130,12 @@ Node* PathPlanner::backTrack(Node* cNode, Plan *plan, int locationX, int locatio
 	
 	plan->route->insert(plan->route->begin(), Point(cNode->pos));
 	
-	if ((cNode->child->pos.x() == locationX) && (cNode->child->pos.y() == locationY)) {
-		//route.push_back(cNode);
-		//return;
-		//cout << endl;
-		//cout << endl;
+	if ((cNode->child->pos.x() == locationX) && (cNode->child->pos.y() == locationY)) 
+	{
 		return cNode;
 	}
-	else {
-		//cout << "(" << cNode->pos.x << "," << cNode->pos.y << ")->";
+	else 
+	{
 		return backTrack(cNode->child, plan, locationX, locationY);
 	}
 }
@@ -331,7 +241,6 @@ bool PathPlanner::checkForFreeSpaces(float *x, float *y, int i)
 			{
 				if(0 < *x+j  && *x+j < mapDivisions-1 && 0 < *y+k && *y+k < mapDivisions-1)
 				{
-
 					if(map[*x+j][*y+k] != BLOCKED)
 					{
 						tempList.push_back(Vector2f(j,k));
@@ -373,8 +282,6 @@ std::vector<Point>* PathPlanner::aStar(float distinationX, float distinationY, f
 	int loctX = ConvertToPlanningMapCoordinate(locationX);
 	int loctY = ConvertToPlanningMapCoordinate(locationY);
 
-	
-
 	//Planning
 	Plan plan;
 	
@@ -411,109 +318,6 @@ float PathPlanner::ConvertToPhysicsMapCoordinates( float x )
 {
 	return (mapWidth / mapDivisions) * x + (mapWidth / mapDivisions)*0.5f;
 }
-
-#if 0
-node* recursiveAstar(node* currentNode, plan* ghostPlan, int weightX, int weightY, std::vector<std::vector<int> > &map)
-{
-	if((currentNode->pos.x() == ghostPlan->targetX) && (currentNode->pos.y() == ghostPlan->targetY))
-	{
-		return currentNode;
-	}
-	ghostPlan->closedList.push_back(currentNode);
-	for(int i = 0; i < ghostPlan->openList.size(); i++)
-	{
-		if(currentNode == ghostPlan->openList[i])
-			ghostPlan->openList.erase(ghostPlan->openList.begin() + i);
-	}
-	
-	//vector<node*> neighbours;
-	node* neighbours[4];
-	for(int i = 0; i < 4; i++)
-	{
-		neighbours[i] = new node();
-	}
-	neighbours[0]->pos.SetX(currentNode->pos.x()-1);
-	neighbours[0]->pos.SetY(currentNode->pos.y());
-	neighbours[1]->pos.SetX(currentNode->pos.x()+1);
-	neighbours[1]->pos.SetY(currentNode->pos.y());
-	neighbours[2]->pos.SetX(currentNode->pos.x());
-	neighbours[2]->pos.SetY(currentNode->pos.y()-1);
-	neighbours[3]->pos.SetX(currentNode->pos.x());
-	neighbours[3]->pos.SetY(currentNode->pos.y()+1);
-
-	for(int i = 0; i < 4; i++)
-	{
-		if(isValidNeighbour(neighbours[i], ghostPlan, map))
-		{
-			float weightDist = sqrt((float)((weightX - currentNode->pos.x())*(weightX - currentNode->pos.x()) + (weightY - currentNode->pos.y())*(weightY - currentNode->pos.y())));
-			if(weightDist < WEIGHT_DIST)
-			{
-				/*if(weightDist < DANGER_DIST)
-				{
-					weightDist = 9999.0f;
-				}
-				else
-				{*/
-					weightDist = (1 - (weightDist/WEIGHT_DIST))*MULTIPLIER;
-				//}
-				
-			}
-			else
-				weightDist = 0;
-
-			neighbours[i]->distance = abs(ghostPlan->targetX - currentNode->pos.x()) + abs(ghostPlan->targetY - currentNode->pos.y()) + weightDist;
-			neighbours[i]->child = currentNode;
-			ghostPlan->openList.push_back(neighbours[i]);
-		}
-		else 
-		{
-			/*node* temp = neighbours[i]
-			neighbours.erase(neighbours.begin() + i);
-			delete temp;
-			*/
-			delete neighbours[i];
-		}
-	}
-	//neighbours.clear();
-	
-	if(ghostPlan->openList.size() < 1)
-		return NULL;
-		
-	currentNode = ghostPlan->openList[0];
-
-	for(int i = 1; i < ghostPlan->openList.size(); i++)
-	{
-		if(ghostPlan->openList[i]->distance < currentNode->distance)
-			currentNode = ghostPlan->openList[i];
-	}
-	
-	return recursiveAstar(currentNode, ghostPlan, weightX, weightY, map); 
-}
-
-void aStar(int &steps, int &outX, int &outY, int distinationX, int distinationY, int locationX, int locationY, int weightX, int weightY, std::vector<std::vector<int> > &map)
-{
-	plan ghostPlan;
-	ghostPlan.targetX = distinationX;
-	ghostPlan.targetY = distinationY;
-	node* currentNode = new node();
-	currentNode->pos.SetX(locationX);
-	currentNode->pos.SetY(locationY);
-	currentNode->child = NULL;
-	currentNode->distance = abs(distinationX - currentNode->pos.x()) + abs(distinationX - currentNode->pos.y());
-	node* finalNode = backTrack(steps, recursiveAstar(currentNode, &ghostPlan, weightX, weightY, map), locationX, locationY);
-	if(finalNode != NULL)
-	{
-		outX = finalNode->pos.x();
-		outY = finalNode->pos.y();
-	}
-	else
-	{
-		outX = -1;
-		outY = -1;
-	}
-	ghostPlan.clear();
-}
-#endif
 
 Plan::Plan()
 {
