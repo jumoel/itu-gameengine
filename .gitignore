@@ -20,3 +20,4 @@ ITUEngine/Settings2.xml
 *.toc
 *.el
 ITUEngine/Release
+Release/
