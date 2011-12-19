@@ -21,5 +21,4 @@ public:
 private:
 	Object* player;
 };
-
 #endif

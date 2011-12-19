@@ -240,8 +240,10 @@ public:
 		{
 			delete m_Path;
 		}
+		int x = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(target->X);
+		int y = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(target->Y);
 
-		if(!SINGLETONINSTANCE(PathPlanner)->evaluateCoordinate(&(target->X), &(target->Y)))
+		if(!SINGLETONINSTANCE(PathPlanner)->evaluateCoordinate(&x, &y))
 		{
 			m_Path = new std::vector<Point>();
 			target->X = GetPosition()->X;
@@ -250,8 +252,11 @@ public:
 		}
 		else
 		{
+			target->X = SINGLETONINSTANCE(PathPlanner)->ConvertToPhysicsMapCoordinates(x);
+			target->Y = SINGLETONINSTANCE(PathPlanner)->ConvertToPhysicsMapCoordinates(y);
 			m_Path = SINGLETONINSTANCE(PathPlanner)->aStar(target->X, target->Y, GetPosition()->X, GetPosition()->Y);
 		}
+		
 
 		delete m_TargetPosition;
 		m_TargetPosition = target;
