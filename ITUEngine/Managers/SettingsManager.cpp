@@ -17,17 +17,6 @@ void SettingsManager::StartUp()
 	ASSERT_MSG(-1, errormessage.c_str());
 
 	std::cout << "Result of import of \"Settings.xml\": " << result.description() << std::endl;
-
-	// Left-over test-lines - also shows usage:
-	/*
-	this->SetOption("video/resolution/width", "500");
-	std::cout << "Win!: " << this->GetOption("video/resolution/width");
-	std::cout << " (video/resolution/width)" << std::endl;
-	this->SetOptionToDefault("video/resolution/width");
-	std::cout << "Win!: " << this->GetOption("video/resolution/width");
-	std::cout << " (video/resolution/width)" << std::endl;
-	this->SetAllOptionsToDefaults();
-	this->SaveXML(); */
 }
 
 void SettingsManager::ShutDown() 

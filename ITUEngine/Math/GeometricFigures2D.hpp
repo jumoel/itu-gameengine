@@ -64,10 +64,7 @@ public:
 
 	Line(Point a, Point b) : A(a), B(b) {}
 	Line(Line &line) : A(line.A), B(line.B) {}
-	~Line() 
-	{ 
-		//delete &A; delete &B; 
-	}
+	~Line() { }
 
 	Point A, B;
 };
@@ -80,10 +77,7 @@ public:
 
 	Circle(Point center, float radius) : Center(center), Radius(radius), initialRadius(radius) {}
 	Circle(Circle &circle) : Center(circle.Center), Radius(circle.Radius), initialRadius(circle.Radius) {}
-	~Circle() 
-	{ 
-		//delete &Center; 
-	}
+	~Circle() { }
 
 	void setPos(float x, float y)
 	{
@@ -122,10 +116,7 @@ public:
 		Init();
 	}
 
-	~Rectangle() 
-	{ 
-		//delete &MinXY; 
-	}
+	~Rectangle() { }
 
 	void setPos(float x, float y)
 	{
