@@ -300,6 +300,8 @@ void Camera::OnKeyDown(KeyPressedEvent *key)
 	switch(keyInput->keysym.sym)
 	{
 	case SDLK_w:
+		grab_on = !grab_on;
+
 		if (grab_on)
 		{
 			SDL_WM_GrabInput(SDL_GRAB_ON);
@@ -308,8 +310,6 @@ void Camera::OnKeyDown(KeyPressedEvent *key)
 		{
 			SDL_WM_GrabInput(SDL_GRAB_OFF);
 		}
-
-		grab_on = !grab_on;
 		break;
 	}
 }
