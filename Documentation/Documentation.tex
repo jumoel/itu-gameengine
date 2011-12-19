@@ -58,11 +58,23 @@ The engine was the product of the course \textit{Game Engines}, at the \textit{I
 The engine and documentation is developed and written according the requirements specified on the course website\footnote{\url{https://blog.itu.dk/MGAE-E2011/project-requirements/}.}.
 
 \section{Engine Requirements}
+\label{sec:EngineRequirements}
 To use the engine, the following is required:
 \begin{itemize}
 	\item \textbf{SDL} (1.2.14) in \verb|C:\SDL\SDL-1.2.14|
 	\item \textbf{GLEW} (1.7.0) in \verb|C:\GLEW\glew-1.7.0|
 	\item \textbf{Assimp} (2.0.863) in \verb|C:\ASSIMP\assimp--2.0.863-sdk|
+\end{itemize}
+
+\section{Engine Controls}
+\label{sec:EngineControls}
+In the current form, the following can be used to interact with the engine. Examples of some of these can be seen in \secRef{sec:EngineExamples}.
+\begin{itemize}
+	\item \textbf{Keyboard, W}: Locks or unlocks the mouse to the window. 
+	\item \textbf{Keyboard, ESC}: Exits the engine.
+	\item \textbf{Mouse, Movement}: Pans the camera in the given direction.
+	\item \textbf{Mouse, Clicking 1}: Moves the player to the given position.
+	\item \textbf{Mouse, Clicking 2}: Clicking the white \textit{HUD} spawns a box.
 \end{itemize}
 
 \chapter{Engine Description}
