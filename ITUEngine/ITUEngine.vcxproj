@@ -68,11 +68,20 @@
       <Command>xcopy C:\SDL\SDL-1.2.14\lib\SDL.dll "$(OutDir)" /y
 xcopy C:\GLEW\glew-1.7.0\bin\glew32.dll "$(OutDir)" /y
 xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y
-xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$(OutDir)" /y</Command>
+xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$(OutDir)" /y
+
+rmdir /s /q "$(OutDir)Resources"
+del /q  "$(OutDir)Settings.xml"
+del /q  "$(OutDir)Settings2.xml"
+del /q  "$(OutDir)stdout.txt"
+del /q  "$(OutDir)stderr.txt"
+
+xcopy "$(ProjectDir)Resources\Settings.xml" "$(OutDir)" /y
+xcopy "$(ProjectDir)Resources" "$(OutDir)Resources" /E /I /Y</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>xcopy "$(ProjectDir)Resources\Settings.xml" "$(OutDir)" /y
-xcopy "$(ProjectDir)Resources" "$(OutDir)Resources" /E /I /Y</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -95,11 +104,20 @@ xcopy "$(ProjectDir)Resources" "$(OutDir)Resources" /E /I /Y</Command>
       <Command>xcopy C:\SDL\SDL-1.2.14\lib\SDL.dll "$(OutDir)" /y
 xcopy C:\GLEW\glew-1.7.0\bin\glew32.dll "$(OutDir)" /y
 xcopy C:\GLEW\glew-1.7.0\bin\glew32mx.dll "$(OutDir)" /y
-xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$(OutDir)" /y</Command>
+xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$(OutDir)" /y
+
+rmdir /s /q "$(OutDir)Resources"
+del /q  "$(OutDir)Settings.xml"
+del /q  "$(OutDir)Settings2.xml"
+del /q  "$(OutDir)stdout.txt"
+del /q  "$(OutDir)stderr.txt"
+
+xcopy "$(ProjectDir)Resources\Settings.xml" "$(OutDir)" /y
+xcopy "$(ProjectDir)Resources" "$(OutDir)Resources" /E /I /Y</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>xcopy "$(ProjectDir)Resources\Settings.xml" "$(OutDir)" /y
-xcopy "$(ProjectDir)Resources" "$(OutDir)Resources" /E /I /Y</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
