@@ -12,7 +12,6 @@
     <ClCompile Include="Game\Camera.cpp" />
     <ClCompile Include="Events\EventObject.cpp" />
     <ClCompile Include="Game\FPSCalculator.cpp" />
-    <ClCompile Include="Game\GfxModel.cpp" />
     <ClCompile Include="Game\Light.cpp" />
     <ClCompile Include="Game\Material.cpp" />
     <ClCompile Include="Game\Texture.cpp" />
@@ -73,7 +72,6 @@
     <ClInclude Include="Events\Interfaces\IEventListener.hpp" />
     <ClInclude Include="Events\Interfaces\IEventManager.hpp" />
     <ClInclude Include="Managers\Engine.hpp" />
-    <ClInclude Include="Game\GfxModel.hpp" />
     <ClInclude Include="Game\Texture.hpp" />
     <ClInclude Include="Events\Interfaces\InterfaceTemplateEventManager.hpp" />
     <ClInclude Include="Game\Camera.hpp" />

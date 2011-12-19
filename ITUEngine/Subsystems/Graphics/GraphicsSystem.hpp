@@ -18,14 +18,9 @@ public:
 	SceneGraphManager *m_SceneGraph;
 
 private:
-	void AddToVBORecursive(Object *obj, std::vector<Vector3f> *vectors);
-	void AddAssimpModelToVBORecursive(const aiScene* scene, const aiNode* node, std::vector<Vector3f> *vectors);
 	void InitOpenGL();
 	void RenderRecursive(Object *obj);
 
-	std::vector<Vector3f> *m_VectorList;
-	GLuint m_VertexBuffer;
-	GLuint m_VertexArrayObject;
 };
 
 #endif // ITUENGINE_GRAPHICSSYSTEM_H

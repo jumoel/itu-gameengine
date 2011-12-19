@@ -7,7 +7,6 @@ Object::Object()
 {
 	this->transformation = new Matrix4x4f();
 	this->children = new std::list<Object>();
-	this->gfx = new GfxModel();
 	this->model = new Model();
 	this->physicsModel = NULL;
 	pos = new Vector3f(0.0f, 0.0f, 0.0f);
@@ -22,7 +21,6 @@ Object::Object(PhysicsModel *physics)
 {
 	this->transformation = new Matrix4x4f();
 	this->children = new std::list<Object>();
-	this->gfx = new GfxModel();
 	this->model = new Model();
 	this->physicsModel = physics;
 	pos = new Vector3f(0.0f, 0.0f, 0.0f);
@@ -37,14 +35,6 @@ Object::~Object()
 {
 	delete this->transformation;
 
-	if(this->model != NULL)
-	{
-	//	delete this->model;
-	}
-	if(this->gfx)
-	{
-		delete this->gfx;
-	}
 	delete model;
 
 	delete this->physicsModel;
@@ -115,13 +105,8 @@ void Object::setLookAt2D(float x, float y)
 		y = y/length;
 
 		float degrees = atan2(y,x) - atan2(forward2D->y(),forward2D->x());
-		//float degrees = atan2(forward2D->y(),forward2D->x()) - atan2(y,x);
 		degrees = (degrees * 180)/PI;
-		
-		
-		//std::cout << "Degrees: " << degrees << std::endl;
-		
-		
+				
 		auto temp = (transformation->createRotate(degrees, 0.0f, 1.0f, 0.0f));
 		rotation->MultiplyWith(*temp);
 		delete temp;
