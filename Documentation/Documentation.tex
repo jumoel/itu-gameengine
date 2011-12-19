@@ -79,13 +79,9 @@ To make our engine achieve the requirements of the genre, it was important to ha
 
 As can be seen, the basic graphics are fairly simple. There has to be a flat ground-level upon which the player can be controlled around, along with objects he cannot pass. The avatar of the player has to be able to get from \texttt{A} to \texttt{B}, and be able to pathfind around various obstacles. On top of that, there has to be an interactable heads-up display. The camera will do limited movement, staying with a fixed angle.
 
-This puts the main focus of the engine on effective handling of mouse events, collision-detection and pathfinding.
+This puts the main focus of the engine on effective handling of mouse events, collision-detection and pathfinding. An example of how it looks like can be seen in \figRef{fig:EngineBasic}. Further examples can be seen in \secRef{sec:EngineExamples}.
 
-% Add a screen from out own game here as well.
-% Describe the comparrison to our screenshot. Pretty difficult without a finished screen... but, yeah. I can't think more at this point.
-TODO
-% Here a screen of our own engine should be, for comparing!   
-%\fig[\textwidth]{Pictures/enginescreen.jpg}{Screenshot from our Engine, showcading the User Interface.}{fig:DREngineScreen}
+\fig[\textwidth]{includes/EngineBasic.png}{Engine Scope: Basic view of our engine.}{fig:EngineBasic}
 
 \subsection{Engine Structure}
 \label{sec:EngineStructure}
@@ -273,7 +269,23 @@ The process of creating this game engine hit a few bumps in the road. The first 
 
 \section{What went right?}
 In the end an engine was made, that included all the required features and have the beginnings of a full fletched \textit{RTS} engine. Furthermore, the process was rather educational as to what not to do when creating an engine. That time spent designing the architecture of the engine will be time saved in the long run. Trying to make most of everything from scratch, and not use more libraries than needed, was good knowledge, as it gave a unique insight into the workings of such features as well as to fully visualize the time that could be saved using third party libraries.
-
 % OLD NOTES BELOW:
 % We made a thing that moves on the screen.
+
+\section{Engine Examples}
+\label{sec:EngineExamples}
+This section will show a few examples, showcasing the various features of engine.
+
+\subsection{Heads-Up Display Usage}
+To demonstrate that our \textit{HUD} is interactable, we made it so that clicking the white section of the screen would spawn a box in the playing field. The difference can be seen between \figRef{fig:EngineBoxes1} and \figRef{fig:EngineBoxes2}.  
+
+\fig[\textwidth]{includes/EngineBoxes1.png}{Engine Examples, HUD Usage 1: A few boxes.}{fig:EngineBoxes1}
+
+\fig[\textwidth]{includes/EngineBoxes2.png}{Engine Examples, HUD Usage 2: A lot of boxes.}{fig:EngineBoxes2}
+
+\subsection{Screen Panning}
+By moving the mouse cursor to either of the screen's sides, the camera will pan in that direction. In the example shown in \figRef{fig:EnginePanning}, the camera has panned to the right. 
+
+\fig[\textwidth]{includes/EnginePanning.png}{Engine Examples, Panning: Camera has panned right.}{fig:EnginePanning}
+
 \end{document}
