@@ -57,7 +57,14 @@ The engine was the product of the course \textit{Game Engines}, at the \textit{I
 
 The engine and documentation is developed and written according the the requirements specified on the course website\footnote{\url{https://blog.itu.dk/MGAE-E2011/project-requirements/}.}.
 
-% The essence of it all.
+\section{Engine Requirements}
+To use the engine, the following is required:
+\begin{itemize}
+	\item \textbf{SDL} (1.2.14) in \verb|C:\SDL\SDL-1.2.14|
+	\item \textbf{GLEW} (1.7.0) in \verb|C:\GLEW\glew-1.7.0|
+	\item \textbf{Assimp} (2.0.863) in \verb|C:\ASSIMP\assimp--2.0.863-sdk|
+\end{itemize}
+
 \chapter{Engine Description}
 \label{sec:EngineDescription}
 This section will describe the main scope behind the engine, as well as the design rationales behind the choices that were made.
@@ -68,17 +75,13 @@ The engine targets the ``Action \texttt{RTS}\footnote{Real-Time Strategy.}''-gen
 
 To make our engine achieve the requirements of the genre, it was important to have a clear idea of what expected result should look like. As a good reference, see the example screenshot in \figRef{fig:DRdota1screen}.
 
-\fig[\textwidth]{includes/dota1screen.jpg}{Engine inspiration: Screenshot from \textit{Defense of the Ancients}.}{fig:DRdota1screen}
+\fig[\textwidth]{includes/dota1screen.jpg}{Engine Scope: Inspirational screenshot from \textit{Defense of the Ancients}.}{fig:DRdota1screen}
 
 As can be seen, the basic graphics are fairly simple. There has to be a flat ground-level upon which the player can be controlled around, along with objects he cannot pass. The avatar of the player has to be able to get from \texttt{A} to \texttt{B}, and be able to pathfind around various obstacles. On top of that, there has to be an interactable heads-up display. The camera will do limited movement, staying with a fixed angle.
 
-This puts the main focus of the engine on effective handling of mouse events, collision-detection and pathfinding.
+This puts the main focus of the engine on effective handling of mouse events, collision-detection and pathfinding. An example of how it looks like can be seen in \figRef{fig:EngineBasic}. Further examples can be seen in \secRef{sec:EngineExamples}.
 
-% Add a screen from out own game here as well.
-% Describe the comparrison to our screenshot. Pretty difficult without a finished screen... but, yeah. I can't think more at this point.
-TODO
-% Here a screen of our own engine should be, for comparing!   
-%\fig[\textwidth]{Pictures/enginescreen.jpg}{Screenshot from our Engine, showcading the User Interface.}{fig:DREngineScreen}
+\fig[\textwidth]{includes/EngineBasic.png}{Engine Scope: Basic view of our engine.}{fig:EngineBasic}
 
 \subsection{Engine Structure}
 \label{sec:EngineStructure}
@@ -164,12 +167,7 @@ Then the path planning map is set in the end of the \texttt{createGraph()} funct
 
 \section{Resource Management}
 \label{sec:ResourceManagement}
-% Quick introduction, perhaps?
-Handling resources is an essential part of any game engine, and as
-such it also is a big part of our engine. The handling is done in
-three different managers: The MediaManager, the MemoryManager, and the
-SettingsManager.
-
+Handling resources is an essential part of any game engine, and as such it also is a big part of our engine. The handling is done in three different managers: The \texttt{MediaManager}, the \texttt{MemoryManager}, and the \texttt{SettingsManager}.
 
 \subsection{Media Manager}
 \label{sec:MediaManager}
@@ -209,14 +207,7 @@ The Graphics System is in charge of rendering any graphics and light in the scen
 
 \subsection{Camera}
 \label{sec:Camera}
-% Elaborate, or simply leave as it is?
-The camera is a class that is used to define the viewport; Its
-position and direction in the world. As such it is part of the
-scenegraph. The thing to note about the camera is its control
-scheme. As this engine is an RTS engine, the genre dictates the
-movement possibilities and they basically consist of moving the camera
-on a plane parallel to the ground, when moving the cursor to the edges
-of the viewport.
+The camera is a class that is used to define the viewport; Its position and direction in the world. As such it is part of the scenegraph. The thing to note about the camera is its control scheme. As this engine is an RTS engine, the genre dictates the movement possibilities and they basically consist of moving the camera on a plane parallel to the ground, when moving the cursor to the edges of the viewport.
 
 \subsection{Lighting Manager}
 \label{sec:LightingManager}
@@ -258,10 +249,7 @@ We decided against doing the graphing of logged entries ourselves, as an offline
 \label{sec:PostMortem}
 % Might be a good idea with a minor wrap-up at the end. A better name could be used for this section - but a fitting alternative is eluding me at this point.
 
-Having completed the engine or at least come as far as was possible
-for us in the time given, it seems feasible to reflect on the
-process. What went wrong, what went right, and what have we learned
-from the experience.
+Having completed the engine or at least come as far as was possible for us in the time given, it seems feasible to reflect on the process. What went wrong, what went right, and what have we learned from the experience.
 
 \section{What went wrong?}
 The process of creating this game engine hit a few bumps in the road. The first problem was to just start implementing different features, instead of starting out by thoroughly thinking the basic design structure of the engine through. As a result we fairly early had an engine with alot of working features, but with a basic structure that did not make a lot of sense. Thus, we tried to go back and redesign the basic structure and then refacture the features already implemented, in order to fit them into the new improved structure. This task, however, was more cumbersome than expected and left us with a broken engine for quite a long while. Nevertheless, the task succeeded in the end.
@@ -281,7 +269,23 @@ The process of creating this game engine hit a few bumps in the road. The first 
 
 \section{What went right?}
 In the end an engine was made, that included all the required features and have the beginnings of a full fletched \textit{RTS} engine. Furthermore, the process was rather educational as to what not to do when creating an engine. That time spent designing the architecture of the engine will be time saved in the long run. Trying to make most of everything from scratch, and not use more libraries than needed, was good knowledge, as it gave a unique insight into the workings of such features as well as to fully visualize the time that could be saved using third party libraries.
-
 % OLD NOTES BELOW:
 % We made a thing that moves on the screen.
+
+\section{Engine Examples}
+\label{sec:EngineExamples}
+This section will show a few examples, showcasing the various features of engine.
+
+\subsection{Heads-Up Display Usage}
+To demonstrate that our \textit{HUD} is interactable, we made it so that clicking the white section of the screen would spawn a box in the playing field. The difference can be seen between \figRef{fig:EngineBoxes1} and \figRef{fig:EngineBoxes2}.  
+
+\fig[\textwidth]{includes/EngineBoxes1.png}{Engine Examples, HUD Usage 1: A few boxes.}{fig:EngineBoxes1}
+
+\fig[\textwidth]{includes/EngineBoxes2.png}{Engine Examples, HUD Usage 2: A lot of boxes.}{fig:EngineBoxes2}
+
+\subsection{Screen Panning}
+By moving the mouse cursor to either of the screen's sides, the camera will pan in that direction. In the example shown in \figRef{fig:EnginePanning}, the camera has panned to the right. 
+
+\fig[\textwidth]{includes/EnginePanning.png}{Engine Examples, Panning: Camera has panned right.}{fig:EnginePanning}
+
 \end{document}
