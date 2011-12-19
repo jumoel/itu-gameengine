@@ -252,8 +252,8 @@ public:
 		}
 		else
 		{
-			target->X = SINGLETONINSTANCE(PathPlanner)->ConvertToPhysicsMapCoordinates(x);
-			target->Y = SINGLETONINSTANCE(PathPlanner)->ConvertToPhysicsMapCoordinates(y);
+			target->X = SINGLETONINSTANCE(PathPlanner)->ConvertToPhysicsMapCoordinates((float)x);
+			target->Y = SINGLETONINSTANCE(PathPlanner)->ConvertToPhysicsMapCoordinates((float)y);
 			m_Path = SINGLETONINSTANCE(PathPlanner)->aStar(target->X, target->Y, GetPosition()->X, GetPosition()->Y);
 		}
 		

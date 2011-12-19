@@ -413,8 +413,8 @@ void PhysicsSystem::SetStaticPathMap()
 		if((*staticObjectIterator)->GetShape() == CIRCULARSHAPE)
 		{
 			auto circle = (*staticObjectIterator)->GetCircularRepresentation();
-			int radius = circle->Radius;
-			radius = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate(radius);
+			int radius = (int)circle->Radius;
+			radius = SINGLETONINSTANCE(PathPlanner)->ConvertToPlanningMapCoordinate((float)radius);
 
 			for (int i = -radius; i <= radius; i++ )
 			{
