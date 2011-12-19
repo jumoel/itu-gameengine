@@ -6,7 +6,7 @@
 
 //#define PATH_DEBUG
 
-void PathPlanner::StartUp(int width)
+void PathPlanner::StartUp(float width)
 {
 	mapDivisions = MAP_SIZE;
 	mapWidth = width;
@@ -94,25 +94,25 @@ void PathPlanner::UpdateDynamicMap(std::vector<std::vector<int>> *dynamicMap)
 
 bool PathPlanner::isValidNeighbour(Node* neighbour, Plan* plan)
 {
-	if((neighbour->pos.y() < 0)
-		|| (neighbour->pos.y() > map.size()-1)
-		|| (neighbour->pos.x() < 0)
-		|| (neighbour->pos.x() > map[neighbour->pos.y()].size()-1))
+	if(((unsigned int)neighbour->pos.y() < 0)
+		|| ((unsigned int)neighbour->pos.y() > map.size()-1)
+		|| ((unsigned int)neighbour->pos.x() < 0)
+		|| ((unsigned int)neighbour->pos.x() > map[(unsigned int)neighbour->pos.y()].size()-1))
 	{
 		return false;
 	}
-	if(map[neighbour->pos.x()][neighbour->pos.y()] == BLOCKED)
+	if(map[(unsigned int)neighbour->pos.x()][(unsigned int)neighbour->pos.y()] == BLOCKED)
 	{
 		return false;
 	}
-	for(int j = 0; j < plan->closedList.size(); j++)
+	for(unsigned int j = 0; j < plan->closedList.size(); j++)
 	{
 		if((plan->closedList[j]->pos.x() == neighbour->pos.x()) && (plan->closedList[j]->pos.y() == neighbour->pos.y()))
 		{
 			return false;
 		}
 	}
-	for(int j = 0; j < plan->openList.size(); j++)
+	for(unsigned int j = 0; j < plan->openList.size(); j++)
 	{
 		if((plan->openList[j]->pos.x() == neighbour->pos.x()) && (plan->openList[j]->pos.y() == neighbour->pos.y()))
 		{
@@ -147,7 +147,7 @@ Node* PathPlanner::recursiveAstar(Node* currentNode, Plan* plan)
 		return currentNode;
 	}
 	plan->closedList.push_back(currentNode);
-	for(int i = 0; i < plan->openList.size(); i++)
+	for(unsigned int i = 0; i < plan->openList.size(); i++)
 	{
 		if(currentNode == plan->openList[i])
 			plan->openList.erase(plan->openList.begin() + i);
@@ -175,7 +175,7 @@ Node* PathPlanner::recursiveAstar(Node* currentNode, Plan* plan)
 		{
 
 			neighbours[i]->steps = currentNode->steps + 1;
-			neighbours[i]->distance = neighbours[i]->steps + abs(plan->targetX - neighbours[i]->pos.x()) + abs(plan->targetY - neighbours[i]->pos.y());
+			neighbours[i]->distance = (int)(neighbours[i]->steps + abs(plan->targetX - neighbours[i]->pos.x()) + abs(plan->targetY - neighbours[i]->pos.y()));
 			neighbours[i]->child = currentNode;
 			plan->openList.push_back(neighbours[i]);
 		}
@@ -190,7 +190,7 @@ Node* PathPlanner::recursiveAstar(Node* currentNode, Plan* plan)
 		
 	currentNode = plan->openList[0];
 
-	for(int i = 1; i < plan->openList.size(); i++)
+	for(unsigned int i = 1; i < plan->openList.size(); i++)
 	{
 		if(plan->openList[i]->distance < currentNode->distance)
 			currentNode = plan->openList[i];
@@ -199,7 +199,7 @@ Node* PathPlanner::recursiveAstar(Node* currentNode, Plan* plan)
 	return recursiveAstar(currentNode, plan); 
 }
 
-bool PathPlanner::evaluateCoordinate(float *x, float *y)
+bool PathPlanner::evaluateCoordinate(int *x, int *y)
 {
 	if(*x >= mapDivisions)
 	{
@@ -226,7 +226,7 @@ bool PathPlanner::evaluateCoordinate(float *x, float *y)
 	return result;
 }
 
-bool PathPlanner::checkForFreeSpaces(float *x, float *y, int i)
+bool PathPlanner::checkForFreeSpaces(int *x, int *y, int i)
 {
 	if(0 > *x-i && *x+i > mapDivisions-1 && 0 > *y-i && *y+i > mapDivisions-1)
 	{
@@ -243,7 +243,7 @@ bool PathPlanner::checkForFreeSpaces(float *x, float *y, int i)
 				{
 					if(map[*x+j][*y+k] != BLOCKED)
 					{
-						tempList.push_back(Vector2f(j,k));
+						tempList.push_back(Vector2f((s32f)j,(s32f)k));
 					}
 				}
 			}
@@ -263,8 +263,8 @@ bool PathPlanner::checkForFreeSpaces(float *x, float *y, int i)
 				shortestIndex = index;
 			}
 		}
-		*x += tempList.at(shortestIndex).x();
-		*y += tempList.at(shortestIndex).y();
+		*x += (int)tempList.at(shortestIndex).x();
+		*y += (int)tempList.at(shortestIndex).y();
 		result = true;
 	}
 	else
@@ -288,11 +288,11 @@ std::vector<Point>* PathPlanner::aStar(float distinationX, float distinationY, f
 	plan.targetX = destX;
 	plan.targetY = destY;
 	Node* currentNode = new Node();
-	currentNode->pos.SetX(loctX);
-	currentNode->pos.SetY(loctY);
+	currentNode->pos.SetX((float)loctX);
+	currentNode->pos.SetY((float)loctY);
 	currentNode->child = NULL;
 	currentNode->steps = 0;
-	currentNode->distance = abs(destX - currentNode->pos.x()) + abs(destY - currentNode->pos.y());
+	currentNode->distance = (int)(abs(destX - currentNode->pos.x()) + abs(destY - currentNode->pos.y()));
 	backTrack(recursiveAstar(currentNode, &plan), &plan, loctX, loctY);
 	plan.clear();
 	

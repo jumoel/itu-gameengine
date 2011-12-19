@@ -69,7 +69,7 @@ public:
 	vector<Point> *debugRoute;
 	Point playerPos;
 
-	void StartUp(int width);
+	void StartUp(float width);
 	void ShutDown();
 	void DrawDebug();
 
@@ -77,9 +77,9 @@ public:
 
 	void UpdateDynamicMap(std::vector<std::vector<int>> *dynamicMap);
 
-	bool evaluateCoordinate(float *x, float *y);
+	bool evaluateCoordinate(int *x, int *y);
 
-	bool checkForFreeSpaces(float *x, float *y, int i);
+	bool checkForFreeSpaces(int *x, int *y, int i);
 
 	bool isValidNeighbour(Node *neighbour, Plan *plan);
 
