@@ -18,8 +18,6 @@ public:
 	~SceneGraphManager();
 	void DeleteGraph(Object* node);
 
-	//void Render(Uint32 CurrentTime, bool vboOn);
-
 	virtual char const * GetName();
 
 	virtual bool HandleEvent( IEventData const & event );
@@ -28,9 +26,6 @@ public:
 	Object* m_RootNode;
 
 private:
-	//void RenderObject(Object *obj);
-	//void RenderObjectVBO(Object *obj);
-
 	Uint32 LastTime;
 	Uint32 DeltaTime;
 };

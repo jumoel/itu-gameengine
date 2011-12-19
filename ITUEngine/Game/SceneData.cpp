@@ -124,7 +124,6 @@ SceneGraphManager *createGraph()
 	player->model =  SINGLETONINSTANCE( MediaManager )->crazyModel;
 	MovingObjectModel* tempMovingObject = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward, player);
 	player->physicsModel = tempMovingObject;
-	//player->physicsModel = new MovingObjectModel(CIRCULARSHAPE, PLAYERTYPE, forward, player);
 	Circle circle(Point(0.0f,0.0f),0.5f);
 	player->physicsModel->InitializeAsCircle(circle);
 	SINGLETONINSTANCE(PhysicsSystem)->AddMovingObject(tempMovingObject);

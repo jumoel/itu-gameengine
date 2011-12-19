@@ -1,7 +1,7 @@
 #ifndef ITUENGINE_OBJECT_H
 #define ITUENGINE_OBJECT_H
 
-#include <Game/GfxModel.hpp>
+#include <Math/Matrix4x4f.hpp>
 #include <Game/Model.hpp>
 #include <Subsystems/Physics/PhysicsModels/PhysicsModel.hpp>
 
@@ -11,7 +11,6 @@ public:
 	std::string Name;
 
 	Matrix4x4f *transformation;
-	GfxModel *gfx;
 	Model *model;
 	PhysicsModel *physicsModel;
 
