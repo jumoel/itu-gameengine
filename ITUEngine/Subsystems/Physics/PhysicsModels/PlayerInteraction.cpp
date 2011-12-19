@@ -1,7 +1,7 @@
-#include <PlayerInteraction.hpp>
+#include <Subsystems/Physics/PhysicsModels/PlayerInteraction.hpp>
 #include <Events/EventData/EventData.hpp>
 #include <Events/Interfaces/IEventData.hpp>
-#include <Math\GeometricFigures2D.hpp>
+#include <Math/GeometricFigures2D.hpp>
 #include <memory>
 
 void PlayerInteraction::StartUp(Object *playerObject)

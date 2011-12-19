@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <Managers/MediaManager.hpp>
 #include <cmath>
-#include <Assertion.hpp>
+#include <Utils/Assertion.hpp>
 
 #define INVALID_OGL_VALUE 0xFFFFFFFF
 #define SAFE_DELETE(p) if (p) { delete p; p = NULL; }

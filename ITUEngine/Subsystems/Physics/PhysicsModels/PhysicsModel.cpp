@@ -22,7 +22,6 @@ void MovingObjectModel::calcDirection()
 
 		Point tempDirection = next - pos;
 
-		//m_Direction = tempDirection.GetNormalizedPoint();
 		tempDirection = tempDirection.GetNormalizedPoint(); 
 		if(m_Owner != NULL)
 		{
@@ -43,8 +42,6 @@ void MovingObjectModel::RecalculatePath()
 		auto next = m_Path->at(0);
 
 		Point tempDirection = next - GetPosition();
-		//tempDirection.X = next.X - GetPosition()->X;
-		//tempDirection.Y = next.Y - GetPosition()->Y;
 		float distance = tempDirection.GetLength();
 		tempDirection = tempDirection.GetNormalizedPoint();
 

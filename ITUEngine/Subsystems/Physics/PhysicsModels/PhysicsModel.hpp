@@ -6,10 +6,9 @@
 #include <Templates/TSingleton.hpp>
 #include <Game/PathPlanner.hpp>
 #include <vector>
-#include <Vector2f.hpp>
+#include <Math/Vector2f.hpp>
 #include <Events/Interfaces/IEventListener.hpp>
 #include <Managers/EventManager.hpp>
-//#include <Game/Object.hpp>
 
 
 class Object;
@@ -237,7 +236,6 @@ public:
 
 	void SetTargetPosition(Point *target)
 	{
-		//std::cout << "hey" << std::endl;
 		if(m_Path != NULL)
 		{
 			delete m_Path;
@@ -264,8 +262,6 @@ public:
 	void calcDirection();
 
 	void SetDirection(float x, float y);
-
-
 
 	void RecalculatePath();
 
@@ -310,19 +306,7 @@ public:
 	{
 		m_MovementSpeed = 0;
 	}
-	/*
-	void Move(Circle *circle, unsigned int deltaT)
-	{
-		if(m_Owner == NULL)
-		{
-			circle->Center.X = m_CircularRepresentation.Center.X + m_Direction.X * m_MovementSpeed * deltaT;
-			circle->Center.Y = m_CircularRepresentation.Center.Y + m_Direction.Y * m_MovementSpeed * deltaT;
-		}
-		else
-		{
-			//m_Owner->
-		}
-	}*/
+	
 protected:
 	Point m_Direction;
 	float m_MovementSpeed;

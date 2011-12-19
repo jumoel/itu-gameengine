@@ -1,5 +1,4 @@
 #include <Managers/Engine.hpp>
-
 #include <Abstractions/Time.hpp>
 #include <Game/FPSCalculator.hpp>
 #include <Subsystems/Graphics/GraphicsSystem.hpp>
@@ -11,7 +10,7 @@
 #include <Managers/InputManager.hpp>
 #include <Utils/Profiler.hpp>
 
-#include <GetOGLPos.hpp>
+#include <Utils/GetOGLPos.hpp>
 #include <Events/Interfaces/IEventManager.hpp>
 
 #include <Utils/MemorySizes.hpp>
@@ -47,21 +46,13 @@ void Engine::Run()
 				threadSafeQueEvent( IEventDataPointer( new EventData<SDL_KeyboardEvent>(event.key, keydown)) );
 				handleKeyPress(&event.key, event.type);
 				break;
-			//case SDL_KEYUP:
-
 
 			case SDL_MOUSEBUTTONDOWN:
 			case SDL_MOUSEBUTTONUP:
 				handleMouseButtonPress(&event.button, event.type);
 				break;
 				
-			case SDL_MOUSEMOTION:
-				mousex = event.motion.x;
-			    mousey = event.motion.y;
-				//GetOGLPos testing;
-				//test = testing.GetPos(mousex, mousey);
-				
-				
+			case SDL_MOUSEMOTION:				
 				handleMouseMove(&event.motion, event.type);
 				break;
 			
@@ -71,6 +62,7 @@ void Engine::Run()
 		}
 		
 		//Process eventQueue
+		//10ms event handling
 		safeProcessEventQueue(10);
 		SINGLETONINSTANCE(Profiler)->End("EventHandling");
 
@@ -164,7 +156,7 @@ void Engine::ShutDown()
 	SINGLETONINSTANCE(Profiler)->ShutDown();
 }
 
-void Engine::handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )//(SDL_keysym *keysym, Uint8 eventtype )
+void Engine::handleKeyPress( SDL_KeyboardEvent *key, Uint8 eventtype )
 {
 	auto keyEvent = new KeyPressedEvent(key, eventtype);
 

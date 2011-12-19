@@ -8,7 +8,7 @@
 #include <GL/glew.h>
 #include <Game/Texture.hpp>
 #include <Math/Vector3f.hpp>
-#include <Vector2f.hpp>
+#include <Math/Vector2f.hpp>
 #include <Game/Material.hpp>
 
 struct Vert
