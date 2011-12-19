@@ -200,8 +200,8 @@ void PhysicsSystem::Step(unsigned int deltaT)
 	}
 
 	//Update path finding map
-	SetDynamicPathMap();
-	SINGLETONINSTANCE(PathPlanner)->DrawDebug();
+	//SetDynamicPathMap();
+	//SINGLETONINSTANCE(PathPlanner)->DrawDebug();
 
 	//Check for collisions with stuff
 	for(movingObjectIterator = m_MovingObjects->begin(); 
