@@ -15,7 +15,6 @@ public:
 	void StartUp(Object *playerObject);
 	void ShutDown();
 
-	//void handleMouseClick();
 	virtual bool HandleEvent( IEventData const & event );
 	virtual char const * GetName(void);
 

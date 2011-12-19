@@ -1,4 +1,4 @@
-#include <GetOGLPos.hpp>
+#include <Utils/GetOGLPos.hpp>
 #include "GL/glew.h"
 #include "GL/wglew.h"
 #include <Math/Vector3f.hpp>

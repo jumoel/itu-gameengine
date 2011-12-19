@@ -1,7 +1,7 @@
 #include <SDL.h>
 #include <GL/glew.h>
 #include <Abstractions/Window.hpp>
-#include <Assertion.hpp>
+#include <Utils/Assertion.hpp>
 
 void Window::StartUp()
 {

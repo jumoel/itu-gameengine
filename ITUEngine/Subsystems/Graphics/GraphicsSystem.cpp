@@ -4,7 +4,7 @@
 #include <Game/SceneData.hpp>
 #include <stdio.h>
 #include <vector>
-#include <Assertion.hpp>
+#include <Utils/Assertion.hpp>
 #include <Utils/ShaderUtils.hpp>
 #include <SDL.h>
 #include "GL/glew.h"

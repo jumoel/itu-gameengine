@@ -6,7 +6,6 @@
     <ClCompile Include="Game\HUD.cpp" />
     <ClCompile Include="Game\PathPlanner.cpp" />
     <ClCompile Include="Game\Model.cpp" />
-    <ClCompile Include="GetOGLPos.cpp" />
     <ClCompile Include="Managers\EventManager.cpp" />
     <ClCompile Include="Events\Interfaces\IEventManager.cpp" />
     <ClCompile Include="Game\Camera.cpp" />
@@ -15,16 +14,13 @@
     <ClCompile Include="Game\Light.cpp" />
     <ClCompile Include="Game\Material.cpp" />
     <ClCompile Include="Game\Texture.cpp" />
-    <ClCompile Include="HelloSDL.cpp" />
     <ClCompile Include="Events\Input\KeyPressedEvent.cpp" />
     <ClCompile Include="Managers\Engine.cpp" />
     <ClCompile Include="Managers\InputManager.cpp" />
     <ClCompile Include="Managers\LightingManager.cpp" />
     <ClCompile Include="Managers\MediaManager.cpp" />
-    <ClCompile Include="PlayerInteraction.cpp" />
     <ClCompile Include="Subsystems\Physics\PhysicsModels\PhysicsModel.cpp" />
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Utils\HeapAllocator.cpp" />
     <ClCompile Include="Utils\ReferenceCounter.cpp" />
     <ClCompile Include="Utils\SmartPointer.cpp" />
     <ClCompile Include="Utils\StackAllocator.cpp" />
@@ -42,13 +38,14 @@
     <ClCompile Include="ThirdParty\pugixml\pugixml.cpp" />
     <ClCompile Include="Utils\StringUtils.cpp" />
     <ClCompile Include="Utils\ThreadSafeEventQueue.cpp" />
-    <ClCompile Include="Vector2f.cpp" />
     <ClCompile Include="Utils\Log.cpp" />
     <ClCompile Include="Utils\Profiler.cpp" />
+    <ClCompile Include="Utils\GetOGLPos.cpp" />
+    <ClCompile Include="Subsystems\Physics\PhysicsModels\PlayerInteraction.cpp" />
+    <ClCompile Include="Math\Vector2f.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Abstractions\DataTypes.hpp" />
-    <ClInclude Include="Assertion.hpp" />
     <ClInclude Include="Abstractions\Time.hpp" />
     <ClInclude Include="Abstractions\Window.hpp" />
     <ClInclude Include="Events\EventData\BaseEventData.hpp" />
@@ -58,14 +55,10 @@
     <ClInclude Include="Game\PathPlanner.hpp" />
     <ClInclude Include="Game\dataTypes.hpp" />
     <ClInclude Include="Game\Model.hpp" />
-    <ClInclude Include="GetOGLPos.hpp" />
-    <ClInclude Include="Utils\HeapAllocator.hpp" />
     <ClInclude Include="Utils\MemorySizes.hpp" />
-    <ClInclude Include="PlayerInteraction.hpp" />
     <ClInclude Include="Utils\ReferenceCounter.hpp" />
     <ClInclude Include="Utils\SmartPointer.hpp" />
     <ClInclude Include="Utils\StackAllocator.hpp" />
-    <ClInclude Include="Globals.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsModels\PhysicsModel.hpp" />
     <ClInclude Include="Managers\EventManager.hpp" />
     <ClInclude Include="Events\Interfaces\IEventData.hpp" />
@@ -94,7 +87,6 @@
     <ClInclude Include="Subsystems\Graphics\GraphicsSystem.hpp" />
     <ClInclude Include="Subsystems\Physics\PhysicsSystem.hpp" />
     <ClInclude Include="Templates\TSingleton.hpp" />
-    <ClInclude Include="TestEventSubscribtion.hpp" />
     <ClInclude Include="Game\Light.hpp" />
     <ClInclude Include="Game\Material.hpp" />
     <ClInclude Include="Managers\LightingManager.hpp" />
@@ -104,9 +96,12 @@
     <ClInclude Include="Utils\ShaderUtils.hpp" />
     <ClInclude Include="Utils\StringUtils.hpp" />
     <ClInclude Include="Utils\ThreadSafeEventQueue.hpp" />
-    <ClInclude Include="Vector2f.hpp" />
     <ClInclude Include="Utils\Log.hpp" />
     <ClInclude Include="Utils\Profiler.hpp" />
+    <ClInclude Include="Utils\Assertion.hpp" />
+    <ClInclude Include="Utils\GetOGLPos.hpp" />
+    <ClInclude Include="Subsystems\Physics\PhysicsModels\PlayerInteraction.hpp" />
+    <ClInclude Include="Math\Vector2f.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Settings.xml" />
