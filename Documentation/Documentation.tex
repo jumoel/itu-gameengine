@@ -117,7 +117,7 @@ Displaying graphics on the screen is the most important part of every game engin
 
 As far as importing assets both models and textures would have to be imported, and two options were considered: using a library and wrap it into the engine or write custom importers. They both have their distinct advantages. Using a library will save precious time on having to implement an importer as well as allowing us to import a wide range of file formats. On the other hand creating a custom loader would let us control exactly how the loading occurs and optimize it for performance. Since it was deemed interesting and educational to create a custom loader and since it would allow for better performance, this approach was chosen, and a custom \texttt{.TGA}-texture loader was created and is part of the engine. We started on a custom \texttt{MS3D}-loader, but ended up utilizing a library for all of the model loading. The library of choice was \textit{Assimp}, since it was fairly simple to use and supported a lot of different file formats.
 
-When it comes to method of rendering both dynamic lists and vertex buffers were considered. As the only advantage of using dynamic list were deemed to be ease of use, vertex buffers were chosen for their supposedly better performance. It was quite a struggle to get them working a well integrated into the project. It was first intended to create one vertex buffer per shader, but since we initially had problems implementing the shaders, we decided to drop them for lack of time. Thus, we ended up with one big vertex buffer, since it would theoretically yield the best performance. However, it was soon realized that it was much simpler to work with one vertex buffer per object, and as such this solution was implemented instead, even though the performance might be a bit worse.
+When it comes to method of rendering both dynamic lists and vertex buffers were considered. As the only advantage of using dynamic list were deemed to be ease of use, vertex buffers were chosen for their supposedly better performance. It was quite a struggle to get them well integrated into the project. It was first intended to create one vertex buffer per shader, but since we initially had problems implementing the shaders, we decided to drop them for lack of time. Thus, we ended up with one big vertex buffer, since it would theoretically yield the best performance. However, it was soon realized that it was much simpler to work with one vertex buffer per object, and as such this solution was implemented instead, even though the performance might be a bit worse.
 
 \subsection{Physics System}
 \label{sec:DesignPhysicsSystem}
@@ -125,12 +125,12 @@ The physics system in an \textit{RTS} is an ideal place to cut corners. Since th
 
 \subsection{Path Planner}
 \label{sec:DesignPathPlanner}
-Pathfinding is an essential component of any \textit{RTS} game, and we also needed it in our engine. This could  be done in a number of different ways (navigation mesh, grid based path finding, using an \texttt{A*} algorithm, breadth first search, etc.). Since the world of \textit{RTS} games are typically fairly open we decided to make the path finding grid based, because of the simplicity. The precision of the pathing can then be altered via the number of grid divisions. However, the precision is reversely proportional with the performance of the path finding. One might argue that for performance it would be better to implement a navigation mesh. However, the simplicity of setting up a grid based path finding is much simpler for the user of the engine than setting up an entire navigation mesh. The user just has set object into the scene and send it to the path planner, that divides it into squares. After these simple steps, the pathfinding is functional. With a navigation mesh the user would have to define each node by defining a convex polygon. This is arguable a lot more cumbersome.
+Pathfinding is an essential component of any \textit{RTS} game, and we also needed it in our engine. This could  be done in a number of different ways (navigation mesh, grid based path finding, using an \texttt{A*} algorithm, breadth first search, etc.). Since the world of \textit{RTS} games are typically fairly open we decided to make the path finding grid based, because of the simplicity. The precision of the pathing can then be altered via the number of grid divisions. However, the precision is reversely proportional with the performance of the path finding. One might argue that for performance it would be better to implement a navigation mesh. However, the simplicity of setting up a grid based path finding is much simpler for the user of the engine than setting up an entire navigation mesh. The user just has to set objects into the scene and send them to the path planner, that then takes them into consideration. After these simple steps, the pathfinding is functional. With a navigation mesh the user would have to define each node by defining a convex polygon. This is arguable a lot more cumbersome.
 
 \texttt{A*} was chosen as the actual path finding algorithm, since it allows for implementing different terrain that is harder traversable, and still finding the shortest path in terms of time spent getting there.
 
-\section{Major Features}
-\label{sec:MajorFeatures}
+\section{Features}
+\label{sec:Features}
 To make our game function optimally for the specific game genre, the main features are:
 
 \begin{itemize}
@@ -145,7 +145,7 @@ This section gives a more detailed description of the various subparts of the en
 
 \section{Dynamic Elements}
 \label{sec:DynamicElements}
-Some of the elements in our game engine have dependencies of other elements of our game engine. Because of that, we have a specific initialization order, as seen in \figRef{fig:StartUpFlowchart} We also use \texttt{StartUp} and \texttt{ShutDown} methods instead of constructors and deconstructors, to be able to finely control when and where dependencies are initiated.
+Some of the elements in our game engine have dependencies of other elements of our game engine. Because of that, we have a specific initialization order, as seen in \figRef{fig:StartUpFlowchart}. We also use \texttt{StartUp} and \texttt{ShutDown} methods instead of constructors and deconstructors, to be able to finely control when and where dependencies are initiated.
 
 \fig[220px]{flowcharts/startup-flowchart.png}{Dynamic Elements: Engine startup flowchart.}{fig:StartUpFlowchart}
 
@@ -155,7 +155,7 @@ Our shutdown sequence is the opposite of the startup sequence, to make sure that
 
 \subsection{Physics System}
 \label{sec:PhysicsSystem}
-The Physics System controls both movement and collisions in the game world. As the gameplay of most \textit{RTS}-games are in a plane, the physics system is completely \textit{2D}. In order to use it the \texttt{physicsModel} components on \texttt{Objects} in the scene must be initialized. There are to types of physics models: \texttt{Moving} and Static. Thus, the objects must be initialized as such. The following is an example of initializing a \texttt{physicsModel} component.
+The Physics System controls both movement and collisions in the game world. As the gameplay of most \textit{RTS}-games are in a plane, the physics system is completely \textit{2D}. In order to use it the \texttt{physicsModel} components on \texttt{Objects} in the scene must be initialized. There are two types of physics models: \texttt{Moving} and Static. Thus, the objects must be initialized as such. The following is an example of initializing a \texttt{physicsModel} component.
 
 \fig[377px]{includes/PhysicsSystem.jpg}{Physics System: Initializing a component.}{fig:PhysicsSystem}
 
