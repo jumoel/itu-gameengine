@@ -19,15 +19,15 @@ Vector3f GetOGLPos::GetPos(float mousex, float mousey)
     glGetDoublev( GL_PROJECTION_MATRIX, projection );
     glGetIntegerv( GL_VIEWPORT, viewport );
  
-	winX = mousex;
-	winY = mousey;
+	winX = (GLint)mousex;
+	winY = (GLint)mousey;
 		
-	winY = (float)viewport[3] - winY; 
+	winY = (GLint)((float)viewport[3] - winY); 
     glReadPixels( int(winX), int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ );
 
     gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
 	
 	std::cout<<"winX:"<<winX<<" , winY:"<<winY<<" , winZ:"<<winZ<<" , posX:"<<posX<<" , posY:"<<posY<<" , posZ:"<<posZ<<std::endl;
 	
-    return Vector3f(posX, posY, posZ);
+    return Vector3f((s32f)posX, (s32f)posY, (s32f)posZ);
 }
