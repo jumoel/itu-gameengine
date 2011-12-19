@@ -1,4 +1,3 @@
-
 #ifndef ITUENGINE_PLAYERINTERACTION_H
 #define ITUENGINE_PLAYERINTERACTION_H
 
@@ -22,3 +21,4 @@ public:
 private:
 	Object* player;
 };
+#endif
