@@ -198,10 +198,12 @@ void PhysicsSystem::Step(unsigned int deltaT)
 			//NOT IMPLEMENTED
 		}
 	}
+	
 
-	//Update path finding map
-	//SetDynamicPathMap();
-	//SINGLETONINSTANCE(PathPlanner)->DrawDebug();
+	#ifdef PHYSICS_DEBUG
+	SetDynamicPathMap();
+	SINGLETONINSTANCE(PathPlanner)->DrawDebug();
+	#endif
 
 	//Check for collisions with stuff
 	for(movingObjectIterator = m_MovingObjects->begin(); 
@@ -330,8 +332,6 @@ void PhysicsSystem::AddStaticObject( StaticObjectModel *staticObject )
 
 void PhysicsSystem::MoveCircleObject( Circle *circle, std::vector<MovingObjectModel*>::iterator movingObjectIterator, unsigned int deltaT )
 {
-	//(*movingObjectIterator)->Move(circle, deltaT);
-
 	float secondDivisionFactor = 0.001f;
 
 	if((*movingObjectIterator)->GetOwner() == NULL)
@@ -353,7 +353,7 @@ void PhysicsSystem::MoveCircleObject( Circle *circle, std::vector<MovingObjectMo
 }
 
 
-//FOR DEBUGGING PURPOSES
+//FOR DEBUGGING PURPOSES, ONLY
 void PhysicsSystem::SetDynamicPathMap()
 {
 	std::vector<std::vector<int>> *map = new std::vector<std::vector<int>>(MAP_SIZE, std::vector<int>(MAP_SIZE, 0));

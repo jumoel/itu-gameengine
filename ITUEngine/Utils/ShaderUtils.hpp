@@ -2,7 +2,7 @@
 #define ITUENGINE_SHADERUTILS_H
 
 #include <GL/glew.h>
-#include <Assertion.hpp>
+#include <Utils/Assertion.hpp>
 #include <vector>
 
 /* Methods copied from Jason L. McKessons OpenGL tutorial:

@@ -5,7 +5,7 @@
 #include <Managers/LightingManager.hpp>
 #include <Subsystems/Physics/PhysicsModels/PhysicsModel.hpp>
 #include <Subsystems/Physics/PhysicsSystem.hpp>
-#include <PlayerInteraction.hpp>
+#include <Subsystems/Physics/PhysicsModels/PlayerInteraction.hpp>
 
 SceneGraphManager *createGraph()
 {

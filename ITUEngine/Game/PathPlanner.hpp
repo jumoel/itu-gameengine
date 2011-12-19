@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <iostream>
-#include <Vector2f.hpp>
+#include <Math/Vector2f.hpp>
 #include <Templates/TSingleton.hpp>
 #include <Math/GeometricFigures2D.hpp>
 #include <Events/Input/KeyPressedEvent.hpp>

@@ -16,8 +16,7 @@ public:
 	void Run();
 	void StartUp();
 	void ShutDown();
-	int mousex;	
-	int mousey;
+	
 	Vector3f test;
 	
 	FPSCalculator *GetFPSCalculator() { return m_FPSCalculator; }
