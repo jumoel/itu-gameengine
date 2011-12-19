@@ -20,5 +20,4 @@ void Log::Write(const char* logline, ...)
 	vsnprintf(cbuffer, 1024, logline, argList);
 	va_end(argList);
 	m_stream << cbuffer << std::endl;
-	//m_stream << logline << std::endl;
 }

@@ -5,7 +5,7 @@
 #include <Managers/SettingsManager.hpp>
 #include <ThirdParty/pugixml/pugixml.hpp>
 #include <Utils/StringUtils.hpp>
-#include <Assertion.hpp>
+#include <Utils/Assertion.hpp>
 
 // General Functions
 void SettingsManager::StartUp()

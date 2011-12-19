@@ -1,6 +1,6 @@
 #ifndef ITUENGINE_GEOMETRICFIGURES2D_H
 #define ITUENGINE_GEOMETRICFIGURES2D_H
-#include <Vector2f.hpp>
+#include <Math/Vector2f.hpp>
 #include <cmath>
 
 struct Point

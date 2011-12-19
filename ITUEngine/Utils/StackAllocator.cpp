@@ -1,5 +1,5 @@
 #include <Utils/StackAllocator.hpp>
-#include <Assertion.hpp>
+#include <Utils/Assertion.hpp>
 
 StackAllocator::StackAllocator(Uint32 stackSize_bytes)
 {

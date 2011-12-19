@@ -10,7 +10,7 @@
 #include <Managers/InputManager.hpp>
 #include <Utils/Profiler.hpp>
 
-#include <GetOGLPos.hpp>
+#include <Utils/GetOGLPos.hpp>
 #include <Events/Interfaces/IEventManager.hpp>
 
 #include <Utils/MemorySizes.hpp>

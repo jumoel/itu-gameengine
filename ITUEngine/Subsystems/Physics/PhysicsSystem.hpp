@@ -5,7 +5,6 @@
 #include <Templates/TSingleton.hpp>
 #include <vector>
 
-
 class PhysicsSystem
 {
 	SINGLETON( PhysicsSystem )
