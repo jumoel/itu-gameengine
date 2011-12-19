@@ -27,13 +27,13 @@ void HUD::draw()
 				
 				glColor3f(1.0f,1.0f,1.0f);
 				//glTexCoord2f (0.0, 0.0);
-				glVertex3f( 0.0f, 480.0f,0.0f);
+				glVertex3f( 20.0f, 460.0f,0.0f);
 				//glTexCoord2f (1.0, 0.0);
-				glVertex3f(640.0f, 480.0f,0.0f);
+				glVertex3f(140.0f, 460.0f,0.0f);
 				//glTexCoord2f (1.0, 1.0);
-				glVertex3f(640.0f,380.0f,0.0f);
+				glVertex3f(140.0f,380.0f,0.0f);
 				//glTexCoord2f (0.0, 1.0);
-				glVertex3f( 0.0f,380.0f,0.0f);
+				glVertex3f( 20.0f,380.0f,0.0f);
 				//glColor3f(1.0f,1.0f,1.0f);
 			glEnd();
 		glPopMatrix();
