@@ -68,7 +68,7 @@ The engine targets the ``Action \texttt{RTS}\footnote{Real-Time Strategy.}''-gen
 
 To make our engine achieve the requirements of the genre, it was important to have a clear idea of what expected result should look like. As a good reference, see the example screenshot in \figRef{fig:DRdota1screen}.
 
-\fig[\textwidth]{includes/dota1screen.jpg}{Engine inspiration: Screenshot from \textit{Defense of the Ancients}.}{fig:DRdota1screen}
+\fig[\textwidth]{includes/dota1screen.jpg}{Engine Scope: Inspirational screenshot from \textit{Defense of the Ancients}.}{fig:DRdota1screen}
 
 As can be seen, the basic graphics are fairly simple. There has to be a flat ground-level upon which the player can be controlled around, along with objects he cannot pass. The avatar of the player has to be able to get from \texttt{A} to \texttt{B}, and be able to pathfind around various obstacles. On top of that, there has to be an interactable heads-up display. The camera will do limited movement, staying with a fixed angle.
 
@@ -164,12 +164,7 @@ Then the path planning map is set in the end of the \texttt{createGraph()} funct
 
 \section{Resource Management}
 \label{sec:ResourceManagement}
-% Quick introduction, perhaps?
-Handling resources is an essential part of any game engine, and as
-such it also is a big part of our engine. The handling is done in
-three different managers: The MediaManager, the MemoryManager, and the
-SettingsManager.
-
+Handling resources is an essential part of any game engine, and as such it also is a big part of our engine. The handling is done in three different managers: The \texttt{MediaManager}, the \texttt{MemoryManager}, and the \texttt{SettingsManager}.
 
 \subsection{Media Manager}
 \label{sec:MediaManager}
@@ -209,14 +204,7 @@ The Graphics System is in charge of rendering any graphics and light in the scen
 
 \subsection{Camera}
 \label{sec:Camera}
-% Elaborate, or simply leave as it is?
-The camera is a class that is used to define the viewport; Its
-position and direction in the world. As such it is part of the
-scenegraph. The thing to note about the camera is its control
-scheme. As this engine is an RTS engine, the genre dictates the
-movement possibilities and they basically consist of moving the camera
-on a plane parallel to the ground, when moving the cursor to the edges
-of the viewport.
+The camera is a class that is used to define the viewport; Its position and direction in the world. As such it is part of the scenegraph. The thing to note about the camera is its control scheme. As this engine is an RTS engine, the genre dictates the movement possibilities and they basically consist of moving the camera on a plane parallel to the ground, when moving the cursor to the edges of the viewport.
 
 \subsection{Lighting Manager}
 \label{sec:LightingManager}
@@ -258,10 +246,7 @@ We decided against doing the graphing of logged entries ourselves, as an offline
 \label{sec:PostMortem}
 % Might be a good idea with a minor wrap-up at the end. A better name could be used for this section - but a fitting alternative is eluding me at this point.
 
-Having completed the engine or at least come as far as was possible
-for us in the time given, it seems feasible to reflect on the
-process. What went wrong, what went right, and what have we learned
-from the experience.
+Having completed the engine or at least come as far as was possible for us in the time given, it seems feasible to reflect on the process. What went wrong, what went right, and what have we learned from the experience.
 
 \section{What went wrong?}
 The process of creating this game engine hit a few bumps in the road. The first problem was to just start implementing different features, instead of starting out by thoroughly thinking the basic design structure of the engine through. As a result we fairly early had an engine with alot of working features, but with a basic structure that did not make a lot of sense. Thus, we tried to go back and redesign the basic structure and then refacture the features already implemented, in order to fit them into the new improved structure. This task, however, was more cumbersome than expected and left us with a broken engine for quite a long while. Nevertheless, the task succeeded in the end.
