@@ -7,7 +7,7 @@
 #include <Events/Input/MouseClickEvent.hpp>
 #include <Events/Interfaces/IEventListener.hpp>
 
-class Camera : public IKeyboardEvent, public IMouseClickEvent, public IMouseMoveEvent, public IEventListener
+class Camera : public IKeyboardEvent, public IMouseMoveEvent
 {
 public:
 	Camera();
@@ -15,6 +15,8 @@ public:
 
 	static const int gutter_px = 20;
 	static const int speed = 1;
+
+	//Up/Down scaling needed
 	static const int updownfactor = 50;
 
 	static const int min_x_ws_coord = 0;
@@ -44,20 +46,15 @@ public:
 	void ZoomCamera(float distance);
 
 	// Moves the camera in a direction.
-	/* Implemented as moving the camera, up/down in a 2D plane, othogonally to the z axis, of the LookAt vector */
+	/* Implemented as moving the camera, up/down in a 2D plane, orthogonally to the z axis, of the LookAt vector */
 	void MoveCameraUpDown2D(float distance);
 	void MoveCameraLeftRight2D(float distance);
-
-	virtual char const * GetName(void);
-	virtual bool HandleEvent( IEventData const & event );
 
 	void Update(unsigned int deltaT);
 
 
 protected:
 	void OnMotion(MouseMoveEvent *motion);
-	void OnButtonDown(MouseClickEvent *button);
-	void OnButtonUp(MouseClickEvent *button);
 	void OnKeyDown(KeyPressedEvent *key);
 	void OnKeyUp(KeyPressedEvent *key);
 

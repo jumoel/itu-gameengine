@@ -18,15 +18,6 @@ int FPSCalculator::GetFPS()
 	return FPSSaved;
 }
 
-// Deprecated, do not use!!
-void FPSCalculator::SetFPSTitle()
-{
-	char str[128];
-	sprintf(str, "FPS: %d", GetFPS());
-
-	SDL_WM_SetCaption(str, "");
-}
-
 void FPSCalculator::StartUp()
 {
 	ticks = 0;

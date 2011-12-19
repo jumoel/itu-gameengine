@@ -56,13 +56,9 @@ enum gridElements
 };
 
 
-//#define WEIGHT_DIST 5.0f
-//#define MULTIPLIER 100.0f
-//#define DANGER_DIST 3.0f
-
 #define MAP_SIZE 40
 
-class PathPlanner : public IKeyboardEvent
+class PathPlanner
 {
 	SINGLETON( PathPlanner )
 
@@ -90,20 +86,13 @@ public:
 	Node* backTrack(Node *cNode, Plan *plan, int locationX, int locationY);
 
 	Node* recursiveAstar(Node *currentNode, Plan *plan);
-	//node* recursiveAstar(node* currentNode, plan* ghostPlan, int weightX, int weightY, std::vector<std::vector<int> > &map);
 
 	std::vector<Point>* aStar(float distinationX, float distinationY, float locationX, float locationY);
 
 	float ConvertToPhysicsMapCoordinates( float x );
 	int ConvertToPlanningMapCoordinate( float x );
 
-	//void aStar(int &steps, int &outX, int &outY, int distinationX, int distinationY, int locationX, int locationY, int weightX, int weightY, std::vector<std::vector<int> > &map);
-protected:
-	void OnKeyDown(KeyPressedEvent *key);
 private:
-
-	
-
 	//Number of divisions of the map, for usage in the path planning
 	int mapDivisions;
 
