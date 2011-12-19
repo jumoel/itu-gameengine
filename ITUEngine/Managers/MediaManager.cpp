@@ -126,7 +126,7 @@ Texture* MediaManager::LoadTexture(char *filename, char* name)                 /
 
 Texture* MediaManager::FindTexture(const char* name)
 {
-	for(int j = 0; j < textures.size(); j++)
+	for(unsigned int j = 0; j < textures.size(); j++)
 	{
 		if(strcmp(textures[j]->filename, name) == 0 || strcmp(textures[j]->name, name) == 0)
 		{
