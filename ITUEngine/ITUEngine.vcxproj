@@ -73,6 +73,8 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
 rmdir /s /q "$(OutDir)Resources"
 del /q  "$(OutDir)Settings.xml"
 del /q  "$(OutDir)Settings2.xml"
+del /q  "$(OutDir)stdout.txt"
+del /q  "$(OutDir)stderr.txt"
 
 xcopy "$(ProjectDir)Resources\Settings.xml" "$(OutDir)" /y
 xcopy "$(ProjectDir)Resources" "$(OutDir)Resources" /E /I /Y</Command>
@@ -107,6 +109,8 @@ xcopy C:\ASSIMP\assimp--2.0.863-sdk\bin\assimp_release-dll_win32\Assimp32.dll "$
 rmdir /s /q "$(OutDir)Resources"
 del /q  "$(OutDir)Settings.xml"
 del /q  "$(OutDir)Settings2.xml"
+del /q  "$(OutDir)stdout.txt"
+del /q  "$(OutDir)stderr.txt"
 
 xcopy "$(ProjectDir)Resources\Settings.xml" "$(OutDir)" /y
 xcopy "$(ProjectDir)Resources" "$(OutDir)Resources" /E /I /Y</Command>
